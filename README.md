@@ -9,4 +9,4 @@ Será por ambiente
 Log del aplicativo,
 ```
 
-Todo el contenido de tmp Dejar carpeta sobre C:\tmp\frisa
+Todo el contenido de 'tmp' Dejar sobre C:, quedará carpeta sobre C:\tmp\frisa
