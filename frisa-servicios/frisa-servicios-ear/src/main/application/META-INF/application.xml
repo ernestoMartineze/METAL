@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application version="7" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/application_7.xsd">
+  <display-name>C:\Users\soultech\Documents\NetBeansProjects\frisa-servicios\frisa-servicios-ear</display-name>
+  <module>
+    <ejb>/frisa-servicios-ejb-1.0.jar</ejb>
+  </module>
+  <module>
+    <web>
+      <web-uri>/frisa-servicios-web-1.0.war</web-uri>
+      <context-root>/frisa-servicios</context-root>
+    </web>
+  </module>
+</application>
