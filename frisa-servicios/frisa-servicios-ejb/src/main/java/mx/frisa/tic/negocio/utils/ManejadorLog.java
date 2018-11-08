@@ -148,12 +148,12 @@ public class ManejadorLog {
             return message;
         }
         String clean = message.replace("\n", "").replace("\r", "");
-        if (ESAPI.securityConfiguration().getLogEncodingRequired()) {
-            clean = ESAPI.encoder().encodeForHTML(clean);
-            if (!message.equals(clean)) {
-                clean += " (Encoded)";
-            }
-        }
+//        if (ESAPI.securityConfiguration().getLogEncodingRequired()) {
+//            clean = ESAPI.encoder().encodeForHTML(clean);
+//            if (!message.equals(clean)) {
+//                clean += " (Encoded)";
+//            }
+//        }
         return clean;
     }
 
