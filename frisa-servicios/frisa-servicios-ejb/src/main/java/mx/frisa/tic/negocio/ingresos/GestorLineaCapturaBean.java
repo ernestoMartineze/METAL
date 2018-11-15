@@ -54,5 +54,10 @@ public class GestorLineaCapturaBean implements GestorLineaCaptura {
         ProcedimientoAlmacendo procedimiento = new ProcedimientoAlmacendo();
         return procedimiento.ejecutaCuentaFacturas(pLC);
     }
+    
+    public int ejecutaBatchLC(String idBatch) {
+        ProcedimientoAlmacendo procedimiento = new ProcedimientoAlmacendo();
+        return procedimiento.ejecutaBatchLC(idBatch);
+    }
 
 }

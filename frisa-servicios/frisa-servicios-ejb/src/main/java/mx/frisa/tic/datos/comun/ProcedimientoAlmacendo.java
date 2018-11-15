@@ -61,5 +61,45 @@ public class ProcedimientoAlmacendo extends ManejadorEntidad {
         }
         return respuesta;
     }
+    
+    /**/
+    public int ejecutaBatchLC(String idBatch) {
+        ManejadorLog manejadorLog = new ManejadorLog();
+        int respuesta = 0;
+        manejadorLog.debug("Entró ejecutaBatchLC : idBatch=" + idBatch);
+        try {
+            super.instanciarManager();
+            StoredProcedureQuery procedure = super.getEntityManager().createStoredProcedureQuery("XXFRP_PROCESAR_BATCH");
+            procedure.registerStoredProcedureParameter("IDPARBATCH", String.class, ParameterMode.IN);
+            procedure.registerStoredProcedureParameter("PROCESO", int.class, ParameterMode.OUT);
+            procedure.setParameter("IDPARBATCH", idBatch);
+            Boolean ejecuta = procedure.execute();
+            int respuestaProceso = 0;
+            try {
+                respuestaProceso = (int) procedure.getOutputParameterValue("PROCESO");
+                ejecuta = true; 
+            } catch (Exception ex) {
+                manejadorLog.error("Error : " + respuestaProceso);
+                manejadorLog.error("Resultado: " + ex.getLocalizedMessage());
+                manejadorLog.error("Resultado: " + ex.getMessage());
+                System.out.println("SE OBTUVO EL ERROR");
+            }
 
+            manejadorLog.debug("Resultado: " + respuestaProceso);
+            manejadorLog.debug("Resultado : " + ejecuta);
+            respuesta = respuestaProceso;
+
+            //return respues;
+        } catch (Exception ex) {
+            Logger.getLogger(ProcedimientoAlmacendo.class.getName()).log(Level.SEVERE, null, ex);
+            respuesta = 100;
+            //return msj;
+        } finally {
+            super.getEntityManager().close();
+            super.cerrarManager();
+        }
+        return respuesta;
+    }
+    
+    
 }

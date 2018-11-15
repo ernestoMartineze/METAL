@@ -85,7 +85,6 @@ public class DAO<T> extends ManejadorEntidad implements Serializable {
 
         return listadoEntidad;
     }
-
     
     public List<T> consultaQuery(String pQuery) throws NonUniqueResultException,NoResultException {
         this.instanciarManager();
