@@ -108,5 +108,24 @@ public class GestorLineaCapturaWS {
         manejarLog.debug("Termina metodo : GestorLineaCapturaWS-ejecutaBatchLC");
         return respuesta;
     }
+    
+    /**
+     * Web service operation
+     * @param idBatch
+     * @return
+     */
+    @WebMethod(operationName = "consultaBatchLC")
+    public String consultaBatchLC(@WebParam(name = "idBatch") String idBatch) {
+        ManejadorLog manejarLog = new ManejadorLog();
+        manejarLog.debug("Entro a metodo : GestorLineaCapturaWS-consultaBatchLC");
+        String respuesta = "SIN RESPUESTA";
+        try {
+            respuesta = gestorLineaCapturaBean.consultaBatchLC(idBatch);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        manejarLog.debug("Termina metodo : GestorLineaCapturaWS-consultaBatchLC");
+        return respuesta;
+    }
 
 }

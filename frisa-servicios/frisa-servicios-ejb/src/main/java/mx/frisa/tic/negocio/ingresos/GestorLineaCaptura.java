@@ -36,4 +36,11 @@ public interface GestorLineaCaptura {
      * @return
      */
     public int ejecutaBatchLC(String idBatch);
+    
+     /**
+     *
+     * @param idBatch
+     * @return
+     */
+    public String consultaBatchLC(String idBatch);
 }

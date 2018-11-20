@@ -18,8 +18,6 @@ import mx.frisa.tic.negocio.utils.ManejadorLog;
  */
 public class ProcedimientoAlmacendo extends ManejadorEntidad {
 
-    
-
     public int ejecutaCuentaFacturas(String pLC) {
         //return "";
         ManejadorLog manejadorLog = new ManejadorLog();
@@ -62,7 +60,6 @@ public class ProcedimientoAlmacendo extends ManejadorEntidad {
         return respuesta;
     }
     
-    /**/
     public int ejecutaBatchLC(String idBatch) {
         ManejadorLog manejadorLog = new ManejadorLog();
         int respuesta = 0;
@@ -83,6 +80,43 @@ public class ProcedimientoAlmacendo extends ManejadorEntidad {
                 manejadorLog.error("Resultado: " + ex.getLocalizedMessage());
                 manejadorLog.error("Resultado: " + ex.getMessage());
                 System.out.println("SE OBTUVO EL ERROR");
+            }
+
+            manejadorLog.debug("Resultado: " + respuestaProceso);
+            manejadorLog.debug("Resultado : " + ejecuta);
+            respuesta = respuestaProceso;
+
+            //return respues;
+        } catch (Exception ex) {
+            Logger.getLogger(ProcedimientoAlmacendo.class.getName()).log(Level.SEVERE, null, ex);
+            respuesta = 100;
+            //return msj;
+        } finally {
+            super.getEntityManager().close();
+            super.cerrarManager();
+        }
+        return respuesta;
+    }
+    
+    public int consultaBatchLC(String idBatch) {
+        ManejadorLog manejadorLog = new ManejadorLog();
+        int respuesta = 0;
+        manejadorLog.debug("Entró consultaBatchLC : idBatch=" + idBatch);
+        try {
+            super.instanciarManager();
+            StoredProcedureQuery procedure = super.getEntityManager().createStoredProcedureQuery("XXFRP_CONSULTA_BATCH");
+            procedure.registerStoredProcedureParameter("PIDBATCH", String.class, ParameterMode.IN);
+            procedure.registerStoredProcedureParameter("PROCESO", int.class, ParameterMode.OUT);
+            procedure.setParameter("PIDBATCH", idBatch);
+            Boolean ejecuta = procedure.execute();
+            int respuestaProceso = 0;
+            try {
+                respuestaProceso = (int) procedure.getOutputParameterValue("PROCESO");
+                ejecuta = true; 
+            } catch (Exception ex) {
+                manejadorLog.error("Error : " + respuestaProceso);
+                manejadorLog.error("Resultado: " + ex.getLocalizedMessage());
+                manejadorLog.error("Resultado: " + ex.getMessage());
             }
 
             manejadorLog.debug("Resultado: " + respuestaProceso);
