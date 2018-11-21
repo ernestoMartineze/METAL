@@ -7,6 +7,9 @@
     <class>mx.frisa.tic.datos.entidades.XxfrLineaCapturaFactura</class>
     <class>mx.frisa.tic.datos.entidades.XxfrReciboLineaCaptura</class>
     <class>mx.frisa.tic.datos.entidades.XxfrUpperForm</class>
+    <class>mx.frisa.tic.datos.entidades.XxfrvConsultaLc</class>
+    <class>mx.frisa.tic.datos.entidades.XxfrvConsultaLcFactura</class>
+    <class>mx.frisa.tic.datos.entidades.XxfrvConsultaLcPagos</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
     </properties>
