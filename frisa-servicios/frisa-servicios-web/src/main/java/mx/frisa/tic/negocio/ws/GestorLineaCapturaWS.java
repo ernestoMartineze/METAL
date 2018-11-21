@@ -29,7 +29,7 @@ public class GestorLineaCapturaWS {
     private GestorLineaCaptura gestorLineaCapturaBean;
 
     /**
-     *
+     * Web service operation
      * @param idBatch
      * @return
      */
@@ -37,6 +37,9 @@ public class GestorLineaCapturaWS {
     public Respuesta generarLineasCaptura(@WebParam(name = "idBatch") String idBatch) {
 
         Respuesta respuesta = new Respuesta();
+        respuesta.setProceso("generarLineasCaptura");
+        respuesta.setIdError("000");
+        respuesta.setDescripcionError("OK");
 
         return respuesta;
     }
@@ -85,6 +88,44 @@ public class GestorLineaCapturaWS {
         manejarLog.debug("Termina metodo : GestorLineaCapturaWS-consultaNumeroFacturas");
 
         return numeroFacturas;
+    }
+    
+    /**
+     * Web service operation
+     * @param idBatch
+     * @return
+     */
+    @WebMethod(operationName = "ejecutaBatchLC")
+    public int ejecutaBatchLC(@WebParam(name = "idBatch") String idBatch) {
+        ManejadorLog manejarLog = new ManejadorLog();
+        manejarLog.debug("Entro a metodo : GestorLineaCapturaWS-ejecutaBatchLC");
+        int respuesta = 0;
+        try {
+            respuesta = gestorLineaCapturaBean.ejecutaBatchLC(idBatch);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        manejarLog.debug("Termina metodo : GestorLineaCapturaWS-ejecutaBatchLC");
+        return respuesta;
+    }
+    
+    /**
+     * Web service operation
+     * @param idBatch
+     * @return
+     */
+    @WebMethod(operationName = "consultaBatchLC")
+    public String consultaBatchLC(@WebParam(name = "idBatch") String idBatch) {
+        ManejadorLog manejarLog = new ManejadorLog();
+        manejarLog.debug("Entro a metodo : GestorLineaCapturaWS-consultaBatchLC");
+        String respuesta = "SIN RESPUESTA";
+        try {
+            respuesta = gestorLineaCapturaBean.consultaBatchLC(idBatch);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        manejarLog.debug("Termina metodo : GestorLineaCapturaWS-consultaBatchLC");
+        return respuesta;
     }
 
 }

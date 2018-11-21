@@ -29,4 +29,18 @@ public interface GestorLineaCaptura {
      * @return
      */
     public int ejecutaCuentaFacturas(String pLC);
+    
+    /**
+     *
+     * @param idBatch
+     * @return
+     */
+    public int ejecutaBatchLC(String idBatch);
+    
+     /**
+     *
+     * @param idBatch
+     * @return
+     */
+    public String consultaBatchLC(String idBatch);
 }
