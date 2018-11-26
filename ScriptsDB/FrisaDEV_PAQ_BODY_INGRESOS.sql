@@ -142,7 +142,7 @@ AS
     -- dbms_output.put_line('lineaCapturaI= ' || lineacaptura);
     /* Procesar parametros y formar codigo de la LC
     */
-    lineacaptura := ( division || proyectotxt || contratotxt || lineacapturain || importefechadv );
+    lineacaptura := ( lpad(division,2,'0') || lpad(proyectotxt,3,'0') || contratotxt || lineacapturain || importefechadv );
     -- dbms_output.put_line('lineaCaptura = ' || lineacaptura);
     RETURN lineacaptura;
   EXCEPTION -- exception handlers begin
@@ -164,19 +164,58 @@ aplicando las reglas especificadas en los requerimientos funcionales
     idValido number :=  0;
     idEstatdoBatch number :=  0;
     numLCVencidas NUMBER := 0;
+    contrato number:=0;
+    grupo VARCHAR2(30):='';
+    division VARCHAR2(30):='';
+    proyecto VARCHAR2(30):='';
   BEGIN
     --dbms_output.put_line(' Inicia funcion XXFR_PROCESAR_BATCH Valores de entrada ');
     select count(*) INTO idValido FROM XXFR_CABECERA_FACTURA 
     WHERE idbatch = idParBatch;
+
+    select CONTRACTNUMBER INTO contrato FROM XXFR_CABECERA_FACTURA 
+    WHERE idbatch = idParBatch and rownum =1;
+  
+    
     --dbms_output.put_line(' idValido '||idValido);
     if idValido = 0 then 
-    errorparametro :=  '107';
+      errorparametro :=  '107';
       insert into XXFR_ESTADO_BATCH (IDBATCH ,ESTADO ,INICIOPROCESO) values (idParBatch, 'ERROR-107', current_date);
       RAISE lanzarerrorparametro;
     end if;
     -- Insertar la bitácora del proceso de generación de LC
      insert into XXFR_ESTADO_BATCH ( IDBATCH ,ESTADO ,INICIOPROCESO) values (idParBatch, 'PROCESO', current_date);
     select max(IDESTADOBATCH) into idEstatdoBatch from XXFR_ESTADO_BATCH where idbatch = idParBatch;
+    
+    
+    
+    /*
+
+    Verificar si existen para el idBatch lineas de captura vencidas    
+    
+          Procesar lineas de captura que esten VENCIDAS, generar nueva LC
+        --1.Clonar lineas de captura vencidadas xxfr_linea_captura
+        --2.Recalcular la linea de captura clonada con su correspondiente ID y fecha de vigencia
+        *********************
+        --3.Actualizar id linea de captura en cabecera a nulo y idBatch al enviado
+        --4.Actualizar las linea de captura Vs idFacPimavera a 0:Inactivas e insertar nuevas... en LineaCaptura_Factura
+        --5.Actualizar en linea_Captura el Estatus de Activo a Inactivo.(Eliminar el campo)
+    
+    */
+    select count(*) into numLCVencidas from XXFR_LINEA_CAPTURA where 
+        IDLINEACAPTURA in
+        (select IDLINEACAPTURA
+             from XXFRV_LC_Cancelar where CONTRACTNUMBER in (select CONTRACTNUMBER from XXFR_CABECERA_FACTURA where idBatch = idParBatch)) ;
+    if numLCVencidas>0 then 
+        errorparametro := procesarLC_Vencidadas(idParBatch,contrato, grupo, division, proyecto);
+        if (errorparametro != '') then -- Si hay algun error en el proceso de LC vencidas, lanzar roll back y manejo de exception
+          RAISE lanzarerrorparametro;
+        end if;
+    end if;
+    
+    /*
+      Iniciar proceso de Lineas de captura.
+    */
     
     errorparametro := '100';
     INSERT
@@ -202,7 +241,7 @@ aplicando las reglas especificadas en los requerimientos funcionales
       flc.PROJECTID,
       flc.tipocobranza,
       flc.TOTALAMOUNT,
-      XXFRP_FECHA.FECHA_FIN_VIGENCIA(current_date , 15) FECHAVIGENCIA,
+      XXFRP_FECHA.FECHA_FIN_VIGENCIA(current_date , PAYMENTTERMDAYS) FECHAVIGENCIA,
       to_char(flc.CREATIONDATETRX)|| '|'|| flc.TOTALAMOUNT,
       flc.REFERENCENUMBER
     FROM XXFRV_FacturasParaLC flc
@@ -234,27 +273,6 @@ aplicando las reglas especificadas en los requerimientos funcionales
     -- Todo está okas hasta aquí, se asigna exitoso el proceso
     update XXFR_ESTADO_BATCH Set ESTADO ='EXITOSO' , finproceso = current_date where idestadobatch = idEstatdoBatch ;
     
-    /*
-      Procesar lineas de captura que esten VENCIDAS, generar nueva LC
-        --1.Clonar lineas de captura vencidadas xxfr_linea_captura
-        --2.Recalcular la linea de captura clonada con su correspondiente ID y fecha de vigencia
-        --3.Actualizar id linea de captura en cabecera
-        --4.Actualizar las linea de captura Vs idFacPimavera a 0:Inactivas e insertar nuevas... en LineaCaptura_Factura
-        --5.Actualizar en linea_Captura el Estatus de Activo a Inactivo.(Eliminar el campo)
-    
-    Previo verificar si existen para el idBatch lineas de captura vencidas    
-    */
-    select count(*) into numLCVencidas from XXFR_LINEA_CAPTURA where FECHAVIGENCIA < current_date and numeroRecibo is null
-        and IDLINEACAPTURA in
-        (select lc.IDLINEACAPTURA
-         from xxfr_cabecera_factura lc where lc.IDLINEACAPTURA is not null and lc.IDBATCH = idParBatch) ;
-    if numLCVencidas>0 then 
-        errorparametro := procesarLC_Vencidadas(idParBatch);
-        if (errorparametro != '') then -- Si hay algun error en el proceso de LC vencidas, lanzar roll back y manejo de exception
-          RAISE lanzarerrorparametro;
-        end if;
-    end if;
-    
     proceso := '0';
     --6.Commit
     COMMIT;
@@ -270,105 +288,42 @@ aplicando las reglas especificadas en los requerimientos funcionales
     RETURN errorparametro;
   END xxfr_procesar_batch;
   
-  function procesarLC_Vencidadas (pIdBatch IN VARCHAR2) return varchar2
+  function procesarLC_Vencidadas (pIdBatch IN VARCHAR2, contrato in VARCHAR2, grupo in VARCHAR2, division in VARCHAR2, proyecto in VARCHAR2) return varchar2
   as
     errorparametro       VARCHAR2(30) := '';
     proceso VARCHAR2(3):= '';
     lanzarerrorparametro EXCEPTION;
   Begin
              
-        --1.Clonar lineas de captura vencidadas xxfr_linea_captura  y fecha de vigencia
-        Insert into XXFR_LINEA_CAPTURA (
-        LINEACAPTURAREF,
-        SISTEMAORIGEN,
-        LINEACAPTURA,
-        REFERENCIA,
-        FECHACREACION,
-        FECHAVIGENCIA,
-        MONTOLINEACAPTURA,
-        ESTATUSLC,
-        BANCO,
-        CUENTABANCARIA,
-        ENTIDADLEGAL,
-        UNIDADNEGOCIO,
-        DIVISION,
-        CENTROCOSTOSPROYECTO,
-        NUMERORECIBO,
-        TIPOCOBRANZA,
-        FOLIOACUERDOCOBRANZA,
-        MONTOACUERDOCOBRANZA,
-        INTERESMORATORIOCONDONADO,
-        ORDINARIOCONDONADO,
-        CAPITALRENTACONDONADA
-        )
-        select LINEACAPTURAREF,
-        SISTEMAORIGEN,
-        substr(LINEACAPTURA,1,13)||'CODSEQING'||substr(LINEACAPTURA,23,8) LINEACAPTURA,
-        REFERENCIA,
-        current_date FECHACREACION,
-        XXFRP_FECHA.FECHA_FIN_VIGENCIA(current_date , 15) FECHAVIGENCIA,
-        MONTOLINEACAPTURA,
-        'PROCESANDO',
-        BANCO,
-        CUENTABANCARIA,
-        ENTIDADLEGAL,
-        UNIDADNEGOCIO,
-        DIVISION,
-        CENTROCOSTOSPROYECTO,
-        NUMERORECIBO,
-        TIPOCOBRANZA,
-        FOLIOACUERDOCOBRANZA,
-        MONTOACUERDOCOBRANZA,
-        INTERESMORATORIOCONDONADO,
-        ORDINARIOCONDONADO,
-        CAPITALRENTACONDONADA from XXFR_LINEA_CAPTURA where FECHAVIGENCIA < current_date and numeroRecibo is null
-        and IDLINEACAPTURA in
-        (select lc.IDLINEACAPTURA
-         from xxfr_cabecera_factura lc where lc.IDLINEACAPTURA is not null and lc.IDBATCH = pIdBatch);
-         
-         
-         
-        --2.Recalcular la linea de captura clonada con su correspondiente ID
-        UPDATE XXFR_LINEA_CAPTURA
-            SET lineaCaptura = REPLACE(lineaCaptura,'CODSEQING',lpad(idLineaCaptura,9,'0')) where ESTATUSLC = 'PROCESANDO';
-        --4.Actualizar las linea de captura Vs idFacPimavera a 0:Inactivas e insertar nuevas... en LineaCaptura_Factura
-        update XXFR_LINEA_CAPTURA_FACTURA lcf set CS_ESTATUS = 0 where lcf.IDLINEACAPTURA in
-        (select lc.IDLINEACAPTURA
-         from XXFR_LINEA_CAPTURA lc where lc.FECHAVIGENCIA < current_date and lc.numeroRecibo is null and lc.IDLINEACAPTURA in
-        (select cf.IDLINEACAPTURA
-         from xxfr_cabecera_factura cf where cf.IDLINEACAPTURA is not null and cf.IDBATCH = pIdBatch));
-         -- Registrar las nuevas lineas a facturas
-         Insert into XXFR_LINEA_CAPTURA_FACTURA (IDFACTURAPRIMAVERA,
-        IDLINEACAPTURA,
-        CS_ESTATUS)
-         select lcf.idFacturaPrimavera,  (select max(idLineaCaptura) from XXFR_LINEA_CAPTURA lcInt where lcInt.lineaCaptura like  substr(lcJoin.lineaCaptura,1,13)||'_________'||substr(lcJoin.lineaCaptura,23,8) ) idLineaCapturaMax 
-         , 1 Estatus
-         from XXFR_LINEA_CAPTURA_FACTURA lcf 
-         
-          left outer join XXFR_LINEA_CAPTURA lcJoin on ( lcf.IDLINEACAPTURA =  lcJoin.IDLINEACAPTURA)
-         where lcf.IDLINEACAPTURA in
-        (select lc.IDLINEACAPTURA
-         from XXFR_LINEA_CAPTURA lc where lc.FECHAVIGENCIA < current_date and lc.numeroRecibo is null and lc.IDLINEACAPTURA in
-        (select cf.IDLINEACAPTURA
-         from xxfr_cabecera_factura cf where cf.IDLINEACAPTURA is not null and cf.IDBATCH = pIdBatch));
-        --5.Actualizar en linea_Captura el Estatus de Activo a Inactivo.(Eliminar el campo)    
-         
-        --2.Recalcular la linea de captura clonada con su correspondiente ID
-        UPDATE XXFR_LINEA_CAPTURA
-            SET ESTATUSLC = 'VENCIDA' 
-            where FECHAVIGENCIA < current_date and numeroRecibo is null;   
+             --1.Registrar el historico de la relaci[on entre factura - Batch, ya que se actualizara por el solicitado a ejecutar
+       insert into XXFRT_HISTORICO_FAC_BATCH (IDFACTURA,IDBATCH, IDBATCHACTUAL)  
+       select IDFACTURAPRIMAVERA, IDBATCH, pIdBatch
+             from XXFRV_LC_Cancelar where CONTRACTNUMBER in (select CONTRACTNUMBER from XXFR_CABECERA_FACTURA where idBatch = pIdBatch);
+             
+             
+        --2.Actualizar las linea de captura Vs idFacPimavera a 0:Inactivas e insertar nuevas... en LineaCaptura_Factura
+        update XXFR_LINEA_CAPTURA_FACTURA lcf set CS_ESTATUS = 0, lcf.FEC_VENCIDA= current_date 
+        where CS_ESTATUS = 1 and lcf.IDLINEACAPTURA in
+        (select IDLINEACAPTURA
+             from XXFRV_LC_Cancelar where CONTRACTNUMBER in (select CONTRACTNUMBER from XXFR_CABECERA_FACTURA where idBatch = pIdBatch));
             
-        --3.Actualizar id linea de captura en cabecera
-        
+            -- 3. Actualizo estatus de lineasCaptura
+            update XXFR_LINEA_CAPTURA 
+              Set ESTATUSLC = 'VENCIDA'
+            where IDLINEACAPTURA in
+            (select IDLINEACAPTURA
+             from XXFRV_LC_Cancelar where CONTRACTNUMBER in (select CONTRACTNUMBER from XXFR_CABECERA_FACTURA where idBatch = pIdBatch));
+             
+       -- 3. Actualizar id linea de captura en cabecera
         update xxfr_cabecera_factura fac 
-         Set fac.IDLINEACAPTURA =
-        (select max(lc.IDLINEACAPTURA)
-         from XXFR_LINEA_CAPTURA_FACTURA lc where lc.CS_ESTATUS=1 and  fac.IDFACTURAPRIMAVERA = lc.IDFACTURAPRIMAVERA)
-        where fac.idbatch           = pIdBatch;
-        -- Finalmente asignar activas las LC nuevas por LCVencidas
-        UPDATE XXFR_LINEA_CAPTURA
-            SET ESTATUSLC = 'ACTIVO' 
-            where ESTATUSLC =  'PROCESANDO'; 
+         Set fac.IDBATCH = pIdBatch, fac.IDLINEACAPTURA = null
+            where fac.IDFACTURAPRIMAVERA in
+            (select hfb.IDFACTURA
+             from XXFRT_HISTORICO_FAC_BATCH hfb where  hfb.IDBATCHACTUAL =  pIdBatch);
+             
+
+        
+
             
       RETURN proceso; -- Exitoso
   EXCEPTION         -- exception handlers begin
@@ -600,7 +555,8 @@ Calcula los calculaImpoteCondensado
   function totalLC(pIdBatch IN VARCHAR2,
    pContractnumber  IN VARCHAR2,
    pDivisiontype  IN VARCHAR2,
-   pProjectid  IN VARCHAR2
+   pGrouptype  IN VARCHAR2,
+   pProjectID  IN VARCHAR2
   ) RETURN VARCHAR2 as
   
   total            VARCHAR2(13) := '';
@@ -613,7 +569,8 @@ Calcula los calculaImpoteCondensado
     and IdBatch =  pIdBatch 
         and contractnumber  = pContractnumber
     and divisiontype   =  pDivisiontype
-    and projectid   =  pProjectid
+    and grouptype   =  pGrouptype
+    and projectId   =  pProjectID
     group by idbatch,contractnumber,grouptype
     ;
     
@@ -632,7 +589,8 @@ Calcula los calculaImpoteCondensado
   function fechaLC(pIdBatch IN VARCHAR2,
    pContractnumber  IN VARCHAR2,
    pDivisiontype  IN VARCHAR2,
-   pProjectid  IN VARCHAR2
+   pGrouptype  IN VARCHAR2,
+   pProjectID  IN VARCHAR2
   ) RETURN VARCHAR2 as
   
   fechaTX            VARCHAR2(13) := '';
@@ -645,7 +603,8 @@ Calcula los calculaImpoteCondensado
     and IdBatch =  pIdBatch 
         and contractnumber  = pContractnumber
     and divisiontype   =  pDivisiontype
-    and projectid   =  pProjectid
+    and grouptype   =  pGrouptype
+    and projectId   =  pProjectID
     group by idbatch,contractnumber,grouptype
     ;
     
@@ -657,12 +616,13 @@ Calcula los calculaImpoteCondensado
 
 
 /*
-  Busca el total de la linea
+  Busca la referencia de la linea
   */
   function referenciaLC(pIdBatch IN VARCHAR2,
    pContractnumber  IN VARCHAR2,
    pDivisiontype  IN VARCHAR2,
-   pProjectid  IN VARCHAR2
+   pGrouptype  IN VARCHAR2,
+   pProjectID  IN VARCHAR2
   ) RETURN VARCHAR2 as
   
   referenceTX            VARCHAR2(16) := '';
@@ -675,7 +635,8 @@ Calcula los calculaImpoteCondensado
     and IdBatch =  pIdBatch 
         and contractnumber  = pContractnumber
     and divisiontype   =  pDivisiontype
-    and projectid   =  pProjectid
+    and grouptype   =  pGrouptype
+    and projectId   =  pProjectID
     group by idbatch,contractnumber,grouptype;
     
           RETURN  referenceTX;
@@ -683,6 +644,35 @@ Calcula los calculaImpoteCondensado
        WHEN NO_DATA_FOUND THEN
     RETURN lpad ('0',16-1,'0');
   end referenciaLC;
+
+
+/*
+  Busca la proyectID de la linea
+  */
+  function proyectoIDLC(pIdBatch IN VARCHAR2,
+   pContractnumber  IN VARCHAR2,
+   pDivisiontype  IN VARCHAR2,
+   pGrouptype  IN VARCHAR2
+  ) RETURN VARCHAR2 as
+  
+  proyectoIDTX            VARCHAR2(16) := '';
+  lanzarerrorparametro Exception;
+  begin
+  
+  
+    Select min (nvl (projectid,0)) into proyectoIDTX from XXFRV_FACTURASPARALC
+    WHERE rownum = 1 and  tipocobranza                    = 'LINEA CAPTURA'
+    and IdBatch =  pIdBatch 
+        and contractnumber  = pContractnumber
+    and divisiontype   =  pDivisiontype
+    and grouptype   =  pGrouptype
+    group by idbatch,contractnumber,grouptype;
+    
+          RETURN  lpad (proyectoIDTX,3,'0');
+   EXCEPTION
+       WHEN NO_DATA_FOUND THEN
+    RETURN lpad ('0',3,'0');
+  end proyectoIDLC;
 
   
 END xxfr_ingresos_lc;

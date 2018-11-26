@@ -42,21 +42,30 @@ FUNCTION calculaImpoteCondensado(
 function totalLC(pIdBatch IN VARCHAR2,
    pContractnumber  IN VARCHAR2,
    pDivisiontype  IN VARCHAR2,
-   pProjectid  IN VARCHAR2) RETURN VARCHAR2;
+   pGrouptype  IN VARCHAR2,
+   pProjectID  IN VARCHAR2) RETURN VARCHAR2;
 FUNCTION codeSumDV (referencia IN VARCHAR2) RETURN VARCHAR2;
 
 function fechaLC(pIdBatch IN VARCHAR2,
    pContractnumber  IN VARCHAR2,
    pDivisiontype  IN VARCHAR2,
-   pProjectid  IN VARCHAR2
+   pGrouptype  IN VARCHAR2,
+   pProjectID  IN VARCHAR2
   ) RETURN VARCHAR2;
   
   function referenciaLC(pIdBatch IN VARCHAR2,
    pContractnumber  IN VARCHAR2,
    pDivisiontype  IN VARCHAR2,
-   pProjectid  IN VARCHAR2
+   pGrouptype  IN VARCHAR2,
+   pProjectID  IN VARCHAR2
   ) RETURN VARCHAR2;
 
-function procesarLC_Vencidadas (pIdBatch IN VARCHAR2) return varchar2;
+function procesarLC_Vencidadas (pIdBatch IN VARCHAR2, contrato in VARCHAR2, grupo in VARCHAR2, division in VARCHAR2, proyecto in VARCHAR2) return varchar2;
+
+function proyectoIDLC(pIdBatch IN VARCHAR2,
+   pContractnumber  IN VARCHAR2,
+   pDivisiontype  IN VARCHAR2,
+   pGrouptype  IN VARCHAR2
+  ) RETURN VARCHAR2;
 
 END xxfr_ingresos_lc;
