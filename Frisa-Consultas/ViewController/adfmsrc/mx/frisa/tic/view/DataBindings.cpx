@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Application xmlns="http://xmlns.oracle.com/adfm/application" version="11.1.2.64.36" id="DataBindings"
+             SeparateXMLFiles="false" Package="mx.frisa.tic.view" ClientType="Generic">
+  <pageMap>
+    <page path="/LineaReferencia.jsf" usageId="mx_frisa_tic_view_LineaReferenciaPageDef"/>
+    <page path="/ClienteDocumento.jsf" usageId="mx_frisa_tic_view_ClienteDocumentoPageDef"/>
+  </pageMap>
+  <pageDefinitionUsages>
+    <page id="mx_frisa_tic_view_LineaReferenciaPageDef" path="mx.frisa.tic.view.pageDefs.LineaReferenciaPageDef"/>
+    <page id="mx_frisa_tic_view_ClienteDocumentoPageDef" path="mx.frisa.tic.view.pageDefs.ClienteDocumentoPageDef"/>
+  </pageDefinitionUsages>
+  <dataControlUsages>
+    <dc id="GestorFacturasWS" path="mx.frisa.tic.consultas.model.GestorFacturasWS"/>
+    <dc id="GestorLineaCapturaWS" path="mx.frisa.tic.consultas.model.GestorLineaCapturaWS"/>
+  </dataControlUsages>
+</Application>

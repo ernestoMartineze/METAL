@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<xsd:schema xmlns:ns0="http://ws.negocio.tic.frisa.mx/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://ws.negocio.tic.frisa.mx/">
+  <xsd:complexType name="consultarLCFacturas">
+    <xsd:sequence>
+      <xsd:element name="lineaCaptura" type="xsd:string" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="consultarLCFacturasResponse">
+    <xsd:sequence>
+      <xsd:element name="return" type="ns0:respuestaLCFacturaDTO" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="respuestaLCFacturaDTO">
+    <xsd:sequence>
+      <xsd:element name="lcFacturas" type="ns0:lcFacturaDTO" minOccurs="0" maxOccurs="unbounded" nillable="true"/>
+      <xsd:element name="proceso" type="ns0:proceso" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="lcFacturaDTO">
+    <xsd:sequence>
+      <xsd:element name="billtoconsumername" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="companyaccountcode" type="xsd:long" minOccurs="0"/>
+      <xsd:element name="idfacturaprimavera" type="xsd:integer" minOccurs="0"/>
+      <xsd:element name="idlineacaptura" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="linenumber" type="xsd:short" minOccurs="0"/>
+      <xsd:element name="montobrutolinea" type="xsd:decimal" minOccurs="0"/>
+      <xsd:element name="paymenttermdate" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="projectid" type="xsd:long" minOccurs="0"/>
+      <xsd:element name="relatederpinvoice" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="taxrate" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="totalamount" type="xsd:decimal" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="proceso">
+    <xsd:sequence>
+      <xsd:element name="descripcion" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="termino" type="xsd:string" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="consultarLCFacturas" type="ns0:consultarLCFacturas"/>
+  <xsd:element name="consultarLCFacturasResponse" type="ns0:consultarLCFacturasResponse"/>
+</xsd:schema>

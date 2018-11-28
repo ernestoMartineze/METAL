@@ -35,16 +35,21 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "XxfrvConsultaLcPagos.findByFecharecibo", query = "SELECT x FROM XxfrvConsultaLcPagos x WHERE x.fecharecibo = :fecharecibo")
     , @NamedQuery(name = "XxfrvConsultaLcPagos.findByFechaaplicacion", query = "SELECT x FROM XxfrvConsultaLcPagos x WHERE x.fechaaplicacion = :fechaaplicacion")
     , @NamedQuery(name = "XxfrvConsultaLcPagos.findByFechatransaccion", query = "SELECT x FROM XxfrvConsultaLcPagos x WHERE x.fechatransaccion = :fechatransaccion")
-    , @NamedQuery(name = "XxfrvConsultaLcPagos.findByMontopagado", query = "SELECT x FROM XxfrvConsultaLcPagos x WHERE x.montopagado = :montopagado")})
+    , @NamedQuery(name = "XxfrvConsultaLcPagos.findByMontopagado", query = "SELECT x FROM XxfrvConsultaLcPagos x WHERE x.montopagado = :montopagado")
+    ,@NamedQuery(name = "XxfrvConsultaLcPagos.findByIdfacturaerp", query = "SELECT x FROM XxfrvConsultaLcPagos x WHERE x.idfacturaerp = :idfacturaerp")})
 public class XxfrvConsultaLcPagos implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Id
     @Basic(optional = false)
     @NotNull
     @Column(name = "IDPAGO")
+    @Id
     private BigDecimal idpago;
+    @Column(name = "IDPAGOERP")
+    private BigDecimal idpagoerp;
+    @Column(name = "IDFACTURAERP")
+    private BigDecimal idfacturaerp;
+
     @Column(name = "IDLINEACAPTURA")
     private Long idlineacaptura;
     @Column(name = "NORECIBO")
@@ -68,13 +73,6 @@ public class XxfrvConsultaLcPagos implements Serializable {
         this.idpago = idpago;
     }
 
-    public BigDecimal getIdpago() {
-        return idpago;
-    }
-
-    public void setIdpago(BigDecimal idpago) {
-        this.idpago = idpago;
-    }
 
     public Long getIdlineacaptura() {
         return idlineacaptura;
@@ -147,6 +145,30 @@ public class XxfrvConsultaLcPagos implements Serializable {
     @Override
     public String toString() {
         return "mx.frisa.tic.datos.entidades.XxfrvConsultaLcPagos[ idpago=" + idpago + " ]";
+    }
+
+    public BigDecimal getIdpago() {
+        return idpago;
+    }
+
+    public void setIdpago(BigDecimal idpago) {
+        this.idpago = idpago;
+    }
+
+    public BigDecimal getIdpagoerp() {
+        return idpagoerp;
+    }
+
+    public void setIdpagoerp(BigDecimal idpagoerp) {
+        this.idpagoerp = idpagoerp;
+    }
+
+    public BigDecimal getIdfacturaerp() {
+        return idfacturaerp;
+    }
+
+    public void setIdfacturaerp(BigDecimal idfacturaerp) {
+        this.idfacturaerp = idfacturaerp;
     }
     
 }

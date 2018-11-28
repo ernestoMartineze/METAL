@@ -41,6 +41,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "XxfrvConsultaLcFactura.findByTaxrate", query = "SELECT x FROM XxfrvConsultaLcFactura x WHERE x.taxrate = :taxrate")})
 public class XxfrvConsultaLcFactura implements Serializable {
 
+    @Column(name = "TAXRATE")
+    private BigDecimal taxrate;
     private static final long serialVersionUID = 1L;
     @Size(max = 52)
     @Column(name = "IDLINEA")
@@ -75,9 +77,7 @@ public class XxfrvConsultaLcFactura implements Serializable {
     private String idlineacaptura;
     @Column(name = "MONTOBRUTOLINEA")
     private BigDecimal montobrutolinea;
-    @Size(max = 20)
-    @Column(name = "TAXRATE")
-    private String taxrate;
+
 
     public XxfrvConsultaLcFactura() {
     }
@@ -155,13 +155,15 @@ public class XxfrvConsultaLcFactura implements Serializable {
         this.montobrutolinea = montobrutolinea;
     }
 
-    public String getTaxrate() {
+
+    public BigDecimal getTaxrate() {
         return taxrate;
     }
 
-    public void setTaxrate(String taxrate) {
+    public void setTaxrate(BigDecimal taxrate) {
         this.taxrate = taxrate;
     }
+
 
     public String getIdlinea() {
         return idlinea;

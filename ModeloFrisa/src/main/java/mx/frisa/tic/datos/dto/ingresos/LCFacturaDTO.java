@@ -24,7 +24,8 @@ public class LCFacturaDTO {
     private String idlineacaptura;
     private Short linenumber;
     private BigDecimal montobrutolinea;
-    private String taxrate;
+    private BigDecimal taxrate;
+
 
     public BigInteger getIdfacturaprimavera() {
         return idfacturaprimavera;
@@ -106,11 +107,13 @@ public class LCFacturaDTO {
         this.montobrutolinea = montobrutolinea;
     }
 
-    public String getTaxrate() {
+
+    public BigDecimal getTaxrate() {
         return taxrate;
     }
 
-    public void setTaxrate(String taxrate) {
+    public void setTaxrate(BigDecimal taxrate) {
         this.taxrate = taxrate;
     }
+
 }

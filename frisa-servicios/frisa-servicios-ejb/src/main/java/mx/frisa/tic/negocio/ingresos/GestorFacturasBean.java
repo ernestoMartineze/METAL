@@ -23,19 +23,18 @@ import mx.frisa.tic.datos.entidades.XxfrvConsultaLcFactura;
 public class GestorFacturasBean implements GestorFacturas{
 
     @Override
-    public List<LCFacturaDTO> consultarLCFactura(String lineaCaptura) {
+    public List<LCFacturaDTO> consultarLCFactura(String facturaERp) {
         
         DAO<XxfrvConsultaLcFactura> lcFacturaDAO = new DAO(XxfrvConsultaLcFactura.class);
         List<LCFacturaDTO> lcFacturasDTO = new ArrayList<LCFacturaDTO>();
-        List<XxfrvConsultaLcFactura> lcFacturas;
-        if(lineaCaptura!=null && !lineaCaptura.equals("")){
+        List<XxfrvConsultaLcFactura> lcFacturas = new ArrayList<>();
+        if(facturaERp!=null && !facturaERp.equals("")){
             List<CatalogoParametroDTO> parametros =new ArrayList<>();
-            parametros.add(new CatalogoParametroDTO("idlineacaptura",lineaCaptura,"CADENA"));
+            parametros.add(new CatalogoParametroDTO("idlineacaptura",facturaERp,"CADENA"));
             lcFacturas = lcFacturaDAO.consultaQueryByParameters("XxfrvConsultaLcFactura.findByIdlineacaptura",parametros);
-        }else{
-            lcFacturas = lcFacturaDAO.consultaQueryNamed("XxfrvConsultaLcFactura.findAll");
         }
-        
+
+
         for (XxfrvConsultaLcFactura lcFacturaRespuesta : lcFacturas) {
             LCFacturaDTO lcFacturaDTO = new LCFacturaDTO();
             lcFacturaDTO.setBilltoconsumername(lcFacturaRespuesta.getBilltoconsumername());

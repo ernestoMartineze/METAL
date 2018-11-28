@@ -14,7 +14,8 @@ import java.util.Date;
  */
 public class DetalleLCPagosDTO {
     
-    
+
+    private BigDecimal idfacturaerp;
     private BigDecimal idpago;
     private Long idlineacaptura;
     private Long norecibo;
@@ -23,6 +24,16 @@ public class DetalleLCPagosDTO {
     private Date fechatransaccion;
     private BigDecimal montopagado;
 
+
+
+    public BigDecimal getIdfacturaerp() {
+        return idfacturaerp;
+    }
+
+    public void setIdfacturaerp(BigDecimal idfacturaerp) {
+        this.idfacturaerp = idfacturaerp;
+    }
+
     public BigDecimal getIdpago() {
         return idpago;
     }
@@ -30,6 +41,7 @@ public class DetalleLCPagosDTO {
     public void setIdpago(BigDecimal idpago) {
         this.idpago = idpago;
     }
+
 
     public Long getIdlineacaptura() {
         return idlineacaptura;
