@@ -2,17 +2,17 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-    <artifactId>frisa-servicios</artifactId>
-    <groupId>mx.frisa.tic.negocio</groupId>
-    <version>1.0</version>
-  </parent>
+        <artifactId>frisa-servicios</artifactId>
+        <groupId>mx.frisa.tic.negocio</groupId>
+        <version>1.0</version>
+    </parent>
 
     <groupId>mx.frisa.tic.negocio</groupId>
     <artifactId>frisa-servicios-ear</artifactId>
     <version>1.0</version>
     <packaging>ear</packaging>
 
-    <name>frisa-servicios-ear</name>
+    <name>frisa-serviciosApp</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

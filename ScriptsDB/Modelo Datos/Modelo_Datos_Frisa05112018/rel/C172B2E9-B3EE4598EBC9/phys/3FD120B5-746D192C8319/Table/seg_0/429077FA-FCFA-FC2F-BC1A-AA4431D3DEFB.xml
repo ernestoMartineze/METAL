@@ -1,0 +1,27 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableProxyOraclev12c class="oracle.dbtools.crest.model.design.storage.oracle.v12c.TableProxyOraclev12c" name="XXFR_CATALOGO_CONCEPTOS" directorySegmentName="seg_0" id="429077FA-FCFA-FC2F-BC1A-AA4431D3DEFB">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:35:51 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<schemaObject>DFEC3635-A5A9-4120-486F-CF69B55F3572</schemaObject>
+<logging>YES</logging>
+<partitionedRowMovement>DISABLE</partitionedRowMovement>
+<segment>FB782B2C-4A09-F472-9449-3C0BBDC3892C</segment>
+<tableSpace>F71BB681-6981-A225-B3DB-8C83263C1936</tableSpace>
+<temporaryChanged>false</temporaryChanged>
+<accessDriverType>oracle_loader</accessDriverType>
+<rejectLimit></rejectLimit>
+<inMemory>NO</inMemory>
+<columnProxies itemClass="oracle.dbtools.crest.model.design.storage.oracle.v12c.ColumnProxyOraclev12c">
+<ColumnProxy name="DESCRIPCION" id="7C47CA47-7917-712E-EA98-A310B281CCAE">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:01 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="IDCONCEPTO" id="F2AD0148-46EC-C752-B769-500933C597D3">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:01 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+</columnProxies>
+</TableProxyOraclev12c>

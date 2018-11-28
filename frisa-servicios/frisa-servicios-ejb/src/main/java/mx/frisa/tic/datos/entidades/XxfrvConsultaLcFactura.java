@@ -42,8 +42,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class XxfrvConsultaLcFactura implements Serializable {
 
     @Column(name = "TAXRATE")
-    private BigInteger taxrate;
-
+    private BigDecimal taxrate;
     private static final long serialVersionUID = 1L;
     @Size(max = 52)
     @Column(name = "IDLINEA")
@@ -78,6 +77,7 @@ public class XxfrvConsultaLcFactura implements Serializable {
     private String idlineacaptura;
     @Column(name = "MONTOBRUTOLINEA")
     private BigDecimal montobrutolinea;
+
 
     public XxfrvConsultaLcFactura() {
     }
@@ -156,6 +156,15 @@ public class XxfrvConsultaLcFactura implements Serializable {
     }
 
 
+    public BigDecimal getTaxrate() {
+        return taxrate;
+    }
+
+    public void setTaxrate(BigDecimal taxrate) {
+        this.taxrate = taxrate;
+    }
+
+
     public String getIdlinea() {
         return idlinea;
     }
@@ -170,14 +179,6 @@ public class XxfrvConsultaLcFactura implements Serializable {
 
     public void setLinenumber(short linenumber) {
         this.linenumber = linenumber;
-    }
-
-    public BigInteger getTaxrate() {
-        return taxrate;
-    }
-
-    public void setTaxrate(BigInteger taxrate) {
-        this.taxrate = taxrate;
     }
     
 }

@@ -7,7 +7,6 @@ package mx.frisa.tic.datos.entidades;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -45,11 +44,12 @@ public class XxfrvConsultaLcPagos implements Serializable {
     @NotNull
     @Column(name = "IDPAGO")
     @Id
-    private BigInteger idpago;
+    private BigDecimal idpago;
     @Column(name = "IDPAGOERP")
-    private BigInteger idpagoerp;
+    private BigDecimal idpagoerp;
     @Column(name = "IDFACTURAERP")
-    private BigInteger idfacturaerp;
+    private BigDecimal idfacturaerp;
+
     @Column(name = "IDLINEACAPTURA")
     private Long idlineacaptura;
     @Column(name = "NORECIBO")
@@ -69,7 +69,7 @@ public class XxfrvConsultaLcPagos implements Serializable {
     public XxfrvConsultaLcPagos() {
     }
 
-    public XxfrvConsultaLcPagos(BigInteger idpago) {
+    public XxfrvConsultaLcPagos(BigDecimal idpago) {
         this.idpago = idpago;
     }
 
@@ -147,27 +147,27 @@ public class XxfrvConsultaLcPagos implements Serializable {
         return "mx.frisa.tic.datos.entidades.XxfrvConsultaLcPagos[ idpago=" + idpago + " ]";
     }
 
-    public BigInteger getIdpago() {
+    public BigDecimal getIdpago() {
         return idpago;
     }
 
-    public void setIdpago(BigInteger idpago) {
+    public void setIdpago(BigDecimal idpago) {
         this.idpago = idpago;
     }
 
-    public BigInteger getIdpagoerp() {
+    public BigDecimal getIdpagoerp() {
         return idpagoerp;
     }
 
-    public void setIdpagoerp(BigInteger idpagoerp) {
+    public void setIdpagoerp(BigDecimal idpagoerp) {
         this.idpagoerp = idpagoerp;
     }
 
-    public BigInteger getIdfacturaerp() {
+    public BigDecimal getIdfacturaerp() {
         return idfacturaerp;
     }
 
-    public void setIdfacturaerp(BigInteger idfacturaerp) {
+    public void setIdfacturaerp(BigDecimal idfacturaerp) {
         this.idfacturaerp = idfacturaerp;
     }
     

@@ -37,7 +37,7 @@ public class GestorFacturasWS {
      */
     @WebMethod(operationName = "consultarLCFacturas")
     public RespuestaLCFacturaDTO consultarLCFacturas(@WebParam(name = "lineaCaptura") String lineaCaptura) {
-    
+
         RespuestaLCFacturaDTO respuestaLCFactura = new RespuestaLCFacturaDTO();
         ManejadorLog manejarLog = new ManejadorLog();
         List<LCFacturaDTO> lcFacturas = new ArrayList<>();

@@ -1,0 +1,83 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableProxyOraclev12c class="oracle.dbtools.crest.model.design.storage.oracle.v12c.TableProxyOraclev12c" name="XXFRT_NOTA_CREDITO" directorySegmentName="seg_0" id="D5BFD4E9-EA58-DDFF-B8D7-55E0D0A7ABB7">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:35:53 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<schemaObject>DFEC3635-A5A9-4120-486F-CF69B55F3572</schemaObject>
+<logging>YES</logging>
+<partitionedRowMovement>DISABLE</partitionedRowMovement>
+<segment>FB782B2C-4A09-F472-9449-3C0BBDC3892C</segment>
+<tableSpace>F71BB681-6981-A225-B3DB-8C83263C1936</tableSpace>
+<temporaryChanged>false</temporaryChanged>
+<accessDriverType>oracle_loader</accessDriverType>
+<rejectLimit></rejectLimit>
+<inMemory>NO</inMemory>
+<columnProxies itemClass="oracle.dbtools.crest.model.design.storage.oracle.v12c.ColumnProxyOraclev12c">
+<ColumnProxy name="UUID" id="1D85EE46-69A9-B961-04CA-5F7FBC00AC16">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:08 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="CS_ESTATUS" id="3321516C-6AF8-C333-1FE4-3000D1659340">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:09 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="FEC_REGISTRO" id="48F8D7A2-EE0A-B768-964E-DCE5D744212E">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:08 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<defaultValue>current_date</defaultValue>
+</ColumnProxy>
+<ColumnProxy name="REF_DESCRIPCION" id="8A86F6C1-89AB-D80A-5608-9709932DA91E">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:08 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="FEC_APLICACION" id="A2EE15AF-86F0-88F4-E4C5-3F6E6A7D7D45">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:09 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="CAN_APLICABLE" id="CE263159-647F-99DA-14FC-BEFBB72D9C7A">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:08 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="ID_FACTURAPRIMAVERA" id="F071B4CB-49D2-659B-719A-1E4F852B49B9">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:09 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+</columnProxies>
+<indexProxies>
+<IndexProxy class="oracle.dbtools.crest.model.design.storage.oracle.v10g.IndexProxyOraclev10g" name="XXFRT_NOTA_CREDITO_PK" id="B402E920-D3C2-F3E6-C6BD-9D4F18513851">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:11 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<schemaObject>DFEC3635-A5A9-4120-486F-CF69B55F3572</schemaObject>
+<segment>B0A4574A-B859-5DB5-C517-73F694B84981</segment>
+<tableSpace>F71BB681-6981-A225-B3DB-8C83263C1936</tableSpace>
+</IndexProxy>
+</indexProxies>
+<foreignKeys>
+<ForeignKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.FKProxyOraclev10g" name="XXFRT_NOTA_CREDITO_FK1" id="160E8538-D7BE-0C7B-FE03-58C7586743E9">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:24 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ForeignKey>
+</foreignKeys>
+<primaryKeys>
+<PrimaryKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.PKProxyOraclev10g" name="XXFRT_NOTA_CREDITO_PK" id="A5E36D3A-B7F6-0BB1-A964-F0A7C58E8634">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:21 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<segment>B0A4574A-B859-5DB5-C517-73F694B84981</segment>
+<tableSpace>F71BB681-6981-A225-B3DB-8C83263C1936</tableSpace>
+<existingIndex>B402E920-D3C2-F3E6-C6BD-9D4F18513851</existingIndex>
+<indexSegment>B0A4574A-B859-5DB5-C517-73F694B84981</indexSegment>
+<indexSort>SORTED</indexSort>
+<usingIndex>BY INDEX NAME</usingIndex>
+</PrimaryKey>
+</primaryKeys>
+</TableProxyOraclev12c>

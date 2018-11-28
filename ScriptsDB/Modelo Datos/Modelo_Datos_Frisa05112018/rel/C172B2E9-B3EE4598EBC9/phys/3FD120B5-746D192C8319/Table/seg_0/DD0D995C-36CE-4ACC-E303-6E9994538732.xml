@@ -1,0 +1,43 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableProxyOraclev12c class="oracle.dbtools.crest.model.design.storage.oracle.v12c.TableProxyOraclev12c" name="XXFR_ESTADO_BATCH" directorySegmentName="seg_0" id="DD0D995C-36CE-4ACC-E303-6E9994538732">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:35:51 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<schemaObject>DFEC3635-A5A9-4120-486F-CF69B55F3572</schemaObject>
+<logging>YES</logging>
+<partitionedRowMovement>DISABLE</partitionedRowMovement>
+<segment>FB782B2C-4A09-F472-9449-3C0BBDC3892C</segment>
+<tableSpace>F71BB681-6981-A225-B3DB-8C83263C1936</tableSpace>
+<temporaryChanged>false</temporaryChanged>
+<accessDriverType>oracle_loader</accessDriverType>
+<rejectLimit></rejectLimit>
+<inMemory>NO</inMemory>
+<columnProxies itemClass="oracle.dbtools.crest.model.design.storage.oracle.v12c.ColumnProxyOraclev12c">
+<ColumnProxy name="IDBATCH" id="98199C78-C988-F29D-0F2F-1104B520C317">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:02 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="INICIOPROCESO" id="A5EE064D-F603-792F-DB74-FF69907214A3">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:02 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="ESTADO" id="B75D87AD-8975-46A4-B615-A84FDD3D32DA">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:02 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="FINPROCESO" id="BDDB904A-BE1E-D5B7-0676-354C928C0DE3">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:02 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="IDESTADOBATCH" id="C5E1FA72-3334-892F-DC4A-404401995044">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:02 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<autoIncrementDDL>IDENTITY_CLAUSE</autoIncrementDDL>
+</ColumnProxy>
+</columnProxies>
+</TableProxyOraclev12c>

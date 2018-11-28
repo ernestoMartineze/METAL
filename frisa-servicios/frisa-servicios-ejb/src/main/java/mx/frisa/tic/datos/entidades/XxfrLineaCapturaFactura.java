@@ -7,6 +7,8 @@ package mx.frisa.tic.datos.entidades;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,6 +19,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -34,6 +38,12 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "XxfrLineaCapturaFactura.findByIdlineacaptura", query = "SELECT x FROM XxfrLineaCapturaFactura x WHERE x.idlineacaptura = :idlineacaptura")})
 public class XxfrLineaCapturaFactura implements Serializable {
 
+    @Column(name = "CS_ESTATUS")
+    private BigInteger csEstatus;
+    @Column(name = "FEC_VENCIDA")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fecVencida;
+
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
@@ -46,7 +56,7 @@ public class XxfrLineaCapturaFactura implements Serializable {
     private String idlineacaptura;
     @JoinColumn(name = "IDFACTURAPRIMAVERA", referencedColumnName = "IDFACTURAPRIMAVERA")
     @ManyToOne(fetch = FetchType.LAZY)
-    private XxfrUpperForm idfacturaprimavera;
+    private XxfrCabeceraFactura idfacturaprimavera;
 
     public XxfrLineaCapturaFactura() {
     }
@@ -71,11 +81,19 @@ public class XxfrLineaCapturaFactura implements Serializable {
         this.idlineacaptura = idlineacaptura;
     }
 
-    public XxfrUpperForm getIdfacturaprimavera() {
+    /**
+     *
+     * @return
+     */
+    public XxfrCabeceraFactura getIdfacturaprimavera() {
         return idfacturaprimavera;
     }
 
-    public void setIdfacturaprimavera(XxfrUpperForm idfacturaprimavera) {
+    /**
+     *
+     * @param idfacturaprimavera
+     */
+    public void setIdfacturaprimavera(XxfrCabeceraFactura idfacturaprimavera) {
         this.idfacturaprimavera = idfacturaprimavera;
     }
 
@@ -102,6 +120,22 @@ public class XxfrLineaCapturaFactura implements Serializable {
     @Override
     public String toString() {
         return "mx.frisa.tic.datos.entidades.XxfrLineaCapturaFactura[ idtransaccion=" + idtransaccion + " ]";
+    }
+
+    public BigInteger getCsEstatus() {
+        return csEstatus;
+    }
+
+    public void setCsEstatus(BigInteger csEstatus) {
+        this.csEstatus = csEstatus;
+    }
+
+    public Date getFecVencida() {
+        return fecVencida;
+    }
+
+    public void setFecVencida(Date fecVencida) {
+        this.fecVencida = fecVencida;
     }
     
 }

@@ -1,0 +1,20 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="8588B81E-65CB-E6E1-61AE-5C449B7CF8B7" containerWithKeyObject="D5BFD4E9-EA58-DDFF-B8D7-55E0D0A7ABB7" localFKIndex="160E8538-D7BE-0C7B-FE03-58C7586743E9" name="XXFRT_NOTA_CREDITO_FK1">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>INGRESOS</sourceObjSchema>
+<sourceObjName>XXFRT_NOTA_CREDITO_FK1</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>70943647-7C14-C11C-5BE6-0345BED0280E</importedID>
+<referredTableLongName>INGRESOS.XXFR_CABECERA_FACTURA</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>4C940E22-A829-5395-1E92-45F1F6ED0841</referredTableID>
+<keyObject>A6A18983-CC51-0C78-C7B7-6E9179AAC784</keyObject>
+<referredKeyID>A6A18983-CC51-0C78-C7B7-6E9179AAC784</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>IDFACTURAPRIMAVERA</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

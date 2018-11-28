@@ -1,0 +1,399 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="1AAB91EE-7541-4B7A-44BC-52DFF711376A" schemaObject="DFEC3635-A5A9-4120-486F-CF69B55F3572" name="XXFR_LINEA_CAPTURA">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>INGRESOS</sourceObjSchema>
+<sourceObjName>XXFR_LINEA_CAPTURA</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<commentInRDBMS>Información de líneas de captura</commentInRDBMS>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>A65545A8-B00D-C06D-4C9B-7AF74D9B207D</importedID>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="IDLINEACAPTURA" id="DD2C976E-AE7D-71FC-E3EE-4C163D862216">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_LINEA_CAPTURA</sourceObjSchema>
+<sourceObjName>IDLINEACAPTURA</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<commentInRDBMS>Identificador interno de la linea de captura</commentInRDBMS>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>C5568748-67F7-1511-A24E-49471BC8A6CB</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementColumn>true</autoIncrementColumn>
+<identityColumn>true</identityColumn>
+<autoIncrementGenerateAlways>true</autoIncrementGenerateAlways>
+<autoIncrementCycle>false</autoIncrementCycle>
+<autoIncrementDisableCache>false</autoIncrementDisableCache>
+<autoIncrementCache>20</autoIncrementCache>
+<autoIncrementOrder>false</autoIncrementOrder>
+</Column>
+<Column name="LINEACAPTURAREF" id="CEA78BFE-A30B-20A0-B01B-900E27E626F3">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_LINEA_CAPTURA</sourceObjSchema>
+<sourceObjName>LINEACAPTURAREF</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>4617C1AE-0DF2-6DBF-7FBE-EF6B1D3CE927</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50 BYTE</dataTypeSize>
+<ownDataTypeParameters>50 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="SISTEMAORIGEN" id="C7255E39-B271-9F6D-99AA-995CA0EC0466">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_LINEA_CAPTURA</sourceObjSchema>
+<sourceObjName>SISTEMAORIGEN</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<commentInRDBMS>Sitema que solicita a generacion de la LC</commentInRDBMS>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>F18F4463-C051-B780-3974-89D47541DFF6</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 BYTE</dataTypeSize>
+<ownDataTypeParameters>20 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="LINEACAPTURA" id="9BA5D838-6654-7537-24B2-355F196DDD04">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_LINEA_CAPTURA</sourceObjSchema>
+<sourceObjName>LINEACAPTURA</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<commentInRDBMS>Código de la línea de captura</commentInRDBMS>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>FE695AB9-CA10-8E8D-744C-437CC05BE9F2</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>30 BYTE</dataTypeSize>
+<ownDataTypeParameters>30 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="REFERENCIA" id="77AFE290-FA07-629D-01D2-34758973A79A">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_LINEA_CAPTURA</sourceObjSchema>
+<sourceObjName>REFERENCIA</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>2F77A69B-5217-C790-49F2-098586A52545</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 BYTE</dataTypeSize>
+<ownDataTypeParameters>20 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="FECHACREACION" id="6D42D1AF-A096-3957-9320-798CF2F108FE">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_LINEA_CAPTURA</sourceObjSchema>
+<sourceObjName>FECHACREACION</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<commentInRDBMS>Fecha en que se generó la LC</commentInRDBMS>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>201B09BF-FF96-3AEF-FA3B-F576DCC854F4</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<dataTypeSize>7</dataTypeSize>
+<ownDataTypeParameters>7,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="FECHAVIGENCIA" id="20EE2292-BA17-44F2-AC4E-76BCC41F02FB">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_LINEA_CAPTURA</sourceObjSchema>
+<sourceObjName>FECHAVIGENCIA</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<commentInRDBMS>Fecha en que se será valida la LC</commentInRDBMS>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>129BBB20-4C4D-7AB9-4F68-A1E9A2375C50</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<dataTypeSize>7</dataTypeSize>
+<ownDataTypeParameters>7,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="MONTOLINEACAPTURA" id="A9C00EC2-B400-742F-C9A7-E97B73D1298B">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_LINEA_CAPTURA</sourceObjSchema>
+<sourceObjName>MONTOLINEACAPTURA</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<commentInRDBMS>Monto total de la LC suma de monto de facturas contenidas</commentInRDBMS>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>3243089F-61BF-FAC4-5792-FFBBF2104C02</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>20</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<ownDataTypeParameters>,20,2</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ESTATUSLC" id="6E661CDD-420E-79E5-1519-E1DB0F86E3F3">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_LINEA_CAPTURA</sourceObjSchema>
+<sourceObjName>ESTATUSLC</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<commentInRDBMS>ACTIVA, VENCIDA, PROCESANDO</commentInRDBMS>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>68B3F9E7-3043-09D6-4BEB-C91659DA090C</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 BYTE</dataTypeSize>
+<ownDataTypeParameters>20 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="BANCO" id="FE5C4604-FBC7-F3D7-E07E-084AA6D463C7">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_LINEA_CAPTURA</sourceObjSchema>
+<sourceObjName>BANCO</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<commentInRDBMS>Descripción del banco en el cual podrá ser pagado</commentInRDBMS>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>16310C93-A288-A823-C22D-511A12EADD78</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 BYTE</dataTypeSize>
+<ownDataTypeParameters>20 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CUENTABANCARIA" id="103FA291-77F6-58D4-D9A7-04C57832329A">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_LINEA_CAPTURA</sourceObjSchema>
+<sourceObjName>CUENTABANCARIA</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<commentInRDBMS>No. de cuenta</commentInRDBMS>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>844954A9-13FA-A1C5-A643-54D513EFF601</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 BYTE</dataTypeSize>
+<ownDataTypeParameters>20 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ENTIDADLEGAL" id="F75F8184-1626-B1BA-2226-ECE8A495C85A">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_LINEA_CAPTURA</sourceObjSchema>
+<sourceObjName>ENTIDADLEGAL</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>C58A4140-AB15-AEEC-39B2-EA5CDD780DA6</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 BYTE</dataTypeSize>
+<ownDataTypeParameters>20 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="UNIDADNEGOCIO" id="72F01DBD-E776-CCC7-DE36-91B91B24C16D">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_LINEA_CAPTURA</sourceObjSchema>
+<sourceObjName>UNIDADNEGOCIO</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>D24EEE15-518D-88A7-9243-02582DBE364F</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 BYTE</dataTypeSize>
+<ownDataTypeParameters>20 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="DIVISION" id="C2082D8C-CF34-B0F8-AD36-9295CB337742">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_LINEA_CAPTURA</sourceObjSchema>
+<sourceObjName>DIVISION</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>5EE3F4A7-7357-F1E6-9EF6-B05D4848694D</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 BYTE</dataTypeSize>
+<ownDataTypeParameters>20 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CENTROCOSTOSPROYECTO" id="16683024-B88D-9181-68FA-E87562D3AA8C">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_LINEA_CAPTURA</sourceObjSchema>
+<sourceObjName>CENTROCOSTOSPROYECTO</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>5A3DC84E-F159-E001-D201-2C4CC2502C68</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 BYTE</dataTypeSize>
+<ownDataTypeParameters>20 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="NUMERORECIBO" id="3F771ED8-FC26-BE1E-F67F-5F0F97AB5050">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_LINEA_CAPTURA</sourceObjSchema>
+<sourceObjName>NUMERORECIBO</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>32A14E9B-7E59-22DE-60F8-B0D35B233510</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 BYTE</dataTypeSize>
+<ownDataTypeParameters>20 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="TIPOCOBRANZA" id="52E584A3-63BA-67F6-8904-3D67EB730832">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_LINEA_CAPTURA</sourceObjSchema>
+<sourceObjName>TIPOCOBRANZA</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>3689BF2F-679F-7E99-96A5-8BAC5A6BE60C</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 BYTE</dataTypeSize>
+<ownDataTypeParameters>20 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="FOLIOACUERDOCOBRANZA" id="DB7CE8C1-DA78-2311-4403-CC09343D9592">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_LINEA_CAPTURA</sourceObjSchema>
+<sourceObjName>FOLIOACUERDOCOBRANZA</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>E848813F-F887-EDE0-1287-AD91D8A65CF6</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 BYTE</dataTypeSize>
+<ownDataTypeParameters>20 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="MONTOACUERDOCOBRANZA" id="AE2904A5-8487-319F-9AAB-9D3F8F954DEB">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_LINEA_CAPTURA</sourceObjSchema>
+<sourceObjName>MONTOACUERDOCOBRANZA</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>A132CC92-4728-8F32-BE2B-B76A3C2C5FA8</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 BYTE</dataTypeSize>
+<ownDataTypeParameters>20 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="INTERESMORATORIOCONDONADO" id="078D6435-00AA-7702-AF45-48BE20F4E9CC">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_LINEA_CAPTURA</sourceObjSchema>
+<sourceObjName>INTERESMORATORIOCONDONADO</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>6DCDFBF2-C39F-0C6C-8A99-94A0FCB98AD4</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 BYTE</dataTypeSize>
+<ownDataTypeParameters>20 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ORDINARIOCONDONADO" id="663676DA-D73A-AA8F-60B5-3B48B11F5EA5">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_LINEA_CAPTURA</sourceObjSchema>
+<sourceObjName>ORDINARIOCONDONADO</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>252FDDA5-1EDE-D21E-5EAB-19904ED0F468</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 BYTE</dataTypeSize>
+<ownDataTypeParameters>20 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CAPITALRENTACONDONADA" id="F832C97A-F114-9A49-1EDA-3D772F930D42">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_LINEA_CAPTURA</sourceObjSchema>
+<sourceObjName>CAPITALRENTACONDONADA</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>E335EF18-5F78-940B-A0B2-A75ADF6098B5</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 BYTE</dataTypeSize>
+<ownDataTypeParameters>20 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="CDE431E5-D760-7165-D0F4-C97A7BC5BAEC" schemaObject="DFEC3635-A5A9-4120-486F-CF69B55F3572" name="XXFR_LINEA_CAPTURA_PK">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>INGRESOS</sourceObjSchema>
+<sourceObjName>SYS_C0016066</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>A0FE4D8B-A459-D6C6-ED9D-EF21F682E30F</importedID>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="DD2C976E-AE7D-71FC-E3EE-4C163D862216"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

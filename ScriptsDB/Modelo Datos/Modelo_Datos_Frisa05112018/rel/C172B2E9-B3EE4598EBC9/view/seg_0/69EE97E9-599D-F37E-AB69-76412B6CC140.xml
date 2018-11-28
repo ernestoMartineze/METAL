@@ -1,0 +1,79 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableView class="oracle.dbtools.crest.model.design.relational.TableView" directorySegmentName="seg_0" id="69EE97E9-599D-F37E-AB69-76412B6CC140" schemaObject="DFEC3635-A5A9-4120-486F-CF69B55F3572" name="XXFRV_LC_FACTURA">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>INGRESOS</sourceObjSchema>
+<sourceObjName>XXFRV_LC_FACTURA</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>C1811896-C0C8-C24C-F2F8-A0D551E9098A</importedID>
+<userDefined>true</userDefined>
+<userDefinedSQL>CREATE OR REPLACE VIEW XXFRV_LC_FACTURA&lt;br/&gt;AS &lt;br/&gt;SELECT idbatch, idfacturaprimavera&lt;br/&gt;,XXFR_INGRESOS_LC.XXFR_GENERARLC(  (DIVISIONTYPE) ,  PROJECTID,   CONTRACTNUMBER,   &apos;CODSEQING&apos;,&lt;br/&gt;            min (BANKNAME), XXFR_INGRESOS_LC.fechaLC (min( fc.idbatch), CONTRACTNUMBER, (DIVISIONTYPE) ,  grouptype, (PROJECTID)),&lt;br/&gt;            XXFR_INGRESOS_LC.totalLC (min( fc.idbatch), CONTRACTNUMBER, (DIVISIONTYPE) ,  grouptype, (PROJECTID))&lt;br/&gt;            , XXFR_INGRESOS_LC.referenciaLC (min( fc.idbatch), CONTRACTNUMBER, (DIVISIONTYPE) ,  grouptype, (PROJECTID)))&lt;br/&gt; LC_Calculada, max (fc.idLineaCaptura) idLineaCaptura&lt;br/&gt; , max(rownum) numRegistro&lt;br/&gt;    FROM ingresos.xxfr_cabecera_factura fc&lt;br/&gt;    WHERE idlineacaptura is null&lt;br/&gt;    AND tipocobranza                    = &apos;LINEA CAPTURA&apos;&lt;br/&gt;    AND transactiontype                 = &apos;FAC_INGRESOS_MN&apos;&lt;br/&gt;    group by idbatch,contractnumber,grouptype, DIVISIONTYPE, PROJECTID, idfacturaprimavera</userDefinedSQL>
+<viewElements>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="IDBATCH" id="FD490453-DC1A-CFEA-11FC-2DBFB39A78CD">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<alias>IDBATCH</alias>
+<dataType>VARCHAR2 (20 BYTE)</dataType>
+<headerAlias>IDBATCH</headerAlias>
+<reference>false</reference>
+<referencedColumn>018C9F8D-9F3C-D7D1-2734-63D4F76D7B25</referencedColumn>
+<viewID>69EE97E9-599D-F37E-AB69-76412B6CC140</viewID>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="IDFACTURAPRIMAVERA" id="354C0F1A-4193-EE39-5D17-445EF073A93C">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<alias>IDFACTURAPRIMAVERA</alias>
+<dataType>VARCHAR2 (20 BYTE)</dataType>
+<headerAlias>IDFACTURAPRIMAVERA</headerAlias>
+<reference>false</reference>
+<referencedColumn>75029358-409F-705C-3DE9-4AEC5F96BBBE</referencedColumn>
+<viewID>69EE97E9-599D-F37E-AB69-76412B6CC140</viewID>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="LC_CALCULADA" id="47683882-7898-BCB5-08BE-1BDA04EB0598">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<alias>LC_CALCULADA</alias>
+<dataType>VARCHAR2 (20 BYTE)</dataType>
+<headerAlias>LC_CALCULADA</headerAlias>
+<reference>false</reference>
+<referencedColumn>A0F59E0C-D8E9-D86C-9A66-CAF2F4F08DB6</referencedColumn>
+<viewID>69EE97E9-599D-F37E-AB69-76412B6CC140</viewID>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="IDLINEACAPTURA" id="80DCF84E-51FB-CBFF-E40B-EC8F905AC6DB">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<alias>IDLINEACAPTURA</alias>
+<dataType>VARCHAR2 (20 BYTE)</dataType>
+<headerAlias>IDLINEACAPTURA</headerAlias>
+<reference>false</reference>
+<referencedColumn>EC2372C9-2C6B-09B8-99C7-BDB14BFF071D</referencedColumn>
+<viewID>69EE97E9-599D-F37E-AB69-76412B6CC140</viewID>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="NUMREGISTRO" id="CDD6F4FA-C9EC-F9C5-5CE1-B4AAD0C7947E">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<alias>NUMREGISTRO</alias>
+<dataType>VARCHAR2 (20 BYTE)</dataType>
+<headerAlias>NUMREGISTRO</headerAlias>
+<reference>false</reference>
+<referencedColumn>283BDDC5-BC94-3A5B-1A08-5434269DAC55</referencedColumn>
+<viewID>69EE97E9-599D-F37E-AB69-76412B6CC140</viewID>
+</viewElement>
+</viewElements>
+</TableView>

@@ -1,0 +1,10 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<UserOraclev10g class="oracle.dbtools.crest.model.design.storage.oracle.v10g.UserOraclev10g" name="INGRESOS" directorySegmentName="seg_0" id="B49CDF25-C9F3-EDEF-C941-F4C9279E8404">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjName>INGRESOS</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:35:44 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<schemaObject>DFEC3635-A5A9-4120-486F-CF69B55F3572</schemaObject>
+<privileges>CREATE TRIGGER, CREATE PROCEDURE, ALTER SESSION, CREATE DATABASE LINK, CREATE TYPE, CREATE VIEW, CREATE ROLE, UNLIMITED TABLESPACE, CREATE SYNONYM, CREATE SESSION, CREATE MATERIALIZED VIEW, CREATE SEQUENCE, CREATE PUBLIC SYNONYM, CREATE TABLE</privileges>
+</UserOraclev10g>

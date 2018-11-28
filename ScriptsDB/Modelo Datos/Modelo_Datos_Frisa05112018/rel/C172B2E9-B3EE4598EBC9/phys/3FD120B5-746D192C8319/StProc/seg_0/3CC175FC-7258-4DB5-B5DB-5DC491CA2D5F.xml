@@ -1,0 +1,11 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<StoredProcedureOraclev10g class="oracle.dbtools.crest.model.design.storage.oracle.v10g.StoredProcedureOraclev10g" name="XXFR_INGRESOS_GENERAR_LC" directorySegmentName="seg_0" id="3CC175FC-7258-4DB5-B5DB-5DC491CA2D5F">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>INGRESOS</sourceObjSchema>
+<sourceObjName>XXFR_INGRESOS_GENERAR_LC</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:27 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<owner>B49CDF25-C9F3-EDEF-C941-F4C9279E8404</owner>
+<source>CREATE OR REPLACE PROCEDURE INGRESOS.XXFR_INGRESOS_GENERAR_LC &lt;br/&gt;(&lt;br/&gt;  IDBATCH IN VARCHAR2  &lt;br/&gt;, CODIGOSERVICIO OUT NUMBER  &lt;br/&gt;) AS &lt;br/&gt;BEGIN&lt;br/&gt;  NULL;&lt;br/&gt;END XXFR_INGRESOS_GENERAR_LC;</source>
+</StoredProcedureOraclev10g>

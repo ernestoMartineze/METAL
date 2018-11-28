@@ -1,0 +1,7 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableViewProxyOraclev10g class="oracle.dbtools.crest.model.design.storage.oracle.v10g.TableViewProxyOraclev10g" name="XXFR_CONSULTA_LC_FAC_DET" directorySegmentName="seg_0" id="BEA52792-86D0-0FAC-8A0B-36DE242BAC5E">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:35:45 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<schemaObject>DFEC3635-A5A9-4120-486F-CF69B55F3572</schemaObject>
+</TableViewProxyOraclev10g>

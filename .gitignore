@@ -21,3 +21,16 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+/frisa-servicios/frisa-servicios-ejb/target/
+/frisa-servicios/frisa-servicios-web/target/
+/frisa-servicios/frisa-servicios-ear/target/
+frisa-servicios/frisa-servicios-ear/nb-configuration.xml
+frisa-servicios/frisa-servicios-ejb/src/main/setup/datasource-1-jdbc.xml
+ModeloFrisa/target/maven-archiver/pom.properties
+ModeloFrisa/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
+ModeloFrisa/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
+ModeloFrisa/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst
+ModeloFrisa/target/maven-archiver/pom.properties
+ModeloFrisa/target/maven-archiver/pom.properties
+frisa-servicios/frisa-servicios-ear/nb-configuration.xml
+ModeloFrisa/target/maven-archiver/pom.properties

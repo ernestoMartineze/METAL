@@ -33,6 +33,8 @@ public class GestorFacturasBean implements GestorFacturas{
             parametros.add(new CatalogoParametroDTO("idlineacaptura",facturaERp,"CADENA"));
             lcFacturas = lcFacturaDAO.consultaQueryByParameters("XxfrvConsultaLcFactura.findByIdlineacaptura",parametros);
         }
+
+
         for (XxfrvConsultaLcFactura lcFacturaRespuesta : lcFacturas) {
             LCFacturaDTO lcFacturaDTO = new LCFacturaDTO();
             lcFacturaDTO.setBilltoconsumername(lcFacturaRespuesta.getBilltoconsumername());

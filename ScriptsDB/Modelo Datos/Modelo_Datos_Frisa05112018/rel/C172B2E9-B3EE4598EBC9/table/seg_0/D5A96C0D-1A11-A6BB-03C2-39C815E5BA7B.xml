@@ -1,0 +1,115 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="D5A96C0D-1A11-A6BB-03C2-39C815E5BA7B" schemaObject="DFEC3635-A5A9-4120-486F-CF69B55F3572" name="XXFRT_HISTORICO_FAC_BATCH">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>INGRESOS</sourceObjSchema>
+<sourceObjName>XXFRT_HISTORICO_FAC_BATCH</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>E9924AAB-DC12-CA00-6ED2-CC4149121CB4</importedID>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="IDFACBATCH" id="D994BA6A-92B1-6A9B-6E46-0E6D54D4B90A">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFRT_HISTORICO_FAC_BATCH</sourceObjSchema>
+<sourceObjName>IDFACBATCH</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<commentInRDBMS>Identificador secuencial de la relacion</commentInRDBMS>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>5CF5BD78-3494-149B-D4AC-28AA8C593708</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementColumn>true</autoIncrementColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<autoIncrementSequenceName>XXFRT_HISTORICO_FAC_BATCH_SEQ</autoIncrementSequenceName>
+<autoIncrementTriggerName>XXFRT_HISTORICO_FAC_BATCH_TRG</autoIncrementTriggerName>
+</Column>
+<Column name="IDFACTURA" id="5A0E5174-10D2-9696-7253-982FE468B795">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFRT_HISTORICO_FAC_BATCH</sourceObjSchema>
+<sourceObjName>IDFACTURA</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<commentInRDBMS>identificador de la factura primavera</commentInRDBMS>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>9B4873F0-855C-784E-5AF3-AFFCF9DD1AF9</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="IDBATCH" id="E349FB69-AD48-D54C-5F2D-4D7EC2B54F6E">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFRT_HISTORICO_FAC_BATCH</sourceObjSchema>
+<sourceObjName>IDBATCH</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<commentInRDBMS>identificador del lote de facturas anterios</commentInRDBMS>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>3EE5BB03-E65D-2C9F-E4B6-C63317EF9E27</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="FECHAREGISTRO" id="12B630BD-414C-D87E-7591-8D8950CCEB6D">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFRT_HISTORICO_FAC_BATCH</sourceObjSchema>
+<sourceObjName>FECHAREGISTRO</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<commentInRDBMS>Fecha de registro de la relacion</commentInRDBMS>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>7384D689-54C3-B512-A2C0-D966BED1E88C</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<dataTypeSize>7</dataTypeSize>
+<defaultValue>current_date</defaultValue>
+<ownDataTypeParameters>7,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="IDBATCHACTUAL" id="C5894F58-9859-83C9-0654-462D8B0E3D9D">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFRT_HISTORICO_FAC_BATCH</sourceObjSchema>
+<sourceObjName>IDBATCHACTUAL</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<commentInRDBMS>Id del Batch actual de la factura</commentInRDBMS>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>48D7ABC9-9280-8550-5587-00BF82C98F7D</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="AC82A50E-C627-D2DC-0DC6-5E267C5D8B51" schemaObject="DFEC3635-A5A9-4120-486F-CF69B55F3572" name="XXFRT_HISTORICO_FAC_BATCH_PK">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>INGRESOS</sourceObjSchema>
+<sourceObjName>SYS_C0016221</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>4B0982C3-C106-8751-4379-5440593B5B54</importedID>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="5A0E5174-10D2-9696-7253-982FE468B795"/>
+<colUsage columnID="E349FB69-AD48-D54C-5F2D-4D7EC2B54F6E"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

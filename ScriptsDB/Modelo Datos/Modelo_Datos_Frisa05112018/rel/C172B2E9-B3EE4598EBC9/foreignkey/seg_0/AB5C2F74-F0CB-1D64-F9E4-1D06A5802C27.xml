@@ -1,0 +1,20 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="AB5C2F74-F0CB-1D64-F9E4-1D06A5802C27" containerWithKeyObject="814FFE2B-1054-837A-7FB9-0C059A323087" localFKIndex="5FF8D4C4-A157-BA57-051F-789AB6B4B598" name="FK_IDFACPRI_IDFACPRI">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>INGRESOS</sourceObjSchema>
+<sourceObjName>FK_IDFACPRI_IDFACPRI</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>A453138B-A3C5-485E-20CA-8087D172E000</importedID>
+<referredTableLongName>INGRESOS.XXFR_CABECERA_FACTURA</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>4C940E22-A829-5395-1E92-45F1F6ED0841</referredTableID>
+<keyObject>A6A18983-CC51-0C78-C7B7-6E9179AAC784</keyObject>
+<referredKeyID>A6A18983-CC51-0C78-C7B7-6E9179AAC784</referredKeyID>
+<mandatory>false</mandatory>
+<refColNames>IDFACTURAPRIMAVERA</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>
