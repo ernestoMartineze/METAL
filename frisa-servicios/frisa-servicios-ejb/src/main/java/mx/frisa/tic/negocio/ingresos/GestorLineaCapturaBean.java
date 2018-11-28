@@ -10,10 +10,13 @@ import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import mx.frisa.tic.datos.comun.DAO;
 import mx.frisa.tic.datos.comun.ProcedimientoAlmacendo;
+import mx.frisa.tic.datos.dto.CONSTANTE;
 import mx.frisa.tic.datos.dto.comun.CatalogoParametroDTO;
 import mx.frisa.tic.datos.dto.ingresos.DetalleLCPagosDTO;
 import mx.frisa.tic.datos.dto.ingresos.DetalleLineaCapturaDTO;
+import mx.frisa.tic.datos.dto.ingresos.LCFactDetDTO;
 import mx.frisa.tic.datos.dto.ingresos.LineaCapturaDTO;
+import mx.frisa.tic.datos.entidades.XxfrConsultaLcFacDet;
 import mx.frisa.tic.datos.entidades.XxfrLineaCaptura;
 import mx.frisa.tic.datos.entidades.XxfrvConsultaLc;
 import mx.frisa.tic.datos.entidades.XxfrvConsultaLcPagos;
@@ -74,32 +77,28 @@ public class GestorLineaCapturaBean implements GestorLineaCaptura {
             detalleLineasCaptura = DetalleLineaCapturaDAO.consultaQueryNamed("XxfrvConsultaLc.findAll");
         }else{
             StringBuilder lcQuery=new StringBuilder("SELECT x FROM XxfrvConsultaLc x ");
-            List<CatalogoParametroDTO> parametros=new ArrayList<>();
             String clausula="WHERE";
             if(detalleLineaCaptura.getLineacaptura() != null && !detalleLineaCaptura.getLineacaptura().equals("")){
-                lcQuery.append(clausula).append(" x.lineacaptura like '%"+detalleLineaCaptura.getLineacaptura()+"%' ");
+                lcQuery.append(clausula).append(" x.lineacaptura like '%").append(detalleLineaCaptura.getLineacaptura()).append("%' ");
                 clausula="AND";
             }
             if(detalleLineaCaptura.getReferencia() != null && !detalleLineaCaptura.getReferencia().equals("")){
-                lcQuery.append(clausula).append(" x.referencia like '%"+detalleLineaCaptura.getReferencia()+"%' ");
+                lcQuery.append(clausula).append(" x.referencia like '%").append(detalleLineaCaptura.getReferencia()).append("%' ");
                 clausula="AND";
             }
             if(detalleLineaCaptura.getBanco() != null && !detalleLineaCaptura.getBanco().equals("")){
-                lcQuery.append(clausula).append(" x.banco like '%"+detalleLineaCaptura.getBanco()+"%' ");
+                lcQuery.append(clausula).append(" x.banco like '%").append(detalleLineaCaptura.getBanco()).append("%' ");
                 clausula="AND";
             }
             if(detalleLineaCaptura.getEntidadlegal()!= null && !detalleLineaCaptura.getEntidadlegal().equals("")){
-                lcQuery.append(clausula).append(" x.entidadlegal like '%"+detalleLineaCaptura.getEntidadlegal()+"%' ");
+                lcQuery.append(clausula).append(" x.entidadlegal like '%").append(detalleLineaCaptura.getEntidadlegal()).append("%' ");
                 clausula="AND";
             }
             if(detalleLineaCaptura.getUnidadnegocio() != null && !detalleLineaCaptura.getUnidadnegocio().equals("")){
-                lcQuery.append(clausula).append(" x.unidadnegocio like '%"+detalleLineaCaptura.getUnidadnegocio()+"%' ");
-                clausula="AND";
+                lcQuery.append(clausula).append(" x.unidadnegocio like '%").append(detalleLineaCaptura.getUnidadnegocio()).append("%' ");
             }
             detalleLineasCaptura = DetalleLineaCapturaDAO.consultaQueryNativo(lcQuery.toString());
-//            parametros.add(new CatalogoParametroDTO(":lc",detalleLineaCaptura.getLineacaptura(),"CADENA | NUMERO"));
-            
-            
+//            parametros.add(new CatalogoParametroDTO(":lc",detalleLineaCaptura.getLineacaptura(),"CADENA | NUMERO"));            
         }
 
         for (XxfrvConsultaLc detalleLineaCapturaRespuesta : detalleLineasCaptura) {
@@ -134,14 +133,16 @@ public class GestorLineaCapturaBean implements GestorLineaCaptura {
 
     /**
      *
-     * @param detalleLCPagos
+     * @param lineaCaptura
      * @return
      */
     @Override
-    public List<DetalleLCPagosDTO> consultarLCPagos(DetalleLCPagosDTO detalleLCPagos) {
+    public List<DetalleLCPagosDTO> consultarLCPagos(String facturaERP) {
         DAO<XxfrvConsultaLcPagos> lcPagosDAO = new DAO(XxfrvConsultaLcPagos.class);
         List<DetalleLCPagosDTO> lcPagosDTO = new ArrayList<>();
-        List<XxfrvConsultaLcPagos> lcPagos = lcPagosDAO.consultaQueryNamed("XxfrvConsultaLcPagos.findAll");
+        List<CatalogoParametroDTO> parametros= new ArrayList<>();
+        parametros.add(new CatalogoParametroDTO("idfacturaerp",facturaERP,CONSTANTE.NUMERO));
+        List<XxfrvConsultaLcPagos> lcPagos = lcPagosDAO.consultaQueryByParameters("XxfrvConsultaLcPagos.findByIdfacturaerp",parametros);
         for (XxfrvConsultaLcPagos lcPagosRespuesta : lcPagos) {
             DetalleLCPagosDTO lcPagosDto = new DetalleLCPagosDTO();
             lcPagosDto.setFechaaplicacion(lcPagosRespuesta.getFechaaplicacion());
@@ -149,11 +150,71 @@ public class GestorLineaCapturaBean implements GestorLineaCaptura {
             lcPagosDto.setFechatransaccion(lcPagosRespuesta.getFechatransaccion());
             lcPagosDto.setIdlineacaptura(lcPagosRespuesta.getIdlineacaptura());
             lcPagosDto.setIdpago(lcPagosRespuesta.getIdpago());
+            lcPagosDto.setIdfacturaerp(lcPagosRespuesta.getIdfacturaerp());
             lcPagosDto.setMontopagado(lcPagosRespuesta.getMontopagado());
             lcPagosDto.setNorecibo(lcPagosRespuesta.getNorecibo());
             //Agregar los valores necesarios requeridos....
             lcPagosDTO.add(lcPagosDto);
         }
         return lcPagosDTO;
+    }
+
+    /**
+     *
+     * @param lineaCaptura
+     * @return
+     */
+    @Override
+    public List<LCFactDetDTO> consultarLCFactDet(LCFactDetDTO lcFactDetalle) {
+        DAO<XxfrConsultaLcFacDet> LcFacDetDAO = new DAO(XxfrConsultaLcFacDet.class);
+        List<LCFactDetDTO> lcFactsDetDTO = new ArrayList<>();
+        List<XxfrConsultaLcFacDet> detallesLCFactDet =new ArrayList<>();
+        if(lcFactDetalle!=null){
+            StringBuilder lcQuery=new StringBuilder("SELECT x FROM XxfrConsultaLcFacDet x ");
+            String clausula="WHERE";
+            if(lcFactDetalle.getBilltoconsumername()!= null && !lcFactDetalle.getBilltoconsumername().equals("")){
+                lcQuery.append(clausula).append(" x.billtoconsumername like '%").append(lcFactDetalle.getBilltoconsumername()).append("%' ");
+                clausula="AND";
+            }
+            if(lcFactDetalle.getCompanyaccountcode() != null && !lcFactDetalle.getCompanyaccountcode().equals("")){
+                lcQuery.append(clausula).append(" x.companyaccountcode like '%").append(lcFactDetalle.getCompanyaccountcode()).append("%' ");
+                clausula="AND";
+            }
+            if(lcFactDetalle.getProjectid() != null && !lcFactDetalle.getProjectid().equals("")){
+                lcQuery.append(clausula).append(" x.projectid like '%").append(lcFactDetalle.getProjectid()).append("%' ");
+                clausula="AND";
+            }
+            if(lcFactDetalle.getEntidadlegal()!= null && !lcFactDetalle.getEntidadlegal().equals("")){
+                lcQuery.append(clausula).append(" x.entidadlegal like '%").append(lcFactDetalle.getEntidadlegal()).append("%' ");
+                clausula="AND";
+            }
+            if(lcFactDetalle.getBusinessunitname() != null && !lcFactDetalle.getBusinessunitname().equals("")){
+                lcQuery.append(clausula).append(" x.businessunitname like '%").append(lcFactDetalle.getBusinessunitname()).append("%' ");
+            }
+            detallesLCFactDet = LcFacDetDAO.consultaQueryNativo(lcQuery.toString());
+//            parametros.add(new CatalogoParametroDTO(":lc",detalleLineaCaptura.getLineacaptura(),"CADENA | NUMERO"));            
+        }
+
+        for (XxfrConsultaLcFacDet detalleLcFac : detallesLCFactDet) {
+            LCFactDetDTO lcFactDetDTO = new LCFactDetDTO();
+            lcFactDetDTO.setBilltoconsumername(detalleLcFac.getBilltoconsumername());
+            lcFactDetDTO.setBusinessunitname(detalleLcFac.getBusinessunitname());
+            lcFactDetDTO.setCompanyaccountcode(detalleLcFac.getCompanyaccountcode());
+            lcFactDetDTO.setEntidadlegal(detalleLcFac.getEntidadlegal());
+            lcFactDetDTO.setFechavigencia(detalleLcFac.getFechavigencia());
+            lcFactDetDTO.setIdfacturaprimavera(detalleLcFac.getIdfacturaprimavera());
+            lcFactDetDTO.setImpuestos(detalleLcFac.getImpuestos());
+            lcFactDetDTO.setLineacaptura(detalleLcFac.getLineacaptura());
+            lcFactDetDTO.setMontoFactura(detalleLcFac.getMontoFactura());
+            lcFactDetDTO.setMontoLineacaptura(detalleLcFac.getMontoLineacaptura());
+            lcFactDetDTO.setMontoPagado(detalleLcFac.getMontoPagado());
+            lcFactDetDTO.setPaymenttermdate(detalleLcFac.getPaymenttermdate());
+            lcFactDetDTO.setProjectid(detalleLcFac.getProjectid());
+            lcFactDetDTO.setRelatederpinvoice(detalleLcFac.getRelatederpinvoice());
+            //Agregar los valores necesarios requeridos....
+            lcFactsDetDTO.add(lcFactDetDTO);
+        }
+        
+        return lcFactsDetDTO;
     }
 }

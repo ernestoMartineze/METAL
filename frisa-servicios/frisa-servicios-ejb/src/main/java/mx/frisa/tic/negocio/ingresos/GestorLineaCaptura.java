@@ -9,6 +9,7 @@ import java.util.List;
 import javax.ejb.Local;
 import mx.frisa.tic.datos.dto.ingresos.DetalleLCPagosDTO;
 import mx.frisa.tic.datos.dto.ingresos.DetalleLineaCapturaDTO;
+import mx.frisa.tic.datos.dto.ingresos.LCFactDetDTO;
 import mx.frisa.tic.datos.dto.ingresos.LineaCapturaDTO;
 
 /**
@@ -41,8 +42,15 @@ public interface GestorLineaCaptura {
     
     /**
      *
-     * @param detalleLCPagos
+     * @param facturaERP
      * @return
      */
-    public List<DetalleLCPagosDTO> consultarLCPagos(DetalleLCPagosDTO detalleLCPagos);
+    public List<DetalleLCPagosDTO> consultarLCPagos(String facturaERP);
+    
+    /**
+     *
+     * @param lcFactDetalle
+     * @return
+     */
+    public List<LCFactDetDTO> consultarLCFactDet(LCFactDetDTO lcFactDetalle);
 }

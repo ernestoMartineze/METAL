@@ -10,6 +10,7 @@
     <class>mx.frisa.tic.datos.entidades.XxfrvConsultaLc</class>
     <class>mx.frisa.tic.datos.entidades.XxfrvConsultaLcFactura</class>
     <class>mx.frisa.tic.datos.entidades.XxfrvConsultaLcPagos</class>
+    <class>mx.frisa.tic.datos.entidades.XxfrConsultaLcFacDet</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
     </properties>

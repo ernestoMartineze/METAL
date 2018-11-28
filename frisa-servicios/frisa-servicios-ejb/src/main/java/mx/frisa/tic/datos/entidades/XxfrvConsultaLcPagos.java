@@ -7,6 +7,7 @@ package mx.frisa.tic.datos.entidades;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -35,16 +36,20 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "XxfrvConsultaLcPagos.findByFecharecibo", query = "SELECT x FROM XxfrvConsultaLcPagos x WHERE x.fecharecibo = :fecharecibo")
     , @NamedQuery(name = "XxfrvConsultaLcPagos.findByFechaaplicacion", query = "SELECT x FROM XxfrvConsultaLcPagos x WHERE x.fechaaplicacion = :fechaaplicacion")
     , @NamedQuery(name = "XxfrvConsultaLcPagos.findByFechatransaccion", query = "SELECT x FROM XxfrvConsultaLcPagos x WHERE x.fechatransaccion = :fechatransaccion")
-    , @NamedQuery(name = "XxfrvConsultaLcPagos.findByMontopagado", query = "SELECT x FROM XxfrvConsultaLcPagos x WHERE x.montopagado = :montopagado")})
+    , @NamedQuery(name = "XxfrvConsultaLcPagos.findByMontopagado", query = "SELECT x FROM XxfrvConsultaLcPagos x WHERE x.montopagado = :montopagado")
+    ,@NamedQuery(name = "XxfrvConsultaLcPagos.findByIdfacturaerp", query = "SELECT x FROM XxfrvConsultaLcPagos x WHERE x.idfacturaerp = :idfacturaerp")})
 public class XxfrvConsultaLcPagos implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Id
     @Basic(optional = false)
     @NotNull
     @Column(name = "IDPAGO")
-    private BigDecimal idpago;
+    @Id
+    private BigInteger idpago;
+    @Column(name = "IDPAGOERP")
+    private BigInteger idpagoerp;
+    @Column(name = "IDFACTURAERP")
+    private BigInteger idfacturaerp;
     @Column(name = "IDLINEACAPTURA")
     private Long idlineacaptura;
     @Column(name = "NORECIBO")
@@ -64,17 +69,10 @@ public class XxfrvConsultaLcPagos implements Serializable {
     public XxfrvConsultaLcPagos() {
     }
 
-    public XxfrvConsultaLcPagos(BigDecimal idpago) {
+    public XxfrvConsultaLcPagos(BigInteger idpago) {
         this.idpago = idpago;
     }
 
-    public BigDecimal getIdpago() {
-        return idpago;
-    }
-
-    public void setIdpago(BigDecimal idpago) {
-        this.idpago = idpago;
-    }
 
     public Long getIdlineacaptura() {
         return idlineacaptura;
@@ -147,6 +145,30 @@ public class XxfrvConsultaLcPagos implements Serializable {
     @Override
     public String toString() {
         return "mx.frisa.tic.datos.entidades.XxfrvConsultaLcPagos[ idpago=" + idpago + " ]";
+    }
+
+    public BigInteger getIdpago() {
+        return idpago;
+    }
+
+    public void setIdpago(BigInteger idpago) {
+        this.idpago = idpago;
+    }
+
+    public BigInteger getIdpagoerp() {
+        return idpagoerp;
+    }
+
+    public void setIdpagoerp(BigInteger idpagoerp) {
+        this.idpagoerp = idpagoerp;
+    }
+
+    public BigInteger getIdfacturaerp() {
+        return idfacturaerp;
+    }
+
+    public void setIdfacturaerp(BigInteger idfacturaerp) {
+        this.idfacturaerp = idfacturaerp;
     }
     
 }

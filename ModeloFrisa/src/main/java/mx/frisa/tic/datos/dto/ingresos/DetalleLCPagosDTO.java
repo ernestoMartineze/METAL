@@ -6,6 +6,7 @@
 package mx.frisa.tic.datos.dto.ingresos;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Date;
 
 /**
@@ -15,7 +16,8 @@ import java.util.Date;
 public class DetalleLCPagosDTO {
     
     
-    private BigDecimal idpago;
+    private BigInteger idpago;
+    private BigInteger idfacturaerp;
     private Long idlineacaptura;
     private Long norecibo;
     private Date fecharecibo;
@@ -23,12 +25,20 @@ public class DetalleLCPagosDTO {
     private Date fechatransaccion;
     private BigDecimal montopagado;
 
-    public BigDecimal getIdpago() {
+    public BigInteger getIdpago() {
         return idpago;
     }
 
-    public void setIdpago(BigDecimal idpago) {
+    public void setIdpago(BigInteger idpago) {
         this.idpago = idpago;
+    }
+
+    public BigInteger getIdfacturaerp() {
+        return idfacturaerp;
+    }
+
+    public void setIdfacturaerp(BigInteger idfacturaerp) {
+        this.idfacturaerp = idfacturaerp;
     }
 
     public Long getIdlineacaptura() {
