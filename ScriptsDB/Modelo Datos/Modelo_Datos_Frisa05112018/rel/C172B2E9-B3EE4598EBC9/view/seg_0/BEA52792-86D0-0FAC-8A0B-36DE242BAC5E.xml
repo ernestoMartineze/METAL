@@ -1,0 +1,196 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableView class="oracle.dbtools.crest.model.design.relational.TableView" directorySegmentName="seg_0" id="BEA52792-86D0-0FAC-8A0B-36DE242BAC5E" schemaObject="DFEC3635-A5A9-4120-486F-CF69B55F3572" name="XXFR_CONSULTA_LC_FAC_DET">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>INGRESOS</sourceObjSchema>
+<sourceObjName>XXFR_CONSULTA_LC_FAC_DET</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>29D5C8DA-A602-A069-8294-29DE0E27001C</importedID>
+<userDefined>true</userDefined>
+<userDefinedSQL>CREATE OR REPLACE VIEW XXFR_CONSULTA_LC_FAC_DET&lt;br/&gt;AS &lt;br/&gt;SELECT &lt;br/&gt;LC.lineacaptura,&lt;br/&gt;LC.fechavigencia,&lt;br/&gt;LC.entidadlegal,&lt;br/&gt;C.idfacturaprimavera,&lt;br/&gt;C.relatederpinvoice,&lt;br/&gt;C.billtoconsumername,&lt;br/&gt;C.companyaccountcode,&lt;br/&gt;C.paymenttermdate,&lt;br/&gt;C.projectid,&lt;br/&gt;C.businessunitname, &lt;br/&gt;LC.montolineacaptura AS MONTO_LINEACAPTURA,&lt;br/&gt;C.TOTALAMOUNT AS MONTO_FACTURA,&lt;br/&gt;SUM(L.montonetolinea)-SUM(L.montobrutolinea) AS IMPUESTOS, &lt;br/&gt;C.TOTALAMOUNT AS MONTO_PAGADO &lt;br/&gt;FROM &lt;br/&gt;XXFR_CABECERA_FACTURA C &lt;br/&gt;JOIN XXFR_LINEA_CAPTURA LC &lt;br/&gt;ON C.idlineacaptura = LC.idlineacaptura &lt;br/&gt;JOIN XXFR_INVOICE_LINES L &lt;br/&gt;ON L.idfacturaprimavera = C.idfacturaprimavera &lt;br/&gt;GROUP BY L.idfacturaprimavera, LC.lineacaptura, LC.fechavigencia, LC.entidadlegal, C.idfacturaprimavera, &lt;br/&gt;C.relatederpinvoice, C.billtoconsumername, C.companyaccountcode, C.paymenttermdate, C.projectid, &lt;br/&gt;C.businessunitname, LC.montolineacaptura, C.TOTALAMOUNT</userDefinedSQL>
+<viewElements>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="LINEACAPTURA" id="EC8AB5B7-8DFB-4BA1-56D7-F32395216D77">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<alias>LINEACAPTURA</alias>
+<dataType>NUMBER (20,2)</dataType>
+<headerAlias>LINEACAPTURA</headerAlias>
+<reference>false</reference>
+<referencedColumn>0AFA0E5D-4A92-D992-EE8E-E0656B94F6C2</referencedColumn>
+<viewID>BEA52792-86D0-0FAC-8A0B-36DE242BAC5E</viewID>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="FECHAVIGENCIA" id="30FFB072-95E0-8802-ACCC-62F7772AACD0">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<alias>FECHAVIGENCIA</alias>
+<dataType>NUMBER (20,2)</dataType>
+<headerAlias>FECHAVIGENCIA</headerAlias>
+<reference>false</reference>
+<referencedColumn>DBD04DD4-3FB6-ECC2-05F9-EAB16DA54AEE</referencedColumn>
+<viewID>BEA52792-86D0-0FAC-8A0B-36DE242BAC5E</viewID>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="ENTIDADLEGAL" id="CED640F1-C75E-BB7F-B5A0-37B2936DEB12">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<alias>ENTIDADLEGAL</alias>
+<dataType>VARCHAR2 (20 BYTE)</dataType>
+<headerAlias>ENTIDADLEGAL</headerAlias>
+<reference>false</reference>
+<referencedColumn>A0F59E0C-D8E9-D86C-9A66-CAF2F4F08DB6</referencedColumn>
+<viewID>BEA52792-86D0-0FAC-8A0B-36DE242BAC5E</viewID>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="IDFACTURAPRIMAVERA" id="8A263B4A-C717-DD86-4D26-53B943F389EE">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<alias>IDFACTURAPRIMAVERA</alias>
+<dataType>NUMBER</dataType>
+<headerAlias>IDFACTURAPRIMAVERA</headerAlias>
+<reference>false</reference>
+<referencedColumn>DD2C976E-AE7D-71FC-E3EE-4C163D862216</referencedColumn>
+<viewID>BEA52792-86D0-0FAC-8A0B-36DE242BAC5E</viewID>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="RELATEDERPINVOICE" id="E4F4444E-CBFE-4229-A580-DCBF7BF43769">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<alias>RELATEDERPINVOICE</alias>
+<dataType>NUMBER (20)</dataType>
+<headerAlias>RELATEDERPINVOICE</headerAlias>
+<reference>false</reference>
+<referencedColumn>5290AE13-B921-9D26-BD84-966A43D9AFCA</referencedColumn>
+<viewID>BEA52792-86D0-0FAC-8A0B-36DE242BAC5E</viewID>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="BILLTOCONSUMERNAME" id="3541F8C5-B3AD-B410-4243-9CF5D645D44D">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<alias>BILLTOCONSUMERNAME</alias>
+<dataType>VARCHAR2 (30 BYTE)</dataType>
+<headerAlias>BILLTOCONSUMERNAME</headerAlias>
+<reference>false</reference>
+<referencedColumn>9BA5D838-6654-7537-24B2-355F196DDD04</referencedColumn>
+<viewID>BEA52792-86D0-0FAC-8A0B-36DE242BAC5E</viewID>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="COMPANYACCOUNTCODE" id="ACC14FDC-E317-F5C2-AA68-FF1C28CEF4C4">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<alias>COMPANYACCOUNTCODE</alias>
+<dataType>DATE</dataType>
+<headerAlias>COMPANYACCOUNTCODE</headerAlias>
+<reference>false</reference>
+<referencedColumn>20EE2292-BA17-44F2-AC4E-76BCC41F02FB</referencedColumn>
+<viewID>BEA52792-86D0-0FAC-8A0B-36DE242BAC5E</viewID>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="PAYMENTTERMDATE" id="70C000B4-D749-6CB4-F4FA-2665BAAF2D14">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<alias>PAYMENTTERMDATE</alias>
+<dataType>VARCHAR2 (20 BYTE)</dataType>
+<headerAlias>PAYMENTTERMDATE</headerAlias>
+<reference>false</reference>
+<referencedColumn>F75F8184-1626-B1BA-2226-ECE8A495C85A</referencedColumn>
+<viewID>BEA52792-86D0-0FAC-8A0B-36DE242BAC5E</viewID>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="PROJECTID" id="FB550B09-C1D0-CC4A-1998-7DDB72D0FE9C">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<alias>PROJECTID</alias>
+<dataType>NUMBER (20)</dataType>
+<headerAlias>PROJECTID</headerAlias>
+<reference>false</reference>
+<referencedColumn>6233124B-0A99-1682-47C1-09AC2E89F2E7</referencedColumn>
+<viewID>BEA52792-86D0-0FAC-8A0B-36DE242BAC5E</viewID>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="BUSINESSUNITNAME" id="31BEB836-0AAC-2CD1-DD48-CB9C9E27558E">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<alias>BUSINESSUNITNAME</alias>
+<dataType>VARCHAR2 (20 BYTE)</dataType>
+<headerAlias>BUSINESSUNITNAME</headerAlias>
+<reference>false</reference>
+<referencedColumn>02A84803-5FC7-6E6B-7B21-9DC7C56C9C31</referencedColumn>
+<viewID>BEA52792-86D0-0FAC-8A0B-36DE242BAC5E</viewID>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="MONTO_LINEACAPTURA" id="0EAC884C-D9A2-0382-2D60-988037B4224A">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<alias>MONTO_LINEACAPTURA</alias>
+<dataType>VARCHAR2 (240 BYTE)</dataType>
+<headerAlias>MONTO_LINEACAPTURA</headerAlias>
+<reference>false</reference>
+<referencedColumn>D950D46F-3D72-A4EF-4582-08E7AF2FF91F</referencedColumn>
+<viewID>BEA52792-86D0-0FAC-8A0B-36DE242BAC5E</viewID>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="MONTO_FACTURA" id="C18A7254-D49F-6EB7-E0AA-91C044A211DC">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<alias>MONTO_FACTURA</alias>
+<dataType>NUMBER (10)</dataType>
+<headerAlias>MONTO_FACTURA</headerAlias>
+<reference>false</reference>
+<referencedColumn>6000E574-45FE-9D19-DB88-D3D5107F862A</referencedColumn>
+<viewID>BEA52792-86D0-0FAC-8A0B-36DE242BAC5E</viewID>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="IMPUESTOS" id="1989A143-4743-2216-D677-7B82E4495C13">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<alias>IMPUESTOS</alias>
+<dataType>VARCHAR2 (20 BYTE)</dataType>
+<headerAlias>IMPUESTOS</headerAlias>
+<reference>false</reference>
+<referencedColumn>57BCAE4E-ECD3-165E-4E37-0A42B10764B9</referencedColumn>
+<viewID>BEA52792-86D0-0FAC-8A0B-36DE242BAC5E</viewID>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="MONTO_PAGADO" id="A72946EE-4F3F-EE9B-3766-D7E4709DF309">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<alias>MONTO_PAGADO</alias>
+<dataType>NUMBER (10)</dataType>
+<headerAlias>MONTO_PAGADO</headerAlias>
+<reference>false</reference>
+<referencedColumn>1CB25D8F-B41D-B89A-0576-6F70F94875EC</referencedColumn>
+<viewID>BEA52792-86D0-0FAC-8A0B-36DE242BAC5E</viewID>
+</viewElement>
+</viewElements>
+</TableView>

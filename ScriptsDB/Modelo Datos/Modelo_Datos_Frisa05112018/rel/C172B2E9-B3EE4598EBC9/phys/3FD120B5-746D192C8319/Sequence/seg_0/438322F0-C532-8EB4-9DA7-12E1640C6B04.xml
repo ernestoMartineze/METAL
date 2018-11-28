@@ -1,0 +1,14 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<SequenceOraclev10g class="oracle.dbtools.crest.model.design.storage.oracle.v10g.SequenceOraclev10g" name="XXFRT_HISTORICO_FAC_BATCH_SEQ" directorySegmentName="seg_0" id="438322F0-C532-8EB4-9DA7-12E1640C6B04">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>INGRESOS</sourceObjSchema>
+<sourceObjName>XXFRT_HISTORICO_FAC_BATCH_SEQ</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:35:45 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<cache>20</cache>
+<incrementBy>1</incrementBy>
+<maxValue>9999999999999999999999999999</maxValue>
+<minValue>1</minValue>
+<user>B49CDF25-C9F3-EDEF-C941-F4C9279E8404</user>
+</SequenceOraclev10g>

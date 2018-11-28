@@ -1,0 +1,7 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableViewProxyOraclev10g class="oracle.dbtools.crest.model.design.storage.oracle.v10g.TableViewProxyOraclev10g" name="XXFRV_CONSULTA_LC_PAGOS" directorySegmentName="seg_0" id="3BE34F98-FAEE-EC18-E8AA-4CCC939CF82A">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:35:47 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<schemaObject>DFEC3635-A5A9-4120-486F-CF69B55F3572</schemaObject>
+</TableViewProxyOraclev10g>

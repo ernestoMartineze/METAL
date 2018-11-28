@@ -1,0 +1,13 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<OSDM_Design class="oracle.dbtools.crest.model.design.Design" name="Modelo_Datos_Frisa05112018" id="AF5CC8DD-78DA-0AB2-6F6A-4F76E88E308B" version="3.5">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:14:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<capitalNames>false</capitalNames>
+<designId>AF5CC8DD-78DA-0AB2-6F6A-4F76E88E308B</designId>
+<usedDesignStorageDescriptors>
+<designDescr class="oracle.dbtools.crest.model.design.Design$DesignStorageDesc" id="BDD72BC1-6319-2B65-1DB7-BFD1BD182D1E">
+<designStoragePath>C:\Users\USER_1\Documents\GitHub\Frisa\ScriptsDB\Modelo Datos</designStoragePath>
+</designDescr>
+</usedDesignStorageDescriptors>
+</OSDM_Design>

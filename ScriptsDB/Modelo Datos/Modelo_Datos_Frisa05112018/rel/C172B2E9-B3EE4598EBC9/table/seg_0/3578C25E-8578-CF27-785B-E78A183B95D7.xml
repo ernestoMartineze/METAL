@@ -1,0 +1,95 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="3578C25E-8578-CF27-785B-E78A183B95D7" schemaObject="DFEC3635-A5A9-4120-486F-CF69B55F3572" name="XXFXC_DIAS_FESTIVOS">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>INGRESOS</sourceObjSchema>
+<sourceObjName>XXFXC_DIAS_FESTIVOS</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>D4BC5CAD-C8D1-0BDB-2C35-CEC332FA0359</importedID>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="IDDIAFESTIVO" id="18002A9D-D5A1-99A5-CDF3-C629986DD742">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFXC_DIAS_FESTIVOS</sourceObjSchema>
+<sourceObjName>IDDIAFESTIVO</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<commentInRDBMS>Identificador de dia festivo autoincrementable</commentInRDBMS>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>01805A6B-7DE1-3C4A-3AD4-BD9A7523F91C</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementColumn>true</autoIncrementColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<autoIncrementSequenceName>XXFXC_DIAS_FESTIVOS_SEQ</autoIncrementSequenceName>
+<autoIncrementTriggerName>XXFXC_DIAS_FESTIVOS_TRG</autoIncrementTriggerName>
+</Column>
+<Column name="FECHA" id="153E437C-AB9B-04DE-461E-EAE9BD0DD46A">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFXC_DIAS_FESTIVOS</sourceObjSchema>
+<sourceObjName>FECHA</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<commentInRDBMS>Fecha a considerar como festivo</commentInRDBMS>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>FA80D85F-FD4D-B593-8709-919FC77CD459</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<dataTypeSize>7</dataTypeSize>
+<ownDataTypeParameters>7,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="IND_ACTIVO" id="D623EF05-985C-911A-7E3F-8A2A1090EA20">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFXC_DIAS_FESTIVOS</sourceObjSchema>
+<sourceObjName>IND_ACTIVO</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<commentInRDBMS>1=Activo, 0 = Inactivo</commentInRDBMS>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>255B79D0-A368-33EC-0979-D463EA179EAB</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="12E31C0F-CC10-3F09-4F3D-1CB8C22F85CA" schemaObject="DFEC3635-A5A9-4120-486F-CF69B55F3572" name="XXFXC_DIAS_FESTIVOS_PK">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>INGRESOS</sourceObjSchema>
+<sourceObjName>SYS_C0016203</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>F237B931-2499-E3F2-09D3-B46AEE617CC9</importedID>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="18002A9D-D5A1-99A5-CDF3-C629986DD742"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="403EF3C9-76F3-ADC4-F885-3D0BC4E21715" schemaObject="DFEC3635-A5A9-4120-486F-CF69B55F3572" name="XXFXC_DIAS_FESTIVOS_FECHA_UN">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>INGRESOS</sourceObjSchema>
+<sourceObjName>SYS_C0016204</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>4AE3D806-8CBE-4D72-3F8B-067129B48C6A</importedID>
+<indexState>Unique Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="153E437C-AB9B-04DE-461E-EAE9BD0DD46A"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

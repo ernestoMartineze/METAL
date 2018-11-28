@@ -1,0 +1,131 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableView class="oracle.dbtools.crest.model.design.relational.TableView" directorySegmentName="seg_0" id="3BE34F98-FAEE-EC18-E8AA-4CCC939CF82A" schemaObject="DFEC3635-A5A9-4120-486F-CF69B55F3572" name="XXFRV_CONSULTA_LC_PAGOS">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>INGRESOS</sourceObjSchema>
+<sourceObjName>XXFRV_CONSULTA_LC_PAGOS</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>7CA28CED-4B33-20AA-ACA7-27EF9B4165DA</importedID>
+<userDefined>true</userDefined>
+<userDefinedSQL>CREATE OR REPLACE VIEW XXFRV_CONSULTA_LC_PAGOS&lt;br/&gt;AS &lt;br/&gt;SELECT &lt;br/&gt;rlc.IDPAGO, &lt;br/&gt;rlc.idlineacaptura, &lt;br/&gt;rlc.IDPAGOERP,&lt;br/&gt;       rlc.norecibo, &lt;br/&gt;       rlc.fecharecibo, &lt;br/&gt;       rlc.fechaaplicacion, &lt;br/&gt;       rlc.fechatransaccion, &lt;br/&gt;       rlc.montopagado,&lt;br/&gt;       ap.IDFACTURAERP&lt;br/&gt;FROM   xxfr_recibo_linea_captura rlc, XXFR_APLICACION_RECIBO ap&lt;br/&gt;where rlc.IDPAGO = ap.IDPAGO</userDefinedSQL>
+<viewElements>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="IDPAGO" id="19740E4A-D39F-45D8-4962-163ADF39F4D0">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<alias>IDPAGO</alias>
+<dataType>NUMBER (10)</dataType>
+<headerAlias>IDPAGO</headerAlias>
+<reference>false</reference>
+<referencedColumn>F3E88767-696D-C7F3-08C1-600C233BDDB0</referencedColumn>
+<viewID>3BE34F98-FAEE-EC18-E8AA-4CCC939CF82A</viewID>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="IDLINEACAPTURA" id="455FE574-C1F4-7F13-4800-1080CCACF28E">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<alias>IDLINEACAPTURA</alias>
+<dataType>NUMBER (20)</dataType>
+<headerAlias>IDLINEACAPTURA</headerAlias>
+<reference>false</reference>
+<referencedColumn>258A80FD-F5E0-1473-3C89-313E3F5D09D2</referencedColumn>
+<viewID>3BE34F98-FAEE-EC18-E8AA-4CCC939CF82A</viewID>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="IDPAGOERP" id="E5C626BC-8899-CF52-3EF3-441DD58D9E7B">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<alias>IDPAGOERP</alias>
+<dataType>NUMBER (10)</dataType>
+<headerAlias>IDPAGOERP</headerAlias>
+<reference>false</reference>
+<referencedColumn>DDC8C344-6BDF-DE11-D0B3-57823121F360</referencedColumn>
+<viewID>3BE34F98-FAEE-EC18-E8AA-4CCC939CF82A</viewID>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="NORECIBO" id="F22E5DFF-EAA7-DA1B-BC11-71B57D2BA6F7">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<alias>NORECIBO</alias>
+<dataType>DATE</dataType>
+<headerAlias>NORECIBO</headerAlias>
+<reference>false</reference>
+<referencedColumn>088FB10E-27F4-9553-FE87-90F384CD3E77</referencedColumn>
+<viewID>3BE34F98-FAEE-EC18-E8AA-4CCC939CF82A</viewID>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="FECHARECIBO" id="F43ED2A8-2E76-1DDB-8BEB-BCD1533F26DD">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<alias>FECHARECIBO</alias>
+<dataType>DATE</dataType>
+<headerAlias>FECHARECIBO</headerAlias>
+<reference>false</reference>
+<referencedColumn>65A3E5E2-DBDE-4109-0E4E-B0B80D6C4D8A</referencedColumn>
+<viewID>3BE34F98-FAEE-EC18-E8AA-4CCC939CF82A</viewID>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="FECHAAPLICACION" id="B0A352BC-F705-9922-9584-3A7840EC9BAE">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<alias>FECHAAPLICACION</alias>
+<dataType>DATE</dataType>
+<headerAlias>FECHAAPLICACION</headerAlias>
+<reference>false</reference>
+<referencedColumn>CE2DC1AF-B4CE-A133-77C0-B606429B58E9</referencedColumn>
+<viewID>3BE34F98-FAEE-EC18-E8AA-4CCC939CF82A</viewID>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="FECHATRANSACCION" id="6E7DC659-D00C-CDF1-6090-201D6A2D5238">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<alias>FECHATRANSACCION</alias>
+<dataType>NUMBER (20,2)</dataType>
+<headerAlias>FECHATRANSACCION</headerAlias>
+<reference>false</reference>
+<referencedColumn>2CACEF7C-4A85-D510-8608-83C3814BB911</referencedColumn>
+<viewID>3BE34F98-FAEE-EC18-E8AA-4CCC939CF82A</viewID>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="MONTOPAGADO" id="2AB27B56-B0F6-2F06-B78C-F3CF788D268D">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<alias>MONTOPAGADO</alias>
+<dataType>NUMBER (20)</dataType>
+<headerAlias>MONTOPAGADO</headerAlias>
+<reference>false</reference>
+<referencedColumn>FD70AAE3-91F4-D780-0F2A-728D397C6514</referencedColumn>
+<viewID>3BE34F98-FAEE-EC18-E8AA-4CCC939CF82A</viewID>
+</viewElement>
+<viewElement class="oracle.dbtools.crest.model.design.relational.ColumnView" name="IDFACTURAERP" id="EA0378D5-4379-77AE-36CB-78EE2804349B">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<alias>IDFACTURAERP</alias>
+<dataType>NUMBER (20)</dataType>
+<headerAlias>IDFACTURAERP</headerAlias>
+<reference>false</reference>
+<referencedColumn>06D68E9C-DB58-C602-2A99-03740E24DB43</referencedColumn>
+<viewID>3BE34F98-FAEE-EC18-E8AA-4CCC939CF82A</viewID>
+</viewElement>
+</viewElements>
+</TableView>

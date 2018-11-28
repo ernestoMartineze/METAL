@@ -1,0 +1,136 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="814FFE2B-1054-837A-7FB9-0C059A323087" schemaObject="DFEC3635-A5A9-4120-486F-CF69B55F3572" name="XXFR_LINEA_CAPTURA_FACTURA">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>INGRESOS</sourceObjSchema>
+<sourceObjName>XXFR_LINEA_CAPTURA_FACTURA</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<commentInRDBMS>Tabla relacional de facturas Primavera y líneas de captura</commentInRDBMS>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>B0D1072A-E29D-AFB9-9BB3-E8E97640E3A4</importedID>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="IDTRANSACCION" id="18EABE69-B89E-B347-DF67-5762929ABB1D">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_LINEA_CAPTURA_FACTURA</sourceObjSchema>
+<sourceObjName>IDTRANSACCION</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>0D2CA20B-D8F7-E527-E424-6079EA60A114</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementColumn>true</autoIncrementColumn>
+<identityColumn>true</identityColumn>
+<autoIncrementGenerateAlways>true</autoIncrementGenerateAlways>
+<autoIncrementCycle>false</autoIncrementCycle>
+<autoIncrementDisableCache>false</autoIncrementDisableCache>
+<autoIncrementCache>20</autoIncrementCache>
+<autoIncrementOrder>false</autoIncrementOrder>
+</Column>
+<Column name="IDFACTURAPRIMAVERA" id="8DC99ED6-2EA2-887A-EC22-68DA7559D388">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_LINEA_CAPTURA_FACTURA</sourceObjSchema>
+<sourceObjName>IDFACTURAPRIMAVERA</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<commentInRDBMS>Identificador de la factura primavera relacion con tabla xxfr_cabecera_factura</commentInRDBMS>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>062391A6-EB01-DF70-7BE9-FD3EB8F9287F</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>20</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<ownDataTypeParameters>,20,0</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="AB5C2F74-F0CB-1D64-F9E4-1D06A5802C27" referredColumn="6233124B-0A99-1682-47C1-09AC2E89F2E7"/>
+</associations>
+</Column>
+<Column name="IDLINEACAPTURA" id="FDF495FC-D251-B5CA-C331-31C8897C2EA4">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_LINEA_CAPTURA_FACTURA</sourceObjSchema>
+<sourceObjName>IDLINEACAPTURA</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<commentInRDBMS>Identificador de la linea de captura relacion con tabla xxfr_linea_captura</commentInRDBMS>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>3D639A49-2D0D-75FC-3CE0-5FE80C4F0F49</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 BYTE</dataTypeSize>
+<ownDataTypeParameters>20 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CS_ESTATUS" id="9B4B9EAE-8FC3-0201-DC98-8265E20CC6F4">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_LINEA_CAPTURA_FACTURA</sourceObjSchema>
+<sourceObjName>CS_ESTATUS</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<commentInRDBMS>Estatus de la asosociacion 1:Activo, 0:Inhactiva</commentInRDBMS>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>4D379BE6-85C9-6925-FA05-3625826C83AD</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<defaultValue>0</defaultValue>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="FEC_VENCIDA" id="D1934350-CA61-BE69-A8FF-678B180ED7A4">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_LINEA_CAPTURA_FACTURA</sourceObjSchema>
+<sourceObjName>FEC_VENCIDA</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<commentInRDBMS>fecha en que se dio la indicación de LC Vencida</commentInRDBMS>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>960DA6A1-9C70-4CB8-7B18-118ADB8205F2</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<dataTypeSize>7</dataTypeSize>
+<defaultValue>NULL</defaultValue>
+<ownDataTypeParameters>7,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="4FE94AAA-948D-9BF7-268F-A791B2E8AA30" schemaObject="DFEC3635-A5A9-4120-486F-CF69B55F3572" name="XXFR_LINEA_CAPTURA_FACTURA_PK">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>INGRESOS</sourceObjSchema>
+<sourceObjName>SYS_C0016069</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>E85FADEE-A39C-C165-4857-E3944BC12CF9</importedID>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="18EABE69-B89E-B347-DF67-5762929ABB1D"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="5FF8D4C4-A157-BA57-051F-789AB6B4B598" name="FK_IDFACPRI_IDFACPRI">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="8DC99ED6-2EA2-887A-EC22-68DA7559D388"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

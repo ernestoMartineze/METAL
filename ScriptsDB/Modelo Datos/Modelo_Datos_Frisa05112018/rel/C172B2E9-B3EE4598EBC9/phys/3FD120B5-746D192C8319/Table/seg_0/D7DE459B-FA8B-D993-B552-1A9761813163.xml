@@ -1,0 +1,140 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableProxyOraclev12c class="oracle.dbtools.crest.model.design.storage.oracle.v12c.TableProxyOraclev12c" name="XXFR_INVOICE_LINES" directorySegmentName="seg_0" id="D7DE459B-FA8B-D993-B552-1A9761813163">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:35:52 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<schemaObject>DFEC3635-A5A9-4120-486F-CF69B55F3572</schemaObject>
+<logging>YES</logging>
+<partitionedRowMovement>DISABLE</partitionedRowMovement>
+<segment>FB782B2C-4A09-F472-9449-3C0BBDC3892C</segment>
+<tableSpace>F71BB681-6981-A225-B3DB-8C83263C1936</tableSpace>
+<temporaryChanged>false</temporaryChanged>
+<accessDriverType>oracle_loader</accessDriverType>
+<rejectLimit></rejectLimit>
+<inMemory>NO</inMemory>
+<columnProxies itemClass="oracle.dbtools.crest.model.design.storage.oracle.v12c.ColumnProxyOraclev12c">
+<ColumnProxy name="MONTONETOLINEA" id="0AFA0E5D-4A92-D992-EE8E-E0656B94F6C2">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:04 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="LINENUMBER" id="124ED7C3-10F2-15A5-0BB6-8B9A83C53DA6">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:03 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="DESCRIPTION_ORIGEN" id="152DBA7F-E7D6-E41C-BD7D-2D3ECA6DE34C">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:03 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="DESCADICIONAL2" id="1B473A4E-8CB9-7810-D405-CD4FD4A005C6">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:03 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="QUANTITY" id="2DC95C2A-94D0-E828-BB2E-83F972EE93FD">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:03 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="TAXCLASSIFICATIONCODE" id="3C6E5B22-2158-D373-B530-A8F5551FF04E">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:03 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="DESCRIPTIONMANUAL" id="4AB9A98F-E2B9-5298-2483-806A61079D2A">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:03 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="IDFACTURAPRIMAVERA" id="5290AE13-B921-9D26-BD84-966A43D9AFCA">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:03 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="CLASIFICADORDESCUENTO" id="52A9D4E8-DFDC-99E3-8E35-B1ECB1C380D8">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:03 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="FECHAHASTA" id="7BC9EFF9-176F-5DBD-149F-D2FF96A2CDAE">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:04 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="MEMOLINENAME" id="90CAD133-E243-9908-0C1D-5A9691934AAA">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:03 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="DESCADICIONAL4" id="91A1A3D8-D010-FDB5-ECC9-6754D508F601">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:04 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="TAXRATE" id="94D8C5EB-C5A8-8DD4-FBFB-7C2155066CE0">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:03 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="DESCADICIONAL5" id="97FF5E81-1BC2-1872-4F69-379B95A440EE">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:04 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="DESCADICIONAL3" id="AA4EDD4A-934E-EDC8-545B-7DCF54AF6B0B">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:03 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="FECHAEXIGIBILIDAD" id="DB8D6759-8152-2287-45E0-FF3080ABFEF3">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:04 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="MONTOBRUTOLINEA" id="DBD04DD4-3FB6-ECC2-05F9-EAB16DA54AEE">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:04 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="FECHADESDE" id="EB3E4F6D-4ED1-F9E5-E299-A5108DCB9886">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:04 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="IDCONCEPTO" id="EECC9136-6ECE-96D4-C8AC-525C34D96F88">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:04 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="DESCADICIONAL1" id="FDEFA5E6-8D8D-E885-8BF7-D9A2A023E7A1">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:03 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+</columnProxies>
+<indexProxies>
+<IndexProxy class="oracle.dbtools.crest.model.design.storage.oracle.v10g.IndexProxyOraclev10g" name="LINEA_FACTURA_PK" id="B6575458-4B87-B2A7-EF9B-3BFDDD09FCE1">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:11 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<schemaObject>DFEC3635-A5A9-4120-486F-CF69B55F3572</schemaObject>
+<segment>B0A4574A-B859-5DB5-C517-73F694B84981</segment>
+<tableSpace>F71BB681-6981-A225-B3DB-8C83263C1936</tableSpace>
+</IndexProxy>
+</indexProxies>
+<primaryKeys>
+<PrimaryKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.PKProxyOraclev10g" name="LINEA_FACTURA_PK" id="E4706E0B-6BB3-43D9-5D15-EAF64B059504">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:13 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<segment>B0A4574A-B859-5DB5-C517-73F694B84981</segment>
+<tableSpace>F71BB681-6981-A225-B3DB-8C83263C1936</tableSpace>
+<existingIndex>B6575458-4B87-B2A7-EF9B-3BFDDD09FCE1</existingIndex>
+<indexSegment>B0A4574A-B859-5DB5-C517-73F694B84981</indexSegment>
+<indexSort>SORTED</indexSort>
+<usingIndex>BY INDEX NAME</usingIndex>
+</PrimaryKey>
+</primaryKeys>
+</TableProxyOraclev12c>

@@ -1,0 +1,141 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableProxyOraclev12c class="oracle.dbtools.crest.model.design.storage.oracle.v12c.TableProxyOraclev12c" name="XXFR_LINEA_CAPTURA" directorySegmentName="seg_0" id="1AAB91EE-7541-4B7A-44BC-52DFF711376A">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:35:52 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<schemaObject>DFEC3635-A5A9-4120-486F-CF69B55F3572</schemaObject>
+<logging>YES</logging>
+<partitionedRowMovement>DISABLE</partitionedRowMovement>
+<segment>FB782B2C-4A09-F472-9449-3C0BBDC3892C</segment>
+<tableSpace>F71BB681-6981-A225-B3DB-8C83263C1936</tableSpace>
+<temporaryChanged>false</temporaryChanged>
+<accessDriverType>oracle_loader</accessDriverType>
+<rejectLimit></rejectLimit>
+<inMemory>NO</inMemory>
+<columnProxies itemClass="oracle.dbtools.crest.model.design.storage.oracle.v12c.ColumnProxyOraclev12c">
+<ColumnProxy name="INTERESMORATORIOCONDONADO" id="078D6435-00AA-7702-AF45-48BE20F4E9CC">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:06 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="CUENTABANCARIA" id="103FA291-77F6-58D4-D9A7-04C57832329A">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:05 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="CENTROCOSTOSPROYECTO" id="16683024-B88D-9181-68FA-E87562D3AA8C">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:05 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="FECHAVIGENCIA" id="20EE2292-BA17-44F2-AC4E-76BCC41F02FB">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:05 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="NUMERORECIBO" id="3F771ED8-FC26-BE1E-F67F-5F0F97AB5050">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:06 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="TIPOCOBRANZA" id="52E584A3-63BA-67F6-8904-3D67EB730832">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:06 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="ORDINARIOCONDONADO" id="663676DA-D73A-AA8F-60B5-3B48B11F5EA5">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:06 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="FECHACREACION" id="6D42D1AF-A096-3957-9320-798CF2F108FE">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:05 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="ESTATUSLC" id="6E661CDD-420E-79E5-1519-E1DB0F86E3F3">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:05 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="UNIDADNEGOCIO" id="72F01DBD-E776-CCC7-DE36-91B91B24C16D">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:05 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="REFERENCIA" id="77AFE290-FA07-629D-01D2-34758973A79A">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:05 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="LINEACAPTURA" id="9BA5D838-6654-7537-24B2-355F196DDD04">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:05 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="MONTOLINEACAPTURA" id="A9C00EC2-B400-742F-C9A7-E97B73D1298B">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:05 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="MONTOACUERDOCOBRANZA" id="AE2904A5-8487-319F-9AAB-9D3F8F954DEB">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:06 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="DIVISION" id="C2082D8C-CF34-B0F8-AD36-9295CB337742">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:05 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="SISTEMAORIGEN" id="C7255E39-B271-9F6D-99AA-995CA0EC0466">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:05 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="LINEACAPTURAREF" id="CEA78BFE-A30B-20A0-B01B-900E27E626F3">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:05 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="FOLIOACUERDOCOBRANZA" id="DB7CE8C1-DA78-2311-4403-CC09343D9592">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:06 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="IDLINEACAPTURA" id="DD2C976E-AE7D-71FC-E3EE-4C163D862216">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:05 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<autoIncrementDDL>IDENTITY_CLAUSE</autoIncrementDDL>
+</ColumnProxy>
+<ColumnProxy name="ENTIDADLEGAL" id="F75F8184-1626-B1BA-2226-ECE8A495C85A">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:05 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="CAPITALRENTACONDONADA" id="F832C97A-F114-9A49-1EDA-3D772F930D42">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:06 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="BANCO" id="FE5C4604-FBC7-F3D7-E07E-084AA6D463C7">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:05 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+</columnProxies>
+<primaryKeys>
+<PrimaryKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.PKProxyOraclev10g" name="XXFR_LINEA_CAPTURA_PK" id="CDE431E5-D760-7165-D0F4-C97A7BC5BAEC">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:15 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<schemaObject>DFEC3635-A5A9-4120-486F-CF69B55F3572</schemaObject>
+<segment>B0A4574A-B859-5DB5-C517-73F694B84981</segment>
+<tableSpace>F71BB681-6981-A225-B3DB-8C83263C1936</tableSpace>
+<indexSegment>B0A4574A-B859-5DB5-C517-73F694B84981</indexSegment>
+<indexSort>SORTED</indexSort>
+<usingIndex>BY INDEX NAME</usingIndex>
+</PrimaryKey>
+</primaryKeys>
+</TableProxyOraclev12c>

@@ -1,0 +1,11 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FunctionOracle class="oracle.dbtools.crest.model.design.storage.oracle.FunctionOracle" name="UUIDFRISA" directorySegmentName="seg_0" id="2D59897E-92D6-2428-BE09-DDA70D6AE78A">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>INGRESOS</sourceObjSchema>
+<sourceObjName>UUIDFRISA</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:35 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<owner>B49CDF25-C9F3-EDEF-C941-F4C9279E8404</owner>
+<source>CREATE OR REPLACE FUNCTION INGRESOS.UUIDFRISA RETURN VARCHAR2 AS&lt;br/&gt;LANGUAGE JAVA NAME &apos;mx.frisa.tic.utils.UUIDFrisa.regresaUUID() return java.lang.String&apos;;</source>
+</FunctionOracle>

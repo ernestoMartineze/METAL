@@ -1,0 +1,649 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="4C940E22-A829-5395-1E92-45F1F6ED0841" schemaObject="DFEC3635-A5A9-4120-486F-CF69B55F3572" name="XXFR_CABECERA_FACTURA">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>INGRESOS</sourceObjSchema>
+<sourceObjName>XXFR_CABECERA_FACTURA</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<commentInRDBMS>Cabeceras de facturas depositadas por Primavera</commentInRDBMS>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>6E9B511A-0A7D-B7C9-D771-506EF7EE8CF8</importedID>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="IDFACTURAPRIMAVERA" id="6233124B-0A99-1682-47C1-09AC2E89F2E7">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_CABECERA_FACTURA</sourceObjSchema>
+<sourceObjName>IDFACTURAPRIMAVERA</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>31D70A30-4EA2-73E9-518A-B64F27B0D2BC</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>20</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<ownDataTypeParameters>,20,0</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="FACILITYNUMBER" id="461548FF-4B41-B2D8-768A-B51F449A68DD">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_CABECERA_FACTURA</sourceObjSchema>
+<sourceObjName>FACILITYNUMBER</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>DC21D53E-56D2-8098-220A-186D975586BA</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 BYTE</dataTypeSize>
+<ownDataTypeParameters>20 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="COMPANYACCOUNTCODE" id="6000E574-45FE-9D19-DB88-D3D5107F862A">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_CABECERA_FACTURA</sourceObjSchema>
+<sourceObjName>COMPANYACCOUNTCODE</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>91088344-5AE2-7B4F-A908-184E96AD180E</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<ownDataTypeParameters>,10,0</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="BUSINESSUNITNAME" id="439D035A-E693-3CD4-FB46-EF070098A935">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_CABECERA_FACTURA</sourceObjSchema>
+<sourceObjName>BUSINESSUNITNAME</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>4B6B836C-6356-02EB-F161-BA3BAF22D120</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 BYTE</dataTypeSize>
+<ownDataTypeParameters>20 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="TRANSACTIONSOURCE" id="347DF4D1-F78C-764F-ED45-01381F05F2C6">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_CABECERA_FACTURA</sourceObjSchema>
+<sourceObjName>TRANSACTIONSOURCE</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>9C604127-4F19-6F6A-49EF-3832466B9C7E</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 BYTE</dataTypeSize>
+<ownDataTypeParameters>20 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="TRANSACTIONTYPE" id="283BDDC5-BC94-3A5B-1A08-5434269DAC55">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_CABECERA_FACTURA</sourceObjSchema>
+<sourceObjName>TRANSACTIONTYPE</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>F483DE77-DFFE-8588-7909-2EBC1C07692E</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 BYTE</dataTypeSize>
+<ownDataTypeParameters>20 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CREATIONDATETRX" id="AC705705-3311-80B5-D397-4AEA6E5A1616">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_CABECERA_FACTURA</sourceObjSchema>
+<sourceObjName>CREATIONDATETRX</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>FB63CF37-43A3-BD41-F89D-104D10517A60</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<dataTypeSize>7</dataTypeSize>
+<ownDataTypeParameters>7,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CREATIONDATEGL" id="85D8C1FE-EBFB-8504-1313-5F988AA2220E">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_CABECERA_FACTURA</sourceObjSchema>
+<sourceObjName>CREATIONDATEGL</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>B5608607-8F8F-2676-8CB8-18875BD920F0</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<dataTypeSize>7</dataTypeSize>
+<ownDataTypeParameters>7,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CURRENCY" id="59D3654F-AECB-DB56-5B8C-7078F56393BE">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_CABECERA_FACTURA</sourceObjSchema>
+<sourceObjName>CURRENCY</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>544180E0-C594-3FC8-9C06-E28E87D18992</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 BYTE</dataTypeSize>
+<ownDataTypeParameters>20 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CONVERSIONRATETYPE" id="B9EDBF2E-6641-2639-C735-5B01DD439D0F">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_CABECERA_FACTURA</sourceObjSchema>
+<sourceObjName>CONVERSIONRATETYPE</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>30A4BA95-2FA0-0C61-6513-F089655FE63F</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 BYTE</dataTypeSize>
+<ownDataTypeParameters>20 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CONVERSIONRATEVALUE" id="972CCE1F-CC84-EB3C-7B77-6CB19B46690D">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_CABECERA_FACTURA</sourceObjSchema>
+<sourceObjName>CONVERSIONRATEVALUE</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>A9C7CBD4-98BD-A924-7C22-7EBA30F53D26</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 BYTE</dataTypeSize>
+<ownDataTypeParameters>20 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="BILLTOCONSUMERNAME" id="D950D46F-3D72-A4EF-4582-08E7AF2FF91F">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_CABECERA_FACTURA</sourceObjSchema>
+<sourceObjName>BILLTOCONSUMERNAME</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>6335DDF2-0094-B676-2A4C-22083AA7971D</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>240 BYTE</dataTypeSize>
+<ownDataTypeParameters>240 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="BILLTOLOCATION" id="7F2982C9-9906-4336-B564-7D6AC10F0E17">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_CABECERA_FACTURA</sourceObjSchema>
+<sourceObjName>BILLTOLOCATION</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>A6DB02A2-3B42-1F52-EDCC-C2E0AD1FEDEB</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<ownDataTypeParameters>,10,0</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="PAYMENTTERMDAYS" id="3A6D7197-C3F9-3BC2-1521-B247AE0EFBBA">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_CABECERA_FACTURA</sourceObjSchema>
+<sourceObjName>PAYMENTTERMDAYS</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>AFC4BE7D-A7FF-54C1-3879-2A075CED8256</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>3</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<ownDataTypeParameters>,3,0</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="PAYMENTTERMDATE" id="57BCAE4E-ECD3-165E-4E37-0A42B10764B9">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_CABECERA_FACTURA</sourceObjSchema>
+<sourceObjName>PAYMENTTERMDATE</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>3390AFBC-5D4E-82AD-B8DD-20E9A4E6487F</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 BYTE</dataTypeSize>
+<ownDataTypeParameters>20 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="GRACEPERIOD" id="C10C1DC3-BBC1-355B-AC66-5165A2D1635D">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_CABECERA_FACTURA</sourceObjSchema>
+<sourceObjName>GRACEPERIOD</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>5D54477B-AE8E-B3C8-9FE6-51CA9574C62D</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>3</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<ownDataTypeParameters>,3,0</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="PAYMENTMETHOD" id="02FADEF4-22E3-D08A-41BC-7B3C410D1A69">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_CABECERA_FACTURA</sourceObjSchema>
+<sourceObjName>PAYMENTMETHOD</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>F3E04C99-DDB1-479D-078B-6375D112A2CB</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>10 BYTE</dataTypeSize>
+<ownDataTypeParameters>10 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="DFFHEADERCONTEXT" id="69142B50-000E-718B-3428-3945FBA1A13C">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_CABECERA_FACTURA</sourceObjSchema>
+<sourceObjName>DFFHEADERCONTEXT</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>857A04DF-BE52-A481-ECC0-F52AA7E8E35D</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 BYTE</dataTypeSize>
+<ownDataTypeParameters>20 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CONTRACTNUMBER" id="C712E930-2FB0-3050-592B-5B6B6E052775">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_CABECERA_FACTURA</sourceObjSchema>
+<sourceObjName>CONTRACTNUMBER</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>CEC2E411-01F6-C49D-A3E4-582101F550A8</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<ownDataTypeParameters>,10,0</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CONTEXTRENTAS" id="5BFDC03F-4A02-F686-CA5F-5C5A1B82700F">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_CABECERA_FACTURA</sourceObjSchema>
+<sourceObjName>CONTEXTRENTAS</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>8AC879E6-B06D-FE39-1DE8-298D123E8F79</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 BYTE</dataTypeSize>
+<ownDataTypeParameters>20 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="LOCALNUMBER" id="9B88554E-AC10-5DA7-29C8-A22B87907796">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_CABECERA_FACTURA</sourceObjSchema>
+<sourceObjName>LOCALNUMBER</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>FD806D79-5AE3-2BD0-3847-723FD6BAB189</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 BYTE</dataTypeSize>
+<ownDataTypeParameters>20 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="LANDTAXACCOUNT" id="C0947939-DD66-515F-FA11-2B175F832C2E">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_CABECERA_FACTURA</sourceObjSchema>
+<sourceObjName>LANDTAXACCOUNT</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>058EE938-2A47-4CA3-FF3A-7B879BEDBE56</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 BYTE</dataTypeSize>
+<ownDataTypeParameters>20 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="REFERENCENUMBER" id="CE122272-B497-7A83-38FB-E2FF0BAE4B84">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_CABECERA_FACTURA</sourceObjSchema>
+<sourceObjName>REFERENCENUMBER</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>DF1A032A-879E-3143-885A-8D16756B4E10</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 BYTE</dataTypeSize>
+<ownDataTypeParameters>20 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="RELATEDERPINVOICE" id="02A84803-5FC7-6E6B-7B21-9DC7C56C9C31">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_CABECERA_FACTURA</sourceObjSchema>
+<sourceObjName>RELATEDERPINVOICE</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>3A915BBF-8942-E5BC-D754-985B6860281D</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 BYTE</dataTypeSize>
+<ownDataTypeParameters>20 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="LEGALINVOICEUSE" id="AC652CA3-2D55-EA2E-215F-68B12CDB7189">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_CABECERA_FACTURA</sourceObjSchema>
+<sourceObjName>LEGALINVOICEUSE</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>5842B958-3244-23AB-1F15-C3D71D159A3B</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 BYTE</dataTypeSize>
+<ownDataTypeParameters>20 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ADDENDUM" id="030C88C3-80BD-2F58-DB77-1488CDEB0374">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_CABECERA_FACTURA</sourceObjSchema>
+<sourceObjName>ADDENDUM</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>176F9DD8-EB20-7D7C-649F-7E0ABB7A717A</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 BYTE</dataTypeSize>
+<ownDataTypeParameters>20 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="TIPOCOBRANZA" id="EC2372C9-2C6B-09B8-99C7-BDB14BFF071D">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_CABECERA_FACTURA</sourceObjSchema>
+<sourceObjName>TIPOCOBRANZA</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>7413999D-6746-0B21-A93F-F08AC2EE045C</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 BYTE</dataTypeSize>
+<ownDataTypeParameters>20 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="DIVISIONTYPE" id="900DC205-9175-49A8-91F2-8A3731F394FF">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_CABECERA_FACTURA</sourceObjSchema>
+<sourceObjName>DIVISIONTYPE</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>A947B9B6-408A-68B8-0BB4-6EE18E2C321F</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 BYTE</dataTypeSize>
+<ownDataTypeParameters>20 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="PROJECTID" id="1CB25D8F-B41D-B89A-0576-6F70F94875EC">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_CABECERA_FACTURA</sourceObjSchema>
+<sourceObjName>PROJECTID</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>4A38F242-17D0-5228-68A4-80AEDBB34233</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<ownDataTypeParameters>,10,0</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="GENERATIONTYPE" id="F4ED44A5-92E7-2E99-D954-253ECD623E30">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_CABECERA_FACTURA</sourceObjSchema>
+<sourceObjName>GENERATIONTYPE</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<commentInRDBMS>Tipo de generación de la factura. REGULAR_INVOICE = al momento, &lt;br/&gt;INVOICE_TO_COLLECTION = Al cobro</commentInRDBMS>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>E11D6187-7009-3003-4F6F-E13F4306679E</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>21 BYTE</dataTypeSize>
+<ownDataTypeParameters>21 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="FOLIOAVISOCARGO" id="8018F84C-EFAF-2435-2F66-C619133DCEFE">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_CABECERA_FACTURA</sourceObjSchema>
+<sourceObjName>FOLIOAVISOCARGO</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>0FDCBDCF-7EFD-6716-DFFE-32B6EF096EB9</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 BYTE</dataTypeSize>
+<ownDataTypeParameters>20 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="GROUPTYPE" id="A9B062C4-97E0-6CFD-5A85-5C26F3A8E774">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_CABECERA_FACTURA</sourceObjSchema>
+<sourceObjName>GROUPTYPE</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>CD1A3A93-2D93-ECE4-9982-E95DA9CF7D32</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 BYTE</dataTypeSize>
+<ownDataTypeParameters>20 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="BANKNAME" id="018C9F8D-9F3C-D7D1-2734-63D4F76D7B25">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_CABECERA_FACTURA</sourceObjSchema>
+<sourceObjName>BANKNAME</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>0BB0F945-0F7D-9619-6FD3-AA036A416937</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 BYTE</dataTypeSize>
+<ownDataTypeParameters>20 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="BANKACCOUNTNUMBER" id="790563B2-4060-9D3A-1ED4-D0324D9C55AC">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_CABECERA_FACTURA</sourceObjSchema>
+<sourceObjName>BANKACCOUNTNUMBER</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>703B14EA-7C66-8D6A-EDBD-41204C7A49F5</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 BYTE</dataTypeSize>
+<ownDataTypeParameters>20 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="TOTALAMOUNT" id="EE2E0F3B-941D-458F-A5EB-0B6C32425C7E">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_CABECERA_FACTURA</sourceObjSchema>
+<sourceObjName>TOTALAMOUNT</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>CCD583F7-01BD-E411-5771-AA5D777DCB04</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>20</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<ownDataTypeParameters>,20,2</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="IDLINEACAPTURA" id="A0F59E0C-D8E9-D86C-9A66-CAF2F4F08DB6">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_CABECERA_FACTURA</sourceObjSchema>
+<sourceObjName>IDLINEACAPTURA</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>621496EA-18F6-E852-2F07-E676228B567B</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 BYTE</dataTypeSize>
+<ownDataTypeParameters>20 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ESTADOPROCESAMIENTO" id="D2A23979-CD24-5F2A-3D91-AAC33A0A2CA5">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_CABECERA_FACTURA</sourceObjSchema>
+<sourceObjName>ESTADOPROCESAMIENTO</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>2DEFDF2D-16C4-4792-16EF-1CE25CB2F728</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 BYTE</dataTypeSize>
+<ownDataTypeParameters>20 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="IDBATCH" id="75029358-409F-705C-3DE9-4AEC5F96BBBE">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_CABECERA_FACTURA</sourceObjSchema>
+<sourceObjName>IDBATCH</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>AE774C2C-1B38-1605-20C4-51645FF2865F</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 BYTE</dataTypeSize>
+<ownDataTypeParameters>20 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="A6A18983-CC51-0C78-C7B7-6E9179AAC784" schemaObject="DFEC3635-A5A9-4120-486F-CF69B55F3572" name="XXFR_CABECERA_FACTURA_PK">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>INGRESOS</sourceObjSchema>
+<sourceObjName>SYS_C0016067</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>F0B95B82-6B9D-4947-F2F0-24B45EB9912D</importedID>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="6233124B-0A99-1682-47C1-09AC2E89F2E7"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>
