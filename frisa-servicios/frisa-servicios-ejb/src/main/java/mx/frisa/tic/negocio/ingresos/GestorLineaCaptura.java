@@ -7,6 +7,8 @@ package mx.frisa.tic.negocio.ingresos;
 
 import java.util.List;
 import javax.ejb.Local;
+import mx.frisa.tic.datos.dto.ingresos.DetalleLCPagosDTO;
+import mx.frisa.tic.datos.dto.ingresos.DetalleLineaCapturaDTO;
 import mx.frisa.tic.datos.dto.ingresos.LineaCapturaDTO;
 
 /**
@@ -43,4 +45,18 @@ public interface GestorLineaCaptura {
      * @return
      */
     public String consultaBatchLC(String idBatch);
+    
+        /**
+     *
+     * @param detalleLineaCaptura
+     * @return
+     */
+    public List<DetalleLineaCapturaDTO> consultarDetalleLineaCaptura(DetalleLineaCapturaDTO detalleLineaCaptura);
+    
+    /**
+     *
+     * @param detalleLCPagos
+     * @return
+     */
+    public List<DetalleLCPagosDTO> consultarLCPagos(DetalleLCPagosDTO detalleLCPagos);
 }

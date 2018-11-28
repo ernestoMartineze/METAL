@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,6 +18,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -27,52 +29,52 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author soultech
+ * @author USER_1
  */
 @Entity
-@Table(name = "XXFR_UPPER_FORM")
+@Table(name = "XXFR_CABECERA_FACTURA")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "XxfrUpperForm.findAll", query = "SELECT x FROM XxfrUpperForm x")
-    , @NamedQuery(name = "XxfrUpperForm.findByIdfacturaprimavera", query = "SELECT x FROM XxfrUpperForm x WHERE x.idfacturaprimavera = :idfacturaprimavera")
-    , @NamedQuery(name = "XxfrUpperForm.findByFacilitynumber", query = "SELECT x FROM XxfrUpperForm x WHERE x.facilitynumber = :facilitynumber")
-    , @NamedQuery(name = "XxfrUpperForm.findByCompanyaccountcode", query = "SELECT x FROM XxfrUpperForm x WHERE x.companyaccountcode = :companyaccountcode")
-    , @NamedQuery(name = "XxfrUpperForm.findByBusinessunitname", query = "SELECT x FROM XxfrUpperForm x WHERE x.businessunitname = :businessunitname")
-    , @NamedQuery(name = "XxfrUpperForm.findByTransactionsource", query = "SELECT x FROM XxfrUpperForm x WHERE x.transactionsource = :transactionsource")
-    , @NamedQuery(name = "XxfrUpperForm.findByTransactiontype", query = "SELECT x FROM XxfrUpperForm x WHERE x.transactiontype = :transactiontype")
-    , @NamedQuery(name = "XxfrUpperForm.findByCreationdatetrx", query = "SELECT x FROM XxfrUpperForm x WHERE x.creationdatetrx = :creationdatetrx")
-    , @NamedQuery(name = "XxfrUpperForm.findByCreationdategl", query = "SELECT x FROM XxfrUpperForm x WHERE x.creationdategl = :creationdategl")
-    , @NamedQuery(name = "XxfrUpperForm.findByCurrency", query = "SELECT x FROM XxfrUpperForm x WHERE x.currency = :currency")
-    , @NamedQuery(name = "XxfrUpperForm.findByConversionratetype", query = "SELECT x FROM XxfrUpperForm x WHERE x.conversionratetype = :conversionratetype")
-    , @NamedQuery(name = "XxfrUpperForm.findByConversionratevalue", query = "SELECT x FROM XxfrUpperForm x WHERE x.conversionratevalue = :conversionratevalue")
-    , @NamedQuery(name = "XxfrUpperForm.findByBilltoconsumername", query = "SELECT x FROM XxfrUpperForm x WHERE x.billtoconsumername = :billtoconsumername")
-    , @NamedQuery(name = "XxfrUpperForm.findByBilltolocation", query = "SELECT x FROM XxfrUpperForm x WHERE x.billtolocation = :billtolocation")
-    , @NamedQuery(name = "XxfrUpperForm.findByPaymenttermdays", query = "SELECT x FROM XxfrUpperForm x WHERE x.paymenttermdays = :paymenttermdays")
-    , @NamedQuery(name = "XxfrUpperForm.findByPaymenttermdate", query = "SELECT x FROM XxfrUpperForm x WHERE x.paymenttermdate = :paymenttermdate")
-    , @NamedQuery(name = "XxfrUpperForm.findByGraceperiod", query = "SELECT x FROM XxfrUpperForm x WHERE x.graceperiod = :graceperiod")
-    , @NamedQuery(name = "XxfrUpperForm.findByPaymentmethod", query = "SELECT x FROM XxfrUpperForm x WHERE x.paymentmethod = :paymentmethod")
-    , @NamedQuery(name = "XxfrUpperForm.findByDffheadercontext", query = "SELECT x FROM XxfrUpperForm x WHERE x.dffheadercontext = :dffheadercontext")
-    , @NamedQuery(name = "XxfrUpperForm.findByContractnumber", query = "SELECT x FROM XxfrUpperForm x WHERE x.contractnumber = :contractnumber")
-    , @NamedQuery(name = "XxfrUpperForm.findByContextrentas", query = "SELECT x FROM XxfrUpperForm x WHERE x.contextrentas = :contextrentas")
-    , @NamedQuery(name = "XxfrUpperForm.findByLocalnumber", query = "SELECT x FROM XxfrUpperForm x WHERE x.localnumber = :localnumber")
-    , @NamedQuery(name = "XxfrUpperForm.findByLandtaxaccount", query = "SELECT x FROM XxfrUpperForm x WHERE x.landtaxaccount = :landtaxaccount")
-    , @NamedQuery(name = "XxfrUpperForm.findByReferencenumber", query = "SELECT x FROM XxfrUpperForm x WHERE x.referencenumber = :referencenumber")
-    , @NamedQuery(name = "XxfrUpperForm.findByRelatederpinvoice", query = "SELECT x FROM XxfrUpperForm x WHERE x.relatederpinvoice = :relatederpinvoice")
-    , @NamedQuery(name = "XxfrUpperForm.findByLegalinvoiceuse", query = "SELECT x FROM XxfrUpperForm x WHERE x.legalinvoiceuse = :legalinvoiceuse")
-    , @NamedQuery(name = "XxfrUpperForm.findByAddendum", query = "SELECT x FROM XxfrUpperForm x WHERE x.addendum = :addendum")
-    , @NamedQuery(name = "XxfrUpperForm.findByTipocobranza", query = "SELECT x FROM XxfrUpperForm x WHERE x.tipocobranza = :tipocobranza")
-    , @NamedQuery(name = "XxfrUpperForm.findByDivisiontype", query = "SELECT x FROM XxfrUpperForm x WHERE x.divisiontype = :divisiontype")
-    , @NamedQuery(name = "XxfrUpperForm.findByProjectid", query = "SELECT x FROM XxfrUpperForm x WHERE x.projectid = :projectid")
-    , @NamedQuery(name = "XxfrUpperForm.findByGenerationtype", query = "SELECT x FROM XxfrUpperForm x WHERE x.generationtype = :generationtype")
-    , @NamedQuery(name = "XxfrUpperForm.findByFolioavisocargo", query = "SELECT x FROM XxfrUpperForm x WHERE x.folioavisocargo = :folioavisocargo")
-    , @NamedQuery(name = "XxfrUpperForm.findByGrouptype", query = "SELECT x FROM XxfrUpperForm x WHERE x.grouptype = :grouptype")
-    , @NamedQuery(name = "XxfrUpperForm.findByBankname", query = "SELECT x FROM XxfrUpperForm x WHERE x.bankname = :bankname")
-    , @NamedQuery(name = "XxfrUpperForm.findByBankaccountnumber", query = "SELECT x FROM XxfrUpperForm x WHERE x.bankaccountnumber = :bankaccountnumber")
-    , @NamedQuery(name = "XxfrUpperForm.findByTotalamount", query = "SELECT x FROM XxfrUpperForm x WHERE x.totalamount = :totalamount")
-    , @NamedQuery(name = "XxfrUpperForm.findByIdlineacaptura", query = "SELECT x FROM XxfrUpperForm x WHERE x.idlineacaptura = :idlineacaptura")
-    , @NamedQuery(name = "XxfrUpperForm.findByEstadoprocesamiento", query = "SELECT x FROM XxfrUpperForm x WHERE x.estadoprocesamiento = :estadoprocesamiento")
-    , @NamedQuery(name = "XxfrUpperForm.findByIdbatch", query = "SELECT x FROM XxfrUpperForm x WHERE x.idbatch = :idbatch")})
-public class XxfrUpperForm implements Serializable {
+    @NamedQuery(name = "XxfrCabeceraFactura.findAll", query = "SELECT x FROM XxfrCabeceraFactura x"),
+    @NamedQuery(name = "XxfrCabeceraFactura.findByIdfacturaprimavera", query = "SELECT x FROM XxfrCabeceraFactura x WHERE x.idfacturaprimavera = :idfacturaprimavera"),
+    @NamedQuery(name = "XxfrCabeceraFactura.findByFacilitynumber", query = "SELECT x FROM XxfrCabeceraFactura x WHERE x.facilitynumber = :facilitynumber"),
+    @NamedQuery(name = "XxfrCabeceraFactura.findByCompanyaccountcode", query = "SELECT x FROM XxfrCabeceraFactura x WHERE x.companyaccountcode = :companyaccountcode"),
+    @NamedQuery(name = "XxfrCabeceraFactura.findByBusinessunitname", query = "SELECT x FROM XxfrCabeceraFactura x WHERE x.businessunitname = :businessunitname"),
+    @NamedQuery(name = "XxfrCabeceraFactura.findByTransactionsource", query = "SELECT x FROM XxfrCabeceraFactura x WHERE x.transactionsource = :transactionsource"),
+    @NamedQuery(name = "XxfrCabeceraFactura.findByTransactiontype", query = "SELECT x FROM XxfrCabeceraFactura x WHERE x.transactiontype = :transactiontype"),
+    @NamedQuery(name = "XxfrCabeceraFactura.findByCreationdatetrx", query = "SELECT x FROM XxfrCabeceraFactura x WHERE x.creationdatetrx = :creationdatetrx"),
+    @NamedQuery(name = "XxfrCabeceraFactura.findByCreationdategl", query = "SELECT x FROM XxfrCabeceraFactura x WHERE x.creationdategl = :creationdategl"),
+    @NamedQuery(name = "XxfrCabeceraFactura.findByCurrency", query = "SELECT x FROM XxfrCabeceraFactura x WHERE x.currency = :currency"),
+    @NamedQuery(name = "XxfrCabeceraFactura.findByConversionratetype", query = "SELECT x FROM XxfrCabeceraFactura x WHERE x.conversionratetype = :conversionratetype"),
+    @NamedQuery(name = "XxfrCabeceraFactura.findByConversionratevalue", query = "SELECT x FROM XxfrCabeceraFactura x WHERE x.conversionratevalue = :conversionratevalue"),
+    @NamedQuery(name = "XxfrCabeceraFactura.findByBilltoconsumername", query = "SELECT x FROM XxfrCabeceraFactura x WHERE x.billtoconsumername = :billtoconsumername"),
+    @NamedQuery(name = "XxfrCabeceraFactura.findByBilltolocation", query = "SELECT x FROM XxfrCabeceraFactura x WHERE x.billtolocation = :billtolocation"),
+    @NamedQuery(name = "XxfrCabeceraFactura.findByPaymenttermdays", query = "SELECT x FROM XxfrCabeceraFactura x WHERE x.paymenttermdays = :paymenttermdays"),
+    @NamedQuery(name = "XxfrCabeceraFactura.findByPaymenttermdate", query = "SELECT x FROM XxfrCabeceraFactura x WHERE x.paymenttermdate = :paymenttermdate"),
+    @NamedQuery(name = "XxfrCabeceraFactura.findByGraceperiod", query = "SELECT x FROM XxfrCabeceraFactura x WHERE x.graceperiod = :graceperiod"),
+    @NamedQuery(name = "XxfrCabeceraFactura.findByPaymentmethod", query = "SELECT x FROM XxfrCabeceraFactura x WHERE x.paymentmethod = :paymentmethod"),
+    @NamedQuery(name = "XxfrCabeceraFactura.findByDffheadercontext", query = "SELECT x FROM XxfrCabeceraFactura x WHERE x.dffheadercontext = :dffheadercontext"),
+    @NamedQuery(name = "XxfrCabeceraFactura.findByContractnumber", query = "SELECT x FROM XxfrCabeceraFactura x WHERE x.contractnumber = :contractnumber"),
+    @NamedQuery(name = "XxfrCabeceraFactura.findByContextrentas", query = "SELECT x FROM XxfrCabeceraFactura x WHERE x.contextrentas = :contextrentas"),
+    @NamedQuery(name = "XxfrCabeceraFactura.findByLocalnumber", query = "SELECT x FROM XxfrCabeceraFactura x WHERE x.localnumber = :localnumber"),
+    @NamedQuery(name = "XxfrCabeceraFactura.findByLandtaxaccount", query = "SELECT x FROM XxfrCabeceraFactura x WHERE x.landtaxaccount = :landtaxaccount"),
+    @NamedQuery(name = "XxfrCabeceraFactura.findByReferencenumber", query = "SELECT x FROM XxfrCabeceraFactura x WHERE x.referencenumber = :referencenumber"),
+    @NamedQuery(name = "XxfrCabeceraFactura.findByRelatederpinvoice", query = "SELECT x FROM XxfrCabeceraFactura x WHERE x.relatederpinvoice = :relatederpinvoice"),
+    @NamedQuery(name = "XxfrCabeceraFactura.findByLegalinvoiceuse", query = "SELECT x FROM XxfrCabeceraFactura x WHERE x.legalinvoiceuse = :legalinvoiceuse"),
+    @NamedQuery(name = "XxfrCabeceraFactura.findByAddendum", query = "SELECT x FROM XxfrCabeceraFactura x WHERE x.addendum = :addendum"),
+    @NamedQuery(name = "XxfrCabeceraFactura.findByTipocobranza", query = "SELECT x FROM XxfrCabeceraFactura x WHERE x.tipocobranza = :tipocobranza"),
+    @NamedQuery(name = "XxfrCabeceraFactura.findByDivisiontype", query = "SELECT x FROM XxfrCabeceraFactura x WHERE x.divisiontype = :divisiontype"),
+    @NamedQuery(name = "XxfrCabeceraFactura.findByProjectid", query = "SELECT x FROM XxfrCabeceraFactura x WHERE x.projectid = :projectid"),
+    @NamedQuery(name = "XxfrCabeceraFactura.findByGenerationtype", query = "SELECT x FROM XxfrCabeceraFactura x WHERE x.generationtype = :generationtype"),
+    @NamedQuery(name = "XxfrCabeceraFactura.findByFolioavisocargo", query = "SELECT x FROM XxfrCabeceraFactura x WHERE x.folioavisocargo = :folioavisocargo"),
+    @NamedQuery(name = "XxfrCabeceraFactura.findByGrouptype", query = "SELECT x FROM XxfrCabeceraFactura x WHERE x.grouptype = :grouptype"),
+    @NamedQuery(name = "XxfrCabeceraFactura.findByBankname", query = "SELECT x FROM XxfrCabeceraFactura x WHERE x.bankname = :bankname"),
+    @NamedQuery(name = "XxfrCabeceraFactura.findByBankaccountnumber", query = "SELECT x FROM XxfrCabeceraFactura x WHERE x.bankaccountnumber = :bankaccountnumber"),
+    @NamedQuery(name = "XxfrCabeceraFactura.findByTotalamount", query = "SELECT x FROM XxfrCabeceraFactura x WHERE x.totalamount = :totalamount"),
+    @NamedQuery(name = "XxfrCabeceraFactura.findByIdlineacaptura", query = "SELECT x FROM XxfrCabeceraFactura x WHERE x.idlineacaptura = :idlineacaptura"),
+    @NamedQuery(name = "XxfrCabeceraFactura.findByEstadoprocesamiento", query = "SELECT x FROM XxfrCabeceraFactura x WHERE x.estadoprocesamiento = :estadoprocesamiento"),
+    @NamedQuery(name = "XxfrCabeceraFactura.findByIdbatch", query = "SELECT x FROM XxfrCabeceraFactura x WHERE x.idbatch = :idbatch")})
+public class XxfrCabeceraFactura implements Serializable {
 
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
@@ -159,7 +161,7 @@ public class XxfrUpperForm implements Serializable {
     private String divisiontype;
     @Column(name = "PROJECTID")
     private Long projectid;
-    @Size(max = 20)
+    @Size(max = 21)
     @Column(name = "GENERATIONTYPE")
     private String generationtype;
     @Size(max = 20)
@@ -187,11 +189,13 @@ public class XxfrUpperForm implements Serializable {
     private String idbatch;
     @OneToMany(mappedBy = "idfacturaprimavera", fetch = FetchType.LAZY)
     private List<XxfrLineaCapturaFactura> xxfrLineaCapturaFacturaList;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "xxfrCabeceraFactura", fetch = FetchType.LAZY)
+    private XxfrtNotaCredito xxfrtNotaCredito;
 
-    public XxfrUpperForm() {
+    public XxfrCabeceraFactura() {
     }
 
-    public XxfrUpperForm(BigDecimal idfacturaprimavera) {
+    public XxfrCabeceraFactura(BigDecimal idfacturaprimavera) {
         this.idfacturaprimavera = idfacturaprimavera;
     }
 
@@ -508,6 +512,14 @@ public class XxfrUpperForm implements Serializable {
         this.xxfrLineaCapturaFacturaList = xxfrLineaCapturaFacturaList;
     }
 
+    public XxfrtNotaCredito getXxfrtNotaCredito() {
+        return xxfrtNotaCredito;
+    }
+
+    public void setXxfrtNotaCredito(XxfrtNotaCredito xxfrtNotaCredito) {
+        this.xxfrtNotaCredito = xxfrtNotaCredito;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -518,10 +530,10 @@ public class XxfrUpperForm implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof XxfrUpperForm)) {
+        if (!(object instanceof XxfrCabeceraFactura)) {
             return false;
         }
-        XxfrUpperForm other = (XxfrUpperForm) object;
+        XxfrCabeceraFactura other = (XxfrCabeceraFactura) object;
         if ((this.idfacturaprimavera == null && other.idfacturaprimavera != null) || (this.idfacturaprimavera != null && !this.idfacturaprimavera.equals(other.idfacturaprimavera))) {
             return false;
         }
@@ -530,7 +542,7 @@ public class XxfrUpperForm implements Serializable {
 
     @Override
     public String toString() {
-        return "mx.frisa.tic.datos.entidades.XxfrUpperForm[ idfacturaprimavera=" + idfacturaprimavera + " ]";
+        return "mx.frisa.tic.datos.entidades.XxfrCabeceraFactura[ idfacturaprimavera=" + idfacturaprimavera + " ]";
     }
     
 }
