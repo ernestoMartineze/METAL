@@ -12,8 +12,9 @@ import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
 import mx.frisa.tic.datos.dto.ingresos.LineaCapturaDTO;
+import mx.frisa.tic.datos.dto.ingresos.LineaCaptutaFacturaDTO;
 import mx.frisa.tic.datos.dto.ingresos.Proceso;
-import mx.frisa.tic.datos.dto.ingresos.Respuesta;
+import mx.frisa.tic.datos.dto.ingresos.RespuestaDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaLineaCapturaDTO;
 import mx.frisa.tic.negocio.ingresos.GestorLineaCaptura;
 import mx.frisa.tic.negocio.utils.ManejadorLog;
@@ -34,9 +35,9 @@ public class GestorLineaCapturaWS {
      * @return
      */
     @WebMethod(operationName = "generarLineasCaptura")
-    public Respuesta generarLineasCaptura(@WebParam(name = "idBatch") String idBatch) {
+    public RespuestaDTO generarLineasCaptura(@WebParam(name = "idBatch") String idBatch) {
 
-        Respuesta respuesta = new Respuesta();
+        RespuestaDTO respuesta = new RespuestaDTO();
         respuesta.setProceso("generarLineasCaptura");
         respuesta.setIdError("000");
         respuesta.setDescripcionError("OK");
@@ -114,17 +115,36 @@ public class GestorLineaCapturaWS {
      * @param idBatch
      * @return
      */
-    @WebMethod(operationName = "consultaBatchLC")
+    @WebMethod(operationName = "consultaBatchFinalizado")
     public String consultaBatchLC(@WebParam(name = "idBatch") String idBatch) {
         ManejadorLog manejarLog = new ManejadorLog();
-        manejarLog.debug("Entro a metodo : GestorLineaCapturaWS-consultaBatchLC");
+        manejarLog.debug("Entro a metodo : GestorLineaCapturaWS-consultaBatchFinalizado");
         String respuesta = "SIN RESPUESTA";
         try {
-            respuesta = gestorLineaCapturaBean.consultaBatchLC(idBatch);
+            respuesta = gestorLineaCapturaBean.consultaBatchFinalizado(idBatch);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        manejarLog.debug("Termina metodo : GestorLineaCapturaWS-consultaBatchLC");
+        manejarLog.debug("Termina metodo : GestorLineaCapturaWS-consultaBatchFinalizado");
+        return respuesta;
+    }
+    
+    /**
+     * Web service operation
+     * @param idBatch
+     * @return
+     */
+    @WebMethod(operationName = "consultaLCGeneradas")
+    public List<LineaCaptutaFacturaDTO> consultaLCGeneradas(@WebParam(name = "idBatch") String idBatch) {
+        ManejadorLog manejarLog = new ManejadorLog();
+        List<LineaCaptutaFacturaDTO> respuesta = null;
+        manejarLog.debug("Entro a metodo : GestorLineaCapturaWS-consultaLCGeneradas");
+        try {
+            respuesta = gestorLineaCapturaBean.consultaLCGeneradas(idBatch);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        manejarLog.debug("Termina metodo : GestorLineaCapturaWS-consultaLCGeneradas");
         return respuesta;
     }
 

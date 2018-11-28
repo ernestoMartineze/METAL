@@ -4,7 +4,7 @@ package mx.frisa.tic.datos.dto.ingresos;
  *
  * @author soultech
  */
-public class Respuesta {
+public class RespuestaDTO {
     String proceso;
     String idError;
     String descripcionError;

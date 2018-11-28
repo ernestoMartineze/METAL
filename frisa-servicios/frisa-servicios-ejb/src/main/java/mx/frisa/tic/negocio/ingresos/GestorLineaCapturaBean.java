@@ -11,6 +11,7 @@ import javax.ejb.LocalBean;
 import mx.frisa.tic.datos.comun.DAO;
 import mx.frisa.tic.datos.comun.ProcedimientoAlmacendo;
 import mx.frisa.tic.datos.dto.ingresos.LineaCapturaDTO;
+import mx.frisa.tic.datos.dto.ingresos.LineaCaptutaFacturaDTO;
 import mx.frisa.tic.datos.entidades.XxfrLineaCaptura;
 
 /**
@@ -60,13 +61,18 @@ public class GestorLineaCapturaBean implements GestorLineaCaptura {
         return procedimiento.ejecutaBatchLC(idBatch);
     }
     
-    public String consultaBatchLC(String idBatch) {
+    public String consultaBatchFinalizado(String idBatch) {
         ProcedimientoAlmacendo procedimiento = new ProcedimientoAlmacendo();
         String respuesta = "EN PROCESO";
-        if(procedimiento.consultaBatchLC(idBatch) == 0){
+        if(procedimiento.consultaBatchFinalizado(idBatch) == 0){
             respuesta = "TERMINADO";
         }
         return respuesta;
+    }
+    
+    public List<LineaCaptutaFacturaDTO> consultaLCGeneradas(String idBatch) {
+        ProcedimientoAlmacendo procedimiento = new ProcedimientoAlmacendo();
+        return procedimiento.consultaLCGeneradas(idBatch);
     }
 
 }

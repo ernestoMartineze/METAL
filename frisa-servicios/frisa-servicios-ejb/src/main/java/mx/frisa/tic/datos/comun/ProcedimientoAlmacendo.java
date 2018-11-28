@@ -5,11 +5,14 @@
  */
 package mx.frisa.tic.datos.comun;
 
-import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.ParameterMode;
 import javax.persistence.StoredProcedureQuery;
+import mx.frisa.tic.datos.dto.ingresos.LineaCaptutaFacturaDTO;
+import mx.frisa.tic.datos.entidades.XxfrvConsultaLcBatch;
 import mx.frisa.tic.negocio.utils.ManejadorLog;
 
 /**
@@ -98,7 +101,7 @@ public class ProcedimientoAlmacendo extends ManejadorEntidad {
         return respuesta;
     }
     
-    public int consultaBatchLC(String idBatch) {
+    public int consultaBatchFinalizado(String idBatch) {
         ManejadorLog manejadorLog = new ManejadorLog();
         int respuesta = 0;
         manejadorLog.debug("Entró consultaBatchLC : idBatch=" + idBatch);
@@ -135,5 +138,25 @@ public class ProcedimientoAlmacendo extends ManejadorEntidad {
         return respuesta;
     }
     
-    
+    public List<LineaCaptutaFacturaDTO> consultaLCGeneradas(String idBatch) {
+        ManejadorLog manejadorLog = new ManejadorLog();
+        DAO<XxfrvConsultaLcBatch> consultaDAO = new DAO(XxfrvConsultaLcBatch.class);
+        List<XxfrvConsultaLcBatch> consultaDTO;
+        List<LineaCaptutaFacturaDTO> facturas = new ArrayList<>();
+        LineaCaptutaFacturaDTO factura = new LineaCaptutaFacturaDTO();
+        StringBuilder consulta = new StringBuilder();
+        consulta.append("SELECT x ")
+                .append("FROM XxfrvConsultaLcBatch x ")
+                .append("WHERE x.idbatch = '")
+                .append(idBatch)
+                .append("'");
+        consultaDTO = consultaDAO.consultaQueryNativo(consulta.toString());
+        for(XxfrvConsultaLcBatch resConsulta : consultaDTO){
+            factura.setIdbatch(resConsulta.getIdbatch());
+            factura.setIdfacturaprimavera(resConsulta.getIdfacturaprimavera());
+            factura.setLineacaptura(resConsulta.getLineacaptura());
+            facturas.add(factura);
+        }
+        return facturas;
+    }/**/
 }
