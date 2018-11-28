@@ -1,0 +1,102 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="DD0D995C-36CE-4ACC-E303-6E9994538732" schemaObject="DFEC3635-A5A9-4120-486F-CF69B55F3572" name="XXFR_ESTADO_BATCH">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>INGRESOS</sourceObjSchema>
+<sourceObjName>XXFR_ESTADO_BATCH</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<commentInRDBMS>Estado de los batch procesados, sin procesar y con errores.</commentInRDBMS>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>EC185623-D504-C062-38C0-0D6DABCF1484</importedID>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="IDESTADOBATCH" id="C5E1FA72-3334-892F-DC4A-404401995044">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_ESTADO_BATCH</sourceObjSchema>
+<sourceObjName>IDESTADOBATCH</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>C21329AF-D37E-104A-3DA4-8267A80F83DE</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<ownDataTypeParameters>,10,0</ownDataTypeParameters>
+<autoIncrementColumn>true</autoIncrementColumn>
+<identityColumn>true</identityColumn>
+<autoIncrementGenerateAlways>true</autoIncrementGenerateAlways>
+<autoIncrementCycle>false</autoIncrementCycle>
+<autoIncrementDisableCache>false</autoIncrementDisableCache>
+<autoIncrementCache>20</autoIncrementCache>
+<autoIncrementOrder>false</autoIncrementOrder>
+</Column>
+<Column name="IDBATCH" id="98199C78-C988-F29D-0F2F-1104B520C317">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_ESTADO_BATCH</sourceObjSchema>
+<sourceObjName>IDBATCH</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>15FDF303-69F0-D100-BD94-A69C97DBC7FE</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>10 BYTE</dataTypeSize>
+<ownDataTypeParameters>10 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ESTADO" id="B75D87AD-8975-46A4-B615-A84FDD3D32DA">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_ESTADO_BATCH</sourceObjSchema>
+<sourceObjName>ESTADO</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>4273F2C3-B312-4738-FBAC-E21A9657DF6E</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>10 BYTE</dataTypeSize>
+<ownDataTypeParameters>10 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="INICIOPROCESO" id="A5EE064D-F603-792F-DB74-FF69907214A3">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_ESTADO_BATCH</sourceObjSchema>
+<sourceObjName>INICIOPROCESO</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>E50D116E-168A-F9BF-4298-DBC5721AF70B</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT015</logicalDatatype>
+<dataTypePrecision>6</dataTypePrecision>
+<ownDataTypeParameters>,6,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="FINPROCESO" id="BDDB904A-BE1E-D5B7-0676-354C928C0DE3">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_ESTADO_BATCH</sourceObjSchema>
+<sourceObjName>FINPROCESO</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>BEBCE5CC-752F-BC93-C9EE-F3F989FB2F48</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT015</logicalDatatype>
+<dataTypePrecision>6</dataTypePrecision>
+<ownDataTypeParameters>,6,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+</Table>

@@ -1,0 +1,27 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableProxyOraclev12c class="oracle.dbtools.crest.model.design.storage.oracle.v12c.TableProxyOraclev12c" name="XXFR_APLICACION_RECIBO" directorySegmentName="seg_0" id="C8B949CD-A9FC-FF86-B7EC-437DB98A60A7">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:35:50 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<schemaObject>DFEC3635-A5A9-4120-486F-CF69B55F3572</schemaObject>
+<logging>YES</logging>
+<partitionedRowMovement>DISABLE</partitionedRowMovement>
+<segment>FB782B2C-4A09-F472-9449-3C0BBDC3892C</segment>
+<tableSpace>F71BB681-6981-A225-B3DB-8C83263C1936</tableSpace>
+<temporaryChanged>false</temporaryChanged>
+<accessDriverType>oracle_loader</accessDriverType>
+<rejectLimit></rejectLimit>
+<inMemory>NO</inMemory>
+<columnProxies itemClass="oracle.dbtools.crest.model.design.storage.oracle.v12c.ColumnProxyOraclev12c">
+<ColumnProxy name="IDPAGO" id="2D179606-3E92-E7A1-632E-C9F3F6E4E33C">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:35:54 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="IDFACTURAERP" id="FD70AAE3-91F4-D780-0F2A-728D397C6514">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:35:54 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+</columnProxies>
+</TableProxyOraclev12c>

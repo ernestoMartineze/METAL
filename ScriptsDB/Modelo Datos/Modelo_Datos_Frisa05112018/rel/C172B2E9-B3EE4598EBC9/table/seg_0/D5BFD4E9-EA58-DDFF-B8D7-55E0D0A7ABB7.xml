@@ -1,0 +1,174 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="D5BFD4E9-EA58-DDFF-B8D7-55E0D0A7ABB7" schemaObject="DFEC3635-A5A9-4120-486F-CF69B55F3572" name="XXFRT_NOTA_CREDITO">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>INGRESOS</sourceObjSchema>
+<sourceObjName>XXFRT_NOTA_CREDITO</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>B55951F1-38F2-23A0-D340-0777B338954E</importedID>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="UUID" id="1D85EE46-69A9-B961-04CA-5F7FBC00AC16">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFRT_NOTA_CREDITO</sourceObjSchema>
+<sourceObjName>UUID</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<commentInRDBMS>Identificador de la nota de crédito</commentInRDBMS>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>A2639E58-6841-0514-980F-44BE1219C6FE</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="REF_DESCRIPCION" id="8A86F6C1-89AB-D80A-5608-9709932DA91E">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFRT_NOTA_CREDITO</sourceObjSchema>
+<sourceObjName>REF_DESCRIPCION</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<commentInRDBMS>Descripción del motivo de la NC</commentInRDBMS>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>5DF5DC82-ECA6-4914-A3FB-81D1AE399337</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>300 BYTE</dataTypeSize>
+<ownDataTypeParameters>300 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CAN_APLICABLE" id="CE263159-647F-99DA-14FC-BEFBB72D9C7A">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFRT_NOTA_CREDITO</sourceObjSchema>
+<sourceObjName>CAN_APLICABLE</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<commentInRDBMS>Monto total de la NC</commentInRDBMS>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>FB5F471B-DC65-AD39-97F1-5B09FD1EA59A</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<ownDataTypeParameters>,10,2</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="FEC_REGISTRO" id="48F8D7A2-EE0A-B768-964E-DCE5D744212E">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFRT_NOTA_CREDITO</sourceObjSchema>
+<sourceObjName>FEC_REGISTRO</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<commentInRDBMS>Fecha de registro de la NC</commentInRDBMS>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>FEE2D6ED-40A5-CDAD-62E3-C171477A5FF7</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<dataTypeSize>7</dataTypeSize>
+<defaultValue>current_date</defaultValue>
+<ownDataTypeParameters>7,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CS_ESTATUS" id="3321516C-6AF8-C333-1FE4-3000D1659340">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFRT_NOTA_CREDITO</sourceObjSchema>
+<sourceObjName>CS_ESTATUS</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<commentInRDBMS>Estatus de la NC: PORAPLICAR, APLICADA, NO ALICADA</commentInRDBMS>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>D1415B09-7A9A-CB8F-D051-AC7B4134666E</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 BYTE</dataTypeSize>
+<ownDataTypeParameters>20 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="FEC_APLICACION" id="A2EE15AF-86F0-88F4-E4C5-3F6E6A7D7D45">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFRT_NOTA_CREDITO</sourceObjSchema>
+<sourceObjName>FEC_APLICACION</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<commentInRDBMS>Fecha de aplicación de la NC</commentInRDBMS>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>5824D44C-9A11-57EC-5CA3-DFDCD5064B16</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 BYTE</dataTypeSize>
+<ownDataTypeParameters>20 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ID_FACTURAPRIMAVERA" id="F071B4CB-49D2-659B-719A-1E4F852B49B9">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFRT_NOTA_CREDITO</sourceObjSchema>
+<sourceObjName>ID_FACTURAPRIMAVERA</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<commentInRDBMS>Identificador de la factura que generó la NC</commentInRDBMS>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>311832F6-6E70-93B3-68D1-98B547843004</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>20</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="8588B81E-65CB-E6E1-61AE-5C449B7CF8B7" referredColumn="6233124B-0A99-1682-47C1-09AC2E89F2E7"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="A5E36D3A-B7F6-0BB1-A964-F0A7C58E8634" name="XXFRT_NOTA_CREDITO_PK">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>INGRESOS</sourceObjSchema>
+<sourceObjName>XXFRT_NOTA_CREDITO_PK</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>A5C4542C-B685-E304-B08E-DD2993E68348</importedID>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="F071B4CB-49D2-659B-719A-1E4F852B49B9"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="B402E920-D3C2-F3E6-C6BD-9D4F18513851" schemaObject="DFEC3635-A5A9-4120-486F-CF69B55F3572" name="XXFRT_NOTA_CREDITO_PK">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>INGRESOS</sourceObjSchema>
+<sourceObjName>XXFRT_NOTA_CREDITO_PK</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>30DF3F5D-EC7F-9D1B-4BFD-ADAD29934DC8</importedID>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="F071B4CB-49D2-659B-719A-1E4F852B49B9"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="160E8538-D7BE-0C7B-FE03-58C7586743E9" name="XXFRT_NOTA_CREDITO_FK1">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="F071B4CB-49D2-659B-719A-1E4F852B49B9"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

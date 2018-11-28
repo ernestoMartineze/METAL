@@ -1,0 +1,628 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+        xmlns:h="http://java.sun.com/jsf/html">
+    <af:document title="LineaReferencia.jsf" id="d1" binding="#{backingBeanScope.backing_LineaReferencia.d1}">
+        <af:messages id="m1" binding="#{backingBeanScope.backing_LineaReferencia.m1}"/>
+        <af:form id="f1" binding="#{backingBeanScope.backing_LineaReferencia.f1}">
+            <af:panelGridLayout id="pgl1" binding="#{backingBeanScope.backing_LineaReferencia.pgl1}">
+                <af:gridRow marginTop="5px" height="auto" id="gr1"
+                            binding="#{backingBeanScope.backing_LineaReferencia.gr1}">
+                    <af:gridCell marginStart="5px" marginEnd="5px" width="100%" id="gc1"
+                                 binding="#{backingBeanScope.backing_LineaReferencia.gc1}">
+                                 <div style="width:585px; padding:0px; border-color:Silver; border-style:groove; margin:15px; outline-width:thin; border-width:thin;">
+                            <af:panelGridLayout id="pgl2" binding="#{backingBeanScope.backing_LineaReferencia.pgl2}">
+                                <af:gridRow marginTop="5px" marginBottom="5px" height="auto" id="gr4"
+                                            binding="#{backingBeanScope.backing_LineaReferencia.gr4}">
+                                    <af:gridCell marginStart="5px" width="50%" id="gc4"
+                                                 binding="#{backingBeanScope.backing_LineaReferencia.gc4}">
+                                        <af:inputText value="#{bindings.lineaCaptura.inputValue}"
+                                                      label="Linea de captura"
+                                                      required="#{bindings.lineaCaptura.hints.mandatory}"
+                                                      columns="#{bindings.lineaCaptura.hints.displayWidth}"
+                                                      maximumLength="#{bindings.lineaCaptura.hints.precision}"
+                                                      shortDesc="#{bindings.lineaCaptura.hints.tooltip}" id="it1"
+                                                      binding="#{backingBeanScope.backing_LineaReferencia.it1}">
+                                            <f:validator binding="#{bindings.lineaCaptura.validator}"/>
+                                        </af:inputText>
+                                        <af:inputText value="#{bindings.referencia.inputValue}" label="Referencia"
+                                                      required="#{bindings.referencia.hints.mandatory}"
+                                                      columns="#{bindings.referencia.hints.displayWidth}"
+                                                      maximumLength="#{bindings.referencia.hints.precision}"
+                                                      shortDesc="#{bindings.referencia.hints.tooltip}" id="it2"
+                                                      binding="#{backingBeanScope.backing_LineaReferencia.it2}">
+                                            <f:validator binding="#{bindings.referencia.validator}"/>
+                                        </af:inputText>
+                                        <af:inputText value="#{bindings.banco.inputValue}" label="Banco"
+                                                      required="#{bindings.banco.hints.mandatory}"
+                                                      columns="#{bindings.banco.hints.displayWidth}"
+                                                      maximumLength="#{bindings.banco.hints.precision}"
+                                                      shortDesc="#{bindings.banco.hints.tooltip}" id="it3"
+                                                      binding="#{backingBeanScope.backing_LineaReferencia.it3}">
+                                            <f:validator binding="#{bindings.banco.validator}"/>
+                                        </af:inputText>
+                                    </af:gridCell>
+                                    <af:gridCell marginStart="5px" marginEnd="5px" width="50%" id="gc5"
+                                                 binding="#{backingBeanScope.backing_LineaReferencia.gc5}">
+                                        <af:inputText value="#{bindings.entidadLegal.inputValue}" label="Entidad legal"
+                                                      required="#{bindings.entidadLegal.hints.mandatory}"
+                                                      columns="#{bindings.entidadLegal.hints.displayWidth}"
+                                                      maximumLength="#{bindings.entidadLegal.hints.precision}"
+                                                      shortDesc="#{bindings.entidadLegal.hints.tooltip}" id="it4"
+                                                      binding="#{backingBeanScope.backing_LineaReferencia.it4}">
+                                            <f:validator binding="#{bindings.entidadLegal.validator}"/>
+                                        </af:inputText>
+                                        <af:inputText value="#{bindings.unidadNegocio.inputValue}"
+                                                      label="Unidad de negocio"
+                                                      required="#{bindings.unidadNegocio.hints.mandatory}"
+                                                      columns="#{bindings.unidadNegocio.hints.displayWidth}"
+                                                      maximumLength="#{bindings.unidadNegocio.hints.precision}"
+                                                      shortDesc="#{bindings.unidadNegocio.hints.tooltip}" id="it5"
+                                                      binding="#{backingBeanScope.backing_LineaReferencia.it5}">
+                                            <f:validator binding="#{bindings.unidadNegocio.validator}"/>
+                                        </af:inputText>
+                                        <af:commandButton actionListener="#{bindings.consultaDetalleLineaCaptura.execute}"
+                                                          text="Buscar linea"
+                                                          disabled="#{!bindings.consultaDetalleLineaCaptura.enabled}"
+                                                          id="cb1"
+                                                          binding="#{backingBeanScope.backing_LineaReferencia.cb1}"/>
+                                    </af:gridCell>
+                                </af:gridRow>
+                            </af:panelGridLayout>
+                        </div>
+                                 
+                        <af:panelFormLayout id="pfl1" binding="#{backingBeanScope.backing_LineaReferencia.pfl1}"/>
+                    </af:gridCell>
+                </af:gridRow>
+                <af:gridRow marginTop="5px" height="auto" id="gr2"
+                            binding="#{backingBeanScope.backing_LineaReferencia.gr2}">
+                    <af:gridCell marginStart="5px" marginEnd="5px" width="100%" id="gc2"
+                                 binding="#{backingBeanScope.backing_LineaReferencia.gc2}">
+                        <af:table value="#{bindings.lineasCaptura.collectionModel}" var="row"
+                                  rows="#{bindings.lineasCaptura.rangeSize}"
+                                  emptyText="#{bindings.lineasCaptura.viewable ? 'No hay datos para mostrar': 'Access Denied.'}"
+                                  fetchSize="#{bindings.lineasCaptura.rangeSize}" rowBandingInterval="0"
+                                  selectedRowKeys="#{bindings.lineasCaptura.collectionModel.selectedRow}"
+                                  rowSelection="single" id="tablaLC"
+                                  binding="#{backingBeanScope.backing_LineaReferencia.tablaLC}" width="1324"
+                                  selectionListener="#{backingBeanScope.backing_LineaReferencia.tablaLC_selectionListener}"
+                                  inlineStyle="height:273px; margin:0px 0px 15px 15px;">
+                            <af:column sortProperty="#{bindings.lineasCaptura.hints.lineacapturaref.name}"
+                                       sortable="false"
+                                       headerText="#{bindings.lineasCaptura.hints.lineacapturaref.label}" id="c25">
+                                <af:inputText value="#{row.bindings.lineacapturaref.inputValue}"
+                                              label="#{bindings.lineasCaptura.hints.lineacapturaref.label}"
+                                              required="#{bindings.lineasCaptura.hints.lineacapturaref.mandatory}"
+                                              columns="#{bindings.lineasCaptura.hints.lineacapturaref.displayWidth}"
+                                              maximumLength="#{bindings.lineasCaptura.hints.lineacapturaref.precision}"
+                                              shortDesc="#{bindings.lineasCaptura.hints.lineacapturaref.tooltip}"
+                                              id="it28">
+                                    <f:validator binding="#{row.bindings.lineacapturaref.validator}"/>
+                                </af:inputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.lineasCaptura.hints.sistemaorigen.name}"
+                                       sortable="false" headerText="#{bindings.lineasCaptura.hints.sistemaorigen.label}"
+                                       id="c31">
+                                <af:inputText value="#{row.bindings.sistemaorigen.inputValue}"
+                                              label="#{bindings.lineasCaptura.hints.sistemaorigen.label}"
+                                              required="#{bindings.lineasCaptura.hints.sistemaorigen.mandatory}"
+                                              columns="#{bindings.lineasCaptura.hints.sistemaorigen.displayWidth}"
+                                              maximumLength="#{bindings.lineasCaptura.hints.sistemaorigen.precision}"
+                                              shortDesc="#{bindings.lineasCaptura.hints.sistemaorigen.tooltip}"
+                                              id="it34">
+                                    <f:validator binding="#{row.bindings.sistemaorigen.validator}"/>
+                                </af:inputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.lineasCaptura.hints.lineacaptura.name}" sortable="false"
+                                       headerText="#{bindings.lineasCaptura.hints.lineacaptura.label}" id="c24">
+                                <af:inputText value="#{row.bindings.lineacaptura.inputValue}"
+                                              label="#{bindings.lineasCaptura.hints.lineacaptura.label}"
+                                              required="#{bindings.lineasCaptura.hints.lineacaptura.mandatory}"
+                                              columns="#{bindings.lineasCaptura.hints.lineacaptura.displayWidth}"
+                                              maximumLength="#{bindings.lineasCaptura.hints.lineacaptura.precision}"
+                                              shortDesc="#{bindings.lineasCaptura.hints.lineacaptura.tooltip}"
+                                              id="it16">
+                                    <f:validator binding="#{row.bindings.lineacaptura.validator}"/>
+                                </af:inputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.lineasCaptura.hints.referencia.name}" sortable="false"
+                                       headerText="#{bindings.lineasCaptura.hints.referencia.label}" id="c30">
+                                <af:inputText value="#{row.bindings.referencia.inputValue}"
+                                              label="#{bindings.lineasCaptura.hints.referencia.label}"
+                                              required="#{bindings.lineasCaptura.hints.referencia.mandatory}"
+                                              columns="#{bindings.lineasCaptura.hints.referencia.displayWidth}"
+                                              maximumLength="#{bindings.lineasCaptura.hints.referencia.precision}"
+                                              shortDesc="#{bindings.lineasCaptura.hints.referencia.tooltip}" id="it33">
+                                    <f:validator binding="#{row.bindings.referencia.validator}"/>
+                                </af:inputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.lineasCaptura.hints.fechacreacion.name}"
+                                       sortable="false" headerText="#{bindings.lineasCaptura.hints.fechacreacion.label}"
+                                       id="c8">
+                                <af:inputDate value="#{row.bindings.fechacreacion.inputValue}"
+                                              label="#{bindings.lineasCaptura.hints.fechacreacion.label}"
+                                              required="#{bindings.lineasCaptura.hints.fechacreacion.mandatory}"
+                                              columns="#{bindings.lineasCaptura.hints.fechacreacion.displayWidth}"
+                                              shortDesc="#{bindings.lineasCaptura.hints.fechacreacion.tooltip}"
+                                              id="id1">
+                                    <f:validator binding="#{row.bindings.fechacreacion.validator}"/>
+                                    <af:convertDateTime pattern="#{bindings.lineasCaptura.hints.fechacreacion.format}"/>
+                                </af:inputDate>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.lineasCaptura.hints.fechavigencia.name}"
+                                       sortable="false" headerText="#{bindings.lineasCaptura.hints.fechavigencia.label}"
+                                       id="c9">
+                                <af:inputDate value="#{row.bindings.fechavigencia.inputValue}"
+                                              label="#{bindings.lineasCaptura.hints.fechavigencia.label}"
+                                              required="#{bindings.lineasCaptura.hints.fechavigencia.mandatory}"
+                                              columns="#{bindings.lineasCaptura.hints.fechavigencia.displayWidth}"
+                                              shortDesc="#{bindings.lineasCaptura.hints.fechavigencia.tooltip}"
+                                              id="id2">
+                                    <f:validator binding="#{row.bindings.fechavigencia.validator}"/>
+                                    <af:convertDateTime pattern="#{bindings.lineasCaptura.hints.fechavigencia.format}"/>
+                                </af:inputDate>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.lineasCaptura.hints.montolineacaptura.name}"
+                                       sortable="false"
+                                       headerText="#{bindings.lineasCaptura.hints.montolineacaptura.label}" id="c27">
+                                <af:inputText value="#{row.bindings.montolineacaptura.inputValue}"
+                                              label="#{bindings.lineasCaptura.hints.montolineacaptura.label}"
+                                              required="#{bindings.lineasCaptura.hints.montolineacaptura.mandatory}"
+                                              columns="#{bindings.lineasCaptura.hints.montolineacaptura.displayWidth}"
+                                              maximumLength="#{bindings.lineasCaptura.hints.montolineacaptura.precision}"
+                                              shortDesc="#{bindings.lineasCaptura.hints.montolineacaptura.tooltip}"
+                                              id="it30">
+                                    <f:validator binding="#{row.bindings.montolineacaptura.validator}"/>
+                                </af:inputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.lineasCaptura.hints.estatuslc.name}" sortable="false"
+                                       headerText="#{bindings.lineasCaptura.hints.estatuslc.label}" id="c7">
+                                <af:inputText value="#{row.bindings.estatuslc.inputValue}"
+                                              label="#{bindings.lineasCaptura.hints.estatuslc.label}"
+                                              required="#{bindings.lineasCaptura.hints.estatuslc.mandatory}"
+                                              columns="#{bindings.lineasCaptura.hints.estatuslc.displayWidth}"
+                                              maximumLength="#{bindings.lineasCaptura.hints.estatuslc.precision}"
+                                              shortDesc="#{bindings.lineasCaptura.hints.estatuslc.tooltip}" id="it12">
+                                    <f:validator binding="#{row.bindings.estatuslc.validator}"/>
+                                </af:inputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.lineasCaptura.hints.banco.name}" sortable="false"
+                                       headerText="#{bindings.lineasCaptura.hints.banco.label}" id="c1">
+                                <af:inputText value="#{row.bindings.banco.inputValue}"
+                                              label="#{bindings.lineasCaptura.hints.banco.label}"
+                                              required="#{bindings.lineasCaptura.hints.banco.mandatory}"
+                                              columns="#{bindings.lineasCaptura.hints.banco.displayWidth}"
+                                              maximumLength="#{bindings.lineasCaptura.hints.banco.precision}"
+                                              shortDesc="#{bindings.lineasCaptura.hints.banco.tooltip}" id="it6">
+                                    <f:validator binding="#{row.bindings.banco.validator}"/>
+                                </af:inputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.lineasCaptura.hints.cuentabancaria.name}"
+                                       sortable="false"
+                                       headerText="#{bindings.lineasCaptura.hints.cuentabancaria.label}" id="c4">
+                                <af:inputText value="#{row.bindings.cuentabancaria.inputValue}"
+                                              label="#{bindings.lineasCaptura.hints.cuentabancaria.label}"
+                                              required="#{bindings.lineasCaptura.hints.cuentabancaria.mandatory}"
+                                              columns="#{bindings.lineasCaptura.hints.cuentabancaria.displayWidth}"
+                                              maximumLength="#{bindings.lineasCaptura.hints.cuentabancaria.precision}"
+                                              shortDesc="#{bindings.lineasCaptura.hints.cuentabancaria.tooltip}"
+                                              id="it9">
+                                    <f:validator binding="#{row.bindings.cuentabancaria.validator}"/>
+                                </af:inputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.lineasCaptura.hints.entidadlegal.name}" sortable="false"
+                                       headerText="#{bindings.lineasCaptura.hints.entidadlegal.label}" id="c6">
+                                <af:inputText value="#{row.bindings.entidadlegal.inputValue}"
+                                              label="#{bindings.lineasCaptura.hints.entidadlegal.label}"
+                                              required="#{bindings.lineasCaptura.hints.entidadlegal.mandatory}"
+                                              columns="#{bindings.lineasCaptura.hints.entidadlegal.displayWidth}"
+                                              maximumLength="#{bindings.lineasCaptura.hints.entidadlegal.precision}"
+                                              shortDesc="#{bindings.lineasCaptura.hints.entidadlegal.tooltip}"
+                                              id="it11">
+                                    <f:validator binding="#{row.bindings.entidadlegal.validator}"/>
+                                </af:inputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.lineasCaptura.hints.unidadnegocio.name}"
+                                       sortable="false" headerText="#{bindings.lineasCaptura.hints.unidadnegocio.label}"
+                                       id="c33">
+                                <af:inputText value="#{row.bindings.unidadnegocio.inputValue}"
+                                              label="#{bindings.lineasCaptura.hints.unidadnegocio.label}"
+                                              required="#{bindings.lineasCaptura.hints.unidadnegocio.mandatory}"
+                                              columns="#{bindings.lineasCaptura.hints.unidadnegocio.displayWidth}"
+                                              maximumLength="#{bindings.lineasCaptura.hints.unidadnegocio.precision}"
+                                              shortDesc="#{bindings.lineasCaptura.hints.unidadnegocio.tooltip}"
+                                              id="it36">
+                                    <f:validator binding="#{row.bindings.unidadnegocio.validator}"/>
+                                </af:inputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.lineasCaptura.hints.division.name}" sortable="false"
+                                       headerText="#{bindings.lineasCaptura.hints.division.label}" id="c5">
+                                <af:inputText value="#{row.bindings.division.inputValue}"
+                                              label="#{bindings.lineasCaptura.hints.division.label}"
+                                              required="#{bindings.lineasCaptura.hints.division.mandatory}"
+                                              columns="#{bindings.lineasCaptura.hints.division.displayWidth}"
+                                              maximumLength="#{bindings.lineasCaptura.hints.division.precision}"
+                                              shortDesc="#{bindings.lineasCaptura.hints.division.tooltip}" id="it10">
+                                    <f:validator binding="#{row.bindings.division.validator}"/>
+                                </af:inputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.lineasCaptura.hints.centrocostosproyecto.name}"
+                                       sortable="false"
+                                       headerText="#{bindings.lineasCaptura.hints.centrocostosproyecto.label}" id="c3">
+                                <af:inputText value="#{row.bindings.centrocostosproyecto.inputValue}"
+                                              label="#{bindings.lineasCaptura.hints.centrocostosproyecto.label}"
+                                              required="#{bindings.lineasCaptura.hints.centrocostosproyecto.mandatory}"
+                                              columns="#{bindings.lineasCaptura.hints.centrocostosproyecto.displayWidth}"
+                                              maximumLength="#{bindings.lineasCaptura.hints.centrocostosproyecto.precision}"
+                                              shortDesc="#{bindings.lineasCaptura.hints.centrocostosproyecto.tooltip}"
+                                              id="it8">
+                                    <f:validator binding="#{row.bindings.centrocostosproyecto.validator}"/>
+                                </af:inputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.lineasCaptura.hints.numerorecibo.name}" sortable="false"
+                                       headerText="#{bindings.lineasCaptura.hints.numerorecibo.label}" id="c28">
+                                <af:inputText value="#{row.bindings.numerorecibo.inputValue}"
+                                              label="#{bindings.lineasCaptura.hints.numerorecibo.label}"
+                                              required="#{bindings.lineasCaptura.hints.numerorecibo.mandatory}"
+                                              columns="#{bindings.lineasCaptura.hints.numerorecibo.displayWidth}"
+                                              maximumLength="#{bindings.lineasCaptura.hints.numerorecibo.precision}"
+                                              shortDesc="#{bindings.lineasCaptura.hints.numerorecibo.tooltip}"
+                                              id="it31">
+                                    <f:validator binding="#{row.bindings.numerorecibo.validator}"/>
+                                </af:inputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.lineasCaptura.hints.tipocobranza.name}" sortable="false"
+                                       headerText="#{bindings.lineasCaptura.hints.tipocobranza.label}" id="c32">
+                                <af:inputText value="#{row.bindings.tipocobranza.inputValue}"
+                                              label="#{bindings.lineasCaptura.hints.tipocobranza.label}"
+                                              required="#{bindings.lineasCaptura.hints.tipocobranza.mandatory}"
+                                              columns="#{bindings.lineasCaptura.hints.tipocobranza.displayWidth}"
+                                              maximumLength="#{bindings.lineasCaptura.hints.tipocobranza.precision}"
+                                              shortDesc="#{bindings.lineasCaptura.hints.tipocobranza.tooltip}"
+                                              id="it35">
+                                    <f:validator binding="#{row.bindings.tipocobranza.validator}"/>
+                                </af:inputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.lineasCaptura.hints.folioacuerdocobranza.name}"
+                                       sortable="false"
+                                       headerText="#{bindings.lineasCaptura.hints.folioacuerdocobranza.label}" id="c10">
+                                <af:inputText value="#{row.bindings.folioacuerdocobranza.inputValue}"
+                                              label="#{bindings.lineasCaptura.hints.folioacuerdocobranza.label}"
+                                              required="#{bindings.lineasCaptura.hints.folioacuerdocobranza.mandatory}"
+                                              columns="#{bindings.lineasCaptura.hints.folioacuerdocobranza.displayWidth}"
+                                              maximumLength="#{bindings.lineasCaptura.hints.folioacuerdocobranza.precision}"
+                                              shortDesc="#{bindings.lineasCaptura.hints.folioacuerdocobranza.tooltip}"
+                                              id="it13">
+                                    <f:validator binding="#{row.bindings.folioacuerdocobranza.validator}"/>
+                                </af:inputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.lineasCaptura.hints.montoacuerdocobranza.name}"
+                                       sortable="false"
+                                       headerText="#{bindings.lineasCaptura.hints.montoacuerdocobranza.label}" id="c26">
+                                <af:inputText value="#{row.bindings.montoacuerdocobranza.inputValue}"
+                                              label="#{bindings.lineasCaptura.hints.montoacuerdocobranza.label}"
+                                              required="#{bindings.lineasCaptura.hints.montoacuerdocobranza.mandatory}"
+                                              columns="#{bindings.lineasCaptura.hints.montoacuerdocobranza.displayWidth}"
+                                              maximumLength="#{bindings.lineasCaptura.hints.montoacuerdocobranza.precision}"
+                                              shortDesc="#{bindings.lineasCaptura.hints.montoacuerdocobranza.tooltip}"
+                                              id="it29">
+                                    <f:validator binding="#{row.bindings.montoacuerdocobranza.validator}"/>
+                                </af:inputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.lineasCaptura.hints.interesmoratoriocondonado.name}"
+                                       sortable="false"
+                                       headerText="#{bindings.lineasCaptura.hints.interesmoratoriocondonado.label}"
+                                       id="c23">
+                                <af:inputText value="#{row.bindings.interesmoratoriocondonado.inputValue}"
+                                              label="#{bindings.lineasCaptura.hints.interesmoratoriocondonado.label}"
+                                              required="#{bindings.lineasCaptura.hints.interesmoratoriocondonado.mandatory}"
+                                              columns="#{bindings.lineasCaptura.hints.interesmoratoriocondonado.displayWidth}"
+                                              maximumLength="#{bindings.lineasCaptura.hints.interesmoratoriocondonado.precision}"
+                                              shortDesc="#{bindings.lineasCaptura.hints.interesmoratoriocondonado.tooltip}"
+                                              id="it15">
+                                    <f:validator binding="#{row.bindings.interesmoratoriocondonado.validator}"/>
+                                </af:inputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.lineasCaptura.hints.ordinariocondonado.name}"
+                                       sortable="false"
+                                       headerText="#{bindings.lineasCaptura.hints.ordinariocondonado.label}" id="c29">
+                                <af:inputText value="#{row.bindings.ordinariocondonado.inputValue}"
+                                              label="#{bindings.lineasCaptura.hints.ordinariocondonado.label}"
+                                              required="#{bindings.lineasCaptura.hints.ordinariocondonado.mandatory}"
+                                              columns="#{bindings.lineasCaptura.hints.ordinariocondonado.displayWidth}"
+                                              maximumLength="#{bindings.lineasCaptura.hints.ordinariocondonado.precision}"
+                                              shortDesc="#{bindings.lineasCaptura.hints.ordinariocondonado.tooltip}"
+                                              id="it32">
+                                    <f:validator binding="#{row.bindings.ordinariocondonado.validator}"/>
+                                </af:inputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.lineasCaptura.hints.capitalrentacondonada.name}"
+                                       sortable="false"
+                                       headerText="#{bindings.lineasCaptura.hints.capitalrentacondonada.label}" id="c2">
+                                <af:inputText value="#{row.bindings.capitalrentacondonada.inputValue}"
+                                              label="#{bindings.lineasCaptura.hints.capitalrentacondonada.label}"
+                                              required="#{bindings.lineasCaptura.hints.capitalrentacondonada.mandatory}"
+                                              columns="#{bindings.lineasCaptura.hints.capitalrentacondonada.displayWidth}"
+                                              maximumLength="#{bindings.lineasCaptura.hints.capitalrentacondonada.precision}"
+                                              shortDesc="#{bindings.lineasCaptura.hints.capitalrentacondonada.tooltip}"
+                                              id="it7">
+                                    <f:validator binding="#{row.bindings.capitalrentacondonada.validator}"/>
+                                </af:inputText>
+                            </af:column>
+                        </af:table>
+                    </af:gridCell>
+                </af:gridRow>
+                <af:gridRow marginTop="5px" marginBottom="5px" height="auto" id="gr3"
+                            binding="#{backingBeanScope.backing_LineaReferencia.gr3}">
+                    <af:gridCell marginStart="5px" marginEnd="5px" width="100%" id="gc3"
+                                 binding="#{backingBeanScope.backing_LineaReferencia.gc3}">
+                        <af:table value="#{bindings.lcFacturas.collectionModel}" var="row"
+                                  rows="#{bindings.lcFacturas.rangeSize}"
+                                  emptyText="#{bindings.lcFacturas.viewable ? 'No hay datos para mostrar' : 'Access Denied.'}"
+                                  fetchSize="#{bindings.lcFacturas.rangeSize}" rowBandingInterval="0" id="t1"
+                                  binding="#{backingBeanScope.backing_LineaReferencia.t1}" width="1262"
+                                  inlineStyle="height:183px; margin:0px 15px 15px;">
+                            <af:column sortProperty="#{bindings.lcFacturas.hints.idfacturaprimavera.name}"
+                                       sortable="false" headerText="Factura primavera" id="c14">
+                                <af:inputText value="#{row.bindings.idfacturaprimavera.inputValue}"
+                                              label="#{bindings.lcFacturas.hints.idfacturaprimavera.label}"
+                                              required="#{bindings.lcFacturas.hints.idfacturaprimavera.mandatory}"
+                                              columns="#{bindings.lcFacturas.hints.idfacturaprimavera.displayWidth}"
+                                              maximumLength="#{bindings.lcFacturas.hints.idfacturaprimavera.precision}"
+                                              shortDesc="#{bindings.lcFacturas.hints.idfacturaprimavera.tooltip}"
+                                              id="it19">
+                                    <f:validator binding="#{row.bindings.idfacturaprimavera.validator}"/>
+                                    <af:convertNumber groupingUsed="false"
+                                                      pattern="#{bindings.lcFacturas.hints.idfacturaprimavera.format}"/>
+                                </af:inputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.lcFacturas.hints.relatederpinvoice.name}"
+                                       sortable="false" headerText="Factura ERP" id="c20">
+                                <af:inputText value="#{row.bindings.relatederpinvoice.inputValue}"
+                                              label="#{bindings.lcFacturas.hints.relatederpinvoice.label}"
+                                              required="#{bindings.lcFacturas.hints.relatederpinvoice.mandatory}"
+                                              columns="#{bindings.lcFacturas.hints.relatederpinvoice.displayWidth}"
+                                              maximumLength="#{bindings.lcFacturas.hints.relatederpinvoice.precision}"
+                                              shortDesc="#{bindings.lcFacturas.hints.relatederpinvoice.tooltip}"
+                                              id="it25">
+                                    <f:validator binding="#{row.bindings.relatederpinvoice.validator}"/>
+                                </af:inputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.lcFacturas.hints.billtoconsumername.name}"
+                                       sortable="false"
+                                       headerText="Cliente" id="c12">
+                                <af:inputText value="#{row.bindings.billtoconsumername.inputValue}"
+                                              label="#{bindings.lcFacturas.hints.billtoconsumername.label}"
+                                              required="#{bindings.lcFacturas.hints.billtoconsumername.mandatory}"
+                                              columns="#{bindings.lcFacturas.hints.billtoconsumername.displayWidth}"
+                                              maximumLength="#{bindings.lcFacturas.hints.billtoconsumername.precision}"
+                                              shortDesc="#{bindings.lcFacturas.hints.billtoconsumername.tooltip}"
+                                              id="it17">
+                                    <f:validator binding="#{row.bindings.billtoconsumername.validator}"/>
+                                </af:inputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.lcFacturas.hints.companyaccountcode.name}"
+                                       sortable="false"
+                                       headerText="Cuenta" id="c13">
+                                <af:inputText value="#{row.bindings.companyaccountcode.inputValue}"
+                                              label="#{bindings.lcFacturas.hints.companyaccountcode.label}"
+                                              required="#{bindings.lcFacturas.hints.companyaccountcode.mandatory}"
+                                              columns="#{bindings.lcFacturas.hints.companyaccountcode.displayWidth}"
+                                              maximumLength="#{bindings.lcFacturas.hints.companyaccountcode.precision}"
+                                              shortDesc="#{bindings.lcFacturas.hints.companyaccountcode.tooltip}"
+                                              id="it18">
+                                    <f:validator binding="#{row.bindings.companyaccountcode.validator}"/>
+                                    <af:convertNumber groupingUsed="false"
+                                                      pattern="#{bindings.lcFacturas.hints.companyaccountcode.format}"/>
+                                </af:inputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.lcFacturas.hints.paymenttermdate.name}" sortable="false"
+                                       headerText="Termino pago" id="c18">
+                                <af:inputText value="#{row.bindings.paymenttermdate.inputValue}"
+                                              label="#{bindings.lcFacturas.hints.paymenttermdate.label}"
+                                              required="#{bindings.lcFacturas.hints.paymenttermdate.mandatory}"
+                                              columns="#{bindings.lcFacturas.hints.paymenttermdate.displayWidth}"
+                                              maximumLength="#{bindings.lcFacturas.hints.paymenttermdate.precision}"
+                                              shortDesc="#{bindings.lcFacturas.hints.paymenttermdate.tooltip}"
+                                              id="it23">
+                                    <f:validator binding="#{row.bindings.paymenttermdate.validator}"/>
+                                </af:inputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.lcFacturas.hints.projectid.name}" sortable="false"
+                                       headerText="Centro costo" id="c19">
+                                <af:inputText value="#{row.bindings.projectid.inputValue}"
+                                              label="#{bindings.lcFacturas.hints.projectid.label}"
+                                              required="#{bindings.lcFacturas.hints.projectid.mandatory}"
+                                              columns="#{bindings.lcFacturas.hints.projectid.displayWidth}"
+                                              maximumLength="#{bindings.lcFacturas.hints.projectid.precision}"
+                                              shortDesc="#{bindings.lcFacturas.hints.projectid.tooltip}" id="it24">
+                                    <f:validator binding="#{row.bindings.projectid.validator}"/>
+                                    <af:convertNumber groupingUsed="false"
+                                                      pattern="#{bindings.lcFacturas.hints.projectid.format}"/>
+                                </af:inputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.lcFacturas.hints.montobrutolinea.name}" sortable="false"
+                                       headerText="Total linea" id="c17">
+                                <af:inputText value="#{row.bindings.montobrutolinea.inputValue}"
+                                              label="#{bindings.lcFacturas.hints.montobrutolinea.label}"
+                                              required="#{bindings.lcFacturas.hints.montobrutolinea.mandatory}"
+                                              columns="#{bindings.lcFacturas.hints.montobrutolinea.displayWidth}"
+                                              maximumLength="#{bindings.lcFacturas.hints.montobrutolinea.precision}"
+                                              shortDesc="#{bindings.lcFacturas.hints.montobrutolinea.tooltip}"
+                                              id="it22">
+                                    <f:validator binding="#{row.bindings.montobrutolinea.validator}"/>
+                                </af:inputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.lcFacturas.hints.totalamount.name}" sortable="false"
+                                       headerText="Total factura" id="c22">
+                                <af:inputText value="#{row.bindings.totalamount.inputValue}"
+                                              label="#{bindings.lcFacturas.hints.totalamount.label}"
+                                              required="#{bindings.lcFacturas.hints.totalamount.mandatory}"
+                                              columns="#{bindings.lcFacturas.hints.totalamount.displayWidth}"
+                                              maximumLength="#{bindings.lcFacturas.hints.totalamount.precision}"
+                                              shortDesc="#{bindings.lcFacturas.hints.totalamount.tooltip}" id="it27">
+                                    <f:validator binding="#{row.bindings.totalamount.validator}"/>
+                                </af:inputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.lcFacturas.hints.taxrate.name}" sortable="false"
+                                       headerText="Impuestos" id="c21">
+                                <af:inputText value="#{row.bindings.taxrate.inputValue}"
+                                              label="#{bindings.lcFacturas.hints.taxrate.label}"
+                                              required="#{bindings.lcFacturas.hints.taxrate.mandatory}"
+                                              columns="#{bindings.lcFacturas.hints.taxrate.displayWidth}"
+                                              maximumLength="#{bindings.lcFacturas.hints.taxrate.precision}"
+                                              shortDesc="#{bindings.lcFacturas.hints.taxrate.tooltip}" id="it26">
+                                    <f:validator binding="#{row.bindings.taxrate.validator}"/>
+                                </af:inputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.lcFacturas.hints.idlineacaptura.name}" sortable="false"
+                                       headerText="#{bindings.lcFacturas.hints.idlineacaptura.label}" id="c15">
+                                <af:inputText value="#{row.bindings.idlineacaptura.inputValue}"
+                                              label="#{bindings.lcFacturas.hints.idlineacaptura.label}"
+                                              required="#{bindings.lcFacturas.hints.idlineacaptura.mandatory}"
+                                              columns="#{bindings.lcFacturas.hints.idlineacaptura.displayWidth}"
+                                              maximumLength="#{bindings.lcFacturas.hints.idlineacaptura.precision}"
+                                              shortDesc="#{bindings.lcFacturas.hints.idlineacaptura.tooltip}" id="it20">
+                                    <f:validator binding="#{row.bindings.idlineacaptura.validator}"/>
+                                </af:inputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.lcFacturas.hints.linenumber.name}" sortable="false"
+                                       headerText="#{bindings.lcFacturas.hints.linenumber.label}" id="c16">
+                                <af:inputText value="#{row.bindings.linenumber.inputValue}"
+                                              label="#{bindings.lcFacturas.hints.linenumber.label}"
+                                              required="#{bindings.lcFacturas.hints.linenumber.mandatory}"
+                                              columns="#{bindings.lcFacturas.hints.linenumber.displayWidth}"
+                                              maximumLength="#{bindings.lcFacturas.hints.linenumber.precision}"
+                                              shortDesc="#{bindings.lcFacturas.hints.linenumber.tooltip}" id="it21">
+                                    <f:validator binding="#{row.bindings.linenumber.validator}"/>
+                                </af:inputText>
+                            </af:column>
+                            <af:column id="c34" align="center">
+                                <af:commandButton text="Ver pagos" id="cb2"
+                                                  action="#{backingBeanScope.backing_LineaReferencia.cb2_action5}"
+                                                  partialSubmit="true" iconPosition="leading">
+                                    <af:setPropertyListener type="action"
+                                                            to="#{backingBeanScope.backing_LineaReferencia.idLinea}"
+                                                            from="#{row.bindings.relatederpinvoice.inputValue}"/>
+                                </af:commandButton>
+                            </af:column>
+                        </af:table>
+                    </af:gridCell>
+                </af:gridRow>
+            </af:panelGridLayout>
+            <af:popup childCreation="deferred" autoCancel="disabled" id="p1"
+                      binding="#{backingBeanScope.backing_LineaReferencia.p1}" eventContext="launcher">
+                <af:dialog id="d2" binding="#{backingBeanScope.backing_LineaReferencia.d2}" type="ok">
+                    <af:table value="#{bindings.detalleLCPagos.collectionModel}" var="row"
+                              rows="#{bindings.detalleLCPagos.rangeSize}"
+                              emptyText="#{bindings.detalleLCPagos.viewable ? 'No data to display.' : 'Access Denied.'}"
+                              fetchSize="#{bindings.detalleLCPagos.rangeSize}" rowBandingInterval="0"
+                              selectedRowKeys="#{bindings.detalleLCPagos.collectionModel.selectedRow}"
+                              selectionListener="#{bindings.detalleLCPagos.collectionModel.makeCurrent}"
+                              rowSelection="single" id="t2" binding="#{backingBeanScope.backing_LineaReferencia.t2}"
+                              width="848">
+                        <af:column sortProperty="#{bindings.detalleLCPagos.hints.fechaaplicacion.name}" sortable="false"
+                                   headerText="#{bindings.detalleLCPagos.hints.fechaaplicacion.label}" id="c11">
+                            <af:inputDate value="#{row.bindings.fechaaplicacion.inputValue}"
+                                          label="#{bindings.detalleLCPagos.hints.fechaaplicacion.label}"
+                                          required="#{bindings.detalleLCPagos.hints.fechaaplicacion.mandatory}"
+                                          columns="#{bindings.detalleLCPagos.hints.fechaaplicacion.displayWidth}"
+                                          shortDesc="#{bindings.detalleLCPagos.hints.fechaaplicacion.tooltip}" id="id3">
+                                <f:validator binding="#{row.bindings.fechaaplicacion.validator}"/>
+                                <af:convertDateTime pattern="#{bindings.detalleLCPagos.hints.fechaaplicacion.format}"/>
+                            </af:inputDate>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.detalleLCPagos.hints.fecharecibo.name}" sortable="false"
+                                   headerText="#{bindings.detalleLCPagos.hints.fecharecibo.label}" id="c35">
+                            <af:inputDate value="#{row.bindings.fecharecibo.inputValue}"
+                                          label="#{bindings.detalleLCPagos.hints.fecharecibo.label}"
+                                          required="#{bindings.detalleLCPagos.hints.fecharecibo.mandatory}"
+                                          columns="#{bindings.detalleLCPagos.hints.fecharecibo.displayWidth}"
+                                          shortDesc="#{bindings.detalleLCPagos.hints.fecharecibo.tooltip}" id="id4">
+                                <f:validator binding="#{row.bindings.fecharecibo.validator}"/>
+                                <af:convertDateTime pattern="#{bindings.detalleLCPagos.hints.fecharecibo.format}"/>
+                            </af:inputDate>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.detalleLCPagos.hints.fechatransaccion.name}"
+                                   sortable="false" headerText="#{bindings.detalleLCPagos.hints.fechatransaccion.label}"
+                                   id="c36">
+                            <af:inputDate value="#{row.bindings.fechatransaccion.inputValue}"
+                                          label="#{bindings.detalleLCPagos.hints.fechatransaccion.label}"
+                                          required="#{bindings.detalleLCPagos.hints.fechatransaccion.mandatory}"
+                                          columns="#{bindings.detalleLCPagos.hints.fechatransaccion.displayWidth}"
+                                          shortDesc="#{bindings.detalleLCPagos.hints.fechatransaccion.tooltip}"
+                                          id="id5">
+                                <f:validator binding="#{row.bindings.fechatransaccion.validator}"/>
+                                <af:convertDateTime pattern="#{bindings.detalleLCPagos.hints.fechatransaccion.format}"/>
+                            </af:inputDate>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.detalleLCPagos.hints.idfacturaerp.name}" sortable="false"
+                                   headerText="#{bindings.detalleLCPagos.hints.idfacturaerp.label}" id="c37">
+                            <af:inputText value="#{row.bindings.idfacturaerp.inputValue}"
+                                          label="#{bindings.detalleLCPagos.hints.idfacturaerp.label}"
+                                          required="#{bindings.detalleLCPagos.hints.idfacturaerp.mandatory}"
+                                          columns="#{bindings.detalleLCPagos.hints.idfacturaerp.displayWidth}"
+                                          maximumLength="#{bindings.detalleLCPagos.hints.idfacturaerp.precision}"
+                                          shortDesc="#{bindings.detalleLCPagos.hints.idfacturaerp.tooltip}" id="it14">
+                                <f:validator binding="#{row.bindings.idfacturaerp.validator}"/>
+                                <af:convertNumber groupingUsed="false"
+                                                  pattern="#{bindings.detalleLCPagos.hints.idfacturaerp.format}"/>
+                            </af:inputText>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.detalleLCPagos.hints.idlineacaptura.name}" sortable="false"
+                                   headerText="#{bindings.detalleLCPagos.hints.idlineacaptura.label}" id="c38">
+                            <af:inputText value="#{row.bindings.idlineacaptura.inputValue}"
+                                          label="#{bindings.detalleLCPagos.hints.idlineacaptura.label}"
+                                          required="#{bindings.detalleLCPagos.hints.idlineacaptura.mandatory}"
+                                          columns="#{bindings.detalleLCPagos.hints.idlineacaptura.displayWidth}"
+                                          maximumLength="#{bindings.detalleLCPagos.hints.idlineacaptura.precision}"
+                                          shortDesc="#{bindings.detalleLCPagos.hints.idlineacaptura.tooltip}" id="it37">
+                                <f:validator binding="#{row.bindings.idlineacaptura.validator}"/>
+                                <af:convertNumber groupingUsed="false"
+                                                  pattern="#{bindings.detalleLCPagos.hints.idlineacaptura.format}"/>
+                            </af:inputText>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.detalleLCPagos.hints.idpago.name}" sortable="false"
+                                   headerText="#{bindings.detalleLCPagos.hints.idpago.label}" id="c39">
+                            <af:inputText value="#{row.bindings.idpago.inputValue}"
+                                          label="#{bindings.detalleLCPagos.hints.idpago.label}"
+                                          required="#{bindings.detalleLCPagos.hints.idpago.mandatory}"
+                                          columns="#{bindings.detalleLCPagos.hints.idpago.displayWidth}"
+                                          maximumLength="#{bindings.detalleLCPagos.hints.idpago.precision}"
+                                          shortDesc="#{bindings.detalleLCPagos.hints.idpago.tooltip}" id="it38">
+                                <f:validator binding="#{row.bindings.idpago.validator}"/>
+                                <af:convertNumber groupingUsed="false"
+                                                  pattern="#{bindings.detalleLCPagos.hints.idpago.format}"/>
+                            </af:inputText>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.detalleLCPagos.hints.montopagado.name}" sortable="false"
+                                   headerText="#{bindings.detalleLCPagos.hints.montopagado.label}" id="c40">
+                            <af:inputText value="#{row.bindings.montopagado.inputValue}"
+                                          label="#{bindings.detalleLCPagos.hints.montopagado.label}"
+                                          required="#{bindings.detalleLCPagos.hints.montopagado.mandatory}"
+                                          columns="#{bindings.detalleLCPagos.hints.montopagado.displayWidth}"
+                                          maximumLength="#{bindings.detalleLCPagos.hints.montopagado.precision}"
+                                          shortDesc="#{bindings.detalleLCPagos.hints.montopagado.tooltip}" id="it39">
+                                <f:validator binding="#{row.bindings.montopagado.validator}"/>
+                            </af:inputText>
+                        </af:column>
+                        <af:column sortProperty="#{bindings.detalleLCPagos.hints.norecibo.name}" sortable="false"
+                                   headerText="#{bindings.detalleLCPagos.hints.norecibo.label}" id="c41">
+                            <af:inputText value="#{row.bindings.norecibo.inputValue}"
+                                          label="#{bindings.detalleLCPagos.hints.norecibo.label}"
+                                          required="#{bindings.detalleLCPagos.hints.norecibo.mandatory}"
+                                          columns="#{bindings.detalleLCPagos.hints.norecibo.displayWidth}"
+                                          maximumLength="#{bindings.detalleLCPagos.hints.norecibo.precision}"
+                                          shortDesc="#{bindings.detalleLCPagos.hints.norecibo.tooltip}" id="it40">
+                                <f:validator binding="#{row.bindings.norecibo.validator}"/>
+                                <af:convertNumber groupingUsed="false"
+                                                  pattern="#{bindings.detalleLCPagos.hints.norecibo.format}"/>
+                            </af:inputText>
+                        </af:column>
+                    </af:table>
+                </af:dialog>
+            </af:popup>
+        </af:form>
+    </af:document>
+    <!--oracle-jdev-comment:auto-binding-backing-bean-name:backing_LineaReferencia-->
+</f:view>

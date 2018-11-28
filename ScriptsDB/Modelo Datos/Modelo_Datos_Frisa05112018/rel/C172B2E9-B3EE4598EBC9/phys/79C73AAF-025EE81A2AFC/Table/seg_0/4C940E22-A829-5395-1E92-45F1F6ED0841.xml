@@ -1,0 +1,213 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableProxyOraclev12c class="oracle.dbtools.crest.model.design.storage.oracle.v12c.TableProxyOraclev12c" name="XXFR_CABECERA_FACTURA" directorySegmentName="seg_0" id="4C940E22-A829-5395-1E92-45F1F6ED0841">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<schemaObject>DFEC3635-A5A9-4120-486F-CF69B55F3572</schemaObject>
+<logging>YES</logging>
+<partitionedRowMovement>DISABLE</partitionedRowMovement>
+<temporaryChanged>false</temporaryChanged>
+<accessDriverType>oracle_loader</accessDriverType>
+<rejectLimit></rejectLimit>
+<columnProxies itemClass="oracle.dbtools.crest.model.design.storage.oracle.v12c.ColumnProxyOraclev12c">
+<ColumnProxy name="BANKNAME" id="018C9F8D-9F3C-D7D1-2734-63D4F76D7B25">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="RELATEDERPINVOICE" id="02A84803-5FC7-6E6B-7B21-9DC7C56C9C31">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="PAYMENTMETHOD" id="02FADEF4-22E3-D08A-41BC-7B3C410D1A69">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="ADDENDUM" id="030C88C3-80BD-2F58-DB77-1488CDEB0374">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="PROJECTID" id="1CB25D8F-B41D-B89A-0576-6F70F94875EC">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="TRANSACTIONTYPE" id="283BDDC5-BC94-3A5B-1A08-5434269DAC55">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="TRANSACTIONSOURCE" id="347DF4D1-F78C-764F-ED45-01381F05F2C6">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="PAYMENTTERMDAYS" id="3A6D7197-C3F9-3BC2-1521-B247AE0EFBBA">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="BUSINESSUNITNAME" id="439D035A-E693-3CD4-FB46-EF070098A935">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="FACILITYNUMBER" id="461548FF-4B41-B2D8-768A-B51F449A68DD">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="PAYMENTTERMDATE" id="57BCAE4E-ECD3-165E-4E37-0A42B10764B9">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="CURRENCY" id="59D3654F-AECB-DB56-5B8C-7078F56393BE">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="CONTEXTRENTAS" id="5BFDC03F-4A02-F686-CA5F-5C5A1B82700F">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="COMPANYACCOUNTCODE" id="6000E574-45FE-9D19-DB88-D3D5107F862A">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="IDFACTURAPRIMAVERA" id="6233124B-0A99-1682-47C1-09AC2E89F2E7">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="DFFHEADERCONTEXT" id="69142B50-000E-718B-3428-3945FBA1A13C">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="IDBATCH" id="75029358-409F-705C-3DE9-4AEC5F96BBBE">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="BANKACCOUNTNUMBER" id="790563B2-4060-9D3A-1ED4-D0324D9C55AC">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="BILLTOLOCATION" id="7F2982C9-9906-4336-B564-7D6AC10F0E17">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="FOLIOAVISOCARGO" id="8018F84C-EFAF-2435-2F66-C619133DCEFE">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="CREATIONDATEGL" id="85D8C1FE-EBFB-8504-1313-5F988AA2220E">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="DIVISIONTYPE" id="900DC205-9175-49A8-91F2-8A3731F394FF">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="CONVERSIONRATEVALUE" id="972CCE1F-CC84-EB3C-7B77-6CB19B46690D">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="LOCALNUMBER" id="9B88554E-AC10-5DA7-29C8-A22B87907796">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="IDLINEACAPTURA" id="A0F59E0C-D8E9-D86C-9A66-CAF2F4F08DB6">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="GROUPTYPE" id="A9B062C4-97E0-6CFD-5A85-5C26F3A8E774">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="LEGALINVOICEUSE" id="AC652CA3-2D55-EA2E-215F-68B12CDB7189">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="CREATIONDATETRX" id="AC705705-3311-80B5-D397-4AEA6E5A1616">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="CONVERSIONRATETYPE" id="B9EDBF2E-6641-2639-C735-5B01DD439D0F">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="LANDTAXACCOUNT" id="C0947939-DD66-515F-FA11-2B175F832C2E">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="GRACEPERIOD" id="C10C1DC3-BBC1-355B-AC66-5165A2D1635D">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="CONTRACTNUMBER" id="C712E930-2FB0-3050-592B-5B6B6E052775">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="REFERENCENUMBER" id="CE122272-B497-7A83-38FB-E2FF0BAE4B84">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="ESTADOPROCESAMIENTO" id="D2A23979-CD24-5F2A-3D91-AAC33A0A2CA5">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="BILLTOCONSUMERNAME" id="D950D46F-3D72-A4EF-4582-08E7AF2FF91F">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="TIPOCOBRANZA" id="EC2372C9-2C6B-09B8-99C7-BDB14BFF071D">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="TOTALAMOUNT" id="EE2E0F3B-941D-458F-A5EB-0B6C32425C7E">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="GENERATIONTYPE" id="F4ED44A5-92E7-2E99-D954-253ECD623E30">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+</columnProxies>
+<primaryKeys>
+<PrimaryKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.PKProxyOraclev10g" name="XXFR_CABECERA_FACTURA_PK" id="A6A18983-CC51-0C78-C7B7-6E9179AAC784">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<schemaObject>DFEC3635-A5A9-4120-486F-CF69B55F3572</schemaObject>
+<indexSort>SORTED</indexSort>
+</PrimaryKey>
+</primaryKeys>
+</TableProxyOraclev12c>

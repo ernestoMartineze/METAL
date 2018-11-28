@@ -1,0 +1,75 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableProxyOraclev12c class="oracle.dbtools.crest.model.design.storage.oracle.v12c.TableProxyOraclev12c" name="XXFR_RECIBO_LINEA_CAPTURA" directorySegmentName="seg_0" id="8A93374D-5335-0BA0-3E21-A8BA6FD2D1CF">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:35:53 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<schemaObject>DFEC3635-A5A9-4120-486F-CF69B55F3572</schemaObject>
+<logging>YES</logging>
+<partitionedRowMovement>DISABLE</partitionedRowMovement>
+<segment>FB782B2C-4A09-F472-9449-3C0BBDC3892C</segment>
+<tableSpace>F71BB681-6981-A225-B3DB-8C83263C1936</tableSpace>
+<temporaryChanged>false</temporaryChanged>
+<accessDriverType>oracle_loader</accessDriverType>
+<rejectLimit></rejectLimit>
+<inMemory>NO</inMemory>
+<columnProxies itemClass="oracle.dbtools.crest.model.design.storage.oracle.v12c.ColumnProxyOraclev12c">
+<ColumnProxy name="IDPAGO" id="06D68E9C-DB58-C602-2A99-03740E24DB43">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:07 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="FECHARECIBO" id="088FB10E-27F4-9553-FE87-90F384CD3E77">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:07 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="IDPAGOERP" id="258A80FD-F5E0-1473-3C89-313E3F5D09D2">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:07 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="MONTOPAGADO" id="2CACEF7C-4A85-D510-8608-83C3814BB911">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:07 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="FECHAAPLICACION" id="65A3E5E2-DBDE-4109-0E4E-B0B80D6C4D8A">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:07 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="REFERENCIA" id="8993EC20-1003-2E75-8724-8E135C3791D2">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:08 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="FECHATRANSACCION" id="CE2DC1AF-B4CE-A133-77C0-B606429B58E9">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:08 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="NORECIBO" id="DDC8C344-6BDF-DE11-D0B3-57823121F360">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:07 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="IDLINEACAPTURA" id="F3E88767-696D-C7F3-08C1-600C233BDDB0">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:07 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+</ColumnProxy>
+</columnProxies>
+<primaryKeys>
+<PrimaryKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.PKProxyOraclev10g" name="XXFR_RECIBO_LINEA_CAPTURA_PK" id="286084A4-627B-528E-3668-9274050B51D4">
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:36:17 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<schemaObject>DFEC3635-A5A9-4120-486F-CF69B55F3572</schemaObject>
+<segment>B0A4574A-B859-5DB5-C517-73F694B84981</segment>
+<tableSpace>F71BB681-6981-A225-B3DB-8C83263C1936</tableSpace>
+<indexSegment>B0A4574A-B859-5DB5-C517-73F694B84981</indexSegment>
+<indexSort>SORTED</indexSort>
+<usingIndex>BY INDEX NAME</usingIndex>
+</PrimaryKey>
+</primaryKeys>
+</TableProxyOraclev12c>

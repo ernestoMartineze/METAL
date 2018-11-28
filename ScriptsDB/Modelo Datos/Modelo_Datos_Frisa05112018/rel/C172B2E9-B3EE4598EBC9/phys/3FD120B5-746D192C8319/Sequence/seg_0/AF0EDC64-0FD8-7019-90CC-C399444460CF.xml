@@ -1,0 +1,14 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<SequenceOraclev10g class="oracle.dbtools.crest.model.design.storage.oracle.v10g.SequenceOraclev10g" name="XXFR_INGRESOS_ID_LC" directorySegmentName="seg_0" id="AF0EDC64-0FD8-7019-90CC-C399444460CF">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>INGRESOS</sourceObjSchema>
+<sourceObjName>XXFR_INGRESOS_ID_LC</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:35:45 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<cache>20</cache>
+<incrementBy>1</incrementBy>
+<maxValue>999999999</maxValue>
+<minValue>1</minValue>
+<user>B49CDF25-C9F3-EDEF-C941-F4C9279E8404</user>
+</SequenceOraclev10g>

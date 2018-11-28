@@ -1,0 +1,50 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="C8B949CD-A9FC-FF86-B7EC-437DB98A60A7" schemaObject="DFEC3635-A5A9-4120-486F-CF69B55F3572" name="XXFR_APLICACION_RECIBO">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>INGRESOS</sourceObjSchema>
+<sourceObjName>XXFR_APLICACION_RECIBO</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<commentInRDBMS>Montos aplicados en facturas ERP</commentInRDBMS>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>D6E99DA4-24B6-658B-F7F7-3D331211D340</importedID>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="IDFACTURAERP" id="FD70AAE3-91F4-D780-0F2A-728D397C6514">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_APLICACION_RECIBO</sourceObjSchema>
+<sourceObjName>IDFACTURAERP</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>A7E5F613-CBED-C9B5-D651-0BC85001894A</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>20</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<ownDataTypeParameters>,20,0</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="IDPAGO" id="2D179606-3E92-E7A1-632E-C9F3F6E4E33C">
+<sourceConnName>Frisa_Dev</sourceConnName>
+<sourceObjSchema>XXFR_APLICACION_RECIBO</sourceObjSchema>
+<sourceObjName>IDPAGO</sourceObjName>
+<createdBy>USER_1</createdBy>
+<createdTime>2018-11-28 17:37:49 UTC</createdTime>
+<ownerDesignName>Modelo_Datos_Frisa05112018</ownerDesignName>
+<importedID>2BCE583F-2327-82E8-A20C-E8DD6F67409C</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>20</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<ownDataTypeParameters>,20,0</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+</Table>
