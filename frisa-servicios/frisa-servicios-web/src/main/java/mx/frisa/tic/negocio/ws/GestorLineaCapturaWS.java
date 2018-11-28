@@ -16,8 +16,11 @@ import mx.frisa.tic.datos.dto.ingresos.DetalleLineaCapturaDTO;
 
 import mx.frisa.tic.datos.dto.ingresos.LCFactDetDTO;
 import mx.frisa.tic.datos.dto.ingresos.LineaCapturaDTO;
+import mx.frisa.tic.datos.dto.ingresos.LineaCaptutaFacturaDTO;
 import mx.frisa.tic.datos.dto.ingresos.Proceso;
-import mx.frisa.tic.datos.dto.ingresos.Respuesta;
+
+import mx.frisa.tic.datos.dto.ingresos.RespuestaDTO;
+
 import mx.frisa.tic.datos.dto.ingresos.RespuestaDetalleLCPagosDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaDetalleLineaCapturaDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaLCFactDetDTO;
@@ -35,6 +38,22 @@ public class GestorLineaCapturaWS {
 
     @EJB(beanName = "GestorLineaCapturaBean")
     private GestorLineaCaptura gestorLineaCapturaBean;
+
+    /**
+     * Web service operation
+     * @param idBatch
+     * @return
+     */
+    @WebMethod(operationName = "generarLineasCaptura")
+    public RespuestaDTO generarLineasCaptura(@WebParam(name = "idBatch") String idBatch) {
+
+        RespuestaDTO respuesta = new RespuestaDTO();
+        respuesta.setProceso("generarLineasCaptura");
+        respuesta.setIdError("000");
+        respuesta.setDescripcionError("OK");
+
+        return respuesta;
+    }
 
 
     /**
@@ -105,41 +124,7 @@ public class GestorLineaCapturaWS {
     /**
      * Web service operation
      */
-    @WebMethod(operationName = "consultaDetalleLineaCaptura")
-    public RespuestaDetalleLineaCapturaDTO consultaDetalleLineaCaptura(@WebParam(name = "lineaCaptura") String lineaCaptura,
-                                                        @WebParam(name = "entidadLegal") String entidadLegal,
-                                                        @WebParam(name = "referencia") String referencia,
-                                                        @WebParam(name = "banco") String banco,
-                                                        @WebParam(name = "unidadNegocio") String unidadNegocio) {
-        DetalleLineaCapturaDTO detalleLineaCaptura = new DetalleLineaCapturaDTO();
-        detalleLineaCaptura.setLineacaptura(lineaCaptura);
-        detalleLineaCaptura.setEntidadlegal(entidadLegal);
-        detalleLineaCaptura.setReferencia(referencia);
-        detalleLineaCaptura.setBanco(banco);
-        detalleLineaCaptura.setUnidadnegocio(unidadNegocio);
-        RespuestaDetalleLineaCapturaDTO respuestaDetalleLineaCapturaDto = new RespuestaDetalleLineaCapturaDTO();
-        ManejadorLog manejarLog = new ManejadorLog();
-        List<DetalleLineaCapturaDTO> detalleLineasCaptura = new ArrayList<>();
-        manejarLog.debug("Entro a metodo : GestorLineaCapturaWS-consultaDetalleLineaCaptura");
-        try {
-            detalleLineasCaptura = gestorLineaCapturaBean.consultarDetalleLineaCaptura(detalleLineaCaptura);
-            respuestaDetalleLineaCapturaDto.setProceso(new Proceso("0", "Exitoso"));
-            respuestaDetalleLineaCapturaDto.setLineasCaptura(detalleLineasCaptura);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            respuestaDetalleLineaCapturaDto.setProceso(new Proceso("1", ex.getLocalizedMessage()));
-        }
-        manejarLog.debug("Termina metodo : GestorLineaCapturaWS-consultarLineaCaptura");
 
-    /**
-     * Web service operation
-     * @param lineaCaptura
-     * @param entidadLegal
-     * @param referencia
-     * @param banco
-     * @param unidadNegocio
-     * @return 
-     */
     @WebMethod(operationName = "consultaDetalleLineaCaptura")
     public RespuestaDetalleLineaCapturaDTO consultaDetalleLineaCaptura(@WebParam(name = "lineaCaptura") String lineaCaptura,
                                                         @WebParam(name = "entidadLegal") String entidadLegal,
@@ -167,10 +152,27 @@ public class GestorLineaCapturaWS {
         manejarLog.debug("Termina metodo : GestorLineaCapturaWS-consultarLineaCaptura");
 
         return respuestaDetalleLineaCapturaDto;
+
     }
     
     /**
      * Web service operation
+     * @param idBatch
+     * @return
+     */
+    @WebMethod(operationName = "consultaLCGeneradas")
+    public List<LineaCaptutaFacturaDTO> consultaLCGeneradas(@WebParam(name = "idBatch") String idBatch) {
+        ManejadorLog manejarLog = new ManejadorLog();
+        List<LineaCaptutaFacturaDTO> respuesta = null;
+        manejarLog.debug("Entro a metodo : GestorLineaCapturaWS-consultaLCGeneradas");
+        try {
+            respuesta = gestorLineaCapturaBean.consultaLCGeneradas(idBatch);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        manejarLog.debug("Termina metodo : GestorLineaCapturaWS-consultaLCGeneradas");
+        return respuesta;
+    }
 
      * @param facturaERP
      * @return 

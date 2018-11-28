@@ -9,6 +9,9 @@
     <class>mx.frisa.tic.datos.entidades.XxfrLineaCapturaFactura</class>
     <class>mx.frisa.tic.datos.entidades.XxfrReciboLineaCaptura</class>
 
+    <class>mx.frisa.tic.datos.entidades.XxfrvConsultaLcBatch</class>
+
+
     <class>mx.frisa.tic.datos.entidades.XxfrtHistoricoFacBatch</class>
     <class>mx.frisa.tic.datos.entidades.XxfrtNotaCredito</class>
     <class>mx.frisa.tic.datos.entidades.XxfrvConsultaLc</class>

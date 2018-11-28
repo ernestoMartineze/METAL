@@ -136,6 +136,7 @@ public class DAO<T> extends ManejadorEntidad implements Serializable {
 
         } catch (Exception ex) {
             manejadorLog.error("Error en el método Entidad : " + ex.getMessage());
+            ex.printStackTrace();
         } finally {
             manejadorLog.debug("Cerrando conexión!");
             em.close();
