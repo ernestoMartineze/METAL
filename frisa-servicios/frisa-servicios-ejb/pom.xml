@@ -47,8 +47,8 @@
             <version>2.1.0.1</version>
         </dependency>
         <dependency>
-            <groupId>com.roufid.tutorials</groupId>
-            <artifactId>example-app</artifactId>
+            <groupId>owsm</groupId>
+            <artifactId>owsm-app</artifactId>
             <version>1.0</version>
             <scope>system</scope>
             <systemPath>${basedirWL}/com.oracle.webservices.wls.jaxws-owsm-client.jar</systemPath>
