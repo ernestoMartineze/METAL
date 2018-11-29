@@ -17,6 +17,9 @@
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <basedirWL>C:\Oracle\Middleware\oracle_common\modules\clients</basedirWL>
+        
+        
     </properties>
 
     <dependencies>
@@ -43,10 +46,29 @@
             <artifactId>esapi</artifactId>
             <version>2.1.0.1</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.roufid.tutorials</groupId>
+            <artifactId>example-app</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${basedirWL}/com.oracle.webservices.wls.jaxws-owsm-client.jar</systemPath>
+        </dependency>
     </dependencies>
 
     <build>
+        <resources>
+            <resource>
+                <targetPath>META-INF</targetPath>
+                <directory>src</directory>
+                <includes>
+                    <include>jax-ws-catalog.xml</include>
+                    <include>wsdl/**</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -92,6 +114,46 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.jvnet.jax-ws-commons</groupId>
+                <artifactId>jaxws-maven-plugin</artifactId>
+                <version>2.3</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>wsimport</goal>
+                        </goals>
+                        <configuration>
+                            <wsdlFiles>
+                                <wsdlFile>efar-test.fin.us2.oraclecloud.com_443/xmlpserver/services/ExternalReportWSSService.wsdl</wsdlFile>
+                            </wsdlFiles>
+                            <packageName>mx.frisa.tic.negocio.obiee</packageName>
+                            <vmArgs>
+                                <vmArg>-Djavax.xml.accessExternalSchema=all</vmArg>
+                            </vmArgs>
+                            <wsdlLocation>https://efar-test.fin.us2.oraclecloud.com:443/xmlpserver/services/ExternalReportWSSService?WSDL</wsdlLocation>
+                            <staleFile>${project.build.directory}/jaxws/stale/ExternalReportWSSService.stale</staleFile>
+                        </configuration>
+                        <id>wsimport-generate-ExternalReportWSSService</id>
+                        <phase>generate-sources</phase>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>javax.xml</groupId>
+                        <artifactId>webservices-api</artifactId>
+                        <version>2.0</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <sourceDestDir>${project.build.directory}/generated-sources/jaxws-wsimport</sourceDestDir>
+                    <xnocompile>true</xnocompile>
+                    <verbose>true</verbose>
+                    <extension>true</extension>
+                    <catalog>${basedir}/src/jax-ws-catalog.xml</catalog>
+                    <target>2.0</target>
+                </configuration>
             </plugin>
         </plugins>
     </build>
