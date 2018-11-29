@@ -174,8 +174,10 @@ public class GestorLineaCapturaWS {
         return respuesta;
     }
 
+     /**
+     * Web service operation
      * @param facturaERP
-     * @return 
+     * @return
      */
     @WebMethod(operationName = "consultaDetalleLCPagos")
     public RespuestaDetalleLCPagosDTO consultaDetalleLCPagos(@WebParam(name = "facturaERP") String facturaERP) {

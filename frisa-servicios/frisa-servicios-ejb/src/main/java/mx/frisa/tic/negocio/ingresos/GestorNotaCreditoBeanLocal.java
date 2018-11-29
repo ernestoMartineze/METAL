@@ -7,12 +7,12 @@ package mx.frisa.tic.negocio.ingresos;
 
 import javax.ejb.Local;
 import mx.frisa.tic.datos.dto.ingresos.NotaCreditoDTO;
-import mx.frisa.tic.datos.dto.ingresos.Respuesta;
+import mx.frisa.tic.datos.dto.ingresos.RespuestaDTO;
 
 
 @Local
 public interface GestorNotaCreditoBeanLocal {
 
-    public Respuesta cargarNota(NotaCreditoDTO notaCredito);
+    public RespuestaDTO cargarNota(NotaCreditoDTO notaCredito);
     
 }

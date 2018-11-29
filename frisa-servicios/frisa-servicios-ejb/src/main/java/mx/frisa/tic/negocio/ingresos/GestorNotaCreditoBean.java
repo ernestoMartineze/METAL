@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import mx.frisa.tic.datos.dto.ingresos.NotaCreditoDTO;
-import mx.frisa.tic.datos.dto.ingresos.Respuesta;
+import mx.frisa.tic.datos.dto.ingresos.RespuestaDTO;
 import mx.frisa.tic.datos.enums.ProcesoEnum;
 import mx.frisa.tic.negocio.utils.ManejadorLog;
 
@@ -23,9 +23,9 @@ import mx.frisa.tic.negocio.utils.ManejadorLog;
 public class GestorNotaCreditoBean implements GestorNotaCreditoBeanLocal {
 
     @Override
-    public Respuesta cargarNota(NotaCreditoDTO notaCredito) {
+    public RespuestaDTO cargarNota(NotaCreditoDTO notaCredito) {
 
-        Respuesta respuesta = new Respuesta();
+        RespuestaDTO respuesta = new RespuestaDTO();
         ManejadorLog manejaLog = new ManejadorLog();
         manejaLog.debug("Datos de entrada " + notaCredito);
         try {
