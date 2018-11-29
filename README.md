@@ -29,11 +29,10 @@ fisicamente llevar la libreria a una carpeta del sistema: com.oracle.webservices
 
 
 2) Agregar la propiedad en el pom
+
+
     <properties>
-        ....
         <basedirWL>C:\Oracle\Middleware\oracle_common\modules\clients</basedirWL>
-        
-        
     </properties>
 
 3) Agregar dependencia al proyecto de Ejbs
