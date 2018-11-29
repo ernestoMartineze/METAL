@@ -45,6 +45,18 @@
     <param-name>javax.faces.FACELETS_VIEW_MAPPINGS</param-name>
     <param-value>*.jsf;*.xhtml</param-value>
   </context-param>
+  <context-param>
+    <param-name>javax.faces.VALIDATE_EMPTY_FIELDS</param-name>
+    <param-value>true</param-value>
+  </context-param>
+  <context-param>
+    <param-name>oracle.adf.view.rich.geometry.DEFAULT_DIMENSIONS</param-name>
+    <param-value>auto</param-value>
+  </context-param>
+  <context-param>
+    <param-name>oracle.adf.view.rich.SYNCROWS</param-name>
+    <param-value>enable</param-value>
+  </context-param>
   <filter>
     <filter-name>JpsFilter</filter-name>
     <filter-class>oracle.security.jps.ee.http.JpsFilter</filter-class>
