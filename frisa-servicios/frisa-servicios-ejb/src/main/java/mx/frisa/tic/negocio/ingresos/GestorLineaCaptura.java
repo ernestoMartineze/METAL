@@ -39,16 +39,16 @@ public interface GestorLineaCaptura {
     
     /**
      *
-
      * @param idBatch
      * @return
-
      */
     public int ejecutaBatchLC(String idBatch);
- 
+    
+    /**
+     * 
      * @param detalleLineaCaptura
      * @return
-     */
+    */
     public List<DetalleLineaCapturaDTO> consultarDetalleLineaCaptura(DetalleLineaCapturaDTO detalleLineaCaptura);
     
     /**
@@ -82,6 +82,5 @@ public interface GestorLineaCaptura {
      */
     public List<LineaCaptutaFacturaDTO> consultaLCGeneradas(String idBatch);
 
-    public String consultaBatchLC(String idBatch);
 
 }

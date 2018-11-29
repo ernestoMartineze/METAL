@@ -10,7 +10,7 @@ import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
 import mx.frisa.tic.datos.dto.ingresos.NotaCreditoDTO;
-import mx.frisa.tic.datos.dto.ingresos.Respuesta;
+import mx.frisa.tic.datos.dto.ingresos.RespuestaDTO;
 import mx.frisa.tic.negocio.ingresos.GestorNotaCreditoBeanLocal;
 
 /**
@@ -24,7 +24,7 @@ public class GestorNotaCreditoWS {
     private GestorNotaCreditoBeanLocal notaCreditoEjbRef;
 
     @WebMethod(operationName = "cargarNota")
-    public Respuesta cargarNota(@WebParam(name = "notaCredito") NotaCreditoDTO notaCredito) {
+    public RespuestaDTO cargarNota(@WebParam(name = "notaCredito") NotaCreditoDTO notaCredito) {
         return notaCreditoEjbRef.cargarNota(notaCredito);
     }
     
