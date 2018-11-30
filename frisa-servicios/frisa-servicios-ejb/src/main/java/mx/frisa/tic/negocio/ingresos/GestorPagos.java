@@ -5,6 +5,7 @@
  */
 package mx.frisa.tic.negocio.ingresos;
 
+import java.util.List;
 import javax.ejb.Local;
 import mx.frisa.tic.datos.dto.ingresos.PagoDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaDTO;
@@ -21,5 +22,5 @@ public interface GestorPagos {
      * @param pago
      * @return
      */
-    public RespuestaDTO generarPago(PagoDTO pago);
+    public RespuestaDTO generarPago(List<PagoDTO> pagos);
 }
