@@ -8,7 +8,6 @@ package mx.frisa.tic.utils;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URL;
@@ -40,30 +39,33 @@ import javax.xml.soap.SOAPEnvelope;
 import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPMessage;
 import javax.xml.soap.SOAPPart;
+import mx.frisa.tic.negocio.utils.interoperabilidad.SOAPClientSAAJ;
 
-public class SSLTest {
+public class SSLConector {
 
 	/**
 	 * Path to the clients keystore
 	 */
-	private static final String CLIENT_KEYSTORE_PATH = "docs/certs/example_client.jks";
+//	private static final String CLIENT_KEYSTORE_PATH = "docs/certs/example_client.jks";
+	private static final String CLIENT_KEYSTORE_PATH = "C:\\Users\\soultech\\DemoTrust.jks";
 
 	/**
 	 * Password for the clients keystore
 	 */
-	private static final String CLIENT_KEYSTORE_PASSWORD = "password";
+	private static final String CLIENT_KEYSTORE_PASSWORD = "changeit";
 
 	/**
 	 * The servers certificate's alias within the clients keystore.
 	 */
-	private static final String SERVER_CERTIFICATE_ALIAS = "www.examplesite.com";
+	private static final String SERVER_CERTIFICATE_ALIAS = "fusion";
+//	private static final String SERVER_CERTIFICATE_ALIAS = "efar-test.fin.us2.oraclecloud.com";
 
 	/**
 	 * URL to our SOAP UI service
 	 */
-	private static final String SOAP_URI = "https://127.0.0.1:8443/";
+	private static final String SOAP_URI = "http://xmlns.oracle.com/oxp/service/PublicReportService";
 
-	private static final String URN = "urn:examples:helloservice";
+	private static final String URN = "pub:runReport";
 
 	/**
 	 * Loads the KeyStore using the default KeyStore type (JKS) with the given
@@ -96,11 +98,9 @@ public class SSLTest {
 
 		return keystore;
 	}
-
-	public void run() throws NoSuchAlgorithmException, CertificateException,
-			KeyStoreException, IOException, KeyManagementException,
-			UnrecoverableKeyException, SOAPException {
-
+        
+        public void asegurarCanal() throws NoSuchAlgorithmException, CertificateException, IOException, KeyStoreException, UnrecoverableKeyException, KeyManagementException{
+            
 		/*
 		 * Load the keystore
 		 */
@@ -177,7 +177,14 @@ public class SSLTest {
 
 		HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
 
-		// setup an example soap message
+        }
+
+	public void run() throws NoSuchAlgorithmException, CertificateException,
+			KeyStoreException, IOException, KeyManagementException,
+			UnrecoverableKeyException, SOAPException {
+
+		// Asegurando el canal de comunicaciòn
+                this.asegurarCanal();
 
 		MessageFactory messageFactory = MessageFactory.newInstance();
 		SOAPMessage soapMessage = messageFactory.createMessage();
@@ -219,6 +226,7 @@ public class SSLTest {
 		URLConnection con = url.openConnection();
 		con.setDoOutput(true);
 		soapMessage.writeTo(con.getOutputStream());
+                System.out.println(con.getInputStream());
 
 		// read in response and print it to screen
 		Reader reader = new InputStreamReader(con.getInputStream());
@@ -238,7 +246,10 @@ public class SSLTest {
 			UnrecoverableKeyException, NoSuchAlgorithmException,
 			CertificateException, KeyStoreException, IOException, SOAPException {
 
-		SSLTest test = new SSLTest();
-		test.run();
+//		SSLConector test = new SSLConector();
+//		test.run();
+            SOAPClientSAAJ clienteWS = new SOAPClientSAAJ();
+            SOAPMessage mensaje;
+            clienteWS.consultarOBI_runReport("MAEE760124");
 	}
 }
