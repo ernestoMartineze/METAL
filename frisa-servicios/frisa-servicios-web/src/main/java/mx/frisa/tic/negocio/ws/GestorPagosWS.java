@@ -5,6 +5,8 @@
  */
 package mx.frisa.tic.negocio.ws;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -26,7 +28,9 @@ public class GestorPagosWS {
 
     @WebMethod(operationName = "generarPago")
     public RespuestaDTO generarPago(@WebParam(name = "pago") PagoDTO pago) {
-        return ejbRef.generarPago(pago);
+        List<PagoDTO> pagos = new ArrayList<>();
+        
+        return ejbRef.generarPago(pagos);
     }
     
 }
