@@ -17,7 +17,8 @@
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <basedirWL>C:\Oracle\Middleware\oracle_common\modules\clients</basedirWL>
+        <basedirWL>C:\oracle\oracle_common\modules\clients</basedirWL>
+        <certificadoFrisaBI>C:\03-SW\Dev\wls12213\user_projects\domains\base_domain\security\</certificadoFrisaBI>
         
         
     </properties>
@@ -46,13 +47,7 @@
             <artifactId>esapi</artifactId>
             <version>2.1.0.1</version>
         </dependency>
-        <dependency>
-            <groupId>owsm</groupId>
-            <artifactId>owsm-app</artifactId>
-            <version>1.0</version>
-            <scope>system</scope>
-            <systemPath>${basedirWL}/com.oracle.webservices.wls.jaxws-owsm-client.jar</systemPath>
-        </dependency>
+       
     </dependencies>
 
     <build>
@@ -119,26 +114,6 @@
                 <groupId>org.jvnet.jax-ws-commons</groupId>
                 <artifactId>jaxws-maven-plugin</artifactId>
                 <version>2.3</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>wsimport</goal>
-                        </goals>
-                        <configuration>
-                            <wsdlFiles>
-                                <wsdlFile>efar-test.fin.us2.oraclecloud.com_443/xmlpserver/services/ExternalReportWSSService.wsdl</wsdlFile>
-                            </wsdlFiles>
-                            <packageName>mx.frisa.tic.negocio.obiee</packageName>
-                            <vmArgs>
-                                <vmArg>-Djavax.xml.accessExternalSchema=all</vmArg>
-                            </vmArgs>
-                            <wsdlLocation>https://efar-test.fin.us2.oraclecloud.com:443/xmlpserver/services/ExternalReportWSSService?WSDL</wsdlLocation>
-                            <staleFile>${project.build.directory}/jaxws/stale/ExternalReportWSSService.stale</staleFile>
-                        </configuration>
-                        <id>wsimport-generate-ExternalReportWSSService</id>
-                        <phase>generate-sources</phase>
-                    </execution>
-                </executions>
                 <dependencies>
                     <dependency>
                         <groupId>javax.xml</groupId>
