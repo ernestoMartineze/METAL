@@ -8,18 +8,23 @@ package mx.frisa.tic.datos.entidades;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -53,6 +58,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "XxfrLineaCaptura.findByOrdinariocondonado", query = "SELECT x FROM XxfrLineaCaptura x WHERE x.ordinariocondonado = :ordinariocondonado")
     , @NamedQuery(name = "XxfrLineaCaptura.findByCapitalrentacondonada", query = "SELECT x FROM XxfrLineaCaptura x WHERE x.capitalrentacondonada = :capitalrentacondonada")})
 public class XxfrLineaCaptura implements Serializable {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idlineacaptura", fetch = FetchType.LAZY)
+    private List<XxfrLineaCapturaFactura> xxfrLineaCapturaFacturaList;
 
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
@@ -330,6 +338,15 @@ public class XxfrLineaCaptura implements Serializable {
     @Override
     public String toString() {
         return "mx.frisa.tic.datos.entidades.XxfrLineaCaptura[ idlineacaptura=" + idlineacaptura + " ]";
+    }
+
+    @XmlTransient
+    public List<XxfrLineaCapturaFactura> getXxfrLineaCapturaFacturaList() {
+        return xxfrLineaCapturaFacturaList;
+    }
+
+    public void setXxfrLineaCapturaFacturaList(List<XxfrLineaCapturaFactura> xxfrLineaCapturaFacturaList) {
+        this.xxfrLineaCapturaFacturaList = xxfrLineaCapturaFacturaList;
     }
     
 }

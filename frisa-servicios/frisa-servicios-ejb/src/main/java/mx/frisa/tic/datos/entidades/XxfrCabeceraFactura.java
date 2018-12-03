@@ -7,6 +7,7 @@ package mx.frisa.tic.datos.entidades;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -75,6 +76,16 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "XxfrCabeceraFactura.findByEstadoprocesamiento", query = "SELECT x FROM XxfrCabeceraFactura x WHERE x.estadoprocesamiento = :estadoprocesamiento"),
     @NamedQuery(name = "XxfrCabeceraFactura.findByIdbatch", query = "SELECT x FROM XxfrCabeceraFactura x WHERE x.idbatch = :idbatch")})
 public class XxfrCabeceraFactura implements Serializable {
+
+    @Column(name = "CUSTOMERID")
+    private BigInteger customerid;
+    @Column(name = "SITEID")
+    private BigInteger siteid;
+    @Size(max = 20)
+    @Column(name = "TRANSACTIONID")
+    private String transactionid;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "xxfrCabeceraFactura", fetch = FetchType.LAZY)
+    private List<XxfrInvoiceLines> xxfrInvoiceLinesList;
 
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
@@ -543,6 +554,39 @@ public class XxfrCabeceraFactura implements Serializable {
     @Override
     public String toString() {
         return "mx.frisa.tic.datos.entidades.XxfrCabeceraFactura[ idfacturaprimavera=" + idfacturaprimavera + " ]";
+    }
+
+    public BigInteger getCustomerid() {
+        return customerid;
+    }
+
+    public void setCustomerid(BigInteger customerid) {
+        this.customerid = customerid;
+    }
+
+    public BigInteger getSiteid() {
+        return siteid;
+    }
+
+    public void setSiteid(BigInteger siteid) {
+        this.siteid = siteid;
+    }
+
+    public String getTransactionid() {
+        return transactionid;
+    }
+
+    public void setTransactionid(String transactionid) {
+        this.transactionid = transactionid;
+    }
+
+    @XmlTransient
+    public List<XxfrInvoiceLines> getXxfrInvoiceLinesList() {
+        return xxfrInvoiceLinesList;
+    }
+
+    public void setXxfrInvoiceLinesList(List<XxfrInvoiceLines> xxfrInvoiceLinesList) {
+        this.xxfrInvoiceLinesList = xxfrInvoiceLinesList;
     }
     
 }

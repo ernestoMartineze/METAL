@@ -43,6 +43,12 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "XxfrtNotaCredito.findByIdFacturaprimavera", query = "SELECT x FROM XxfrtNotaCredito x WHERE x.idFacturaprimavera = :idFacturaprimavera")})
 public class XxfrtNotaCredito implements Serializable {
 
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "FEC_APLICACION")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fecAplicacion;
+
     private static final long serialVersionUID = 1L;
     @Basic(optional = false)
     @NotNull
@@ -66,11 +72,6 @@ public class XxfrtNotaCredito implements Serializable {
     @Size(min = 1, max = 20)
     @Column(name = "CS_ESTATUS")
     private String csEstatus;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 20)
-    @Column(name = "FEC_APLICACION")
-    private String fecAplicacion;
     @Id
     @Basic(optional = false)
     @NotNull
@@ -87,14 +88,17 @@ public class XxfrtNotaCredito implements Serializable {
         this.idFacturaprimavera = idFacturaprimavera;
     }
 
-    public XxfrtNotaCredito(BigDecimal idFacturaprimavera, BigInteger uuid, String refDescripcion, BigDecimal canAplicable, String csEstatus, String fecAplicacion) {
-        this.idFacturaprimavera = idFacturaprimavera;
+    public XxfrtNotaCredito(Date fecAplicacion, BigInteger uuid, String refDescripcion, BigDecimal canAplicable, Date fecRegistro, String csEstatus, BigDecimal idFacturaprimavera) {
+        this.fecAplicacion = fecAplicacion;
         this.uuid = uuid;
         this.refDescripcion = refDescripcion;
         this.canAplicable = canAplicable;
+        this.fecRegistro = fecRegistro;
         this.csEstatus = csEstatus;
-        this.fecAplicacion = fecAplicacion;
+        this.idFacturaprimavera = idFacturaprimavera;
     }
+
+    
 
     public BigInteger getUuid() {
         return uuid;
@@ -136,14 +140,6 @@ public class XxfrtNotaCredito implements Serializable {
         this.csEstatus = csEstatus;
     }
 
-    public String getFecAplicacion() {
-        return fecAplicacion;
-    }
-
-    public void setFecAplicacion(String fecAplicacion) {
-        this.fecAplicacion = fecAplicacion;
-    }
-
     public BigDecimal getIdFacturaprimavera() {
         return idFacturaprimavera;
     }
@@ -183,6 +179,14 @@ public class XxfrtNotaCredito implements Serializable {
     @Override
     public String toString() {
         return "mx.frisa.tic.datos.entidades.XxfrtNotaCredito[ idFacturaprimavera=" + idFacturaprimavera + " ]";
+    }
+
+    public Date getFecAplicacion() {
+        return fecAplicacion;
+    }
+
+    public void setFecAplicacion(Date fecAplicacion) {
+        this.fecAplicacion = fecAplicacion;
     }
     
 }

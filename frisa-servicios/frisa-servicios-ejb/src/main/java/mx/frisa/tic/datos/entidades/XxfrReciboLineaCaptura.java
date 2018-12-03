@@ -40,6 +40,15 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "XxfrReciboLineaCaptura.findByReferencia", query = "SELECT x FROM XxfrReciboLineaCaptura x WHERE x.referencia = :referencia")})
 public class XxfrReciboLineaCaptura implements Serializable {
 
+    @Column(name = "NORECIBO")
+    private Long norecibo;
+    @Column(name = "FECHARECIBO")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fecharecibo;
+    @Column(name = "FECHATRANSACCION")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechatransaccion;
+
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
@@ -149,6 +158,30 @@ public class XxfrReciboLineaCaptura implements Serializable {
     @Override
     public String toString() {
         return "mx.frisa.tic.datos.entidades.XxfrReciboLineaCaptura[ idpago=" + idpago + " ]";
+    }
+
+    public Long getNorecibo() {
+        return norecibo;
+    }
+
+    public void setNorecibo(Long norecibo) {
+        this.norecibo = norecibo;
+    }
+
+    public Date getFecharecibo() {
+        return fecharecibo;
+    }
+
+    public void setFecharecibo(Date fecharecibo) {
+        this.fecharecibo = fecharecibo;
+    }
+
+    public Date getFechatransaccion() {
+        return fechatransaccion;
+    }
+
+    public void setFechatransaccion(Date fechatransaccion) {
+        this.fechatransaccion = fechatransaccion;
     }
     
 }

@@ -21,15 +21,15 @@ public class FacturaPagoDTO {
     protected String creationdatetrx;
     protected String creationdategl;
     protected String billtoconsumername;
-    protected Long billtolocation;
+    protected BigInteger billtolocation;
     protected Short paymenttermdays;
     protected String generationtype;
     protected BigInteger idfacturaprimavera;
-    protected Short linenumber;
+    protected BigInteger linenumber;
     protected String memolinename;
     protected String description_origen;
-    protected Integer quantity;
-    protected BigDecimal montobrutolinea;
+    protected BigInteger quantity;
+    protected BigInteger montobrutolinea;
     protected String clasificadordescuento;
     protected String descadicional1;
     protected String descadicional2;
@@ -40,7 +40,7 @@ public class FacturaPagoDTO {
     protected String fechahasta;
     protected String dffheadercontext;
     protected String fechaexigibilidad;
-    protected Long projectid;
+    protected BigInteger projectid;
     protected String folioavisocargo;
     protected String localnumber;
     protected String lineacaptura;
@@ -102,11 +102,11 @@ public class FacturaPagoDTO {
         this.billtoconsumername = billtoconsumername;
     }
 
-    public Long getBilltolocation() {
+    public BigInteger getBilltolocation() {
         return billtolocation;
     }
 
-    public void setBilltolocation(Long billtolocation) {
+    public void setBilltolocation(BigInteger billtolocation) {
         this.billtolocation = billtolocation;
     }
 
@@ -134,11 +134,11 @@ public class FacturaPagoDTO {
         this.idfacturaprimavera = idfacturaprimavera;
     }
 
-    public Short getLinenumber() {
+    public BigInteger getLinenumber() {
         return linenumber;
     }
 
-    public void setLinenumber(Short linenumber) {
+    public void setLinenumber(BigInteger linenumber) {
         this.linenumber = linenumber;
     }
 
@@ -158,19 +158,19 @@ public class FacturaPagoDTO {
         this.description_origen = description_origen;
     }
 
-    public Integer getQuantity() {
+    public BigInteger getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(Integer quantity) {
+    public void setQuantity(BigInteger quantity) {
         this.quantity = quantity;
     }
 
-    public BigDecimal getMontobrutolinea() {
+    public BigInteger getMontobrutolinea() {
         return montobrutolinea;
     }
 
-    public void setMontobrutolinea(BigDecimal montobrutolinea) {
+    public void setMontobrutolinea(BigInteger montobrutolinea) {
         this.montobrutolinea = montobrutolinea;
     }
 
@@ -254,11 +254,11 @@ public class FacturaPagoDTO {
         this.fechaexigibilidad = fechaexigibilidad;
     }
 
-    public Long getProjectid() {
+    public BigInteger getProjectid() {
         return projectid;
     }
 
-    public void setProjectid(Long projectid) {
+    public void setProjectid(BigInteger projectid) {
         this.projectid = projectid;
     }
 

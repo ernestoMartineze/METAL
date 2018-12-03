@@ -38,17 +38,17 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "XxfrvConsultaLcPagos.findByMontopagado", query = "SELECT x FROM XxfrvConsultaLcPagos x WHERE x.montopagado = :montopagado")
     ,@NamedQuery(name = "XxfrvConsultaLcPagos.findByIdfacturaerp", query = "SELECT x FROM XxfrvConsultaLcPagos x WHERE x.idfacturaerp = :idfacturaerp")})
 public class XxfrvConsultaLcPagos implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+    @Id
     @Basic(optional = false)
     @NotNull
     @Column(name = "IDPAGO")
-    @Id
     private BigDecimal idpago;
     @Column(name = "IDPAGOERP")
     private BigDecimal idpagoerp;
     @Column(name = "IDFACTURAERP")
     private BigDecimal idfacturaerp;
+
+    private static final long serialVersionUID = 1L;
 
     @Column(name = "IDLINEACAPTURA")
     private Long idlineacaptura;
@@ -70,6 +70,14 @@ public class XxfrvConsultaLcPagos implements Serializable {
     }
 
     public XxfrvConsultaLcPagos(BigDecimal idpago) {
+        this.idpago = idpago;
+    }
+
+    public BigDecimal getIdpago() {
+        return idpago;
+    }
+
+    public void setIdpago(BigDecimal idpago) {
         this.idpago = idpago;
     }
 
@@ -145,14 +153,6 @@ public class XxfrvConsultaLcPagos implements Serializable {
     @Override
     public String toString() {
         return "mx.frisa.tic.datos.entidades.XxfrvConsultaLcPagos[ idpago=" + idpago + " ]";
-    }
-
-    public BigDecimal getIdpago() {
-        return idpago;
-    }
-
-    public void setIdpago(BigDecimal idpago) {
-        this.idpago = idpago;
     }
 
     public BigDecimal getIdpagoerp() {
