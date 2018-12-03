@@ -4,24 +4,23 @@
     <non-jta-data-source>jdbc/FRISADS_DEV</non-jta-data-source>
     <class>mx.frisa.tic.datos.entidades.RgoTrxClient</class>
     <class>mx.frisa.tic.datos.entidades.XxfrCabeceraFactura</class>
+    <class>mx.frisa.tic.datos.entidades.XxfrConsultaLcFacDet</class>
     <class>mx.frisa.tic.datos.entidades.XxfrInvoiceLines</class>
     <class>mx.frisa.tic.datos.entidades.XxfrLineaCaptura</class>
     <class>mx.frisa.tic.datos.entidades.XxfrLineaCapturaFactura</class>
     <class>mx.frisa.tic.datos.entidades.XxfrReciboLineaCaptura</class>
-
-    <class>mx.frisa.tic.datos.entidades.XxfrvConsultaLcBatch</class>
-
-
+    <class>mx.frisa.tic.datos.entidades.XxfrtEstadoCuenta</class>
     <class>mx.frisa.tic.datos.entidades.XxfrtHistoricoFacBatch</class>
     <class>mx.frisa.tic.datos.entidades.XxfrtNotaCredito</class>
     <class>mx.frisa.tic.datos.entidades.XxfrvConsultaLc</class>
+    <class>mx.frisa.tic.datos.entidades.XxfrvConsultaLcBatch</class>
     <class>mx.frisa.tic.datos.entidades.XxfrvConsultaLcFactura</class>
     <class>mx.frisa.tic.datos.entidades.XxfrvConsultaLcPagos</class>
+    <class>mx.frisa.tic.datos.entidades.XxfrvFactparapagos</class>
     <class>mx.frisa.tic.datos.entidades.XxfrvFacturasparalc</class>
     <class>mx.frisa.tic.datos.entidades.XxfrvLcCancelar</class>
     <class>mx.frisa.tic.datos.entidades.XxfrvLcFactura</class>
     <class>mx.frisa.tic.datos.entidades.XxfxcDiasFestivos</class>
-
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
     </properties>

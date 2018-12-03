@@ -156,13 +156,6 @@ public class XxfrvConsultaLcFactura implements Serializable {
     }
 
 
-    public BigDecimal getTaxrate() {
-        return taxrate;
-    }
-
-    public void setTaxrate(BigDecimal taxrate) {
-        this.taxrate = taxrate;
-    }
 
 
     public String getIdlinea() {
@@ -179,6 +172,14 @@ public class XxfrvConsultaLcFactura implements Serializable {
 
     public void setLinenumber(short linenumber) {
         this.linenumber = linenumber;
+    }
+
+    public BigDecimal getTaxrate() {
+        return taxrate;
+    }
+
+    public void setTaxrate(BigDecimal taxrate) {
+        this.taxrate = taxrate;
     }
     
 }

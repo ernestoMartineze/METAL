@@ -38,6 +38,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "XxfrLineaCapturaFactura.findByIdlineacaptura", query = "SELECT x FROM XxfrLineaCapturaFactura x WHERE x.idlineacaptura = :idlineacaptura")})
 public class XxfrLineaCapturaFactura implements Serializable {
 
+    @JoinColumn(name = "IDLINEACAPTURA", referencedColumnName = "IDLINEACAPTURA")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private XxfrLineaCaptura idlineacaptura;
+
     @Column(name = "CS_ESTATUS")
     private BigInteger csEstatus;
     @Column(name = "FEC_VENCIDA")
@@ -51,9 +55,7 @@ public class XxfrLineaCapturaFactura implements Serializable {
     @NotNull
     @Column(name = "IDTRANSACCION")
     private BigDecimal idtransaccion;
-    @Size(max = 20)
-    @Column(name = "IDLINEACAPTURA")
-    private String idlineacaptura;
+    
     @JoinColumn(name = "IDFACTURAPRIMAVERA", referencedColumnName = "IDFACTURAPRIMAVERA")
     @ManyToOne(fetch = FetchType.LAZY)
     private XxfrCabeceraFactura idfacturaprimavera;
@@ -71,14 +73,6 @@ public class XxfrLineaCapturaFactura implements Serializable {
 
     public void setIdtransaccion(BigDecimal idtransaccion) {
         this.idtransaccion = idtransaccion;
-    }
-
-    public String getIdlineacaptura() {
-        return idlineacaptura;
-    }
-
-    public void setIdlineacaptura(String idlineacaptura) {
-        this.idlineacaptura = idlineacaptura;
     }
 
     /**
@@ -136,6 +130,14 @@ public class XxfrLineaCapturaFactura implements Serializable {
 
     public void setFecVencida(Date fecVencida) {
         this.fecVencida = fecVencida;
+    }
+
+    public XxfrLineaCaptura getIdlineacaptura() {
+        return idlineacaptura;
+    }
+
+    public void setIdlineacaptura(XxfrLineaCaptura idlineacaptura) {
+        this.idlineacaptura = idlineacaptura;
     }
     
 }

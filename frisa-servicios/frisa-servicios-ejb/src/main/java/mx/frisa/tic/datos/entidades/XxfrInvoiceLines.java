@@ -12,6 +12,9 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -50,6 +53,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "XxfrInvoiceLines.findByFechahasta", query = "SELECT x FROM XxfrInvoiceLines x WHERE x.fechahasta = :fechahasta"),
     @NamedQuery(name = "XxfrInvoiceLines.findByFechaexigibilidad", query = "SELECT x FROM XxfrInvoiceLines x WHERE x.fechaexigibilidad = :fechaexigibilidad")})
 public class XxfrInvoiceLines implements Serializable {
+
+    @JoinColumn(name = "IDFACTURAPRIMAVERA", referencedColumnName = "IDFACTURAPRIMAVERA", insertable = false, updatable = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private XxfrCabeceraFactura xxfrCabeceraFactura;
 
     private static final long serialVersionUID = 1L;
     @EmbeddedId
@@ -291,6 +298,14 @@ public class XxfrInvoiceLines implements Serializable {
     @Override
     public String toString() {
         return "mx.frisa.tic.datos.entidades.XxfrInvoiceLines[ xxfrInvoiceLinesPK=" + xxfrInvoiceLinesPK + " ]";
+    }
+
+    public XxfrCabeceraFactura getXxfrCabeceraFactura() {
+        return xxfrCabeceraFactura;
+    }
+
+    public void setXxfrCabeceraFactura(XxfrCabeceraFactura xxfrCabeceraFactura) {
+        this.xxfrCabeceraFactura = xxfrCabeceraFactura;
     }
     
 }

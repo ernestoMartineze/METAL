@@ -63,6 +63,17 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "XxfrvFactparapagos.findByLineacaptura", query = "SELECT x FROM XxfrvFactparapagos x WHERE x.lineacaptura = :lineacaptura")})
 public class XxfrvFactparapagos implements Serializable {
 
+    @Column(name = "BILLTOLOCATION")
+    private BigInteger billtolocation;
+    @Column(name = "LINENUMBER")
+    private BigInteger linenumber;
+    @Column(name = "QUANTITY")
+    private BigInteger quantity;
+    @Column(name = "MONTOBRUTOLINEA")
+    private BigInteger montobrutolinea;
+    @Column(name = "PROJECTID")
+    private BigInteger projectid;
+
     private static final long serialVersionUID = 1L;
     @Id
     @Size(max = 52)
@@ -88,8 +99,6 @@ public class XxfrvFactparapagos implements Serializable {
     @Size(max = 240)
     @Column(name = "BILLTOCONSUMERNAME")
     private String billtoconsumername;
-    @Column(name = "BILLTOLOCATION")
-    private Long billtolocation;
     @Column(name = "PAYMENTTERMDAYS")
     private Short paymenttermdays;
     @Size(max = 21)
@@ -99,21 +108,12 @@ public class XxfrvFactparapagos implements Serializable {
     @NotNull
     @Column(name = "IDFACTURAPRIMAVERA")
     private BigInteger idfacturaprimavera;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "LINENUMBER")
-    private short linenumber;
     @Size(max = 100)
     @Column(name = "MEMOLINENAME")
     private String memolinename;
     @Size(max = 100)
     @Column(name = "DESCRIPTION_ORIGEN")
     private String descriptionOrigen;
-    @Column(name = "QUANTITY")
-    private Integer quantity;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "MONTOBRUTOLINEA")
-    private BigDecimal montobrutolinea;
     @Size(max = 20)
     @Column(name = "CLASIFICADORDESCUENTO")
     private String clasificadordescuento;
@@ -144,8 +144,6 @@ public class XxfrvFactparapagos implements Serializable {
     @Column(name = "FECHAEXIGIBILIDAD")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaexigibilidad;
-    @Column(name = "PROJECTID")
-    private Long projectid;
     @Size(max = 20)
     @Column(name = "FOLIOAVISOCARGO")
     private String folioavisocargo;
@@ -215,13 +213,6 @@ public class XxfrvFactparapagos implements Serializable {
         this.billtoconsumername = billtoconsumername;
     }
 
-    public Long getBilltolocation() {
-        return billtolocation;
-    }
-
-    public void setBilltolocation(Long billtolocation) {
-        this.billtolocation = billtolocation;
-    }
 
     public Short getPaymenttermdays() {
         return paymenttermdays;
@@ -247,13 +238,6 @@ public class XxfrvFactparapagos implements Serializable {
         this.idfacturaprimavera = idfacturaprimavera;
     }
 
-    public short getLinenumber() {
-        return linenumber;
-    }
-
-    public void setLinenumber(short linenumber) {
-        this.linenumber = linenumber;
-    }
 
     public String getMemolinename() {
         return memolinename;
@@ -271,21 +255,6 @@ public class XxfrvFactparapagos implements Serializable {
         this.descriptionOrigen = descriptionOrigen;
     }
 
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
-
-    public BigDecimal getMontobrutolinea() {
-        return montobrutolinea;
-    }
-
-    public void setMontobrutolinea(BigDecimal montobrutolinea) {
-        this.montobrutolinea = montobrutolinea;
-    }
 
     public String getClasificadordescuento() {
         return clasificadordescuento;
@@ -367,13 +336,6 @@ public class XxfrvFactparapagos implements Serializable {
         this.fechaexigibilidad = fechaexigibilidad;
     }
 
-    public Long getProjectid() {
-        return projectid;
-    }
-
-    public void setProjectid(Long projectid) {
-        this.projectid = projectid;
-    }
 
     public String getFolioavisocargo() {
         return folioavisocargo;
@@ -397,6 +359,46 @@ public class XxfrvFactparapagos implements Serializable {
 
     public void setLineacaptura(String lineacaptura) {
         this.lineacaptura = lineacaptura;
+    }
+
+    public BigInteger getBilltolocation() {
+        return billtolocation;
+    }
+
+    public void setBilltolocation(BigInteger billtolocation) {
+        this.billtolocation = billtolocation;
+    }
+
+    public BigInteger getLinenumber() {
+        return linenumber;
+    }
+
+    public void setLinenumber(BigInteger linenumber) {
+        this.linenumber = linenumber;
+    }
+
+    public BigInteger getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(BigInteger quantity) {
+        this.quantity = quantity;
+    }
+
+    public BigInteger getMontobrutolinea() {
+        return montobrutolinea;
+    }
+
+    public void setMontobrutolinea(BigInteger montobrutolinea) {
+        this.montobrutolinea = montobrutolinea;
+    }
+
+    public BigInteger getProjectid() {
+        return projectid;
+    }
+
+    public void setProjectid(BigInteger projectid) {
+        this.projectid = projectid;
     }
     
 }

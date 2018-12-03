@@ -5,7 +5,11 @@
  */
 package mx.frisa.tic.negocio.remoto;
 
-
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSyntaxException;
 import com.sun.org.apache.xml.internal.serialize.OutputFormat;
 import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
 import java.io.BufferedReader;
@@ -22,10 +26,14 @@ import java.net.URLConnection;
 import java.util.Base64;
 import java.util.List;
 import javax.net.ssl.HttpsURLConnection;
+import javax.xml.bind.DatatypeConverter;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import mx.frisa.tic.datos.dto.ingresos.FacturaPagoDTO;
+import mx.frisa.tic.datos.dto.ingresos.Proceso;
+import mx.frisa.tic.negocio.utils.ManejadorLog;
+import org.json.JSONObject;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
@@ -35,18 +43,20 @@ import org.xml.sax.SAXException;
  *
  * @author USER_1
  */
-public class adaptadorWS {
+public class AdaptadorWS {
 
-    public String getOBI_generarFacturaAlCobro(List<FacturaPagoDTO> facturas) throws MalformedURLException{
+    public String getOBI_generarFacturaAlCobro(List<FacturaPagoDTO> facturas) throws MalformedURLException {
         return null;
     }
-    
-    public String getERP_ejecutarReporteEdoCuenta(String fechaInicio, String fechaFinal, String noCuenta) throws MalformedURLException,
+
+    public RespuestaERP_Edo_Cuenta getERP_ejecutarReporteEdoCuenta(String fechaInicio, String fechaFinal, String noCuenta) throws MalformedURLException,
             IOException,
             ParserConfigurationException,
             SAXException {
 
 //Code to make a webservice HTTP request
+        RespuestaERP_Edo_Cuenta respestaWS = new RespuestaERP_Edo_Cuenta();
+        respestaWS.setProceso(new Proceso("0", "EXITOSO"));
         String responseString = "";
         String outputString = "";
         String wsURL = "https://efar-test.fin.us2.oraclecloud.com/xmlpserver/services/ExternalReportWSSService";
@@ -65,14 +75,14 @@ public class adaptadorWS {
                 + "                  <pub:name>BANK_ACCOUNT_NUMBER</pub:name>\n"
                 + "                  <multiValuesAllowed>false</multiValuesAllowed>\n"
                 + "                  <pub:values>\n"
-                + "                     <pub:item>"+noCuenta+"</pub:item>\n"
+                + "                     <pub:item>" + noCuenta + "</pub:item>\n"
                 + "                  </pub:values>\n"
                 + "               </pub:item>\n"
                 + "               <pub:item>\n"
                 + "                  <pub:name>FROM_DATE</pub:name>\n"
                 + "                  <multiValuesAllowed>TRUE</multiValuesAllowed>\n"
                 + "                  <pub:values>\n"
-                + "                     <pub:item>"+fechaInicio+"</pub:item>\n"
+                + "                     <pub:item>" + fechaInicio + "</pub:item>\n"
                 + "                  </pub:values>\n"
                 + "               </pub:item>\n"
                 + "               <pub:item>\n"
@@ -106,40 +116,44 @@ public class adaptadorWS {
         httpConn.setRequestProperty("Content-Length",
                 String.valueOf(b.length));
         httpConn.setRequestProperty("Content-Type", "application/soap+xml; charset=utf-8");
-       String encodedAuthorization = "dGFfanBlcmV6OldlbGNvbWUxMg==";
-        
-        
-        System.out.println("Encoded Authorization String for FinLitLog is :" + encodedAuthorization);
+        String encodedAuthorization = "dGFfanBlcmV6OldlbGNvbWUxMg==";
+
+//        System.out.println("Encoded Authorization String for FinLitLog is :" + encodedAuthorization);
         httpConn.setRequestProperty("Authorization", "Basic " + encodedAuthorization);
-        
+
         httpConn.setRequestProperty("SOAPAction", SOAPAction);
         httpConn.setRequestMethod("POST");
         httpConn.setDoOutput(true);
         httpConn.setDoInput(true);
         OutputStream out = httpConn.getOutputStream();
-//Write the content of the request to the outputstream of the HTTP Connection.
+        //Write the content of the request to the outputstream of the HTTP Connection.
         out.write(b);
         out.close();
-//Ready with sending the request.
+        //Ready with sending the request.
+        try (InputStreamReader isr
+                = new InputStreamReader(httpConn.getInputStream());) {
+            //Read the response.
 
-//Read the response.
-        InputStreamReader isr
-                = new InputStreamReader(httpConn.getInputStream());
-        BufferedReader in = new BufferedReader(isr);
+            BufferedReader in = new BufferedReader(isr);
 
-//Write the SOAP message response to a String.
-        while ((responseString = in.readLine()) != null) {
-            outputString = outputString + responseString;
+            //Write the SOAP message response to a String.
+            while ((responseString = in.readLine()) != null) {
+                outputString = outputString + responseString;
+            }
+            //Parse the String output to a org.w3c.dom.Document and be able to reach every node with the org.w3c.dom API.
+            Document document = parseXmlFile(outputString);
+            NodeList nodeLst = document.getElementsByTagName("ns2:reportBytes");
+            String resultado = nodeLst.item(0).getTextContent();
+
+            //Write the SOAP message formatted to the console.
+            //        String formattedSOAPResponse = formatXML(outputString);
+            respestaWS.setDATA_DSObject((DATA_DS) respuestaXMLaPOJO(getCadenaDesdeB64(resultado), new DATA_DS()));
+            //        System.out.println(formattedSOAPResponse);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            respestaWS.setProceso(new Proceso("100", "ERROR"));
         }
-//Parse the String output to a org.w3c.dom.Document and be able to reach every node with the org.w3c.dom API.
-        Document document = parseXmlFile(outputString);
-        NodeList nodeLst = document.getElementsByTagName("ns2:reportBytes");
-        String resultado = nodeLst.item(0).getTextContent();
-        System.out.println("ns2:reportBytes HEX: " + resultado);
-        //Write the SOAP message formatted to the console.
-        String formattedSOAPResponse = formatXML(outputString);
-        System.out.println(formattedSOAPResponse);
-        return resultado;
+        return respestaWS;
     }
 //format the XML in your String
 
@@ -162,11 +176,55 @@ public class adaptadorWS {
         return db.parse(is);
     }
 
-    public static void main(String[] args) throws ParserConfigurationException, SAXException {
-        adaptadorWS weatherWebserviceTester
-                = new adaptadorWS();
+    private String getCadenaDesdeB64(String cadB64) {
+        String str = new String(DatatypeConverter.parseBase64Binary(cadB64));
+//          String res = DatatypeConverter.printBase64Binary(str.getBytes());
+//          System.out.println(str);
+        return str;
+    }
+
+    public Object respuestaJSONA_Dto(String datos, Object obj) throws JsonSyntaxException {
+        Gson gson = new GsonBuilder().create();
+        ManejadorLog manejadorLog = new ManejadorLog();
+        Object vObj = null;
+
+        if (datos.contains("Error 404--Not Found")) {
+            datos = "{\"proceso\": {\n"
+                    + "      \"descripcion\": \"El servicio no se encuentra disponible.\",\n"
+                    + "      \"termino\": \"999\"\n"
+                    + "   }";
+        }
+
         try {
-            weatherWebserviceTester.getOBI_RunReport("11-05-2018","11-05-2018","0521838999");
+            vObj = gson.fromJson(datos, obj.getClass());
+
+        } catch (JsonSyntaxException ex) {
+            manejadorLog.debug("Error 0006 :" + ex.getMessage());
+            manejadorLog.error("Error :" + ex.getMessage());
+            manejadorLog.error("Error :" + ex.getLocalizedMessage());
+            throw new JsonSyntaxException("Failed : HTTP error code : " + ex.getMessage());
+        }
+
+        return vObj;
+    }
+
+    private Object respuestaXMLaPOJO(String xmlOrigen, Object clase) throws IOException {
+        Object vObj = null;
+        XmlMapper xmlMapper = new XmlMapper();
+//        xmlMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+        vObj
+                = xmlMapper.readValue(xmlOrigen, clase.getClass());
+        return vObj;
+    }
+
+    public static void main(String[] args) throws ParserConfigurationException, SAXException {
+        AdaptadorWS adaptadorWS
+                = new AdaptadorWS();
+        try {
+            RespuestaERP_Edo_Cuenta respuesta = adaptadorWS.getERP_ejecutarReporteEdoCuenta("11-05-2018", "11-05-2018", "0521838999");
+
+            System.out.println(respuesta.getProceso().getTermino());
+            System.out.println(respuesta.getDATA_DSObject().getBANK_ACCOUNT_NUMBER());
         } catch (Exception e) {
             e.printStackTrace();
         }
