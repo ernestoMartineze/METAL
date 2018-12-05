@@ -11,9 +11,11 @@ import java.util.List;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import mx.frisa.tic.datos.comun.DAO;
+
 import mx.frisa.tic.datos.comun.ProcedimientoAlmacendo;
 import mx.frisa.tic.datos.dto.ingresos.PagoDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaDTO;
+import mx.frisa.tic.datos.entidades.XxfrLineaCaptura;
 import mx.frisa.tic.datos.entidades.XxfrtEstadoCuenta;
 import mx.frisa.tic.datos.enums.ProcesoEnum;
 import mx.frisa.tic.negocio.remoto.AdaptadorWS;
@@ -54,7 +56,6 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
                     XxfrtEstadoCuenta edoCuenta = new XxfrtEstadoCuenta();
                     edoCuenta.setBankAccountNum(BigDecimal.valueOf(Long.valueOf(lineaPago.getBANK_ACCOUNT_NUM())));
                     edoCuenta.setAddiotionalEntryInformation(lineaPago.getAMOUNT());
-//                    edoCuenta.setTrxDate(new Date());
                     edoCuenta.setLineNumber(BigDecimal.valueOf(Long.valueOf(lineaPago.getLINE_NUMBER())));
                     edoCuenta.setTrxType(lineaPago.getTRX_TYPE());
                     edoCuenta.setAmount(BigDecimal.valueOf(Long.valueOf(lineaPago.getAMOUNT())));
@@ -63,6 +64,7 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
                     edoCuenta.setCustomerReference("123456789012341"); //CUSTOMER_REFERENCE
                     edoCuenta.setAddiotionalEntryInformation("WERTYUTR|011510000019400000026417676205|DFGSDFGHFDGHERYRSGSFRG|123456789012341|RWTEYUHGFDS#$"); //ADDIOTIONAL_ENTRY_INFORMATION
                     edoCuenta.setProyectoPropietario("151"); //PROYECTO_PROPIETARIO
+
                     edoCuenta.setLineCapture("011510000019400000026417676205");  //Linea captura hardcodeada
                     //Guardar en base de datos el estado de cuenta
                     ProcedimientoAlmacendo procEdoCta = new ProcedimientoAlmacendo();
@@ -77,14 +79,30 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
                                 edoCuenta.getCurrencyCode(), edoCuenta.getProyectoPropietario(), "NOMRECIBO",
                                 edoCuenta.getAmount() + "", edoCuenta.getTrxDate() + "", "CUSTOMER_ID", "SITE_ID");
                         pagosDto.add(pago);
+
                     }
+                    //Guardar en base de datos el estado de cuenta si es valida la linea de captura y su monto
+                    if (lineasCaptura.get(0).getMontolineacaptura() == BigDecimal.valueOf(Long.valueOf(lineaPago.getAMOUNT()))) {
+                        estadoCuentaDao.actualizaQuery("INSERT INTO \"INGRESOS\".\"XXFR_ESTADO_CUENTA\" (BANK_ACCOUNT_NUM, TRX_DATE, LINE_NUMBER, TRX_TYPE, AMOUNT, TRX_CODE, CURRENCY_CODE, CUSTOMER_REFERENCE, ADDIOTIONAL_ENTRY_INFORMATION, PROYECTO_PROPIETARIO, LINE_CAPTURE) VALUES ('1136556', TO_DATE('2018-12-04 00:01:00', 'YYYY-MM-DD HH24:MI:SS'), '1', 'qweqe', '123', '12', 'mfg', '2312312', 'wasdfsadf23', '151', 'wesdgfhdsa')");
+                        if (!estadoCuentaDao.getProceso().getTermino().equals("0")) {
+                            manejaLog.debug("Error al procesar el estado de cuenta : " + estadoCuentaDao.getProceso().getDescripcion() + ", NoLinea : " + lineaPago.getLINE_NUMBER());
+                            respuesta.setProceso(ProcesoEnum.ERROR.toString());
+                        } else {
+                            respuesta.setProceso(ProcesoEnum.EXITOSO.toString());
+                        }
+                    } else {
+                        respuesta.setProceso(ProcesoEnum.ERROR.toString());
+                    }
+
                 }
+
                 //Procesar Encabezado de recibo y obtener NoREcibo
                 RespuestaERP_EncabezadoRecibo respuestaEnca = clienteWS.getERP_generarEncabezadoRecibo(pagosDto);
                 //Llamar al procesar pagos
 //                GestorPagos pagosBean = new GestorPagosBean();
 //                pagosBean.generarPago(pagosDto);
                 respuesta.setProceso(ProcesoEnum.EXITOSO.toString());
+
 
             } else {
                 //Notificar error detectado
