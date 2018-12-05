@@ -81,18 +81,6 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
                         pagosDto.add(pago);
 
                     }
-                    //Guardar en base de datos el estado de cuenta si es valida la linea de captura y su monto
-                    if (lineasCaptura.get(0).getMontolineacaptura() == BigDecimal.valueOf(Long.valueOf(lineaPago.getAMOUNT()))) {
-                        estadoCuentaDao.actualizaQuery("INSERT INTO \"INGRESOS\".\"XXFR_ESTADO_CUENTA\" (BANK_ACCOUNT_NUM, TRX_DATE, LINE_NUMBER, TRX_TYPE, AMOUNT, TRX_CODE, CURRENCY_CODE, CUSTOMER_REFERENCE, ADDIOTIONAL_ENTRY_INFORMATION, PROYECTO_PROPIETARIO, LINE_CAPTURE) VALUES ('1136556', TO_DATE('2018-12-04 00:01:00', 'YYYY-MM-DD HH24:MI:SS'), '1', 'qweqe', '123', '12', 'mfg', '2312312', 'wasdfsadf23', '151', 'wesdgfhdsa')");
-                        if (!estadoCuentaDao.getProceso().getTermino().equals("0")) {
-                            manejaLog.debug("Error al procesar el estado de cuenta : " + estadoCuentaDao.getProceso().getDescripcion() + ", NoLinea : " + lineaPago.getLINE_NUMBER());
-                            respuesta.setProceso(ProcesoEnum.ERROR.toString());
-                        } else {
-                            respuesta.setProceso(ProcesoEnum.EXITOSO.toString());
-                        }
-                    } else {
-                        respuesta.setProceso(ProcesoEnum.ERROR.toString());
-                    }
 
                 }
 
