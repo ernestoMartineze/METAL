@@ -26,6 +26,26 @@ public class PagoDTO {
     protected String CustomerId;
     protected String SiteId;
 
+    public PagoDTO() {
+    }
+
+    public PagoDTO(BigDecimal IdEdoCta, BigDecimal IdCabeceraRecibo, String LineaCaptura, String Referencia, String MetodoId, String Moneda, String UnidadNegocio, String NroRecibo, String Monto, String FechaCreacion, String CustomerId, String SiteId) {
+        this.IdEdoCta = IdEdoCta;
+        this.IdCabeceraRecibo = IdCabeceraRecibo;
+        this.LineaCaptura = LineaCaptura;
+        this.Referencia = Referencia;
+        this.MetodoId = MetodoId;
+        this.Moneda = Moneda;
+        this.UnidadNegocio = UnidadNegocio;
+        this.NroRecibo = NroRecibo;
+        this.Monto = Monto;
+        this.FechaCreacion = FechaCreacion;
+        this.CustomerId = CustomerId;
+        this.SiteId = SiteId;
+    }
+
+    
+    
     public BigDecimal getIdEdoCta() {
         return IdEdoCta;
     }
