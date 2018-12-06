@@ -15,6 +15,7 @@ import mx.frisa.tic.datos.comun.DAO;
 import mx.frisa.tic.datos.dto.ingresos.FacturaPagoDTO;
 import mx.frisa.tic.datos.dto.ingresos.PagoDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaDTO;
+import mx.frisa.tic.datos.dto.ingresos.RespuestaProcesaFacturasDTO;
 import mx.frisa.tic.datos.entidades.XxfrvFactparapagos;
 import mx.frisa.tic.negocio.remoto.AdaptadorWS;
 import mx.frisa.tic.negocio.utils.ManejadorLog;
@@ -45,7 +46,7 @@ public class GestorPagosBean implements GestorPagos {
         return respuesta;
     }
 
-    private RespuestaDTO recuperaFacturas(List<PagoDTO> pagos) throws IOException {
+    private RespuestaProcesaFacturasDTO recuperaFacturas(List<PagoDTO> pagos) throws IOException {
         ManejadorLog log = new ManejadorLog();
         DateFormat dateFormat = new SimpleDateFormat("dd-mm-yyyy");
         DAO<XxfrvFactparapagos> consultaDAO = new DAO(XxfrvFactparapagos.class);
@@ -55,7 +56,7 @@ public class GestorPagosBean implements GestorPagos {
         List<PagoDTO> response = null;
         StringBuilder query = new StringBuilder();
         StringBuilder paramLc = new StringBuilder();
-        RespuestaDTO respuesta = new RespuestaDTO("ERROR", "100", "Existe error en proceso de facturas al cobro");
+        RespuestaProcesaFacturasDTO respuesta = new RespuestaProcesaFacturasDTO("ERROR", "100", "Existe error en proceso de facturas al cobro");
 
         for (PagoDTO pago : pagos) {
             paramLc.append("'" + pago.getLineaCaptura() + "',");
@@ -115,7 +116,8 @@ public class GestorPagosBean implements GestorPagos {
         if (facturasAlCobro.size() > 0) {
             adaptador.getOBI_generarFacturaAlCobro(facturasAlCobro);
         }
-        respuesta = new RespuestaDTO("EXITOSO", "0", "");
+        respuesta = new RespuestaProcesaFacturasDTO("EXITOSO", "0", "");
+        respuesta.setFacturas(facturas);
 
         return respuesta;
     }
