@@ -8,7 +8,9 @@
     <class>mx.frisa.tic.datos.entidades.XxfrInvoiceLines</class>
     <class>mx.frisa.tic.datos.entidades.XxfrLineaCaptura</class>
     <class>mx.frisa.tic.datos.entidades.XxfrLineaCapturaFactura</class>
+    <class>mx.frisa.tic.datos.entidades.XxfrPrioridadCobranza</class>
     <class>mx.frisa.tic.datos.entidades.XxfrReciboLineaCaptura</class>
+    <class>mx.frisa.tic.datos.entidades.XxfrcOrganizacionMetodopago</class>
     <class>mx.frisa.tic.datos.entidades.XxfrtEstadoCuenta</class>
     <class>mx.frisa.tic.datos.entidades.XxfrtHistoricoFacBatch</class>
     <class>mx.frisa.tic.datos.entidades.XxfrtNotaCredito</class>

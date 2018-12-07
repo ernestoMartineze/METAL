@@ -5,7 +5,6 @@
  */
 package mx.frisa.tic.negocio.remoto;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -20,12 +19,9 @@ import java.io.OutputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.Writer;
-import java.math.BigDecimal;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
 import javax.net.ssl.HttpsURLConnection;
 import javax.xml.bind.DatatypeConverter;
@@ -35,9 +31,10 @@ import javax.xml.parsers.ParserConfigurationException;
 import mx.frisa.tic.datos.dto.ingresos.FacturaPagoDTO;
 import mx.frisa.tic.datos.dto.ingresos.PagoDTO;
 import mx.frisa.tic.datos.dto.ingresos.Proceso;
+import mx.frisa.tic.datos.dto.ingresos.RespuestaDTO;
+import mx.frisa.tic.datos.dto.ingresos.RespuestaMetodoPagoDTO;
 import mx.frisa.tic.negocio.utils.ManejadorLog;
 import mx.frisa.tic.negocio.utils.PropiedadesFRISA;
-import org.json.JSONObject;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
@@ -48,9 +45,9 @@ import org.xml.sax.SAXException;
  * @author USER_1
  */
 public class AdaptadorWS {
-    
+
     public RespuestaERP_Edo_Cuenta getOBI_generarFacturaAlCobro(List<FacturaPagoDTO> facturas) throws MalformedURLException, IOException {
-        
+
         String xmlInput = "<soapenv:Envelope xmlns:inv=\"http://xmlns.oracle.com/apps/financials/receivables/transactions/invoices/invoiceService/\" \n"
                 + "xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" \n"
                 + "xmlns:tran=\"http://xmlns.oracle.com/apps/financials/receivables/transactions/shared/model/flex/TransactionHeaderDff/\"\n"
@@ -124,7 +121,7 @@ public class AdaptadorWS {
         String responseString = "";
         String outputString = "";
         String wsURL = "https://efar-test.fin.us2.oraclecloud.com:443/fscmService/RecInvoiceService";
-        
+
         String SOAPAction
                 = "http://xmlns.oracle.com/apps/financials/receivables/transactions/invoices/invoiceService/";
 
@@ -148,13 +145,13 @@ public class AdaptadorWS {
         }
         return respestaWS;
     }
-    
-    private String inyectaParametro(String pPayload, String nombreParametro, String valor){
-        String parametro="_PARAM"+nombreParametro+"_";
+
+    private String inyectaParametro(String pPayload, String nombreParametro, String valor) {
+        String parametro = "_PARAM" + nombreParametro + "_";
         pPayload = pPayload.replaceAll(parametro, valor);
         return pPayload;
     }
-    
+
     public RespuestaERP_Edo_Cuenta getERP_ejecutarReporteEdoCuenta(String fechaInicio, String fechaFinal, String noCuenta) throws MalformedURLException,
             IOException,
             ParserConfigurationException,
@@ -163,18 +160,21 @@ public class AdaptadorWS {
         //Code to make a webservice HTTP request
         RespuestaERP_Edo_Cuenta respestaWS = new RespuestaERP_Edo_Cuenta();
         respestaWS.setProceso(new Proceso("0", "EXITOSO"));
-        
+
         String outputString = "";
         String wsURL = PropiedadesFRISA.recuperaPropiedadBackend("edoCuentaServiceEndPoint");
         
+        
+        
+
         String xmlInput
                 = this.getCadenaDesdeB64(PropiedadesFRISA.recuperaPropiedadBackend("edoCuentaServicePayload"));
-        
+
         //Inyectar parametros al payload
-        xmlInput= inyectaParametro(xmlInput,"FROM-DATE",fechaInicio);
-        xmlInput= inyectaParametro(xmlInput,"TO-DATE",fechaFinal);
-        xmlInput= inyectaParametro(xmlInput,"BANK_ACCOUNT_NUMBER",noCuenta);
-        
+        xmlInput = inyectaParametro(xmlInput, "FROM-DATE", fechaInicio);
+        xmlInput = inyectaParametro(xmlInput, "TO-DATE", fechaFinal);
+        xmlInput = inyectaParametro(xmlInput, "BANK_ACCOUNT_NUMBER", noCuenta);
+
         String SOAPAction
                 = PropiedadesFRISA.recuperaPropiedadBackend("edoCuentaServiceSoapAction");
 
@@ -189,14 +189,95 @@ public class AdaptadorWS {
 
             //Write the SOAP message formatted to the console.
             respestaWS.setDATA_DSObject((DATA_DS) respuestaXMLaPOJO(getCadenaDesdeB64(resultado), new DATA_DS()));
-            
+
         } catch (Exception ex) {
             ex.printStackTrace();
             respestaWS.setProceso(new Proceso("100", "ERROR"));
         }
         return respestaWS;
     }
-    
+
+    public RespuestaMetodoPagoDTO getERP_obtenerMetodosCargaInicial() throws MalformedURLException,
+            IOException,
+            ParserConfigurationException,
+            SAXException {
+
+        //Code to make a webservice HTTP request
+        RespuestaMetodoPagoDTO respestaWS = new RespuestaMetodoPagoDTO();
+        respestaWS.setProceso(new Proceso("0", "EXITOSO"));;
+
+        String outputString = "";
+        String wsURL = PropiedadesFRISA.recuperaPropiedadBackend("GetMetodosPagoTodosServiceEndPoint");
+
+        String xmlInput
+                = this.getCadenaDesdeB64(PropiedadesFRISA.recuperaPropiedadBackend("GetMetodosPagoTodosServicePayload"));
+
+        String SOAPAction
+                = PropiedadesFRISA.recuperaPropiedadBackend("GetMetodosPagoTodosServiceSoapAction");
+
+        //Ready with sending the request.
+        try {
+            //Read the response.
+            outputString = enviarMsg(wsURL, SOAPAction, xmlInput, PropiedadesFRISA.recuperaPropiedadBackend("GetMetodosPagoTodosServiceContentType"));
+            //Parse the String output to a org.w3c.dom.Document and be able to reach every node with the org.w3c.dom API.
+            Document document = parseXmlFile(outputString);
+            NodeList nodeLst = document.getElementsByTagName("ns2:reportBytes");
+            String resultado = nodeLst.item(0).getTextContent();
+            
+
+            //Write the SOAP message formatted to the console.
+            MetodoPagoOBI metodos = new MetodoPagoOBI();
+            metodos = (MetodoPagoOBI) respuestaXMLaPOJO(getCadenaDesdeB64(resultado), metodos);
+            respestaWS.setProceso(new Proceso ("0","EXITOSO"));
+            respestaWS.setMetodosPago(metodos);
+            
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            respestaWS.setProceso(new Proceso ("100",ex.getLocalizedMessage()));
+        }
+        return respestaWS;
+    }
+    public RespuestaDTO getERP_obtenerMetodosPorID(String pORG_ID, String pCuentaBancaria) throws MalformedURLException,
+            IOException,
+            ParserConfigurationException,
+            SAXException {
+
+        //Code to make a webservice HTTP request
+        RespuestaDTO respestaWS = new RespuestaDTO();
+        respestaWS.setProceso("EXITOSO");
+
+        String outputString = "";
+        String wsURL = PropiedadesFRISA.recuperaPropiedadBackend("GetMetodosPagoPorIDServiceEndPoint");
+
+        String xmlInput
+                = this.getCadenaDesdeB64(PropiedadesFRISA.recuperaPropiedadBackend("GetMetodosPagoPorIDServicePayload"));
+
+        String SOAPAction
+                = PropiedadesFRISA.recuperaPropiedadBackend("GetMetodosPagoPorIDServiceSoapAction");
+
+        //Ready with sending the request.
+        try {
+            //Read the response.
+            outputString = enviarMsg(wsURL, SOAPAction, xmlInput, PropiedadesFRISA.recuperaPropiedadBackend("GetMetodosPagoPorIDServiceContentType"));
+            //Parse the String output to a org.w3c.dom.Document and be able to reach every node with the org.w3c.dom API.
+            Document document = parseXmlFile(outputString);
+            NodeList nodeLst = document.getElementsByTagName("ns2:reportBytes");
+            String resultado = nodeLst.item(0).getTextContent();
+            
+
+            //Write the SOAP message formatted to the console.
+            respestaWS.setIdError("0");
+            respestaWS.setDescripcionError("");
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            respestaWS.setIdError("100");
+            respestaWS.setDescripcionError(ex.getLocalizedMessage());
+        }
+        return respestaWS;
+    }
+
     public RespuestaERP_EncabezadoRecibo getERP_generarEncabezadoRecibo(List<PagoDTO> pagos) throws MalformedURLException,
             IOException,
             ParserConfigurationException,
@@ -207,43 +288,26 @@ public class AdaptadorWS {
         respestaWS.setProceso(new Proceso("0", "EXITOSO"));
         String responseString = "";
         String outputString = "";
-        String wsURL = "https://efar-test.fin.us2.oraclecloud.com:443/fscmService/StandardReceiptService";
-        
+        String wsURL = PropiedadesFRISA.recuperaPropiedadBackend("GetMetodosPagoPorIDServiceSoapAction");
+
         for (PagoDTO pagoDto : pagos) {
             String xmlInput
-                    = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:typ=\"http://xmlns.oracle.com/apps/financials/receivables/receipts/shared/standardReceiptService/commonService/types/\" xmlns:com=\"http://xmlns.oracle.com/apps/financials/receivables/receipts/shared/standardReceiptService/commonService/\" xmlns:stan=\"http://xmlns.oracle.com/apps/financials/receivables/receipts/shared/model/flex/StandardReceiptDff/\" xmlns:stan1=\"http://xmlns.oracle.com/apps/financials/receivables/receipts/shared/model/flex/StandardReceiptGdf/\">\n"
-                    + "   <soapenv:Header/>\n"
-                    + "   <soapenv:Body>\n"
-                    + "      <typ:createStandardReceipt>\n"
-                    + "         <typ:standardReceipt>\n"
-                    + "            <!--Optional:-->\n"
-                    + "            <com:Amount currencyCode=\"" + pagoDto.getMoneda() + "\">" + pagoDto.getMonto() + "</com:Amount>\n"
-                    + "            <com:Comments>PRUEBA</com:Comments>\n"
-                    + "            <com:CurrencyCode>MXN</com:CurrencyCode>\n"
-                    + "            <com:GlDate>" + pagoDto.getFechaCreacion() + "</com:GlDate>\n"
-                    + "            <com:OrgId>" + pagoDto.getUnidadNegocio() + "</com:OrgId>\n"
-                    + "            <com:ReceiptDate>" + pagoDto.getFechaCreacion() + "</com:ReceiptDate>\n"
-                    + "            <com:ReceiptMethodId>" + pagoDto.getMetodoId() + "</com:ReceiptMethodId>\n"
-                    + "            <com:ReceiptNumber>" + pagoDto.getNroRecibo() + "</com:ReceiptNumber>\n"
-                    + "         </typ:standardReceipt>\n"
-                    + "      </typ:createStandardReceipt>\n"
-                    + "   </soapenv:Body>\n"
-                    + "</soapenv:Envelope>";
-            
+                    = PropiedadesFRISA.recuperaPropiedadBackend("GetMetodosPagoPorIDServiceSoapAction");
+
             String SOAPAction
-                    = "http://xmlns.oracle.com/apps/financials/receivables/receipts/shared/standardReceiptService/commonService/createStandardReceipt";
+                    = PropiedadesFRISA.recuperaPropiedadBackend("GetMetodosPagoPorIDServiceSoapAction");
 
             //Ready with sending the request.
             try {
                 //Read the response.
 
-                outputString = enviarMsg(wsURL, SOAPAction, xmlInput, "text/xml;charset=UTF-8");
+                outputString = enviarMsg(wsURL, SOAPAction, xmlInput, PropiedadesFRISA.recuperaPropiedadBackend("GetMetodosPagoPorIDServiceSoapAction"));
                 //Parse the String output to a org.w3c.dom.Document and be able to reach every node with the org.w3c.dom API.
                 if (outputString.indexOf("=_Part") > -1) {
                     outputString = outputString.substring(outputString.indexOf("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>"), outputString.lastIndexOf("</env:Envelope>") + 15);
                 }
                 System.out.println("outputString : " + outputString);
-                
+
                 Document document = parseXmlFile(outputString);
                 NodeList nodeLst = document.getElementsByTagName("ns3:CashReceiptId");
                 String resultado = nodeLst.item(0).getTextContent();
@@ -256,12 +320,12 @@ public class AdaptadorWS {
                 ex.printStackTrace();
                 respestaWS.setProceso(new Proceso("100", "ERROR"));
             }
-            
+
         }
-        
+
         return respestaWS;
     }
-    
+
     public RespuestaERP_EncabezadoRecibo getERP_AplicarPago(List<PagoDTO> pagos) throws MalformedURLException,
             IOException,
             ParserConfigurationException,
@@ -273,44 +337,11 @@ public class AdaptadorWS {
         String responseString = "";
         String outputString = "";
         String wsURL = "https://efar-test.fin.us2.oraclecloud.com:443/fscmService/StandardReceiptService";
-        
+
         for (PagoDTO pagoDto : pagos) {
             String xmlInput
-                    = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:typ=\"http://xmlns.oracle.com/apps/financials/receivables/receipts/shared/standardReceiptService/commonService/types/\" xmlns:com=\"http://xmlns.oracle.com/apps/financials/receivables/receipts/shared/standardReceiptService/commonService/\" xmlns:typ1=\"http://xmlns.oracle.com/adf/svc/types/\">\n"
-                    + "   <soapenv:Header/>\n"
-                    + "   <soapenv:Body>\n"
-                    + "      <typ:processApplyReceipt>\n"
-                    + "         <typ:changeOperation>Create</typ:changeOperation>\n"
-                    + "         <!--Zero or more repetitions:-->\n"
-                    + "         <typ:applyReceipt>\n"
-                    + "            <com:AmountApplied>3</com:AmountApplied>\n"
-                    + "            <com:ReceiptNumber>122333</com:ReceiptNumber>\n"
-                    + "            <com:TransactionNumber>2916</com:TransactionNumber>\n"
-                    + "            <com:TransactionDate>2017-05-10</com:TransactionDate>\n"
-                    + "            <com:CustomerName>B2CM_Customer01</com:CustomerName>\n"
-                    + "            <com:ApplicationDate>2017-05-24</com:ApplicationDate>\n"
-                    + "            <com:AccountingDate>2017-05-24</com:AccountingDate>\n"
-                    + "         </typ:applyReceipt>\n"
-                    + "         <typ:applyReceipt>\n"
-                    + "            <com:AmountApplied>4</com:AmountApplied>\n"
-                    + "            <com:ReceiptNumber>122333</com:ReceiptNumber>\n"
-                    + "            <com:TransactionNumber>2917</com:TransactionNumber>\n"
-                    + "            <com:TransactionDate>2017-05-20</com:TransactionDate>\n"
-                    + "            <com:CustomerName>B2CM_Customer01</com:CustomerName>\n"
-                    + "            <com:ApplicationDate>2017-05-24</com:ApplicationDate>\n"
-                    + "            <com:AccountingDate>2017-05-24</com:AccountingDate>\n"
-                    + "         </typ:applyReceipt>\n"
-                    + "         <typ:processControl>\n"
-                    + "            <!--Optional:-->\n"
-                    + "            <typ1:returnMode/>\n"
-                    + "            <!--Optional:-->\n"
-                    + "            <typ1:exceptionReturnMode/>\n"
-                    + "            <typ1:partialFailureAllowed>true</typ1:partialFailureAllowed>\n"
-                    + "         </typ:processControl>\n"
-                    + "      </typ:processApplyReceipt>\n"
-                    + "   </soapenv:Body>\n"
-                    + "</soapenv:Envelope>";
-            
+                    = PropiedadesFRISA.recuperaPropiedadBackend("aplicaPagoFacturaServicePayload");
+
             String SOAPAction
                     = "http://xmlns.oracle.com/apps/financials/receivables/receipts/shared/standardReceiptService/commonService/createApplyReceipt";
 
@@ -324,9 +355,9 @@ public class AdaptadorWS {
                 if (outputString.indexOf("=_Part") > -1) {
                     outputString = outputString.substring(outputString.indexOf("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>"), outputString.lastIndexOf("</env:Envelope>") + 15);
                 }
-                
+
                 System.out.println("outputString : " + outputString);
-                
+
                 Document document = parseXmlFile(outputString);
                 NodeList nodeLst = document.getElementsByTagName("ns3:CashReceiptId");
                 String resultado = nodeLst.item(0).getTextContent();
@@ -339,9 +370,9 @@ public class AdaptadorWS {
                 ex.printStackTrace();
                 respestaWS.setProceso(new Proceso("100", "ERROR"));
             }
-            
+
         }
-        
+
         return respestaWS;
     }
 
@@ -357,7 +388,7 @@ public class AdaptadorWS {
         serializer.serialize(document);
         return out.toString();
     }
-    
+
     public String enviarMsg(String endPoint, String SOAPAction, String msg, String contentType)
             throws MalformedURLException,
             IOException,
@@ -385,12 +416,11 @@ public class AdaptadorWS {
         httpConn.setRequestProperty("Content-Length",
                 String.valueOf(b.length));
         httpConn.setRequestProperty("Content-Type", contentType);
-//        httpConn.setRequestProperty("Content-Type", "text/xml; charset=utf-8");
-        String encodedAuthorization = "dGFfanBlcmV6OldlbGNvbWUxMg==";
+        String encodedAuthorization = PropiedadesFRISA.recuperaPropiedadBackend("autinticaBasico");
 
         //        System.out.println("Encoded Authorization String for FinLitLog is :" + encodedAuthorization);
         httpConn.setRequestProperty("Authorization", "Basic " + encodedAuthorization);
-        
+
         httpConn.setRequestProperty("SOAPAction", SOAPAction);
         httpConn.setRequestMethod("POST");
         httpConn.setDoOutput(true);
@@ -410,53 +440,55 @@ public class AdaptadorWS {
             while ((responseString = in.readLine()) != null) {
                 outputString = outputString + responseString;
             }
+            System.out.println ("Respuesta :");
+            System.out.println (outputString);
         } catch (Exception ex) {
             ex.printStackTrace();
             respestaWS.setProceso(new Proceso("100", "ERROR"));
         }
         return outputString;
     }
-    
+
     private Document parseXmlFile(String in) throws ParserConfigurationException, SAXException, IOException {
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         DocumentBuilder db = dbf.newDocumentBuilder();
         InputSource is = new InputSource(new StringReader(in));
         return db.parse(is);
     }
-    
+
     private String getCadenaDesdeB64(String cadB64) {
         String str = new String(DatatypeConverter.parseBase64Binary(cadB64));
 //          String res = DatatypeConverter.printBase64Binary(str.getBytes());
 //          System.out.println(str);
         return str;
     }
-    
+
     public Object respuestaJSONA_Dto(String datos, Object obj) throws JsonSyntaxException {
         Gson gson = new GsonBuilder().create();
         ManejadorLog manejadorLog = new ManejadorLog();
         Object vObj = null;
-        
+
         if (datos.contains("Error 404--Not Found")) {
             datos = "{\"proceso\": {\n"
                     + "      \"descripcion\": \"El servicio no se encuentra disponible.\",\n"
                     + "      \"termino\": \"999\"\n"
                     + "   }";
         }
-        
+
         try {
             vObj = gson.fromJson(datos, obj.getClass());
-            
+
         } catch (JsonSyntaxException ex) {
             manejadorLog.debug("Error 0006 :" + ex.getMessage());
             manejadorLog.error("Error :" + ex.getMessage());
             manejadorLog.error("Error :" + ex.getLocalizedMessage());
             throw new JsonSyntaxException("Failed : HTTP error code : " + ex.getMessage());
         }
-        
+
         return vObj;
     }
-    
-    private Object respuestaXMLaPOJO(String xmlOrigen, Object clase) throws IOException {
+
+    public Object respuestaXMLaPOJO(String xmlOrigen, Object clase) throws IOException {
         Object vObj = null;
         XmlMapper xmlMapper = new XmlMapper();
 //        xmlMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
@@ -464,21 +496,21 @@ public class AdaptadorWS {
                 = xmlMapper.readValue(xmlOrigen, clase.getClass());
         return vObj;
     }
-    
+
     public static void main(String[] args) throws ParserConfigurationException, SAXException {
         AdaptadorWS adaptadorWS
                 = new AdaptadorWS();
         try {
-            RespuestaERP_Edo_Cuenta respuesta = adaptadorWS.getERP_ejecutarReporteEdoCuenta("11-05-2018", "11-05-2018", "0521838999");
+//            RespuestaERP_Edo_Cuenta respuesta = adaptadorWS.getERP_ejecutarReporteEdoCuenta("11-05-2018", "11-05-2018", "0521838999");
+            RespuestaMetodoPagoDTO respuesta = adaptadorWS.getERP_obtenerMetodosCargaInicial();
+            System.out.println(respuesta.getProceso());
 
 //            List<PagoDTO> pagosDto = new ArrayList<PagoDTO>();
 //            pagosDto.add(new PagoDTO(BigDecimal.ONE, BigDecimal.ONE, "02546545455", "11234567890123145", "123",
 //                    "MXN", "300000002785501", "TEST-016", "1000", "2018-12-05", "", "300000007076442"));
 //            RespuestaERP_EncabezadoRecibo respuesta = adaptadorWS.getERP_generarEncabezadoRecibo(pagosDto);
-
 //            RespuestaERP_Edo_Cuenta respuesta = adaptadorWS.getOBI_generarFacturaAlCobro(null);
-
-            System.out.println(respuesta.getProceso().getTermino());
+//            System.out.println(respuesta.getProceso().getTermino());
         } catch (Exception e) {
             e.printStackTrace();
         }
