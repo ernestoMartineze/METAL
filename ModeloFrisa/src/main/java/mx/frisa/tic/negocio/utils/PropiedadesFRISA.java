@@ -35,7 +35,7 @@ public class PropiedadesFRISA {
         ManejadorLog manejaLog = new ManejadorLog();
         String rootPath = Thread.currentThread().getContextClassLoader().getResource("").getPath();
         String serviciosConfigPath = rootPath + "/configuracion/servicios.properties";
-        String portalConfigPath = rootPath + "/configuracion/portal.properties";
+        String portalConfigPath    = rootPath + "/configuracion/portal.properties";
 
         try {
 

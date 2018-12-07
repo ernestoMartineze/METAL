@@ -5,24 +5,33 @@
  */
 package mx.frisa.tic.negocio.ingresos;
 
+import java.io.IOException;
 import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import javax.xml.parsers.ParserConfigurationException;
 import mx.frisa.tic.datos.comun.DAO;
 
 import mx.frisa.tic.datos.comun.ProcedimientoAlmacendo;
 import mx.frisa.tic.datos.dto.ingresos.PagoDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaDTO;
-import mx.frisa.tic.datos.entidades.XxfrLineaCaptura;
+import mx.frisa.tic.datos.dto.ingresos.RespuestaMetodoPagoDTO;
+import mx.frisa.tic.datos.entidades.XxfrcOrganizacionMetodopago;
+import mx.frisa.tic.datos.entidades.XxfrcOrganizacionMetodopagoPK;
 import mx.frisa.tic.datos.entidades.XxfrtEstadoCuenta;
 import mx.frisa.tic.datos.enums.ProcesoEnum;
 import mx.frisa.tic.negocio.remoto.AdaptadorWS;
 import mx.frisa.tic.negocio.remoto.G_1;
+import mx.frisa.tic.negocio.remoto.MetodoPagoG1OBI;
+import mx.frisa.tic.negocio.remoto.MetodoPagoOBI;
 import mx.frisa.tic.negocio.remoto.RespuestaERP_Edo_Cuenta;
 import mx.frisa.tic.negocio.remoto.RespuestaERP_EncabezadoRecibo;
 import mx.frisa.tic.negocio.utils.ManejadorLog;
+import org.xml.sax.SAXException;
 
 /**
  *
@@ -39,6 +48,8 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
         ManejadorLog manejaLog = new ManejadorLog();
         try {
             AdaptadorWS clienteWS = new AdaptadorWS();
+            //Validar carga inicial de Metodos de pago
+            this.validarCargaInicialMetodosPago();
             respuestaWS = clienteWS.getERP_ejecutarReporteEdoCuenta(fechaInicio, fechaFinal, numeroCuenta);
             respuesta.setIdError(respuestaWS.getProceso().getTermino());
             respuesta.setDescripcionError(respuestaWS.getProceso().getDescripcion());
@@ -112,6 +123,33 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
 
         //Regresar respuesta exitosa
         return respuesta;
+    }
+
+    private void validarCargaInicialMetodosPago() throws IOException, MalformedURLException, SAXException, ParserConfigurationException {
+        DAO<XxfrcOrganizacionMetodopago> metodosPagoDao = new DAO(XxfrcOrganizacionMetodopago.class);
+        XxfrcOrganizacionMetodopago metodoPago = (XxfrcOrganizacionMetodopago)metodosPagoDao.consultaQueryNativo("Select * from XXFRC_ORGANIZACION_METODOPAGO where rownum = 1");
+        if (metodoPago == null){
+            //Lanzar la carga de info desde el ERP
+            AdaptadorWS adaptador = new AdaptadorWS();
+            RespuestaMetodoPagoDTO respuesta 
+                    = adaptador.getERP_obtenerMetodosCargaInicial();
+            
+            if (respuesta.getProceso().getTermino().equals("0")){
+                //Insertar las encontradas
+                MetodoPagoOBI metodos = respuesta.getMetodosPago();
+                for (MetodoPagoG1OBI metodo : metodos.getG_1()){
+                    XxfrcOrganizacionMetodopago metodoPagoEntidad = new XxfrcOrganizacionMetodopago(); 
+                    XxfrcOrganizacionMetodopagoPK metodoPk = new XxfrcOrganizacionMetodopagoPK();
+                    metodoPk.setBankAccountId(BigInteger.valueOf(Long.valueOf(metodo.getBANK_ACCOUNT_NUM())));
+                    metodoPk.setOrgId(BigInteger.valueOf(Long.valueOf(metodo.getORG_ID())));
+                    metodoPk.setReceiptMethodId(BigInteger.valueOf(Long.valueOf(metodo.getRECEIPT_METHOD_ID())));
+                    metodoPagoEntidad.setBankAccountNum(BigInteger.valueOf(Long.valueOf(metodo.getBANK_ACCOUNT_NUM())));
+                    metodoPagoEntidad.setOuName(metodo.getOU_NAME());
+                    
+                    metodosPagoDao.registra(metodoPagoEntidad);
+                }
+            }
+        }
     }
 
 }
