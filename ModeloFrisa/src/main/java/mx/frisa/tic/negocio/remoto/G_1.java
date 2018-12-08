@@ -5,12 +5,14 @@
  */
 package mx.frisa.tic.negocio.remoto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
 /**
  *
  * @author USER_1
  */
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class G_1 {
     @JacksonXmlProperty(localName = "BANK_ACCOUNT_NUM")
     private String BANK_ACCOUNT_NUM;
@@ -37,6 +39,8 @@ public class G_1 {
     private String TRX_CODE;
     @JacksonXmlProperty(localName = "CURRENCY_CODE")
     private String CURRENCY_CODE;
+    
+    private String idEstadoCuenta;
 
     public String getBANK_ACCOUNT_NUM() {
         return BANK_ACCOUNT_NUM;

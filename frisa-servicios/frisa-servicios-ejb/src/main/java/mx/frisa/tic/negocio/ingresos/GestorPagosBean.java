@@ -5,6 +5,7 @@
  */
 package mx.frisa.tic.negocio.ingresos;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -14,7 +15,9 @@ import mx.frisa.tic.datos.comun.DAO;
 import mx.frisa.tic.datos.dto.ingresos.FacturaPagoDTO;
 import mx.frisa.tic.datos.dto.ingresos.PagoDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaDTO;
+import mx.frisa.tic.datos.dto.ingresos.RespuestaProcesaFacturasDTO;
 import mx.frisa.tic.datos.entidades.XxfrvFactparapagos;
+import mx.frisa.tic.negocio.remoto.AdaptadorWS;
 import mx.frisa.tic.negocio.utils.ManejadorLog;
 
 /**
@@ -23,8 +26,8 @@ import mx.frisa.tic.negocio.utils.ManejadorLog;
  */
 @Stateless(name = "GestorPagosBean")
 @LocalBean
-public class GestorPagosBean implements GestorPagos{
-    
+public class GestorPagosBean implements GestorPagos {
+
     @Override
     public RespuestaDTO generarPago(List<PagoDTO> pagos) {
         RespuestaDTO respuesta = new RespuestaDTO();
@@ -35,17 +38,17 @@ public class GestorPagosBean implements GestorPagos{
         4. Crear factura al cobro (ERP)
         5. Registrar cabecera de pago en ERP
         6. Aplicar facturas en ERP
-        */
-        
+         */
+
         respuesta.setProceso("GestorPagosBean-generarPago");
         respuesta.setIdError("000");
         respuesta.setDescripcionError("OK");
         return respuesta;
     }
-    
-    private List<PagoDTO> recuperaFacturas(List<PagoDTO> pagos){
+
+    private RespuestaProcesaFacturasDTO recuperaFacturas(List<PagoDTO> pagos) throws IOException {
         ManejadorLog log = new ManejadorLog();
-        DateFormat dateFormat = new SimpleDateFormat("dd-mm-yyyy"); 
+        DateFormat dateFormat = new SimpleDateFormat("dd-mm-yyyy");
         DAO<XxfrvFactparapagos> consultaDAO = new DAO(XxfrvFactparapagos.class);
         List<XxfrvFactparapagos> facturasDTO = null;
         List<FacturaPagoDTO> facturasAlCobro = null;
@@ -53,25 +56,25 @@ public class GestorPagosBean implements GestorPagos{
         List<PagoDTO> response = null;
         StringBuilder query = new StringBuilder();
         StringBuilder paramLc = new StringBuilder();
-        
-        for(PagoDTO pago : pagos){
-            paramLc.append("'"+pago.getLineaCaptura()+"',");
+        RespuestaProcesaFacturasDTO respuesta = new RespuestaProcesaFacturasDTO("ERROR", "100", "Existe error en proceso de facturas al cobro");
+
+        for (PagoDTO pago : pagos) {
+            paramLc.append("'" + pago.getLineaCaptura() + "',");
         }
-        
+
         query.append("SELECT x ")
                 .append(" FROM XxfrvFactparapagos x ")
-                .append("WHERE x.lineacaptura = '")
-                .append(paramLc.toString().substring(0, paramLc.toString().length() -1))
-                .append("'");
-        try{
+                .append("WHERE x.lineacaptura in ('")
+                .append(paramLc.toString().substring(0, paramLc.toString().length() - 1))
+                .append("')");
+        try {
             facturasDTO = consultaDAO.consultaQueryNativo(query.toString());
-        }
-        catch(Exception ex){
+        } catch (Exception ex) {
             log.debug("Error al ejecutar el query: " + query.toString());
             log.error(ex, GestorPagosBean.class);
         }
-        
-        for(XxfrvFactparapagos pago : facturasDTO){
+
+        for (XxfrvFactparapagos pago : facturasDTO) {
             FacturaPagoDTO factura = null;
             factura.setIdlinea(pago.getIdlinea());
             factura.setBusinessunitname(pago.getBusinessunitname());
@@ -104,13 +107,18 @@ public class GestorPagosBean implements GestorPagos{
             factura.setLocalnumber(pago.getLocalnumber());
             factura.setLineacaptura(pago.getLineacaptura());
             facturas.add(factura);
-            if(factura.getGenerationtype().equals("INVOICE_TO_COLLECTION"))
-            {
+            if (factura.getGenerationtype().equals("INVOICE_TO_COLLECTION")) {
                 facturasAlCobro.add(factura);
             }
         }
         //TODO - Llamada al servicio de creación de facturas
-        
-        return null;
+        AdaptadorWS adaptador = new AdaptadorWS();
+        if (facturasAlCobro.size() > 0) {
+            adaptador.getOBI_generarFacturaAlCobro(facturasAlCobro);
+        }
+        respuesta = new RespuestaProcesaFacturasDTO("EXITOSO", "0", "");
+        respuesta.setFacturas(facturas);
+
+        return respuesta;
     }
 }

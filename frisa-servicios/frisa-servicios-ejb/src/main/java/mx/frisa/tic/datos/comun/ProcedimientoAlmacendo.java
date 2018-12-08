@@ -11,7 +11,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.ParameterMode;
 import javax.persistence.StoredProcedureQuery;
+import mx.frisa.tic.datos.dto.ingresos.EstadoCuentaDTO;
 import mx.frisa.tic.datos.dto.ingresos.LineaCaptutaFacturaDTO;
+import mx.frisa.tic.datos.dto.ingresos.RespuestaDTO;
+import mx.frisa.tic.datos.entidades.XxfrtEstadoCuenta;
 import mx.frisa.tic.datos.entidades.XxfrvConsultaLcBatch;
 import mx.frisa.tic.negocio.utils.ManejadorLog;
 
@@ -40,7 +43,7 @@ public class ProcedimientoAlmacendo extends ManejadorEntidad {
 
             try {
                 totalFacturas = (int) procedure.getOutputParameterValue("totalFacturas");
-                ejecuta = true; 
+                ejecuta = true;
             } catch (Exception ex) {
                 manejadorLog.error("Error : " + totalFacturas);
                 manejadorLog.error("Resultado: " + ex.getLocalizedMessage());
@@ -62,7 +65,7 @@ public class ProcedimientoAlmacendo extends ManejadorEntidad {
         }
         return respuesta;
     }
-    
+
     public int ejecutaBatchLC(String idBatch) {
         ManejadorLog manejadorLog = new ManejadorLog();
         int respuesta = 0;
@@ -77,7 +80,7 @@ public class ProcedimientoAlmacendo extends ManejadorEntidad {
             int respuestaProceso = 0;
             try {
                 respuestaProceso = (int) procedure.getOutputParameterValue("PROCESO");
-                ejecuta = true; 
+                ejecuta = true;
             } catch (Exception ex) {
                 manejadorLog.error("Error : " + respuestaProceso);
                 manejadorLog.error("Resultado: " + ex.getLocalizedMessage());
@@ -100,7 +103,7 @@ public class ProcedimientoAlmacendo extends ManejadorEntidad {
         }
         return respuesta;
     }
-    
+
     public int consultaBatchFinalizado(String idBatch) {
         ManejadorLog manejadorLog = new ManejadorLog();
         int respuesta = 0;
@@ -115,7 +118,7 @@ public class ProcedimientoAlmacendo extends ManejadorEntidad {
             int respuestaProceso = 0;
             try {
                 respuestaProceso = (int) procedure.getOutputParameterValue("PROCESO");
-                ejecuta = true; 
+                ejecuta = true;
             } catch (Exception ex) {
                 manejadorLog.error("Error : " + respuestaProceso);
                 manejadorLog.error("Resultado: " + ex.getLocalizedMessage());
@@ -137,7 +140,7 @@ public class ProcedimientoAlmacendo extends ManejadorEntidad {
         }
         return respuesta;
     }
-    
+
     public List<LineaCaptutaFacturaDTO> consultaLCGeneradas(String idBatch) {
         ManejadorLog manejadorLog = new ManejadorLog();
         DAO<XxfrvConsultaLcBatch> consultaDAO = new DAO(XxfrvConsultaLcBatch.class);
@@ -151,7 +154,7 @@ public class ProcedimientoAlmacendo extends ManejadorEntidad {
                 .append(idBatch)
                 .append("'");
         consultaDTO = consultaDAO.consultaQueryNativo(consulta.toString());
-        for(XxfrvConsultaLcBatch resConsulta : consultaDTO){
+        for (XxfrvConsultaLcBatch resConsulta : consultaDTO) {
             factura.setIdbatch(resConsulta.getIdbatch());
             factura.setIdfacturaprimavera(resConsulta.getIdfacturaprimavera());
             factura.setLineacaptura(resConsulta.getLineacaptura());
@@ -159,4 +162,55 @@ public class ProcedimientoAlmacendo extends ManejadorEntidad {
         }
         return facturas;
     }/**/
+
+    public RespuestaDTO ejecutarEstadoCuenta(XxfrtEstadoCuenta lineaEstadoCuenta) {
+        ManejadorLog manejadorLog = new ManejadorLog();
+        manejadorLog.debug("Entró ejecutarProcedimiento : getBANK_ACCOUNT_NUM=" + lineaEstadoCuenta.getBankAccountNum());
+        RespuestaDTO respuestaDTO = new RespuestaDTO("ERROR","100","");
+        try {
+            super.instanciarManager();
+            StoredProcedureQuery procedure = super.getEntityManager().createStoredProcedureQuery("INGRESOS.XXFRP_ESTADO_CUENTA");
+            procedure.registerStoredProcedureParameter("PBANK_ACCOUNT_NUM", String.class, ParameterMode.IN);
+            procedure.registerStoredProcedureParameter("pTRX_DATE", String.class, ParameterMode.IN);
+            procedure.registerStoredProcedureParameter("pLINE_NUMBER", String.class, ParameterMode.IN);
+            procedure.registerStoredProcedureParameter("pTRX_TYPE", String.class, ParameterMode.IN);
+            procedure.registerStoredProcedureParameter("pAMOUNT", String.class, ParameterMode.IN);
+            procedure.registerStoredProcedureParameter("pTRX_CODE", String.class, ParameterMode.IN);
+            procedure.registerStoredProcedureParameter("pCURRENCY_CODE", String.class, ParameterMode.IN);
+            procedure.registerStoredProcedureParameter("pCUSTOMER_REFERENCE", String.class, ParameterMode.IN);
+            procedure.registerStoredProcedureParameter("pADDIOTIONAL_ENTRY_INFORMATION", String.class, ParameterMode.IN);
+            procedure.registerStoredProcedureParameter("pPROYECTO_PROPIETARIO", String.class, ParameterMode.IN);
+            procedure.registerStoredProcedureParameter("pLINE_CAPTURE", String.class, ParameterMode.IN);
+            procedure.registerStoredProcedureParameter("PRESPUESTA", int.class, ParameterMode.OUT);
+
+            procedure.setParameter("PBANK_ACCOUNT_NUM", "0521838999");
+            procedure.setParameter("pTRX_DATE",  lineaEstadoCuenta.getTrxDate());
+            procedure.setParameter("pLINE_NUMBER", lineaEstadoCuenta.getLineNumber() + "");
+            procedure.setParameter("pTRX_TYPE", lineaEstadoCuenta.getTrxType());
+            procedure.setParameter("pAMOUNT", lineaEstadoCuenta.getAmount()+ "");
+            procedure.setParameter("pTRX_CODE", lineaEstadoCuenta.getTrxCode()+"");
+            procedure.setParameter("pCURRENCY_CODE", lineaEstadoCuenta.getCurrencyCode());
+            procedure.setParameter("pCUSTOMER_REFERENCE", lineaEstadoCuenta.getCustomerReference());
+            procedure.setParameter("pADDIOTIONAL_ENTRY_INFORMATION", lineaEstadoCuenta.getAddiotionalEntryInformation());
+            procedure.setParameter("pPROYECTO_PROPIETARIO", lineaEstadoCuenta.getProyectoPropietario());
+            procedure.setParameter("pLINE_CAPTURE", lineaEstadoCuenta.getLineCapture());
+
+            Boolean ejecuta = procedure.execute();
+
+            int respuestaProceso = 0;
+
+            respuestaProceso = (int) procedure.getOutputParameterValue("PRESPUESTA");
+            ejecuta = true;
+
+            manejadorLog.debug("Resultado: " + respuestaProceso);
+            manejadorLog.debug("Resultado : " + ejecuta);
+            respuestaDTO = new RespuestaDTO("EXITOSO","1","");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            manejadorLog.error("Resultado: " + ex.getLocalizedMessage());
+            manejadorLog.error("Resultado: " + ex.getMessage());
+            respuestaDTO = new RespuestaDTO("ERROR","100",ex.getMessage());
+        }
+        return respuestaDTO;
+    }
 }
