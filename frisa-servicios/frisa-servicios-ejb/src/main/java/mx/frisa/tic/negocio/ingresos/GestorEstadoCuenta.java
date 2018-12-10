@@ -127,25 +127,25 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
 
     private void validarCargaInicialMetodosPago() throws IOException, MalformedURLException, SAXException, ParserConfigurationException {
         DAO<XxfrcOrganizacionMetodopago> metodosPagoDao = new DAO(XxfrcOrganizacionMetodopago.class);
-        XxfrcOrganizacionMetodopago metodoPago = (XxfrcOrganizacionMetodopago)metodosPagoDao.consultaQueryNativo("Select * from XXFRC_ORGANIZACION_METODOPAGO where rownum = 1");
-        if (metodoPago == null){
+        List<XxfrcOrganizacionMetodopago> metodoPago = (List<XxfrcOrganizacionMetodopago>)metodosPagoDao.consultaQueryNamed("XxfrcOrganizacionMetodopago.findAll");
+        if (metodoPago.size() == 0){
             //Lanzar la carga de info desde el ERP
             AdaptadorWS adaptador = new AdaptadorWS();
-            RespuestaMetodoPagoDTO respuesta 
+            RespuestaMetodoPagoDTO respuesta
                     = adaptador.getERP_obtenerMetodosCargaInicial();
-            
+
             if (respuesta.getProceso().getTermino().equals("0")){
                 //Insertar las encontradas
                 MetodoPagoOBI metodos = respuesta.getMetodosPago();
                 for (MetodoPagoG1OBI metodo : metodos.getG_1()){
-                    XxfrcOrganizacionMetodopago metodoPagoEntidad = new XxfrcOrganizacionMetodopago(); 
+                    XxfrcOrganizacionMetodopago metodoPagoEntidad = new XxfrcOrganizacionMetodopago();
                     XxfrcOrganizacionMetodopagoPK metodoPk = new XxfrcOrganizacionMetodopagoPK();
                     metodoPk.setBankAccountId(BigInteger.valueOf(Long.valueOf(metodo.getBANK_ACCOUNT_NUM())));
                     metodoPk.setOrgId(BigInteger.valueOf(Long.valueOf(metodo.getORG_ID())));
                     metodoPk.setReceiptMethodId(BigInteger.valueOf(Long.valueOf(metodo.getRECEIPT_METHOD_ID())));
                     metodoPagoEntidad.setBankAccountNum(BigInteger.valueOf(Long.valueOf(metodo.getBANK_ACCOUNT_NUM())));
                     metodoPagoEntidad.setOuName(metodo.getOU_NAME());
-                    
+
                     metodosPagoDao.registra(metodoPagoEntidad);
                 }
             }

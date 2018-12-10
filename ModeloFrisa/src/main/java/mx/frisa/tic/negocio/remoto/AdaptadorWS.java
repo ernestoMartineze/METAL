@@ -33,6 +33,7 @@ import mx.frisa.tic.datos.dto.ingresos.PagoDTO;
 import mx.frisa.tic.datos.dto.ingresos.Proceso;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaMetodoPagoDTO;
+import mx.frisa.tic.negocio.remoto.adaptadorOBIEE.ConsumirBI;
 import mx.frisa.tic.negocio.utils.ManejadorLog;
 import mx.frisa.tic.negocio.utils.PropiedadesFRISA;
 import org.w3c.dom.Document;
@@ -162,33 +163,23 @@ public class AdaptadorWS {
         respestaWS.setProceso(new Proceso("0", "EXITOSO"));
 
         String outputString = "";
-        String wsURL = PropiedadesFRISA.recuperaPropiedadBackend("edoCuentaServiceEndPoint");
         
-        
-        
-
-        String xmlInput
-                = this.getCadenaDesdeB64(PropiedadesFRISA.recuperaPropiedadBackend("edoCuentaServicePayload"));
-
-        //Inyectar parametros al payload
-        xmlInput = inyectaParametro(xmlInput, "FROM-DATE", fechaInicio);
-        xmlInput = inyectaParametro(xmlInput, "TO-DATE", fechaFinal);
-        xmlInput = inyectaParametro(xmlInput, "BANK_ACCOUNT_NUMBER", noCuenta);
-
-        String SOAPAction
-                = PropiedadesFRISA.recuperaPropiedadBackend("edoCuentaServiceSoapAction");
 
         //Ready with sending the request.
         try {
             //Read the response.
-            outputString = enviarMsg(wsURL, SOAPAction, xmlInput, PropiedadesFRISA.recuperaPropiedadBackend("edoCuentaServiceContentType"));
+            ConsumirBI consumir = new ConsumirBI();
+            
+//            outputString = enviarMsg(wsURL, SOAPAction, xmlInput, PropiedadesFRISA.recuperaPropiedadBackend("edoCuentaServiceContentType"));
+            outputString = consumir.getEstadosCuenta(fechaInicio, fechaFinal, noCuenta);
             //Parse the String output to a org.w3c.dom.Document and be able to reach every node with the org.w3c.dom API.
-            Document document = parseXmlFile(outputString);
-            NodeList nodeLst = document.getElementsByTagName("ns2:reportBytes");
-            String resultado = nodeLst.item(0).getTextContent();
+//            Document document = parseXmlFile(outputString);
+//            NodeList nodeLst = document.getElementsByTagName("ns2:reportBytes");
+//            String resultado = nodeLst.item(0).getTextContent();
 
             //Write the SOAP message formatted to the console.
-            respestaWS.setDATA_DSObject((DATA_DS) respuestaXMLaPOJO(getCadenaDesdeB64(resultado), new DATA_DS()));
+//            respestaWS.setDATA_DSObject((DATA_DS) respuestaXMLaPOJO(getCadenaDesdeB64(resultado), new DATA_DS()));
+            respestaWS.setDATA_DSObject((DATA_DS) respuestaXMLaPOJO(outputString, new DATA_DS()));
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -218,16 +209,20 @@ public class AdaptadorWS {
         //Ready with sending the request.
         try {
             //Read the response.
-            outputString = enviarMsg(wsURL, SOAPAction, xmlInput, PropiedadesFRISA.recuperaPropiedadBackend("GetMetodosPagoTodosServiceContentType"));
+            ConsumirBI consumir = new ConsumirBI();
+            
+//            outputString = enviarMsg(wsURL, SOAPAction, xmlInput, PropiedadesFRISA.recuperaPropiedadBackend("GetMetodosPagoTodosServiceContentType"));
+            outputString = consumir.getMetodosPago("123", "", "");
+
             //Parse the String output to a org.w3c.dom.Document and be able to reach every node with the org.w3c.dom API.
-            Document document = parseXmlFile(outputString);
-            NodeList nodeLst = document.getElementsByTagName("ns2:reportBytes");
-            String resultado = nodeLst.item(0).getTextContent();
+//            Document document = parseXmlFile(outputString);
+//            NodeList nodeLst = document.getElementsByTagName("ROWSET");
+//            String resultado = nodeLst.item(0).getTextContent();
             
 
             //Write the SOAP message formatted to the console.
             MetodoPagoOBI metodos = new MetodoPagoOBI();
-            metodos = (MetodoPagoOBI) respuestaXMLaPOJO(getCadenaDesdeB64(resultado), metodos);
+            metodos = (MetodoPagoOBI) respuestaXMLaPOJO(outputString, metodos);
             respestaWS.setProceso(new Proceso ("0","EXITOSO"));
             respestaWS.setMetodosPago(metodos);
             
@@ -259,7 +254,10 @@ public class AdaptadorWS {
         //Ready with sending the request.
         try {
             //Read the response.
-            outputString = enviarMsg(wsURL, SOAPAction, xmlInput, PropiedadesFRISA.recuperaPropiedadBackend("GetMetodosPagoPorIDServiceContentType"));
+            ConsumirBI consumir = new ConsumirBI();
+            
+//            outputString = enviarMsg(wsURL, SOAPAction, xmlInput, PropiedadesFRISA.recuperaPropiedadBackend("GetMetodosPagoTodosServiceContentType"));
+            outputString = consumir.getMetodosPago(pORG_ID, pCuentaBancaria, "NO ES CARGA INICIAL");
             //Parse the String output to a org.w3c.dom.Document and be able to reach every node with the org.w3c.dom API.
             Document document = parseXmlFile(outputString);
             NodeList nodeLst = document.getElementsByTagName("ns2:reportBytes");
@@ -501,8 +499,8 @@ public class AdaptadorWS {
         AdaptadorWS adaptadorWS
                 = new AdaptadorWS();
         try {
-//            RespuestaERP_Edo_Cuenta respuesta = adaptadorWS.getERP_ejecutarReporteEdoCuenta("11-05-2018", "11-05-2018", "0521838999");
-            RespuestaMetodoPagoDTO respuesta = adaptadorWS.getERP_obtenerMetodosCargaInicial();
+            RespuestaERP_Edo_Cuenta respuesta = adaptadorWS.getERP_ejecutarReporteEdoCuenta("11-05-2018", "11-05-2018", "0521838999");
+//            RespuestaMetodoPagoDTO respuesta = adaptadorWS.getERP_obtenerMetodosCargaInicial();
             System.out.println(respuesta.getProceso());
 
 //            List<PagoDTO> pagosDto = new ArrayList<PagoDTO>();

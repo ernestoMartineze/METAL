@@ -24,6 +24,11 @@
             <type>jar</type>
         </dependency>
         <dependency>
+            <groupId>mx.frisa.tic.negocio.remoto</groupId>
+            <artifactId>AdaptadorOBI</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
             <version>6.0</version>
