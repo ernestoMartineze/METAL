@@ -18,16 +18,16 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class MetodoPagoOBI {
 
-//    @JacksonXmlProperty(localName = "ORG_ID")
-//    private String ORG_ID;
-//    @JacksonXmlProperty(localName = "BANK_ACCOUNT_NUMBER")
-//    private String BANK_ACCOUNT_NUMBER;
-//    @JacksonXmlProperty(localName = "FROM_DATE")
-//    private String FROM_DATE;
-//    @JacksonXmlProperty(localName = "TO_DATE")
-//    private String TO_DATE;
+    @JacksonXmlProperty(localName = "ORG_ID")
+    private String ORG_ID;
+    @JacksonXmlProperty(localName = "BANK_ACCOUNT_NUMBER")
+    private String BANK_ACCOUNT_NUMBER;
+    @JacksonXmlProperty(localName = "FROM_DATE")
+    private String FROM_DATE;
+    @JacksonXmlProperty(localName = "TO_DATE")
+    private String TO_DATE;
 
-    @JacksonXmlProperty(localName = "ROW")
+    @JacksonXmlProperty(localName = "G_1")
     @JacksonXmlCData
     @JacksonXmlElementWrapper(useWrapping = false)
     private List< MetodoPagoG1OBI > G_1;
