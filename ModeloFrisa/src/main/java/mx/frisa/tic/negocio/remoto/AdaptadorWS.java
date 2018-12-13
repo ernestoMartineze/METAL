@@ -48,88 +48,22 @@ public class AdaptadorWS {
 
     public RespuestaERP_Edo_Cuenta getOBI_generarFacturaAlCobro(List<FacturaPagoDTO> facturas) throws MalformedURLException, IOException {
 
-        String xmlInput = "<soapenv:Envelope xmlns:inv=\"http://xmlns.oracle.com/apps/financials/receivables/transactions/invoices/invoiceService/\" \n"
-                + "xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" \n"
-                + "xmlns:tran=\"http://xmlns.oracle.com/apps/financials/receivables/transactions/shared/model/flex/TransactionHeaderDff/\"\n"
-                + "xmlns:tran1=\"http://xmlns.oracle.com/apps/financials/receivables/transactions/shared/model/flex/TransactionHeaderGdf/\"  \n"
-                + "xmlns:tran4=\"http://xmlns.oracle.com/apps/financials/receivables/transactions/shared/model/flex/TransactionLineDff/\" \n"
-                + "xmlns:typ=\"http://xmlns.oracle.com/apps/financials/receivables/transactions/invoices/invoiceService/types/\" \n"
-                + "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n"
-                + "<soapenv:Body>\n"
-                + "      <typ:createSimpleInvoice>\n"
-                + "         <typ:invoiceHeaderInformation>\n"
-                + "            <inv:BusinessUnit>LMF MUNDO E - RENTAS</inv:BusinessUnit>\n"
-                + "            <inv:TransactionSource>RENTA</inv:TransactionSource>\n"
-                + "            <inv:TransactionType>FAC_INGRESOS_MN</inv:TransactionType>\n"
-                + "            <inv:TrxDate>2018-09-08</inv:TrxDate>\n"
-                + "            <inv:GlDate>2018-09-08</inv:GlDate>\n"
-                + "            <inv:BillToCustomerName>Nueva Wal-Mart DE MEXICO SA DE CV</inv:BillToCustomerName>\n"
-                + "            <inv:BillToAccountNumber>10249</inv:BillToAccountNumber>\n"
-                + "            <inv:PaymentTermsName>IMMEDIATE</inv:PaymentTermsName>\n"
-                + "            <inv:InvoiceLine>\n"
-                + "               <inv:LineNumber>1</inv:LineNumber>\n"
-                + "               <inv:MemoLineName>FACTURA RENTA MENSUAL LOCAL</inv:MemoLineName>\n"
-                + "               <inv:Description>FACTURA RENTA MENSUAL LOCAL</inv:Description>\n"
-                + "               <inv:Quantity>1</inv:Quantity>\n"
-                + "               <inv:UnitSellingPrice>45000</inv:UnitSellingPrice>\n"
-                + "               <inv:TaxClassificationCode>IVA 16% AR</inv:TaxClassificationCode>\n"
-                + "               <inv:TransactionLineFLEX xsi:type=\"tran4:Rentas\">\n"
-                + "                  <tran4:descripciOnAdicional1>Des 1 JP</tran4:descripciOnAdicional1>\n"
-                + "                  <tran4:descripciOnAdicional2>Des 2 JP</tran4:descripciOnAdicional2>\n"
-                + "                  <tran4:descripciOnAdicional3>Des 3 JP</tran4:descripciOnAdicional3>\n"
-                + "                  <tran4:descripciOnAdicional4>Des 4 JP</tran4:descripciOnAdicional4>\n"
-                + "                  <tran4:descripciOnAdicional5>Des 5 JP</tran4:descripciOnAdicional5>\n"
-                + "                  <tran4:periodoDeFacturacionDesde>01-09-2018</tran4:periodoDeFacturacionDesde>\n"
-                + "                  <tran4:periodoDeFacturacionHasta>31-09-2018</tran4:periodoDeFacturacionHasta>\n"
-                + "                  <tran4:__FLEX_Context>RENTAS</tran4:__FLEX_Context>\n"
-                + "                  <tran4:siguienteFechaDeExigibilidad>31-09-2018</tran4:siguienteFechaDeExigibilidad>\n"
-                + "               </inv:TransactionLineFLEX>\n"
-                + "            </inv:InvoiceLine>\n"
-                + "			<inv:InvoiceLine>\n"
-                + "               <inv:LineNumber>2</inv:LineNumber>\n"
-                + "               <inv:MemoLineName>FACTURA VARIOS SERVICIOS</inv:MemoLineName>\n"
-                + "               <inv:Description>FACTURA VARIOS SERVICIOS</inv:Description>\n"
-                + "               <inv:Quantity>1</inv:Quantity>\n"
-                + "               <inv:UnitSellingPrice>45000</inv:UnitSellingPrice>\n"
-                + "               <inv:TaxClassificationCode>IVA 16% AR</inv:TaxClassificationCode>\n"
-                + "               <inv:TransactionLineFLEX xsi:type=\"tran4:Rentas\">\n"
-                + "                  <tran4:descripciOnAdicional1>Des 1 JP</tran4:descripciOnAdicional1>\n"
-                + "                  <tran4:descripciOnAdicional2>Des 2 JP</tran4:descripciOnAdicional2>\n"
-                + "                  <tran4:descripciOnAdicional3>Des 3 JP</tran4:descripciOnAdicional3>\n"
-                + "                  <tran4:descripciOnAdicional4>Des 4 JP</tran4:descripciOnAdicional4>\n"
-                + "                  <tran4:descripciOnAdicional5>Des 5 JP</tran4:descripciOnAdicional5>\n"
-                + "                  <tran4:periodoDeFacturacionDesde>01-09-2018</tran4:periodoDeFacturacionDesde>\n"
-                + "                  <tran4:periodoDeFacturacionHasta>31-09-2018</tran4:periodoDeFacturacionHasta>\n"
-                + "                  <tran4:__FLEX_Context>RENTAS</tran4:__FLEX_Context>\n"
-                + "                  <tran4:siguienteFechaDeExigibilidad>31-09-2018</tran4:siguienteFechaDeExigibilidad>\n"
-                + "               </inv:TransactionLineFLEX>\n"
-                + "            </inv:InvoiceLine>\n"
-                + "            <inv:TransactionHeaderFLEX xsi:type=\"tran:Rentas\">\n"
-                + "               <tran:proyecto>151</tran:proyecto>\n"
-                + "               <tran:folio>J-000-001</tran:folio>\n"
-                + "               <tran:__FLEX_Context>RENTAS</tran:__FLEX_Context>\n"
-                + "               <tran:nUmeroDeLocal>24JPL</tran:nUmeroDeLocal>\n"
-                + "            </inv:TransactionHeaderFLEX>\n"
-                + "         </typ:invoiceHeaderInformation>\n"
-                + "      </typ:createSimpleInvoice>\n"
-                + "   </soapenv:Body>\n"
-                + "</soapenv:Envelope>";
-
+        String xmlInput = PropiedadesFRISA.recuperaPropiedadBackend("generaFacturaServicePayload");
 //Code to make a webservice HTTP request
         RespuestaERP_Edo_Cuenta respestaWS = new RespuestaERP_Edo_Cuenta();
         respestaWS.setProceso(new Proceso("0", "EXITOSO"));
         String responseString = "";
         String outputString = "";
-        String wsURL = "https://efar-test.fin.us2.oraclecloud.com:443/fscmService/RecInvoiceService";
+        String wsURL =  PropiedadesFRISA.recuperaPropiedadBackend("generaFacturaServiceEndPoint");
 
         String SOAPAction
-                = "http://xmlns.oracle.com/apps/financials/receivables/transactions/invoices/invoiceService/";
+                = PropiedadesFRISA.recuperaPropiedadBackend("generaFacturaServiceSoapAction");
 
         //Ready with sending the request.
         try {
             //Read the response.
 
-            outputString = enviarMsg(wsURL, SOAPAction, xmlInput, "text/xml; charset=UTF-8");
+            outputString = enviarMsg(wsURL, SOAPAction, xmlInput,  PropiedadesFRISA.recuperaPropiedadBackend("generaFacturaServiceContentType"));
             //Parse the String output to a org.w3c.dom.Document and be able to reach every node with the org.w3c.dom API.
             Document document = parseXmlFile(outputString);
             NodeList nodeLst = document.getElementsByTagName("ns2:reportBytes");

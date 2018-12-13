@@ -67,6 +67,7 @@ public class GestorPagosBean implements GestorPagos {
 
         for (PagoDTO pago : pagos) {
             paramLc.append("'" + pago.getLineaCaptura() + "',");
+            
         }
 
        
