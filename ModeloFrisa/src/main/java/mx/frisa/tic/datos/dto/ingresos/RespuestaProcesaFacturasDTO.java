@@ -1,5 +1,6 @@
 package mx.frisa.tic.datos.dto.ingresos;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,7 +20,7 @@ public class RespuestaProcesaFacturasDTO {
         this.proceso = proceso;
         this.idError = idError;
         this.descripcionError = descripcionError;
-        this.facturas.clear();
+        this.facturas = new ArrayList();
     }
     
     
