@@ -45,6 +45,41 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "XxfrtEstadoCuenta.findByIdLineaCaptura", query = "SELECT x FROM XxfrtEstadoCuenta x WHERE x.idLineaCaptura = :idLineaCaptura")})
 public class XxfrtEstadoCuenta implements Serializable {
 
+    @Column(name = "BANK_ACCOUNT_NUM")
+    private BigDecimal bankAccountNum;
+    @Column(name = "GL_DATE")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date glDate;
+    @Column(name = "LINE_NUMBER")
+    private BigDecimal lineNumber;
+    @Column(name = "TRX_CODE")
+    private BigDecimal trxCode;
+    @Column(name = "ID_LINEA_CAPTURA")
+    private BigDecimal idLineaCaptura;
+    @Column(name = "RMETHODID")
+    private BigDecimal rmethodid;
+    @Size(max = 30)
+    @Column(name = "STATEMENT_HEADER_ID")
+    private String statementHeaderId;
+    @Size(max = 30)
+    @Column(name = "STATEMENT_LINE_ID")
+    private String statementLineId;
+    @Size(max = 30)
+    @Column(name = "BANK_ACCOUNT_ID")
+    private String bankAccountId;
+    @Column(name = "STMT_FROM_DATE")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date stmtFromDate;
+    @Column(name = "STMT_TO_DATE")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date stmtToDate;
+    @Column(name = "STATEMENT_NUMBER")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date statementNumber;
+    @Size(max = 30)
+    @Column(name = "DESCRIP_LOOKUP")
+    private String descripLookup;
+
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
@@ -52,20 +87,14 @@ public class XxfrtEstadoCuenta implements Serializable {
     @NotNull
     @Column(name = "ID_EDO_CTA")
     private BigDecimal idEdoCta;
-    @Column(name = "BANK_ACCOUNT_NUM")
-    private BigDecimal bankAccountNum;
     @Column(name = "TRX_DATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date trxDate;
-    @Column(name = "LINE_NUMBER")
-    private BigDecimal lineNumber;
     @Size(max = 30)
     @Column(name = "TRX_TYPE")
     private String trxType;
     @Column(name = "AMOUNT")
     private BigDecimal amount;
-    @Column(name = "TRX_CODE")
-    private BigDecimal trxCode;
     @Size(max = 3)
     @Column(name = "CURRENCY_CODE")
     private String currencyCode;
@@ -81,21 +110,11 @@ public class XxfrtEstadoCuenta implements Serializable {
     @Size(max = 30)
     @Column(name = "LINE_CAPTURE")
     private String lineCapture;
-    @Column(name = "ID_LINEA_CAPTURA")
-    private BigDecimal idLineaCaptura;
 
     public XxfrtEstadoCuenta() {
     }
 
     public XxfrtEstadoCuenta(BigDecimal idEdoCta) {
-        this.idEdoCta = idEdoCta;
-    }
-
-    public BigDecimal getIdEdoCta() {
-        return idEdoCta;
-    }
-
-    public void setIdEdoCta(BigDecimal idEdoCta) {
         this.idEdoCta = idEdoCta;
     }
 
@@ -107,12 +126,12 @@ public class XxfrtEstadoCuenta implements Serializable {
         this.bankAccountNum = bankAccountNum;
     }
 
-    public Date getTrxDate() {
-        return trxDate;
+    public Date getGlDate() {
+        return glDate;
     }
 
-    public void setTrxDate(Date trxDate) {
-        this.trxDate = trxDate;
+    public void setGlDate(Date glDate) {
+        this.glDate = glDate;
     }
 
     public BigDecimal getLineNumber() {
@@ -121,6 +140,102 @@ public class XxfrtEstadoCuenta implements Serializable {
 
     public void setLineNumber(BigDecimal lineNumber) {
         this.lineNumber = lineNumber;
+    }
+
+    public BigDecimal getTrxCode() {
+        return trxCode;
+    }
+
+    public void setTrxCode(BigDecimal trxCode) {
+        this.trxCode = trxCode;
+    }
+
+    public BigDecimal getIdLineaCaptura() {
+        return idLineaCaptura;
+    }
+
+    public void setIdLineaCaptura(BigDecimal idLineaCaptura) {
+        this.idLineaCaptura = idLineaCaptura;
+    }
+
+    public BigDecimal getRmethodid() {
+        return rmethodid;
+    }
+
+    public void setRmethodid(BigDecimal rmethodid) {
+        this.rmethodid = rmethodid;
+    }
+
+    public String getStatementHeaderId() {
+        return statementHeaderId;
+    }
+
+    public void setStatementHeaderId(String statementHeaderId) {
+        this.statementHeaderId = statementHeaderId;
+    }
+
+    public String getStatementLineId() {
+        return statementLineId;
+    }
+
+    public void setStatementLineId(String statementLineId) {
+        this.statementLineId = statementLineId;
+    }
+
+    public String getBankAccountId() {
+        return bankAccountId;
+    }
+
+    public void setBankAccountId(String bankAccountId) {
+        this.bankAccountId = bankAccountId;
+    }
+
+    public Date getStmtFromDate() {
+        return stmtFromDate;
+    }
+
+    public void setStmtFromDate(Date stmtFromDate) {
+        this.stmtFromDate = stmtFromDate;
+    }
+
+    public Date getStmtToDate() {
+        return stmtToDate;
+    }
+
+    public void setStmtToDate(Date stmtToDate) {
+        this.stmtToDate = stmtToDate;
+    }
+
+    public Date getStatementNumber() {
+        return statementNumber;
+    }
+
+    public void setStatementNumber(Date statementNumber) {
+        this.statementNumber = statementNumber;
+    }
+
+    public String getDescripLookup() {
+        return descripLookup;
+    }
+
+    public void setDescripLookup(String descripLookup) {
+        this.descripLookup = descripLookup;
+    }
+
+    public BigDecimal getIdEdoCta() {
+        return idEdoCta;
+    }
+
+    public void setIdEdoCta(BigDecimal idEdoCta) {
+        this.idEdoCta = idEdoCta;
+    }
+
+    public Date getTrxDate() {
+        return trxDate;
+    }
+
+    public void setTrxDate(Date trxDate) {
+        this.trxDate = trxDate;
     }
 
     public String getTrxType() {
@@ -137,14 +252,6 @@ public class XxfrtEstadoCuenta implements Serializable {
 
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
-    }
-
-    public BigDecimal getTrxCode() {
-        return trxCode;
-    }
-
-    public void setTrxCode(BigDecimal trxCode) {
-        this.trxCode = trxCode;
     }
 
     public String getCurrencyCode() {
@@ -187,14 +294,8 @@ public class XxfrtEstadoCuenta implements Serializable {
         this.lineCapture = lineCapture;
     }
 
-    public BigDecimal getIdLineaCaptura() {
-        return idLineaCaptura;
-    }
-
-    public void setIdLineaCaptura(BigDecimal idLineaCaptura) {
-        this.idLineaCaptura = idLineaCaptura;
-    }
-
+    
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -219,5 +320,7 @@ public class XxfrtEstadoCuenta implements Serializable {
     public String toString() {
         return "mx.frisa.tic.datos.entidades.XxfrtEstadoCuenta[ idEdoCta=" + idEdoCta + " ]";
     }
+
+
     
 }

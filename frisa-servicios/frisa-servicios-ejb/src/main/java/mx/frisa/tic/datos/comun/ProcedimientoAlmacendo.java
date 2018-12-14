@@ -13,7 +13,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.ParameterMode;
 import javax.persistence.StoredProcedureQuery;
-import mx.frisa.tic.datos.dto.ingresos.EstadoCuentaDTO;
 import mx.frisa.tic.datos.dto.ingresos.LineaCaptutaFacturaDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaDTO;
 import mx.frisa.tic.datos.entidades.XxfrcOrganizacionMetodopago;
@@ -23,9 +22,6 @@ import mx.frisa.tic.datos.entidades.XxfrvConsultaLcBatch;
 import mx.frisa.tic.negocio.remoto.MetodoPagoG1OBI;
 import mx.frisa.tic.negocio.remoto.MetodoPagoOBI;
 import mx.frisa.tic.negocio.utils.ManejadorLog;
-import oracle.sql.STRUCT;
-import oracle.sql.StructDescriptor;
-import org.eclipse.persistence.queries.StoredProcedureCall;
 
 /**
  *
@@ -190,6 +186,14 @@ public class ProcedimientoAlmacendo extends ManejadorEntidad {
             procedure.registerStoredProcedureParameter("pADDIOTIONAL_ENTRY_INFORMATION", String.class, ParameterMode.IN);
             procedure.registerStoredProcedureParameter("pPROYECTO_PROPIETARIO", String.class, ParameterMode.IN);
             procedure.registerStoredProcedureParameter("pLINE_CAPTURE", String.class, ParameterMode.IN);
+            procedure.registerStoredProcedureParameter("pSTATEMENT_HEADER_ID", String.class, ParameterMode.IN);
+            procedure.registerStoredProcedureParameter("pSTATEMENT_LINE_ID", String.class, ParameterMode.IN);
+            procedure.registerStoredProcedureParameter("pBANK_ACCOUNT_ID", String.class, ParameterMode.IN);
+            procedure.registerStoredProcedureParameter("pSTMT_FROM_DATE", String.class, ParameterMode.IN);
+            procedure.registerStoredProcedureParameter("pSTMT_TO_DATE", String.class, ParameterMode.IN);
+            procedure.registerStoredProcedureParameter("pSTATEMENT_NUMBER", String.class, ParameterMode.IN);
+            procedure.registerStoredProcedureParameter("pDESCRIP_LOOKUP", String.class, ParameterMode.IN);
+            
             procedure.registerStoredProcedureParameter("PRESPUESTA", int.class, ParameterMode.OUT);
 
             procedure.setParameter("PBANK_ACCOUNT_NUM", "0521838999");
@@ -202,6 +206,13 @@ public class ProcedimientoAlmacendo extends ManejadorEntidad {
             procedure.setParameter("pCUSTOMER_REFERENCE", lineaEstadoCuenta.getCustomerReference());
             procedure.setParameter("pADDIOTIONAL_ENTRY_INFORMATION", lineaEstadoCuenta.getAddiotionalEntryInformation());
             procedure.setParameter("pPROYECTO_PROPIETARIO", lineaEstadoCuenta.getProyectoPropietario());
+            procedure.setParameter("pSTATEMENT_HEADER_ID", lineaEstadoCuenta.getStatementHeaderId());
+            procedure.setParameter("pSTATEMENT_LINE_ID", lineaEstadoCuenta.getStatementLineId());
+            procedure.setParameter("pBANK_ACCOUNT_ID", lineaEstadoCuenta.getBankAccountId());
+            procedure.setParameter("pSTMT_FROM_DATE", lineaEstadoCuenta.getStmtFromDate());
+            procedure.setParameter("pSTMT_TO_DATE", lineaEstadoCuenta.getStmtToDate());
+            procedure.setParameter("pSTATEMENT_NUMBER", lineaEstadoCuenta.getStatementNumber());
+            procedure.setParameter("pDESCRIP_LOOKUP", lineaEstadoCuenta.getDescripLookup());
             procedure.setParameter("pLINE_CAPTURE", lineaEstadoCuenta.getLineCapture());
 
             Boolean ejecuta = procedure.execute();

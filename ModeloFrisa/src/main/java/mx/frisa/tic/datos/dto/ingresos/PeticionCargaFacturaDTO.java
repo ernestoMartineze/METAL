@@ -12,23 +12,24 @@ package mx.frisa.tic.datos.dto.ingresos;
  */
 public class PeticionCargaFacturaDTO {
     String facturas;
-    Proceso proceso;
+    String idBatch;
 
+    public String getIdBatch() {
+        return idBatch;
+    }
+
+    public void setIdBatch(String idBatch) {
+        this.idBatch = idBatch;
+    }
+
+    
+    
     public String getFacturas() {
         return facturas;
     }
 
     public void setFacturas(String facturas) {
         this.facturas = facturas;
-    }
-
-    public Proceso getProceso() {
-        return proceso;
-    }
-
-    public void setProceso(Proceso proceso) {
-        this.proceso = proceso;
-    }
-    
+    }    
     
 }

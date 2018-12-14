@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -70,11 +71,15 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
                     edoCuenta.setAmount(BigDecimal.valueOf(Long.valueOf(lineaPago.getAMOUNT())));
                     edoCuenta.setTrxCode(BigDecimal.valueOf(Long.valueOf(lineaPago.getTRX_CODE())));
                     edoCuenta.setCurrencyCode(lineaPago.getCURRENCY_CODE());
-                    edoCuenta.setCustomerReference("123456789012341"); //CUSTOMER_REFERENCE
-                    edoCuenta.setAddiotionalEntryInformation("WERTYUTR|011510000019400000026417676205|DFGSDFGHFDGHERYRSGSFRG|123456789012341|RWTEYUHGFDS#$"); //ADDIOTIONAL_ENTRY_INFORMATION
-                    edoCuenta.setProyectoPropietario("151"); //PROYECTO_PROPIETARIO
+                    edoCuenta.setCustomerReference(lineaPago.getREFERENCIA()); //CUSTOMER_REFERENCE
+                    edoCuenta.setAddiotionalEntryInformation(lineaPago.getADDITIONAL_ENTRY_INFORMATION()); //ADDIOTIONAL_ENTRY_INFORMATION
+                    edoCuenta.setProyectoPropietario(lineaPago.getPROYECTO_PROPIETARIO()); //PROYECTO_PROPIETARIO
 
-                    edoCuenta.setLineCapture("011510000019400000026417676205");  //Linea captura hardcodeada
+                    edoCuenta.setLineCapture(lineaPago.getLINE_NUMBER());  //
+                    edoCuenta.setDescripLookup(lineaPago.getDESCRIP_LOOKUP());  //
+                    edoCuenta.setStatementHeaderId(lineaPago.getSTATEMENT_HEADER_ID());  //
+                    edoCuenta.setStatementLineId(lineaPago.getSTATEMENT_LINE_ID());  //
+                    edoCuenta.setStatementNumber((new Date()));  
                     //Guardar en base de datos el estado de cuenta
                     ProcedimientoAlmacendo procEdoCta = new ProcedimientoAlmacendo();
                     String idLineaCaptura = procEdoCta.ejecutarEstadoCuenta(edoCuenta).getProceso();
@@ -105,13 +110,13 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
                 //Notificar error detectado
 
                 respuesta.setProceso(ProcesoEnum.ERROR.toString());
-                respuesta.setDescripcionError("Noexisten estados de cuenta pendientes de procesar");
+                respuesta.setDescripcionError("No existen estados de cuenta pendientes de procesar");
             }
 
         } catch (Exception ex) {
             ex.printStackTrace();
             respuesta.setProceso(ProcesoEnum.ERROR.toString());
-            respuesta.setDescripcionError("No existen estados de cuenta pendientes de procesar");
+            respuesta.setDescripcionError("No existen estados de cuenta validos de procesar");
         }
 
         System.out.println("-------------------------------");

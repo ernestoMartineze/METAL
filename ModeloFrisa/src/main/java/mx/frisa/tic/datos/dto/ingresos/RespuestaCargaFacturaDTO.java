@@ -12,10 +12,20 @@ import java.util.List;
  * @author USER_1
  */
 public class RespuestaCargaFacturaDTO {
-
+    String uuid;
     List<FacturaDTO> facturas;
     Proceso proceso;
 
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
+
+    
+    
     public List<FacturaDTO> getFacturas() {
         return facturas;
     }

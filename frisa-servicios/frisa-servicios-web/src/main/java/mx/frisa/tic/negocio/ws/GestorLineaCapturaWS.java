@@ -21,7 +21,6 @@ import mx.frisa.tic.datos.dto.ingresos.PeticionCargaFacturaDTO;
 import mx.frisa.tic.datos.dto.ingresos.Proceso;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaCargaFacturaDTO;
 
-import mx.frisa.tic.datos.dto.ingresos.RespuestaDTO;
 
 import mx.frisa.tic.datos.dto.ingresos.RespuestaDetalleLCPagosDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaDetalleLineaCapturaDTO;
@@ -30,6 +29,7 @@ import mx.frisa.tic.datos.dto.ingresos.RespuestaLCFactDetDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaLineaCapturaDTO;
 import mx.frisa.tic.negocio.ingresos.GestorLineaCaptura;
 import mx.frisa.tic.negocio.utils.ManejadorLog;
+import mx.frisa.tic.utils.UUIDFrisa;
 
 /**
  *
@@ -228,10 +228,26 @@ public class GestorLineaCapturaWS {
         manejarLog.debug("Entro a metodo : GestorLineaCapturaWS-consultaLCGeneradas");
         try {
             respuesta.setProceso(new Proceso("0","EXITOSO"));
+            respuesta.setUuid(UUIDFrisa.regresaUUID());
+                    
         } catch (Exception ex) {
             ex.printStackTrace();
         }
         manejarLog.debug("Termina metodo : GestorLineaCapturaWS-consultaLCGeneradas");
         return respuesta;
     }
+    @WebMethod (operationName = "consultarEstadoCarga")
+    public RespuestaCargaFacturaDTO consultarEstadoCarga(@WebParam(name = "uuid") String pUUID) {
+        ManejadorLog manejarLog = new ManejadorLog();
+        RespuestaCargaFacturaDTO respuesta = new RespuestaCargaFacturaDTO();
+        manejarLog.debug("Entro a metodo : GestorLineaCapturaWS-consultarEstadoCarga");
+        try {
+            respuesta.setProceso(new Proceso("0","EXITOSO"));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        manejarLog.debug("Termina metodo : GestorLineaCapturaWS-consultarEstadoCarga");
+        return respuesta;
+    }
+
 }

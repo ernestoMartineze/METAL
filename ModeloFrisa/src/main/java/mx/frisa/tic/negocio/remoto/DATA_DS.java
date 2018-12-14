@@ -5,6 +5,7 @@
  */
 package mx.frisa.tic.negocio.remoto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlCData;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
@@ -12,6 +13,7 @@ import java.util.List;
 
 
 
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class DATA_DS {
     @JacksonXmlProperty(localName = "BANK_ACCOUNT_NUMBER")
  private String BANK_ACCOUNT_NUMBER;
@@ -20,7 +22,7 @@ public class DATA_DS {
     @JacksonXmlProperty(localName = "TO_DATE")
  private String TO_DATE;
  
-@JacksonXmlProperty(localName = "ROW")
+@JacksonXmlProperty(localName = "G_1")
 @JacksonXmlCData
 @JacksonXmlElementWrapper(useWrapping = false)
  private List < G_1 > G_1;
