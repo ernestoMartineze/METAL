@@ -34,13 +34,14 @@ public class PropiedadesFRISA {
         //Cargar en carpeta de recursos del servidor de aplicaciones el archivo de configuración del Aplicativo BackEnd
         ManejadorLog manejaLog = new ManejadorLog();
         String rootPath = Thread.currentThread().getContextClassLoader().getResource("").getPath();
+//        String rootPath = PropiedadesFRISA.class.getResource("/").getPath();
 //        String rootPath = PropiedadesFRISA.class.getCanonicalName();
         
         System.err.println("rootPath : " + rootPath);
         System.err.println( PropiedadesFRISA.class.getCanonicalName());
         
-        String serviciosConfigPath = rootPath + "/configuracion/servicios.properties";
-        String portalConfigPath    = rootPath + "/configuracion/portal.properties";
+        String serviciosConfigPath = rootPath + "configuracion/servicios.properties";
+        String portalConfigPath    = rootPath + "configuracion/portal.properties";
 
         try {
 

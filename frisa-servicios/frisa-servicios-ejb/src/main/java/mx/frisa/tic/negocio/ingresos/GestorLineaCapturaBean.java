@@ -19,6 +19,8 @@ import mx.frisa.tic.datos.dto.ingresos.LCFactDetDTO;
 
 import mx.frisa.tic.datos.dto.ingresos.LineaCapturaDTO;
 import mx.frisa.tic.datos.dto.ingresos.LineaCaptutaFacturaDTO;
+import mx.frisa.tic.datos.dto.ingresos.PeticionCargaFacturaDTO;
+import mx.frisa.tic.datos.dto.ingresos.RespuestaCargaFacturaDTO;
 import mx.frisa.tic.datos.entidades.XxfrConsultaLcFacDet;
 import mx.frisa.tic.datos.entidades.XxfrLineaCaptura;
 import mx.frisa.tic.datos.entidades.XxfrvConsultaLc;
@@ -266,5 +268,10 @@ public class GestorLineaCapturaBean implements GestorLineaCaptura {
         }
         
         return lcFactsDetDTO;
+    }
+    @Override
+    public RespuestaCargaFacturaDTO cargarFacturas(PeticionCargaFacturaDTO peticion){
+        RespuestaCargaFacturaDTO respuesta = new RespuestaCargaFacturaDTO();
+        return respuesta;
     }
 }

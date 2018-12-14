@@ -5,7 +5,7 @@
  */
 package mx.frisa.tic.datos.dto.ingresos;
 
-import java.util.List;
+
 import mx.frisa.tic.negocio.remoto.MetodoPagoOBI;
 
 /**

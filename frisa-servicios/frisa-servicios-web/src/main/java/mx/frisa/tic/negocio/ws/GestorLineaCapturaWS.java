@@ -17,7 +17,9 @@ import mx.frisa.tic.datos.dto.ingresos.DetalleLineaCapturaDTO;
 import mx.frisa.tic.datos.dto.ingresos.LCFactDetDTO;
 import mx.frisa.tic.datos.dto.ingresos.LineaCapturaDTO;
 import mx.frisa.tic.datos.dto.ingresos.LineaCaptutaFacturaDTO;
+import mx.frisa.tic.datos.dto.ingresos.PeticionCargaFacturaDTO;
 import mx.frisa.tic.datos.dto.ingresos.Proceso;
+import mx.frisa.tic.datos.dto.ingresos.RespuestaCargaFacturaDTO;
 
 import mx.frisa.tic.datos.dto.ingresos.RespuestaDTO;
 
@@ -39,21 +41,7 @@ public class GestorLineaCapturaWS {
     @EJB(beanName = "GestorLineaCapturaBean")
     private GestorLineaCaptura gestorLineaCapturaBean;
 
-    /**
-     * Web service operation
-     * @param idBatch
-     * @return
-     */
-    @WebMethod(operationName = "generarLineasCaptura")
-    public RespuestaDTO generarLineasCaptura(@WebParam(name = "idBatch") String idBatch) {
-
-        RespuestaDTO respuesta = new RespuestaDTO();
-        respuesta.setProceso("generarLineasCaptura");
-        respuesta.setIdError("000");
-        respuesta.setDescripcionError("OK");
-
-        return respuesta;
-    }
+   
 
 
     /**
@@ -233,5 +221,17 @@ public class GestorLineaCapturaWS {
 
         return respuestaLCFactDetDTO;
     }
-
+    @WebMethod(operationName = "cargarFactura")
+    public RespuestaCargaFacturaDTO cargarFactura(@WebParam(name = "facturas") PeticionCargaFacturaDTO peticion) {
+        ManejadorLog manejarLog = new ManejadorLog();
+        RespuestaCargaFacturaDTO respuesta = new RespuestaCargaFacturaDTO();
+        manejarLog.debug("Entro a metodo : GestorLineaCapturaWS-consultaLCGeneradas");
+        try {
+            respuesta.setProceso(new Proceso("0","EXITOSO"));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        manejarLog.debug("Termina metodo : GestorLineaCapturaWS-consultaLCGeneradas");
+        return respuesta;
+    }
 }
