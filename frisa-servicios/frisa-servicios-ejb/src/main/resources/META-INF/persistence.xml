@@ -8,7 +8,6 @@
     <class>mx.frisa.tic.datos.entidades.XxfrLineaCaptura</class>
     <class>mx.frisa.tic.datos.entidades.XxfrLineaCapturaFactura</class>
     <class>mx.frisa.tic.datos.entidades.XxfrReciboLineaCaptura</class>
-
     <class>mx.frisa.tic.datos.entidades.XxfrtHistoricoFacBatch</class>
     <class>mx.frisa.tic.datos.entidades.XxfrtNotaCredito</class>
     <class>mx.frisa.tic.datos.entidades.XxfrvConsultaLc</class>
@@ -18,7 +17,7 @@
     <class>mx.frisa.tic.datos.entidades.XxfrvLcCancelar</class>
     <class>mx.frisa.tic.datos.entidades.XxfrvLcFactura</class>
     <class>mx.frisa.tic.datos.entidades.XxfxcDiasFestivos</class>
-
+    <class>mx.frisa.tic.datos.entidades.XxfrConsultaLcFacDet</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
     </properties>

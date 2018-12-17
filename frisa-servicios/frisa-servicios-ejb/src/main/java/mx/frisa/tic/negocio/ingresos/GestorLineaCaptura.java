@@ -42,7 +42,7 @@ public interface GestorLineaCaptura {
      * @return
      */
     public int ejecutaBatchLC(String idBatch);
- 
+    /*
      * @param detalleLineaCaptura
      * @return
      */

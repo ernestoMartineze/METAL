@@ -33,10 +33,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "XxfrvLcFactura.findByLcCalculada", query = "SELECT x FROM XxfrvLcFactura x WHERE x.lcCalculada = :lcCalculada"),
     @NamedQuery(name = "XxfrvLcFactura.findByIdlineacaptura", query = "SELECT x FROM XxfrvLcFactura x WHERE x.idlineacaptura = :idlineacaptura")})
 public class XxfrvLcFactura implements Serializable {
-    @Id
+    
     @Column(name = "NUMREGISTRO")
     private BigInteger numregistro;
-
     private static final long serialVersionUID = 1L;
     @Size(max = 20)
     @Column(name = "IDBATCH")

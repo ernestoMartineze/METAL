@@ -101,35 +101,6 @@ public class GestorLineaCapturaWS {
         manejarLog.debug("Termina metodo : GestorLineaCapturaWS-ejecutaBatchLC");
         return respuesta;
     }
-    
-    /**
-     * Web service operation
-     */
-    @WebMethod(operationName = "consultaDetalleLineaCaptura")
-    public RespuestaDetalleLineaCapturaDTO consultaDetalleLineaCaptura(@WebParam(name = "lineaCaptura") String lineaCaptura,
-                                                        @WebParam(name = "entidadLegal") String entidadLegal,
-                                                        @WebParam(name = "referencia") String referencia,
-                                                        @WebParam(name = "banco") String banco,
-                                                        @WebParam(name = "unidadNegocio") String unidadNegocio) {
-        DetalleLineaCapturaDTO detalleLineaCaptura = new DetalleLineaCapturaDTO();
-        detalleLineaCaptura.setLineacaptura(lineaCaptura);
-        detalleLineaCaptura.setEntidadlegal(entidadLegal);
-        detalleLineaCaptura.setReferencia(referencia);
-        detalleLineaCaptura.setBanco(banco);
-        detalleLineaCaptura.setUnidadnegocio(unidadNegocio);
-        RespuestaDetalleLineaCapturaDTO respuestaDetalleLineaCapturaDto = new RespuestaDetalleLineaCapturaDTO();
-        ManejadorLog manejarLog = new ManejadorLog();
-        List<DetalleLineaCapturaDTO> detalleLineasCaptura = new ArrayList<>();
-        manejarLog.debug("Entro a metodo : GestorLineaCapturaWS-consultaDetalleLineaCaptura");
-        try {
-            detalleLineasCaptura = gestorLineaCapturaBean.consultarDetalleLineaCaptura(detalleLineaCaptura);
-            respuestaDetalleLineaCapturaDto.setProceso(new Proceso("0", "Exitoso"));
-            respuestaDetalleLineaCapturaDto.setLineasCaptura(detalleLineasCaptura);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            respuestaDetalleLineaCapturaDto.setProceso(new Proceso("1", ex.getLocalizedMessage()));
-        }
-        manejarLog.debug("Termina metodo : GestorLineaCapturaWS-consultarLineaCaptura");
 
     /**
      * Web service operation
@@ -200,6 +171,12 @@ public class GestorLineaCapturaWS {
 
     /**
      * Web service operation
+     * @param cliente
+     * @param cuenta
+     * @param centroCostos
+     * @param entidadLegal
+     * @param unidadNegocio
+     * @return 
      */
     @WebMethod(operationName = "consultaLCFactDet")
     public RespuestaLCFactDetDTO consultaLCFactDet(@WebParam(name = "cliente") String cliente,
