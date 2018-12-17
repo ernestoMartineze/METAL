@@ -163,25 +163,24 @@ public class AdaptadorWS {
 
         String outputString = "";
         String wsURL = PropiedadesFRISA.recuperaPropiedadBackend("edoCuentaServiceEndPoint");
-        
-        
-        
 
         String xmlInput
                 = this.getCadenaDesdeB64(PropiedadesFRISA.recuperaPropiedadBackend("edoCuentaServicePayload"));
 
-        //Inyectar parametros al payload
-        xmlInput = inyectaParametro(xmlInput, "FROM-DATE", fechaInicio);
-        xmlInput = inyectaParametro(xmlInput, "TO-DATE", fechaFinal);
-        xmlInput = inyectaParametro(xmlInput, "BANK_ACCOUNT_NUMBER", noCuenta);
-
         String SOAPAction
                 = PropiedadesFRISA.recuperaPropiedadBackend("edoCuentaServiceSoapAction");
+        
 
         //Ready with sending the request.
         try {
             //Read the response.
+            xmlInput = inyectaParametro(xmlInput, "FROM-DATE", fechaInicio);
+            xmlInput = inyectaParametro(xmlInput, "TO-DATE", fechaFinal);
+            xmlInput = inyectaParametro(xmlInput, "BANK_ACCOUNT_NUMBER", noCuenta);
+                    
+            
             outputString = enviarMsg(wsURL, SOAPAction, xmlInput, PropiedadesFRISA.recuperaPropiedadBackend("edoCuentaServiceContentType"));
+//            outputString = consumir.getEstadosCuenta(fechaInicio, fechaFinal, noCuenta);
             //Parse the String output to a org.w3c.dom.Document and be able to reach every node with the org.w3c.dom API.
             Document document = parseXmlFile(outputString);
             NodeList nodeLst = document.getElementsByTagName("ns2:reportBytes");
@@ -189,6 +188,8 @@ public class AdaptadorWS {
 
             //Write the SOAP message formatted to the console.
             respestaWS.setDATA_DSObject((DATA_DS) respuestaXMLaPOJO(getCadenaDesdeB64(resultado), new DATA_DS()));
+
+//            respestaWS.setDATA_DSObject((DATA_DS) respuestaXMLaPOJO(getCadenaDesdeB64(outputString), new DATA_DS()));
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -217,8 +218,12 @@ public class AdaptadorWS {
 
         //Ready with sending the request.
         try {
+            xmlInput = inyectaParametro(xmlInput, "BU_Name", "CARGA INICIAL");
             //Read the response.
+//            ConsumirBI consumir = new ConsumirBI();
             outputString = enviarMsg(wsURL, SOAPAction, xmlInput, PropiedadesFRISA.recuperaPropiedadBackend("GetMetodosPagoTodosServiceContentType"));
+//            outputString = consumir.getMetodosPago("123", "", "");
+
             //Parse the String output to a org.w3c.dom.Document and be able to reach every node with the org.w3c.dom API.
             Document document = parseXmlFile(outputString);
             NodeList nodeLst = document.getElementsByTagName("ns2:reportBytes");
@@ -259,7 +264,10 @@ public class AdaptadorWS {
         //Ready with sending the request.
         try {
             //Read the response.
-            outputString = enviarMsg(wsURL, SOAPAction, xmlInput, PropiedadesFRISA.recuperaPropiedadBackend("GetMetodosPagoPorIDServiceContentType"));
+//            ConsumirBI consumir = new ConsumirBI();
+            
+            outputString = enviarMsg(wsURL, SOAPAction, xmlInput, PropiedadesFRISA.recuperaPropiedadBackend("GetMetodosPagoTodosServiceContentType"));
+//            outputString = consumir.getMetodosPago(pORG_ID, pCuentaBancaria, "NO ES CARGA INICIAL");
             //Parse the String output to a org.w3c.dom.Document and be able to reach every node with the org.w3c.dom API.
             Document document = parseXmlFile(outputString);
             NodeList nodeLst = document.getElementsByTagName("ns2:reportBytes");
@@ -401,7 +409,9 @@ public class AdaptadorWS {
         respestaWS.setProceso(new Proceso("0", "EXITOSO"));
         String responseString = "";
         String wsURL = endPoint;
-        URL url = new URL(wsURL);
+//        URL url = new URL(wsURL);
+        
+        URL url = new URL(null, wsURL, new sun.net.www.protocol.https.Handler());
         URLConnection connection = url.openConnection();
         HttpsURLConnection httpConn = (HttpsURLConnection) connection;
         ByteArrayOutputStream bout = new ByteArrayOutputStream();
@@ -459,7 +469,7 @@ public class AdaptadorWS {
     private String getCadenaDesdeB64(String cadB64) {
         String str = new String(DatatypeConverter.parseBase64Binary(cadB64));
 //          String res = DatatypeConverter.printBase64Binary(str.getBytes());
-//          System.out.println(str);
+          System.out.println(str);
         return str;
     }
 
@@ -501,8 +511,8 @@ public class AdaptadorWS {
         AdaptadorWS adaptadorWS
                 = new AdaptadorWS();
         try {
-//            RespuestaERP_Edo_Cuenta respuesta = adaptadorWS.getERP_ejecutarReporteEdoCuenta("11-05-2018", "11-05-2018", "0521838999");
-            RespuestaMetodoPagoDTO respuesta = adaptadorWS.getERP_obtenerMetodosCargaInicial();
+            RespuestaERP_Edo_Cuenta respuesta = adaptadorWS.getERP_ejecutarReporteEdoCuenta("11-05-2018", "11-05-2018", "0521838999");
+//            RespuestaMetodoPagoDTO respuesta = adaptadorWS.getERP_obtenerMetodosCargaInicial();
             System.out.println(respuesta.getProceso());
 
 //            List<PagoDTO> pagosDto = new ArrayList<PagoDTO>();

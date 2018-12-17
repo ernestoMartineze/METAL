@@ -8,13 +8,15 @@ package mx.frisa.tic.negocio.ingresos;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import mx.frisa.tic.datos.comun.DAO;
 import mx.frisa.tic.datos.dto.ingresos.FacturaPagoDTO;
 import mx.frisa.tic.datos.dto.ingresos.PagoDTO;
-import mx.frisa.tic.datos.dto.ingresos.RespuestaDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaProcesaFacturasDTO;
 import mx.frisa.tic.datos.entidades.XxfrvFactparapagos;
 import mx.frisa.tic.negocio.remoto.AdaptadorWS;
@@ -29,8 +31,8 @@ import mx.frisa.tic.negocio.utils.ManejadorLog;
 public class GestorPagosBean implements GestorPagos {
 
     @Override
-    public RespuestaDTO generarPago(List<PagoDTO> pagos) {
-        RespuestaDTO respuesta = new RespuestaDTO();
+    public RespuestaProcesaFacturasDTO generarPago(List<PagoDTO> pagos) {
+        RespuestaProcesaFacturasDTO respuesta= new RespuestaProcesaFacturasDTO();
         /*SECUENCIA DEL PROCESO 
         1. Consulta de estado de cuenta (ERP)
         2. Validar existencia de LC o Ref (BD)
@@ -39,6 +41,11 @@ public class GestorPagosBean implements GestorPagos {
         5. Registrar cabecera de pago en ERP
         6. Aplicar facturas en ERP
          */
+        try {
+            respuesta = recuperaFacturas(pagos);
+        } catch (IOException ex) {
+            Logger.getLogger(GestorPagosBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         respuesta.setProceso("GestorPagosBean-generarPago");
         respuesta.setIdError("000");
@@ -50,23 +57,25 @@ public class GestorPagosBean implements GestorPagos {
         ManejadorLog log = new ManejadorLog();
         DateFormat dateFormat = new SimpleDateFormat("dd-mm-yyyy");
         DAO<XxfrvFactparapagos> consultaDAO = new DAO(XxfrvFactparapagos.class);
-        List<XxfrvFactparapagos> facturasDTO = null;
-        List<FacturaPagoDTO> facturasAlCobro = null;
-        List<FacturaPagoDTO> facturas = null;
-        List<PagoDTO> response = null;
+        List<XxfrvFactparapagos> facturasDTO =  new ArrayList();
+        List<FacturaPagoDTO> facturasAlCobro = new ArrayList();
+        List<FacturaPagoDTO> facturas =  new ArrayList();
+        List<PagoDTO> response =  new ArrayList();
         StringBuilder query = new StringBuilder();
         StringBuilder paramLc = new StringBuilder();
         RespuestaProcesaFacturasDTO respuesta = new RespuestaProcesaFacturasDTO("ERROR", "100", "Existe error en proceso de facturas al cobro");
 
         for (PagoDTO pago : pagos) {
             paramLc.append("'" + pago.getLineaCaptura() + "',");
+            
         }
 
+       
         query.append("SELECT x ")
                 .append(" FROM XxfrvFactparapagos x ")
-                .append("WHERE x.lineacaptura in ('")
+                .append("WHERE x.lineacaptura in (")
                 .append(paramLc.toString().substring(0, paramLc.toString().length() - 1))
-                .append("')");
+                .append(")");
         try {
             facturasDTO = consultaDAO.consultaQueryNativo(query.toString());
         } catch (Exception ex) {
@@ -75,7 +84,7 @@ public class GestorPagosBean implements GestorPagos {
         }
 
         for (XxfrvFactparapagos pago : facturasDTO) {
-            FacturaPagoDTO factura = null;
+            FacturaPagoDTO factura = new FacturaPagoDTO();
             factura.setIdlinea(pago.getIdlinea());
             factura.setBusinessunitname(pago.getBusinessunitname());
             factura.setTransactionsource(pago.getTransactionsource());

@@ -40,6 +40,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "XxfrcOrganizacionMetodopago.findByBankAccountNum", query = "SELECT x FROM XxfrcOrganizacionMetodopago x WHERE x.bankAccountNum = :bankAccountNum"),
     @NamedQuery(name = "XxfrcOrganizacionMetodopago.findByBankBranchId", query = "SELECT x FROM XxfrcOrganizacionMetodopago x WHERE x.bankBranchId = :bankBranchId"),
     @NamedQuery(name = "XxfrcOrganizacionMetodopago.findByOuName", query = "SELECT x FROM XxfrcOrganizacionMetodopago x WHERE x.ouName = :ouName")})
+
 public class XxfrcOrganizacionMetodopago implements Serializable {
 
     private static final long serialVersionUID = 1L;

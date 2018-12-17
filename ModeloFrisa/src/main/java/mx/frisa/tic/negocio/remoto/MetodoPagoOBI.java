@@ -31,38 +31,38 @@ public class MetodoPagoOBI {
     @JacksonXmlCData
     @JacksonXmlElementWrapper(useWrapping = false)
     private List< MetodoPagoG1OBI > G_1;
-
-    public String getORG_ID() {
-        return ORG_ID;
-    }
-
-    public void setORG_ID(String ORG_ID) {
-        this.ORG_ID = ORG_ID;
-    }
-
-    public String getBANK_ACCOUNT_NUMBER() {
-        return BANK_ACCOUNT_NUMBER;
-    }
-
-    public void setBANK_ACCOUNT_NUMBER(String BANK_ACCOUNT_NUMBER) {
-        this.BANK_ACCOUNT_NUMBER = BANK_ACCOUNT_NUMBER;
-    }
-
-    public String getFROM_DATE() {
-        return FROM_DATE;
-    }
-
-    public void setFROM_DATE(String FROM_DATE) {
-        this.FROM_DATE = FROM_DATE;
-    }
-
-    public String getTO_DATE() {
-        return TO_DATE;
-    }
-
-    public void setTO_DATE(String TO_DATE) {
-        this.TO_DATE = TO_DATE;
-    }
+//
+//    public String getORG_ID() {
+//        return ORG_ID;
+//    }
+//
+//    public void setORG_ID(String ORG_ID) {
+//        this.ORG_ID = ORG_ID;
+//    }
+//
+//    public String getBANK_ACCOUNT_NUMBER() {
+//        return BANK_ACCOUNT_NUMBER;
+//    }
+//
+//    public void setBANK_ACCOUNT_NUMBER(String BANK_ACCOUNT_NUMBER) {
+//        this.BANK_ACCOUNT_NUMBER = BANK_ACCOUNT_NUMBER;
+//    }
+//
+//    public String getFROM_DATE() {
+//        return FROM_DATE;
+//    }
+//
+//    public void setFROM_DATE(String FROM_DATE) {
+//        this.FROM_DATE = FROM_DATE;
+//    }
+//
+//    public String getTO_DATE() {
+//        return TO_DATE;
+//    }
+//
+//    public void setTO_DATE(String TO_DATE) {
+//        this.TO_DATE = TO_DATE;
+//    }
 
     public List<MetodoPagoG1OBI> getG_1() {
         return G_1;

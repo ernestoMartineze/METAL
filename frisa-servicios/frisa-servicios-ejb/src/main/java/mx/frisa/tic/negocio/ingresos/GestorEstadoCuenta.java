@@ -7,9 +7,9 @@ package mx.frisa.tic.negocio.ingresos;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -21,12 +21,10 @@ import mx.frisa.tic.datos.dto.ingresos.PagoDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaMetodoPagoDTO;
 import mx.frisa.tic.datos.entidades.XxfrcOrganizacionMetodopago;
-import mx.frisa.tic.datos.entidades.XxfrcOrganizacionMetodopagoPK;
 import mx.frisa.tic.datos.entidades.XxfrtEstadoCuenta;
 import mx.frisa.tic.datos.enums.ProcesoEnum;
 import mx.frisa.tic.negocio.remoto.AdaptadorWS;
 import mx.frisa.tic.negocio.remoto.G_1;
-import mx.frisa.tic.negocio.remoto.MetodoPagoG1OBI;
 import mx.frisa.tic.negocio.remoto.MetodoPagoOBI;
 import mx.frisa.tic.negocio.remoto.RespuestaERP_Edo_Cuenta;
 import mx.frisa.tic.negocio.remoto.RespuestaERP_EncabezadoRecibo;
@@ -58,6 +56,7 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
                 //Proceso exitoso persistir en BD estados de cuenta
                 List<G_1> lineasPago = respuestaWS.getDATA_DSObject().getG_1();
                 DAO<XxfrtEstadoCuenta> estadoCuentaDao = new DAO(XxfrtEstadoCuenta.class);
+                
                 for (G_1 lineaPago : lineasPago) {
 
                     manejaLog.debug("Procesando el estado de cuenta : getBANK_ACCOUNT_NUM" + lineaPago.getBANK_ACCOUNT_NUM());
@@ -72,11 +71,15 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
                     edoCuenta.setAmount(BigDecimal.valueOf(Long.valueOf(lineaPago.getAMOUNT())));
                     edoCuenta.setTrxCode(BigDecimal.valueOf(Long.valueOf(lineaPago.getTRX_CODE())));
                     edoCuenta.setCurrencyCode(lineaPago.getCURRENCY_CODE());
-                    edoCuenta.setCustomerReference("123456789012341"); //CUSTOMER_REFERENCE
-                    edoCuenta.setAddiotionalEntryInformation("WERTYUTR|011510000019400000026417676205|DFGSDFGHFDGHERYRSGSFRG|123456789012341|RWTEYUHGFDS#$"); //ADDIOTIONAL_ENTRY_INFORMATION
-                    edoCuenta.setProyectoPropietario("151"); //PROYECTO_PROPIETARIO
+                    edoCuenta.setCustomerReference(lineaPago.getREFERENCIA()); //CUSTOMER_REFERENCE
+                    edoCuenta.setAddiotionalEntryInformation(lineaPago.getADDITIONAL_ENTRY_INFORMATION()); //ADDIOTIONAL_ENTRY_INFORMATION
+                    edoCuenta.setProyectoPropietario(lineaPago.getPROYECTO_PROPIETARIO()); //PROYECTO_PROPIETARIO
 
-                    edoCuenta.setLineCapture("011510000019400000026417676205");  //Linea captura hardcodeada
+                    edoCuenta.setLineCapture(lineaPago.getLINE_NUMBER());  //
+                    edoCuenta.setDescripLookup(lineaPago.getDESCRIP_LOOKUP());  //
+                    edoCuenta.setStatementHeaderId(lineaPago.getSTATEMENT_HEADER_ID());  //
+                    edoCuenta.setStatementLineId(lineaPago.getSTATEMENT_LINE_ID());  //
+                    edoCuenta.setStatementNumber((new Date()));  
                     //Guardar en base de datos el estado de cuenta
                     ProcedimientoAlmacendo procEdoCta = new ProcedimientoAlmacendo();
                     String idLineaCaptura = procEdoCta.ejecutarEstadoCuenta(edoCuenta).getProceso();
@@ -107,13 +110,13 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
                 //Notificar error detectado
 
                 respuesta.setProceso(ProcesoEnum.ERROR.toString());
-                respuesta.setDescripcionError("Noexisten estados de cuenta pendientes de procesar");
+                respuesta.setDescripcionError("No existen estados de cuenta pendientes de procesar");
             }
 
         } catch (Exception ex) {
             ex.printStackTrace();
             respuesta.setProceso(ProcesoEnum.ERROR.toString());
-            respuesta.setDescripcionError("No existen estados de cuenta pendientes de procesar");
+            respuesta.setDescripcionError("No existen estados de cuenta validos de procesar");
         }
 
         System.out.println("-------------------------------");
@@ -127,27 +130,19 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
 
     private void validarCargaInicialMetodosPago() throws IOException, MalformedURLException, SAXException, ParserConfigurationException {
         DAO<XxfrcOrganizacionMetodopago> metodosPagoDao = new DAO(XxfrcOrganizacionMetodopago.class);
-        XxfrcOrganizacionMetodopago metodoPago = (XxfrcOrganizacionMetodopago)metodosPagoDao.consultaQueryNativo("Select * from XXFRC_ORGANIZACION_METODOPAGO where rownum = 1");
-        if (metodoPago == null){
+        List<XxfrcOrganizacionMetodopago> metodoPago = (List<XxfrcOrganizacionMetodopago>)metodosPagoDao.consultaQueryNamed("XxfrcOrganizacionMetodopago.findAll");
+        if (metodoPago.size() == 0){
             //Lanzar la carga de info desde el ERP
             AdaptadorWS adaptador = new AdaptadorWS();
-            RespuestaMetodoPagoDTO respuesta 
+            RespuestaMetodoPagoDTO respuesta
                     = adaptador.getERP_obtenerMetodosCargaInicial();
-            
+
             if (respuesta.getProceso().getTermino().equals("0")){
                 //Insertar las encontradas
                 MetodoPagoOBI metodos = respuesta.getMetodosPago();
-                for (MetodoPagoG1OBI metodo : metodos.getG_1()){
-                    XxfrcOrganizacionMetodopago metodoPagoEntidad = new XxfrcOrganizacionMetodopago(); 
-                    XxfrcOrganizacionMetodopagoPK metodoPk = new XxfrcOrganizacionMetodopagoPK();
-                    metodoPk.setBankAccountId(BigInteger.valueOf(Long.valueOf(metodo.getBANK_ACCOUNT_NUM())));
-                    metodoPk.setOrgId(BigInteger.valueOf(Long.valueOf(metodo.getORG_ID())));
-                    metodoPk.setReceiptMethodId(BigInteger.valueOf(Long.valueOf(metodo.getRECEIPT_METHOD_ID())));
-                    metodoPagoEntidad.setBankAccountNum(BigInteger.valueOf(Long.valueOf(metodo.getBANK_ACCOUNT_NUM())));
-                    metodoPagoEntidad.setOuName(metodo.getOU_NAME());
-                    
-                    metodosPagoDao.registra(metodoPagoEntidad);
-                }
+                ProcedimientoAlmacendo procE = new ProcedimientoAlmacendo();
+                    procE.cargaInicialMetodos(metodos);
+                
             }
         }
     }

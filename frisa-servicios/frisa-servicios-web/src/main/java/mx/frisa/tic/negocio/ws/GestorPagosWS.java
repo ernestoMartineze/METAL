@@ -12,7 +12,7 @@ import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
 import mx.frisa.tic.datos.dto.ingresos.PagoDTO;
-import mx.frisa.tic.datos.dto.ingresos.RespuestaDTO;
+import mx.frisa.tic.datos.dto.ingresos.RespuestaProcesaFacturasDTO;
 import mx.frisa.tic.negocio.ingresos.GestorPagos;
 
 /**
@@ -23,12 +23,10 @@ import mx.frisa.tic.negocio.ingresos.GestorPagos;
 public class GestorPagosWS {
 
     @EJB
-    private GestorPagos ejbRef;// Add business logic below. (Right-click in editor and choose
-    // "Web Service > Add Operation"
+    private GestorPagos ejbRef;
 
     @WebMethod(operationName = "generarPago")
-    public RespuestaDTO generarPago(@WebParam(name = "pago") PagoDTO pago) {
-        List<PagoDTO> pagos = new ArrayList<>();
+    public RespuestaProcesaFacturasDTO generarPago(@WebParam(name = "pago") List<PagoDTO> pagos ) {
         
         return ejbRef.generarPago(pagos);
     }
