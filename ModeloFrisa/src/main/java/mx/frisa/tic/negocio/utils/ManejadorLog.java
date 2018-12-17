@@ -39,6 +39,7 @@ public class ManejadorLog {
     private static void init() throws MalformedURLException {       
         //Cargar en carpeta de recursos del servidor de aplicaciones el archivo de configuración del log
         String file = new File("/tmp/frisa/log4j.properties").toURI().toURL().toString();
+        //String file = new File("C:\\tmp\\frisa\\log4j.properties").toURI().toURL().toString();
         String file1 = new File(".").toURI().toURL().toString();
         System.out.println("file1 :" + file);
         URL url = null;

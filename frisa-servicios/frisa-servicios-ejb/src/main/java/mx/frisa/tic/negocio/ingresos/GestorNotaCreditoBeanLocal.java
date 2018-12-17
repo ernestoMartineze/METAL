@@ -5,14 +5,15 @@
  */
 package mx.frisa.tic.negocio.ingresos;
 
+import java.util.List;
 import javax.ejb.Local;
-import mx.frisa.tic.datos.dto.ingresos.NotaCreditoDTO;
-import mx.frisa.tic.datos.dto.ingresos.RespuestaDTO;
+import mx.frisa.tic.datos.dto.ingresos.NotaCreditoListaDTO;
+import mx.frisa.tic.negocio.remoto.RespuestaERP_Nota_Credito;
 
 
 @Local
 public interface GestorNotaCreditoBeanLocal {
 
-    public RespuestaDTO cargarNota(NotaCreditoDTO notaCredito);
+    public RespuestaERP_Nota_Credito cargarNota(NotaCreditoListaDTO notaCredito);
     
 }
