@@ -47,9 +47,6 @@ public class XxfrtEstadoCuenta implements Serializable {
 
     @Column(name = "BANK_ACCOUNT_NUM")
     private BigDecimal bankAccountNum;
-    @Column(name = "GL_DATE")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date glDate;
     @Column(name = "LINE_NUMBER")
     private BigDecimal lineNumber;
     @Column(name = "TRX_CODE")
@@ -58,6 +55,17 @@ public class XxfrtEstadoCuenta implements Serializable {
     private BigDecimal idLineaCaptura;
     @Column(name = "RMETHODID")
     private BigDecimal rmethodid;
+    @Column(name = "CASHRECEIPTID")
+    private BigDecimal cashreceiptid;
+    @Column(name = "FECHAREGISTRORECIBOERP")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fecharegistroreciboerp;
+    @Size(max = 50)
+    @Column(name = "RECEIPT_METHOD_ID")
+    private String receiptMethodId;
+    @Column(name = "GL_DATE")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date glDate;
     @Size(max = 30)
     @Column(name = "STATEMENT_HEADER_ID")
     private String statementHeaderId;
@@ -126,14 +134,6 @@ public class XxfrtEstadoCuenta implements Serializable {
         this.bankAccountNum = bankAccountNum;
     }
 
-    public Date getGlDate() {
-        return glDate;
-    }
-
-    public void setGlDate(Date glDate) {
-        this.glDate = glDate;
-    }
-
     public BigDecimal getLineNumber() {
         return lineNumber;
     }
@@ -164,6 +164,38 @@ public class XxfrtEstadoCuenta implements Serializable {
 
     public void setRmethodid(BigDecimal rmethodid) {
         this.rmethodid = rmethodid;
+    }
+
+    public BigDecimal getCashreceiptid() {
+        return cashreceiptid;
+    }
+
+    public void setCashreceiptid(BigDecimal cashreceiptid) {
+        this.cashreceiptid = cashreceiptid;
+    }
+
+    public Date getFecharegistroreciboerp() {
+        return fecharegistroreciboerp;
+    }
+
+    public void setFecharegistroreciboerp(Date fecharegistroreciboerp) {
+        this.fecharegistroreciboerp = fecharegistroreciboerp;
+    }
+
+    public String getReceiptMethodId() {
+        return receiptMethodId;
+    }
+
+    public void setReceiptMethodId(String receiptMethodId) {
+        this.receiptMethodId = receiptMethodId;
+    }
+
+    public Date getGlDate() {
+        return glDate;
+    }
+
+    public void setGlDate(Date glDate) {
+        this.glDate = glDate;
     }
 
     public String getStatementHeaderId() {
@@ -293,6 +325,7 @@ public class XxfrtEstadoCuenta implements Serializable {
     public void setLineCapture(String lineCapture) {
         this.lineCapture = lineCapture;
     }
+
 
     
     

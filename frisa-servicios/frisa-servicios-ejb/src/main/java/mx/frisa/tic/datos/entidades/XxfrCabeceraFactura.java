@@ -77,6 +77,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "XxfrCabeceraFactura.findByIdbatch", query = "SELECT x FROM XxfrCabeceraFactura x WHERE x.idbatch = :idbatch")})
 public class XxfrCabeceraFactura implements Serializable {
 
+    @Size(max = 20)
+    @Column(name = "ORGID")
+    private String orgid;
+
     @Column(name = "CUSTOMERID")
     private BigInteger customerid;
     @Column(name = "SITEID")
@@ -587,6 +591,14 @@ public class XxfrCabeceraFactura implements Serializable {
 
     public void setXxfrInvoiceLinesList(List<XxfrInvoiceLines> xxfrInvoiceLinesList) {
         this.xxfrInvoiceLinesList = xxfrInvoiceLinesList;
+    }
+
+    public String getOrgid() {
+        return orgid;
+    }
+
+    public void setOrgid(String orgid) {
+        this.orgid = orgid;
     }
     
 }

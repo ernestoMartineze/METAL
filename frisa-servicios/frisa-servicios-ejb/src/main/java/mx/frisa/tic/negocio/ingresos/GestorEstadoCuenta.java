@@ -90,13 +90,14 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
                         manejaLog.debug("Error al procesar el estado de cuenta : " + estadoCuentaDao.getProceso().getDescripcion() + ", NoLinea : " + lineaPago.getLINE_NUMBER());
                     } else {
                         //Existe LineaCaptura asiganarla
+                        edoCuenta.setReceiptMethodId("300000007076780");
                         edoCuenta.setIdLineaCaptura(BigDecimal.valueOf(Long.valueOf(idLineaCaptura)));
                         PagoDTO pago = new PagoDTO(BigDecimal.valueOf(edoCtaDto.getIdEdoCuenta()), edoCuenta.getLineNumber(),
                                 edoCuenta.getLineCapture(), edoCuenta.getCustomerReference(), 
-                                "300000007076780", // Metodo de pago
+                                edoCuenta.getReceiptMethodId(), // Metodo de pago
                                 edoCuenta.getCurrencyCode(), 
                                 "300000002783880",  //ORG_ID
-                                "TEST-1000", // Numero de recibo Secuencial 
+                                edoCtaDto.getIdPago()+"", // Numero de recibo Secuencial 
                                 edoCuenta.getAmount() + "", edoCuenta.getTrxDate() + "", "CUSTOMER_ID", "SITE_ID");
                         //Llamar a WS Genera cabecera recibo
                         AdaptadorWS adpCabecera = new AdaptadorWS();
