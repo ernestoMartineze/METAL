@@ -199,6 +199,7 @@ public class ProcedimientoAlmacendo extends ManejadorEntidad {
             procedure.registerStoredProcedureParameter("PRESPUESTA", int.class, ParameterMode.OUT);
             procedure.registerStoredProcedureParameter("pIdEdoCuenta", int.class, ParameterMode.OUT);
             procedure.registerStoredProcedureParameter("pIdMetodo", BigInteger.class, ParameterMode.OUT);
+            procedure.registerStoredProcedureParameter("pIdPago", int.class, ParameterMode.OUT);
 
             procedure.setParameter("PBANK_ACCOUNT_NUM", "0521838999");
             procedure.setParameter("pTRX_DATE", lineaEstadoCuenta.getTrxDate());
@@ -230,6 +231,7 @@ public class ProcedimientoAlmacendo extends ManejadorEntidad {
             respuestaProceso = (int) procedure.getOutputParameterValue("PRESPUESTA");
             idEdoCuenta = (int) procedure.getOutputParameterValue("pIdEdoCuenta");
             BigInteger idMetodoPago = (BigInteger) procedure.getOutputParameterValue("pIdMetodo");
+            Integer pIdPago = (Integer) procedure.getOutputParameterValue("pIdPago");
             lineaEstadoCuenta.setIdEdoCta(BigDecimal.valueOf(Long.valueOf(idEdoCuenta+"")));
             ejecuta = true;
 
@@ -239,6 +241,7 @@ public class ProcedimientoAlmacendo extends ManejadorEntidad {
             respuestaDTO.setIdLineaCaptura(respuestaProceso);
             respuestaDTO.setIdEdoCuenta(idEdoCuenta);
             respuestaDTO.setIdMetodoPago(idMetodoPago);
+            respuestaDTO.setIdPago(pIdPago);
             
         } catch (Exception ex) {
             ex.printStackTrace();

@@ -17,10 +17,12 @@ import javax.xml.parsers.ParserConfigurationException;
 import mx.frisa.tic.datos.comun.DAO;
 
 import mx.frisa.tic.datos.comun.ProcedimientoAlmacendo;
+import mx.frisa.tic.datos.dto.ingresos.FacturaPagoDTO;
 import mx.frisa.tic.datos.dto.ingresos.PagoDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaEdoCuentaDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaMetodoPagoDTO;
+import mx.frisa.tic.datos.dto.ingresos.RespuestaProcesaFacturasDTO;
 import mx.frisa.tic.datos.entidades.XxfrcOrganizacionMetodopago;
 import mx.frisa.tic.datos.entidades.XxfrtEstadoCuenta;
 import mx.frisa.tic.datos.enums.ProcesoEnum;
@@ -45,6 +47,7 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
         RespuestaDTO respuesta = new RespuestaDTO();
         RespuestaERP_Edo_Cuenta respuestaWS;
         ManejadorLog manejaLog = new ManejadorLog();
+        
         try {
             AdaptadorWS clienteWS = new AdaptadorWS();
             //Validar carga inicial de Metodos de pago
@@ -57,7 +60,7 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
                 //Proceso exitoso persistir en BD estados de cuenta
                 List<G_1> lineasPago = respuestaWS.getDATA_DSObject().getG_1();
                 DAO<XxfrtEstadoCuenta> estadoCuentaDao = new DAO(XxfrtEstadoCuenta.class);
-                
+
                 for (G_1 lineaPago : lineasPago) {
 
                     manejaLog.debug("Procesando el estado de cuenta : getBANK_ACCOUNT_NUM" + lineaPago.getBANK_ACCOUNT_NUM());
@@ -80,29 +83,29 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
                     edoCuenta.setDescripLookup(lineaPago.getDESCRIP_LOOKUP());  //
                     edoCuenta.setStatementHeaderId(lineaPago.getSTATEMENT_HEADER_ID());  //
                     edoCuenta.setStatementLineId(lineaPago.getSTATEMENT_LINE_ID());  //
-                    edoCuenta.setStatementNumber((new Date()));  
+                    edoCuenta.setStatementNumber((new Date()));
                     //Guardar en base de datos el estado de cuenta
                     ProcedimientoAlmacendo procEdoCta = new ProcedimientoAlmacendo();
                     RespuestaEdoCuentaDTO edoCtaDto = new RespuestaEdoCuentaDTO();
                     edoCtaDto = procEdoCta.ejecutarEstadoCuenta(edoCuenta);
-                    String idLineaCaptura = edoCtaDto.getIdLineaCaptura()+"";
-                    if (idLineaCaptura.equals("")) {
+                    String idLineaCaptura = edoCtaDto.getIdLineaCaptura() + "";
+                    if (edoCtaDto.getIdPago() == null) {
                         manejaLog.debug("Error al procesar el estado de cuenta : " + estadoCuentaDao.getProceso().getDescripcion() + ", NoLinea : " + lineaPago.getLINE_NUMBER());
                     } else {
                         //Existe LineaCaptura asiganarla
                         edoCuenta.setReceiptMethodId("300000007076780");
                         edoCuenta.setIdLineaCaptura(BigDecimal.valueOf(Long.valueOf(idLineaCaptura)));
                         PagoDTO pago = new PagoDTO(BigDecimal.valueOf(edoCtaDto.getIdEdoCuenta()), edoCuenta.getLineNumber(),
-                                edoCuenta.getLineCapture(), edoCuenta.getCustomerReference(), 
+                                edoCuenta.getLineCapture(), edoCuenta.getCustomerReference(),
                                 edoCuenta.getReceiptMethodId(), // Metodo de pago
-                                edoCuenta.getCurrencyCode(), 
-                                "300000002783880",  //ORG_ID
-                                edoCtaDto.getIdPago()+"", // Numero de recibo Secuencial 
+                                edoCuenta.getCurrencyCode(),
+                                "300000002783880", //ORG_ID
+                                edoCtaDto.getIdPago() + "", // Numero de recibo Secuencial 
                                 edoCuenta.getAmount() + "", edoCuenta.getTrxDate() + "", "CUSTOMER_ID", "SITE_ID");
                         //Llamar a WS Genera cabecera recibo
                         AdaptadorWS adpCabecera = new AdaptadorWS();
                         String numeroReciboERP = adpCabecera.getERP_generarEncabezadoRecibo(pago).getNumeroRecibo();
-                        
+
                         pago.setNroRecibo(numeroReciboERP);
                         pagosDto.add(pago);
 
@@ -110,13 +113,27 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
 
                 }
 
-                
-                
                 //Llamar al procesar pagos
-//                GestorPagos pagosBean = new GestorPagosBean();
-//                pagosBean.generarPago(pagosDto);
-                respuesta.setProceso(ProcesoEnum.EXITOSO.toString());
+                RespuestaERP_EncabezadoRecibo respAplicaPago = new RespuestaERP_EncabezadoRecibo();
+                respuesta.setProceso(ProcesoEnum.ERROR.toString());
+                respuesta.setIdError("100");
+                respuesta.setDescripcionError("No hay líneas con referencia en el estado de cuenta para procesar pagos");
+                
+                if (pagosDto.size() > 0) {
+                    GestorPagos pagosBean = new GestorPagosBean();
+                    RespuestaProcesaFacturasDTO respuestaPagos = pagosBean.generarPago(pagosDto);
+                    //Recorrer facturas para asociar info a pagos
+                    for (FacturaPagoDTO factura : respuestaPagos.getFacturas()) {
+//                    factura.get
+                    }
+                    
 
+                    AdaptadorWS adpCabecera = new AdaptadorWS();
+                    //Aplicar pagos en ERP
+                    respAplicaPago = adpCabecera.getERP_AplicarPago(pagosDto);
+                    respuesta.setProceso(respAplicaPago.getProceso().getTermino());
+                }
+                
 
             } else {
                 //Notificar error detectado
@@ -142,19 +159,19 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
 
     private void validarCargaInicialMetodosPago() throws IOException, MalformedURLException, SAXException, ParserConfigurationException {
         DAO<XxfrcOrganizacionMetodopago> metodosPagoDao = new DAO(XxfrcOrganizacionMetodopago.class);
-        List<XxfrcOrganizacionMetodopago> metodoPago = (List<XxfrcOrganizacionMetodopago>)metodosPagoDao.consultaQueryNamed("XxfrcOrganizacionMetodopago.findAll");
-        if (metodoPago.size() == 0){
+        List<XxfrcOrganizacionMetodopago> metodoPago = (List<XxfrcOrganizacionMetodopago>) metodosPagoDao.consultaQueryNamed("XxfrcOrganizacionMetodopago.findAll");
+        if (metodoPago.size() == 0) {
             //Lanzar la carga de info desde el ERP
             AdaptadorWS adaptador = new AdaptadorWS();
             RespuestaMetodoPagoDTO respuesta
                     = adaptador.getERP_obtenerMetodosCargaInicial();
 
-            if (respuesta.getProceso().getTermino().equals("0")){
+            if (respuesta.getProceso().getTermino().equals("0")) {
                 //Insertar las encontradas
                 MetodoPagoOBI metodos = respuesta.getMetodosPago();
                 ProcedimientoAlmacendo procE = new ProcedimientoAlmacendo();
-                    procE.cargaInicialMetodos(metodos);
-                
+                procE.cargaInicialMetodos(metodos);
+
             }
         }
     }

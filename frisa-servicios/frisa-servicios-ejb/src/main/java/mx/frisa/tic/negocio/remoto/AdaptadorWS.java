@@ -352,20 +352,20 @@ public class AdaptadorWS {
         respestaWS.setProceso(new Proceso("0", "EXITOSO"));
         String responseString = "";
         String outputString = "";
-        String wsURL = "https://efar-test.fin.us2.oraclecloud.com:443/fscmService/StandardReceiptService";
+        String wsURL = PropiedadesFRISA.recuperaPropiedadBackend("aplicaPagoFacturaServiceEndPoint");
 
         for (PagoDTO pagoDto : pagos) {
             String xmlInput
-                    = PropiedadesFRISA.recuperaPropiedadBackend("aplicaPagoFacturaServicePayload");
+                    = this.getCadenaDesdeB64(PropiedadesFRISA.recuperaPropiedadBackend("aplicaPagoFacturaServicePayload"));
 
             String SOAPAction
-                    = "http://xmlns.oracle.com/apps/financials/receivables/receipts/shared/standardReceiptService/commonService/createApplyReceipt";
+                    = PropiedadesFRISA.recuperaPropiedadBackend("aplicaPagoFacturaServiceSoapAction");
 
             //Ready with sending the request.
             try {
                 //Read the response.
 
-                outputString = enviarMsg(wsURL, SOAPAction, xmlInput, "text/xml;charset=UTF-8");
+                outputString = enviarMsg(wsURL, SOAPAction, xmlInput, PropiedadesFRISA.recuperaPropiedadBackend("aplicaPagoFacturaServiceContentType"));
 
                 //Parse the String output to a org.w3c.dom.Document and be able to reach every node with the org.w3c.dom API.
                 if (outputString.indexOf("=_Part") > -1) {
