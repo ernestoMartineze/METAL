@@ -24,15 +24,15 @@ import mx.frisa.tic.negocio.utils.ManejadorLog;
 @WebService(serviceName = "GestorFacturasWS")
 public class GestorFacturasWS {
 
-//    @EJB(beanName = "GestorFacturasBean")
-//    private GestorFacturasBean gestorFacturasBean;
+    @EJB(beanName = "GestorFacturasBean")
+    private GestorFacturasBean gestorFacturasBean;
     
     // "Web Service > Add Operation"
 
     /**
      * Web service operation
      *
-     * @param lcFactura
+     * @param lineaCaptura
      * @return
      */
     @WebMethod(operationName = "consultarLCFacturas")
@@ -41,16 +41,16 @@ public class GestorFacturasWS {
         RespuestaLCFacturaDTO respuestaLCFactura = new RespuestaLCFacturaDTO();
         ManejadorLog manejarLog = new ManejadorLog();
         List<LCFacturaDTO> lcFacturas = new ArrayList<>();
-        manejarLog.debug("Entro a metodo : GestorLineaCapturaWS-consultarLineaCaptura");
-//        try {
-//            lcFacturas = gestorFacturasBean.consultarLCFactura(lineaCaptura);
-//            respuestaLCFactura.setProceso(new Proceso("0", "Exitoso"));
-//            respuestaLCFactura.setLcFacturas(lcFacturas);
-//        } catch (Exception ex) {
-//            ex.printStackTrace();
-//            respuestaLCFactura.setProceso(new Proceso("1", ex.getLocalizedMessage()));
-//        }
-        manejarLog.debug("Termina metodo : GestorLineaCapturaWS-consultarLineaCaptura");
+        manejarLog.debug("Entro a metodo : GestorFacturasWS-consultarLCFacturas");
+        try {
+            lcFacturas = gestorFacturasBean.consultarLCFactura(lineaCaptura);
+            respuestaLCFactura.setProceso(new Proceso("0", "Exitoso"));
+            respuestaLCFactura.setLcFacturas(lcFacturas);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            respuestaLCFactura.setProceso(new Proceso("1", ex.getLocalizedMessage()));
+        }
+        manejarLog.debug("Termina metodo : GestorFacturasWS-consultarLCFacturas");
 
         return respuestaLCFactura;
     }
