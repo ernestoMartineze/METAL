@@ -19,6 +19,7 @@ import mx.frisa.tic.datos.comun.DAO;
 import mx.frisa.tic.datos.comun.ProcedimientoAlmacendo;
 import mx.frisa.tic.datos.dto.ingresos.PagoDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaDTO;
+import mx.frisa.tic.datos.dto.ingresos.RespuestaEdoCuentaDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaMetodoPagoDTO;
 import mx.frisa.tic.datos.entidades.XxfrcOrganizacionMetodopago;
 import mx.frisa.tic.datos.entidades.XxfrtEstadoCuenta;
@@ -68,7 +69,7 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
                     edoCuenta.setAddiotionalEntryInformation(lineaPago.getAMOUNT());
                     edoCuenta.setLineNumber(BigDecimal.valueOf(Long.valueOf(lineaPago.getLINE_NUMBER())));
                     edoCuenta.setTrxType(lineaPago.getTRX_TYPE());
-                    edoCuenta.setAmount(BigDecimal.valueOf(Long.valueOf(lineaPago.getAMOUNT())));
+                    edoCuenta.setAmount(BigDecimal.valueOf(Double.valueOf(lineaPago.getAMOUNT())));
                     edoCuenta.setTrxCode(BigDecimal.valueOf(Long.valueOf(lineaPago.getTRX_CODE())));
                     edoCuenta.setCurrencyCode(lineaPago.getCURRENCY_CODE());
                     edoCuenta.setCustomerReference(lineaPago.getREFERENCIA()); //CUSTOMER_REFERENCE
@@ -82,24 +83,34 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
                     edoCuenta.setStatementNumber((new Date()));  
                     //Guardar en base de datos el estado de cuenta
                     ProcedimientoAlmacendo procEdoCta = new ProcedimientoAlmacendo();
-                    String idLineaCaptura = procEdoCta.ejecutarEstadoCuenta(edoCuenta).getProceso();
-                    if (!idLineaCaptura.equals("0")) {
+                    RespuestaEdoCuentaDTO edoCtaDto = new RespuestaEdoCuentaDTO();
+                    edoCtaDto = procEdoCta.ejecutarEstadoCuenta(edoCuenta);
+                    String idLineaCaptura = edoCtaDto.getIdLineaCaptura()+"";
+                    if (idLineaCaptura.equals("")) {
                         manejaLog.debug("Error al procesar el estado de cuenta : " + estadoCuentaDao.getProceso().getDescripcion() + ", NoLinea : " + lineaPago.getLINE_NUMBER());
                     } else {
                         //Existe LineaCaptura asiganarla
                         edoCuenta.setIdLineaCaptura(BigDecimal.valueOf(Long.valueOf(idLineaCaptura)));
-                        PagoDTO pago = new PagoDTO(edoCuenta.getIdEdoCta(), edoCuenta.getLineNumber(),
-                                edoCuenta.getLineCapture(), edoCuenta.getCustomerReference(), "METODOID",
-                                edoCuenta.getCurrencyCode(), edoCuenta.getProyectoPropietario(), "NOMRECIBO",
+                        PagoDTO pago = new PagoDTO(BigDecimal.valueOf(edoCtaDto.getIdEdoCuenta()), edoCuenta.getLineNumber(),
+                                edoCuenta.getLineCapture(), edoCuenta.getCustomerReference(), 
+                                "300000007076780", // Metodo de pago
+                                edoCuenta.getCurrencyCode(), 
+                                "300000002783880",  //ORG_ID
+                                "TEST-1000", // Numero de recibo Secuencial 
                                 edoCuenta.getAmount() + "", edoCuenta.getTrxDate() + "", "CUSTOMER_ID", "SITE_ID");
+                        //Llamar a WS Genera cabecera recibo
+                        AdaptadorWS adpCabecera = new AdaptadorWS();
+                        String numeroReciboERP = adpCabecera.getERP_generarEncabezadoRecibo(pago).getNumeroRecibo();
+                        
+                        pago.setNroRecibo(numeroReciboERP);
                         pagosDto.add(pago);
 
                     }
 
                 }
 
-                //Procesar Encabezado de recibo y obtener NoREcibo
-                RespuestaERP_EncabezadoRecibo respuestaEnca = clienteWS.getERP_generarEncabezadoRecibo(pagosDto);
+                
+                
                 //Llamar al procesar pagos
 //                GestorPagos pagosBean = new GestorPagosBean();
 //                pagosBean.generarPago(pagosDto);
