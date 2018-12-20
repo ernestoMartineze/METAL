@@ -88,30 +88,55 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
                     //Guardar en base de datos el estado de cuenta
                     ProcedimientoAlmacendo procEdoCta = new ProcedimientoAlmacendo();
                     RespuestaEdoCuentaDTO edoCtaDto = new RespuestaEdoCuentaDTO();
+
+                    //Lanza a base la linea en estado de cuenta recuperando info escencial
                     edoCtaDto = procEdoCta.ejecutarEstadoCuenta(edoCuenta);
                     String idLineaCaptura = edoCtaDto.getIdLineaCaptura() + "";
-                    if (edoCtaDto.getIdPago() == null) {
+                    manejaLog.debug("idLineaCaptura : " + idLineaCaptura);
+                    manejaLog.debug("edoCtaDto.getOrgID : " + edoCtaDto.getOrgID());
+                    manejaLog.debug("edoCtaDto.getIdPago() : " + edoCtaDto.getIdPago());
+                    manejaLog.debug("edoCtaDto.getIdMetodoPago() : " + edoCtaDto.getIdMetodoPago());
+                    manejaLog.debug("edoCtaDto.getCustomerID() : " + edoCtaDto.getCustomerID());
+                    manejaLog.debug("edoCtaDto.getSiteID() : " + edoCtaDto.getSiteID());
+
+                    String numeroReciboERP = "";
+                    PagoDTO pago = new PagoDTO(BigDecimal.valueOf(edoCtaDto.getIdEdoCuenta()), edoCuenta.getLineNumber(),
+                            edoCuenta.getLineCapture(), edoCuenta.getCustomerReference(),
+                            edoCuenta.getReceiptMethodId(), // Metodo de pago
+                            edoCuenta.getCurrencyCode(),
+                            edoCtaDto.getOrgID() + "", //ORG_ID
+                            edoCtaDto.getIdPago() + "", // Numero de recibo Secuencial 
+                            edoCuenta.getAmount() + "", edoCuenta.getTrxDate() + "", edoCtaDto.getCustomerID(), edoCtaDto.getSiteID());
+
+                    if (edoCtaDto.getIdPago() == null || edoCtaDto.getIdMetodoPago() == null || edoCtaDto.getCustomerID() == null || edoCtaDto.getSiteID() == null) {
+                        //Validar errores posibles y persistirlos en base
                         manejaLog.debug("Error al procesar el estado de cuenta : " + estadoCuentaDao.getProceso().getDescripcion() + ", NoLinea : " + lineaPago.getLINE_NUMBER());
+                        numeroReciboERP ="110, 111"; //Indicar el codigo de error que se presenta en el pago
+                        /*Errores corresponde a tabla xxfrc_error
+                        110 - La linea del estado de cuenta no cuenta con un metodo de pago valido
+                        111 - La linea del estado de cuenta no cuenta con el id de organizacion valido
+                        112 - La linea del estado de cuenta no cuenta con el id de Customer valido
+                        113 - La linea del estado de cuenta no cuenta con el id de Customer valido
+                        */
+                        
                     } else {
                         //Existe LineaCaptura asiganarla
-                        edoCuenta.setReceiptMethodId(recuperarMetodoPagoId(edoCtaDto.getOrgID() + "", lineaPago.getBANK_ACCOUNT_NUM()));
+                        if (edoCtaDto.getIdMetodoPago() == null) {
+                            edoCuenta.setReceiptMethodId(recuperarMetodoPagoId(edoCtaDto.getOrgID() + "", lineaPago.getBANK_ACCOUNT_NUM()));
+                        }
 
                         edoCuenta.setIdLineaCaptura(BigDecimal.valueOf(Long.valueOf(idLineaCaptura)));
-                        PagoDTO pago = new PagoDTO(BigDecimal.valueOf(edoCtaDto.getIdEdoCuenta()), edoCuenta.getLineNumber(),
-                                edoCuenta.getLineCapture(), edoCuenta.getCustomerReference(),
-                                edoCuenta.getReceiptMethodId(), // Metodo de pago
-                                edoCuenta.getCurrencyCode(),
-                                edoCtaDto.getOrgID() + "", //ORG_ID
-                                edoCtaDto.getIdPago() + "", // Numero de recibo Secuencial 
-                                edoCuenta.getAmount() + "", edoCuenta.getTrxDate() + "", "CUSTOMER_ID", "SITE_ID");
                         //Llamar a WS Genera cabecera recibo
                         AdaptadorWS adpCabecera = new AdaptadorWS();
-                        String numeroReciboERP = adpCabecera.getERP_generarEncabezadoRecibo(pago).getNumeroRecibo();
-
-                        pago.setNroRecibo(numeroReciboERP);
-                        pagosDto.add(pago);
+                        //Solo si existe metodo de pago se genera la cabecera
+                        if (edoCuenta.getReceiptMethodId() != null && edoCtaDto.getOrgID() != null) {
+                            numeroReciboERP = adpCabecera.getERP_generarEncabezadoRecibo(pago).getNumeroRecibo();
+                        }
 
                     }
+
+                    pago.setNroRecibo(numeroReciboERP);
+                    pagosDto.add(pago);
 
                 }
 
@@ -119,7 +144,7 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
                 RespuestaERP_EncabezadoRecibo respAplicaPago = new RespuestaERP_EncabezadoRecibo();
                 respuesta.setProceso(ProcesoEnum.ERROR.toString());
                 respuesta.setIdError("100");
-                respuesta.setDescripcionError("No hay líneas con referencia en el estado de cuenta para procesar pagos");
+                respuesta.setDescripcionError("No hay líneas con referencia validas en el estado de cuenta para procesar pagos");
 
                 if (pagosDto.size() > 0) {
                     GestorPagos pagosBean = new GestorPagosBean();
@@ -181,14 +206,19 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
     }
 
     private String recuperarMetodoPagoId(String organizacion, String cuentaBanco) {
+//        return "300000007076780";
         DAO<XxfrcOrganizacionMetodopago> metodoPagoDao = new DAO(XxfrcOrganizacionMetodopago.class);
-        List<XxfrcOrganizacionMetodopago> metodos = (List<XxfrcOrganizacionMetodopago>) metodoPagoDao.consultaQueryNativo("Select x from XxfrcOrganizacionMetodopago where x.xxfrcOrganizacionMetodopagoPK.orgId = " + organizacion + " and x.xxfrcOrganizacionMetodopagoPK.bankAccountId = " + cuentaBanco);
-        String metodoEncontrado =metodos.get(0).getXxfrcOrganizacionMetodopagoPK().getReceiptMethodId()+"";
-        if (metodoEncontrado.equals("")){
+        List<XxfrcOrganizacionMetodopago> metodos
+                = (List<XxfrcOrganizacionMetodopago>) metodoPagoDao.consultaQueryNativo("Select x from XxfrcOrganizacionMetodopago x where x.xxfrcOrganizacionMetodopagoPK.orgId = " + organizacion + " and x.xxfrcOrganizacionMetodopagoPK.bankAccountId = " + cuentaBanco);
+        String metodoEncontrado = "";
+        if (metodos != null) {
+            metodoEncontrado = metodos.get(0).getXxfrcOrganizacionMetodopagoPK().getReceiptMethodId() + "";
+        }
+        if (metodoEncontrado.equals("")) {
             //Buscar en BI el metodo correspondiente
             AdaptadorWS adaptador = new AdaptadorWS();
             try {
-                adaptador.getERP_obtenerMetodosPorID(organizacion, cuentaBanco);
+                metodoEncontrado = adaptador.getERP_obtenerMetodosPorID(organizacion, cuentaBanco).getDescripcionError();
             } catch (IOException ex) {
                 Logger.getLogger(GestorEstadoCuenta.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ParserConfigurationException ex) {

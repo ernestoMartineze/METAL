@@ -7,9 +7,6 @@ package mx.frisa.tic.negocio.ws;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Future;
-import javax.ejb.AsyncResult;
-import javax.ejb.Asynchronous;
 import javax.ejb.EJB;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;

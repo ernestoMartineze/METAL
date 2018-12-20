@@ -200,9 +200,11 @@ public class ProcedimientoAlmacendo extends ManejadorEntidad {
             procedure.registerStoredProcedureParameter("pIdEdoCuenta", int.class, ParameterMode.OUT);
             procedure.registerStoredProcedureParameter("pIdMetodo", BigInteger.class, ParameterMode.OUT);
             procedure.registerStoredProcedureParameter("pIdPago", int.class, ParameterMode.OUT);
-            procedure.registerStoredProcedureParameter("pORG_ID", int.class, ParameterMode.OUT);
+            procedure.registerStoredProcedureParameter("pORG_ID", String.class, ParameterMode.OUT);
+            procedure.registerStoredProcedureParameter("pCUSTOMER_ID", String.class, ParameterMode.OUT);
+            procedure.registerStoredProcedureParameter("pSITE_ID", String.class, ParameterMode.OUT);
 
-            procedure.setParameter("PBANK_ACCOUNT_NUM", "0521838999");
+            procedure.setParameter("PBANK_ACCOUNT_NUM", lineaEstadoCuenta.getBankAccountNum()+"");
             procedure.setParameter("pTRX_DATE", lineaEstadoCuenta.getTrxDate());
             procedure.setParameter("pLINE_NUMBER", lineaEstadoCuenta.getLineNumber() + "");
             procedure.setParameter("pTRX_TYPE", lineaEstadoCuenta.getTrxType());
@@ -233,7 +235,9 @@ public class ProcedimientoAlmacendo extends ManejadorEntidad {
             idEdoCuenta = (int) procedure.getOutputParameterValue("pIdEdoCuenta");
             Long idMetodoPago = (Long) procedure.getOutputParameterValue("pIdMetodo");
             Integer pIdPago = (Integer) procedure.getOutputParameterValue("pIdPago");
-            BigInteger pORG_ID = (BigInteger) procedure.getOutputParameterValue("pORG_ID");
+            String pORG_ID = (String) procedure.getOutputParameterValue("pORG_ID");
+            String pCUSTOMER_ID = (String) procedure.getOutputParameterValue("pCUSTOMER_ID");
+            String pSITE_ID = (String) procedure.getOutputParameterValue("pSITE_ID");
             lineaEstadoCuenta.setIdEdoCta(BigDecimal.valueOf(Long.valueOf(idEdoCuenta+"")));
             manejadorLog.debug("pORG_ID : " + pORG_ID);
             manejadorLog.debug("pIdPago : " + pIdPago);
@@ -248,6 +252,8 @@ public class ProcedimientoAlmacendo extends ManejadorEntidad {
             respuestaDTO.setIdMetodoPago(idMetodoPago);
             respuestaDTO.setIdPago(pIdPago);
             respuestaDTO.setOrgID(pORG_ID);
+            respuestaDTO.setCustomerID(pCUSTOMER_ID);
+            respuestaDTO.setSiteID(pSITE_ID);
             
         } catch (Exception ex) {
             ex.printStackTrace();

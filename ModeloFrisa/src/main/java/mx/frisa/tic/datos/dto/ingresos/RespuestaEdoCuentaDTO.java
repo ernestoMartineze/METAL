@@ -14,7 +14,10 @@ public class RespuestaEdoCuentaDTO {
     Integer idPago;
     Integer idLineaCaptura;
     Long idMetodoPago;
-    BigInteger orgID;
+    String orgID;
+    String siteID;
+    String customerID;
+    
 
     public RespuestaEdoCuentaDTO() {
     }
@@ -26,51 +29,6 @@ public class RespuestaEdoCuentaDTO {
         this.idError = idError;
         this.descripcionError = descripcionError;
     }
-
-    public BigInteger getOrgID() {
-        return orgID;
-    }
-
-    public void setOrgID(BigInteger orgID) {
-        this.orgID = orgID;
-    }
-
-    
-    public Long getIdMetodoPago() {
-        return idMetodoPago;
-    }
-
-    public void setIdMetodoPago(Long idMetodoPago) {
-        this.idMetodoPago = idMetodoPago;
-    }
-    
-    
-
-    public Integer getIdEdoCuenta() {
-        return idEdoCuenta;
-    }
-
-    public void setIdEdoCuenta(Integer idEdoCuenta) {
-        this.idEdoCuenta = idEdoCuenta;
-    }
-
-    public Integer getIdPago() {
-        return idPago;
-    }
-
-    public void setIdPago(Integer idPago) {
-        this.idPago = idPago;
-    }
-
-    public Integer getIdLineaCaptura() {
-        return idLineaCaptura;
-    }
-
-    public void setIdLineaCaptura(Integer idLineaCaptura) {
-        this.idLineaCaptura = idLineaCaptura;
-    }
-    
-    
 
     public String getProceso() {
         return proceso;
@@ -95,5 +53,62 @@ public class RespuestaEdoCuentaDTO {
     public void setDescripcionError(String descripcionError) {
         this.descripcionError = descripcionError;
     }
-    
+
+    public Integer getIdEdoCuenta() {
+        return idEdoCuenta;
+    }
+
+    public void setIdEdoCuenta(Integer idEdoCuenta) {
+        this.idEdoCuenta = idEdoCuenta;
+    }
+
+    public Integer getIdPago() {
+        return idPago;
+    }
+
+    public void setIdPago(Integer idPago) {
+        this.idPago = idPago;
+    }
+
+    public Integer getIdLineaCaptura() {
+        return idLineaCaptura;
+    }
+
+    public void setIdLineaCaptura(Integer idLineaCaptura) {
+        this.idLineaCaptura = idLineaCaptura;
+    }
+
+    public Long getIdMetodoPago() {
+        return idMetodoPago;
+    }
+
+    public void setIdMetodoPago(Long idMetodoPago) {
+        this.idMetodoPago = idMetodoPago;
+    }
+
+    public String getOrgID() {
+        return orgID;
+    }
+
+    public void setOrgID(String orgID) {
+        this.orgID = orgID;
+    }
+
+    public String getSiteID() {
+        return siteID;
+    }
+
+    public void setSiteID(String siteID) {
+        this.siteID = siteID;
+    }
+
+    public String getCustomerID() {
+        return customerID;
+    }
+
+    public void setCustomerID(String customerID) {
+        this.customerID = customerID;
+    }
+
+
 }
