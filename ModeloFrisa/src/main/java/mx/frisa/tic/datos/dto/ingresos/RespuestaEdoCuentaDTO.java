@@ -13,7 +13,8 @@ public class RespuestaEdoCuentaDTO {
     Integer idEdoCuenta;
     Integer idPago;
     Integer idLineaCaptura;
-    BigInteger idMetodoPago;
+    Long idMetodoPago;
+    BigInteger orgID;
 
     public RespuestaEdoCuentaDTO() {
     }
@@ -26,11 +27,20 @@ public class RespuestaEdoCuentaDTO {
         this.descripcionError = descripcionError;
     }
 
-    public BigInteger getIdMetodoPago() {
+    public BigInteger getOrgID() {
+        return orgID;
+    }
+
+    public void setOrgID(BigInteger orgID) {
+        this.orgID = orgID;
+    }
+
+    
+    public Long getIdMetodoPago() {
         return idMetodoPago;
     }
 
-    public void setIdMetodoPago(BigInteger idMetodoPago) {
+    public void setIdMetodoPago(Long idMetodoPago) {
         this.idMetodoPago = idMetodoPago;
     }
     

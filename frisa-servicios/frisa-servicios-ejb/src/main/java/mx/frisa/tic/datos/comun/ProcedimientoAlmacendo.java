@@ -200,6 +200,7 @@ public class ProcedimientoAlmacendo extends ManejadorEntidad {
             procedure.registerStoredProcedureParameter("pIdEdoCuenta", int.class, ParameterMode.OUT);
             procedure.registerStoredProcedureParameter("pIdMetodo", BigInteger.class, ParameterMode.OUT);
             procedure.registerStoredProcedureParameter("pIdPago", int.class, ParameterMode.OUT);
+            procedure.registerStoredProcedureParameter("pORG_ID", int.class, ParameterMode.OUT);
 
             procedure.setParameter("PBANK_ACCOUNT_NUM", "0521838999");
             procedure.setParameter("pTRX_DATE", lineaEstadoCuenta.getTrxDate());
@@ -230,9 +231,13 @@ public class ProcedimientoAlmacendo extends ManejadorEntidad {
 
             respuestaProceso = (int) procedure.getOutputParameterValue("PRESPUESTA");
             idEdoCuenta = (int) procedure.getOutputParameterValue("pIdEdoCuenta");
-            BigInteger idMetodoPago = (BigInteger) procedure.getOutputParameterValue("pIdMetodo");
+            Long idMetodoPago = (Long) procedure.getOutputParameterValue("pIdMetodo");
             Integer pIdPago = (Integer) procedure.getOutputParameterValue("pIdPago");
+            BigInteger pORG_ID = (BigInteger) procedure.getOutputParameterValue("pORG_ID");
             lineaEstadoCuenta.setIdEdoCta(BigDecimal.valueOf(Long.valueOf(idEdoCuenta+"")));
+            manejadorLog.debug("pORG_ID : " + pORG_ID);
+            manejadorLog.debug("pIdPago : " + pIdPago);
+            manejadorLog.debug("idMetodoPago : " + idMetodoPago);
             ejecuta = true;
 
             manejadorLog.debug("Resultado: " + respuestaProceso);
@@ -242,6 +247,7 @@ public class ProcedimientoAlmacendo extends ManejadorEntidad {
             respuestaDTO.setIdEdoCuenta(idEdoCuenta);
             respuestaDTO.setIdMetodoPago(idMetodoPago);
             respuestaDTO.setIdPago(pIdPago);
+            respuestaDTO.setOrgID(pORG_ID);
             
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -275,7 +281,7 @@ public class ProcedimientoAlmacendo extends ManejadorEntidad {
             for (MetodoPagoG1OBI metodo : metodos.getG_1()) {
                 XxfrcOrganizacionMetodopago metodoPagoEntidad = new XxfrcOrganizacionMetodopago();
                 XxfrcOrganizacionMetodopagoPK metodoPk = new XxfrcOrganizacionMetodopagoPK();
-                metodoPk.setBankAccountId(BigInteger.valueOf(Long.valueOf(metodo.getBANK_ACCOUNT_NUM())));
+                metodoPk.setBankAccountId(BigInteger.valueOf(Long.valueOf(metodo.getBAU_BANK_ACCOUNTID())));
                 metodoPk.setOrgId(BigInteger.valueOf(Long.valueOf(metodo.getORG_ID())));
                 metodoPk.setReceiptMethodId(BigInteger.valueOf(Long.valueOf(metodo.getRECEIPT_METHOD_ID())));
                 metodoPagoEntidad.setBankAccountNum(BigInteger.valueOf(Long.valueOf(metodo.getBANK_ACCOUNT_NUM())));
