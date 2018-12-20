@@ -7,10 +7,14 @@ package mx.frisa.tic.negocio.ws;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Future;
+import javax.ejb.AsyncResult;
+import javax.ejb.Asynchronous;
 import javax.ejb.EJB;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
+import javax.xml.ws.AsyncHandler;
 import mx.frisa.tic.datos.dto.ingresos.DetalleLCPagosDTO;
 import mx.frisa.tic.datos.dto.ingresos.DetalleLineaCapturaDTO;
 
@@ -221,7 +225,10 @@ public class GestorLineaCapturaWS {
 
         return respuestaLCFactDetDTO;
     }
+    
+//    @Asynchronous
     @WebMethod(operationName = "cargarFactura")
+//    public Future<RespuestaCargaFacturaDTO cargarFactura(@WebParam(name = "facturas") PeticionCargaFacturaDTO peticion) {
     public RespuestaCargaFacturaDTO cargarFactura(@WebParam(name = "facturas") PeticionCargaFacturaDTO peticion) {
         ManejadorLog manejarLog = new ManejadorLog();
         RespuestaCargaFacturaDTO respuesta = new RespuestaCargaFacturaDTO();
@@ -234,8 +241,17 @@ public class GestorLineaCapturaWS {
             ex.printStackTrace();
         }
         manejarLog.debug("Termina metodo : GestorLineaCapturaWS-consultaLCGeneradas");
-        return respuesta;
+        return (respuesta);
+//        return new AsyncResult<RespuestaCargaFacturaDTO>(respuesta);
     }
+    
+//    // Operación asíncrona con retorno de llamada.
+//       Future<RespuestaCargaFacturaDTO> cargarFacturaPrimavera(PeticionCargaFacturaDTO peticion, 
+//              AsyncHandler<Score> handler){
+//           RespuestaCargaFacturaDTO respuesta = new RespuestaCargaFacturaDTO();
+//           
+//           return new AsyncResult<RespuestaCargaFacturaDTO>(respuesta);
+//       }
     @WebMethod (operationName = "consultarEstadoCarga")
     public RespuestaCargaFacturaDTO consultarEstadoCarga(@WebParam(name = "uuid") String pUUID) {
         ManejadorLog manejarLog = new ManejadorLog();
