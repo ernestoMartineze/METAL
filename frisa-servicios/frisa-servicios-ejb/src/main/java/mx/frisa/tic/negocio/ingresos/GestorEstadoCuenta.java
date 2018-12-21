@@ -99,6 +99,12 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
                     manejaLog.debug("edoCtaDto.getCustomerID() : " + edoCtaDto.getCustomerID());
                     manejaLog.debug("edoCtaDto.getSiteID() : " + edoCtaDto.getSiteID());
 
+                    //Si no existe el metodo de pago en la BASE, vamos a buscarlo en el ERP
+                    if (edoCtaDto.getIdMetodoPago() == null) {
+                        edoCuenta.setReceiptMethodId(recuperarMetodoPagoId(edoCtaDto.getOrgID() + "", lineaPago.getBANK_ACCOUNT_NUM()));
+                    }
+
+                    //Asignamos datos al pago por el cobro del estado de cuenta actual
                     String numeroReciboERP = "";
                     PagoDTO pago = new PagoDTO(BigDecimal.valueOf(edoCtaDto.getIdEdoCuenta()), edoCuenta.getLineNumber(),
                             edoCuenta.getLineCapture(), edoCuenta.getCustomerReference(),
@@ -108,30 +114,48 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
                             edoCtaDto.getIdPago() + "", // Numero de recibo Secuencial 
                             edoCuenta.getAmount() + "", edoCuenta.getTrxDate() + "", edoCtaDto.getCustomerID(), edoCtaDto.getSiteID());
 
+                    //VALIDAMOS SI EL COBRO APLICA PARA UN PAGO valido DE LC o REFERENCIA
                     if (edoCtaDto.getIdPago() == null || edoCtaDto.getIdMetodoPago() == null || edoCtaDto.getCustomerID() == null || edoCtaDto.getSiteID() == null) {
-                        //Validar errores posibles y persistirlos en base
+                        //NO ES UN COBRO VALIDO errores posibles y persistirlos en base
                         manejaLog.debug("Error al procesar el estado de cuenta : " + estadoCuentaDao.getProceso().getDescripcion() + ", NoLinea : " + lineaPago.getLINE_NUMBER());
-                        numeroReciboERP ="110, 111"; //Indicar el codigo de error que se presenta en el pago
-                        /*Errores corresponde a tabla xxfrc_error
+                        numeroReciboERP = "4"; //Indicar el codigo de error como COBRO CON ERROR DE DATOS
+                        /*
+                        "Estatus del pago.
+                            0:PAGOSINREF = pago sin referencia,
+                            1:CERRADA
+                            2:PROCESANDO,
+                            3:SALDO 
+                            4: COBRO CON ERRORES DE DATOS - ver reporte de errores
+                            "
+                         */
+
+ /*ADICIONAL En tabla de control de Errores corresponde a tabla xxfrc_error
                         110 - La linea del estado de cuenta no cuenta con un metodo de pago valido
                         111 - La linea del estado de cuenta no cuenta con el id de organizacion valido
                         112 - La linea del estado de cuenta no cuenta con el id de Customer valido
                         113 - La linea del estado de cuenta no cuenta con el id de Customer valido
-                        */
-                        
+                         */
                     } else {
-                        //Existe LineaCaptura asiganarla
-                        if (edoCtaDto.getIdMetodoPago() == null) {
-                            edoCuenta.setReceiptMethodId(recuperarMetodoPagoId(edoCtaDto.getOrgID() + "", lineaPago.getBANK_ACCOUNT_NUM()));
-                        }
 
                         edoCuenta.setIdLineaCaptura(BigDecimal.valueOf(Long.valueOf(idLineaCaptura)));
+                        //Asignar proceso a EDO-PROCESANDO
+                        edoCuenta.setRmethodid(BigDecimal.valueOf(Long.valueOf("2")));
+                        edoCuenta.setIdEdoCta(BigDecimal.valueOf(Long.valueOf(edoCtaDto.getIdEdoCuenta())));
+                        DAO<XxfrtEstadoCuenta> edoCtaEnt = new DAO(XxfrtEstadoCuenta.class);
+
                         //Llamar a WS Genera cabecera recibo
                         AdaptadorWS adpCabecera = new AdaptadorWS();
                         //Solo si existe metodo de pago se genera la cabecera
                         if (edoCuenta.getReceiptMethodId() != null && edoCtaDto.getOrgID() != null) {
                             numeroReciboERP = adpCabecera.getERP_generarEncabezadoRecibo(pago).getNumeroRecibo();
+                            edoCuenta.setRmethodid(BigDecimal.valueOf(Long.valueOf("2")));
+                        } else {
+                            //Hubo algun error al generar la cabecera del cobro
+                            edoCuenta.setRmethodid(BigDecimal.valueOf(Long.valueOf("0")));
                         }
+
+                        //Registrar en BD el estatus final de la LINEA ACTUAL DEL estado de cuenta 
+                        edoCtaEnt.actualiza(edoCuenta);
 
                     }
 
