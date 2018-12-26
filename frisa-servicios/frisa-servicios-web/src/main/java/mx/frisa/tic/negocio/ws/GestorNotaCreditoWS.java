@@ -9,9 +9,9 @@ import javax.ejb.EJB;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
-import mx.frisa.tic.datos.dto.ingresos.NotaCreditoDTO;
-import mx.frisa.tic.datos.dto.ingresos.RespuestaDTO;
+import mx.frisa.tic.datos.dto.ingresos.NotaCreditoListaDTO;
 import mx.frisa.tic.negocio.ingresos.GestorNotaCreditoBeanLocal;
+import mx.frisa.tic.negocio.remoto.RespuestaERP_Nota_Credito;
 
 /**
  *
@@ -24,7 +24,7 @@ public class GestorNotaCreditoWS {
     private GestorNotaCreditoBeanLocal notaCreditoEjbRef;
 
     @WebMethod(operationName = "cargarNota")
-    public RespuestaDTO cargarNota(@WebParam(name = "notaCredito") NotaCreditoDTO notaCredito) {
+    public RespuestaERP_Nota_Credito cargarNota(@WebParam(name = "notaCredito") NotaCreditoListaDTO notaCredito) {
         return notaCreditoEjbRef.cargarNota(notaCredito);
     }
     
