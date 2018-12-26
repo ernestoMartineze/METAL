@@ -188,8 +188,8 @@ public class XxfrtNotaCredito implements Serializable {
     @Column(name = "FLEX_NUMOFSEGMENTS")
     private BigInteger flexNumofsegments;
     @Id
-//    @Basic(optional = false)
-//    @NotNull
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "ID_NOTACREDITO")
     private BigDecimal idNotacredito;
     @Size(max = 20)

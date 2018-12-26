@@ -61,7 +61,6 @@ public final class CONSTANTE {
     public static final String VACIO = "";
     public static final String CADENA = "CADENA";
     public static final String NUMERO = "NUMERO";
-    public static final String GZIP="gzip";
 
     private CONSTANTE() {
         //CONSTANTE sin propiedades necesarias

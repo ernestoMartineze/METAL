@@ -38,7 +38,7 @@ public class GestorNotaCreditoBean implements GestorNotaCreditoBeanLocal {
         for(CreditMemoDTO nota : notas){
             try{
                 respuesta = adapter.getERP_ejecutarNotaCredito(nota);
-//                respuesta.setProceso(new Proceso("000","REGISTRADO EN ERP"));
+                respuesta.setProceso(new Proceso("000","REGISTRADO EN ERP"));
             }
             catch(Exception Ex){
                 //manejaLog.error(Ex, this.getClass());
@@ -88,10 +88,8 @@ public class GestorNotaCreditoBean implements GestorNotaCreditoBeanLocal {
                 notaPersist.setFlexContext(nota.getCreditMemoFLEXVA().getFLEXContext());
                 notaPersist.setFlexContextDisplayvalue(nota.getCreditMemoFLEXVA().getFLEXContextDisplayValue());
                 notaPersist.setFlexNumofsegments(BigInteger.valueOf(nota.getCreditMemoFLEXVA().getFLEXNumOfSegments()));
-//                notaPersist.setIdNotacredito(BigDecimal.ZERO);
-                if(respuesta.getProceso().getDescripcion().contains("Eror en WS ERP")){
-                     notaPersist.setEstadoErp("300");
-                }
+                notaPersist.setIdNotacredito(BigDecimal.ZERO);
+                notaPersist.setEstadoErp(respuesta.getProceso().getDescripcion());
                 notaCreditoDAO.registra(notaPersist);
             }
             catch(Exception Ex){
