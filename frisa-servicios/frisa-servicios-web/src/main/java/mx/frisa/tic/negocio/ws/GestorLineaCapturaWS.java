@@ -7,19 +7,24 @@ package mx.frisa.tic.negocio.ws;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Future;
+import javax.ejb.AsyncResult;
+import javax.ejb.Asynchronous;
 import javax.ejb.EJB;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
+import javax.xml.ws.AsyncHandler;
 import mx.frisa.tic.datos.dto.ingresos.DetalleLCPagosDTO;
 import mx.frisa.tic.datos.dto.ingresos.DetalleLineaCapturaDTO;
 
 import mx.frisa.tic.datos.dto.ingresos.LCFactDetDTO;
 import mx.frisa.tic.datos.dto.ingresos.LineaCapturaDTO;
 import mx.frisa.tic.datos.dto.ingresos.LineaCaptutaFacturaDTO;
+import mx.frisa.tic.datos.dto.ingresos.PeticionCargaFacturaDTO;
 import mx.frisa.tic.datos.dto.ingresos.Proceso;
+import mx.frisa.tic.datos.dto.ingresos.RespuestaCargaFacturaDTO;
 
-import mx.frisa.tic.datos.dto.ingresos.RespuestaDTO;
 
 import mx.frisa.tic.datos.dto.ingresos.RespuestaDetalleLCPagosDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaDetalleLineaCapturaDTO;
@@ -28,6 +33,7 @@ import mx.frisa.tic.datos.dto.ingresos.RespuestaLCFactDetDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaLineaCapturaDTO;
 import mx.frisa.tic.negocio.ingresos.GestorLineaCaptura;
 import mx.frisa.tic.negocio.utils.ManejadorLog;
+import mx.frisa.tic.utils.UUIDFrisa;
 
 /**
  *
@@ -39,21 +45,7 @@ public class GestorLineaCapturaWS {
     @EJB(beanName = "GestorLineaCapturaBean")
     private GestorLineaCaptura gestorLineaCapturaBean;
 
-    /**
-     * Web service operation
-     * @param idBatch
-     * @return
-     */
-    @WebMethod(operationName = "generarLineasCaptura")
-    public RespuestaDTO generarLineasCaptura(@WebParam(name = "idBatch") String idBatch) {
-
-        RespuestaDTO respuesta = new RespuestaDTO();
-        respuesta.setProceso("generarLineasCaptura");
-        respuesta.setIdError("000");
-        respuesta.setDescripcionError("OK");
-
-        return respuesta;
-    }
+   
 
 
     /**
@@ -232,6 +224,46 @@ public class GestorLineaCapturaWS {
         manejarLog.debug("Termina metodo : GestorLineaCapturaWS-consultarLineaCaptura");
 
         return respuestaLCFactDetDTO;
+    }
+    
+//    @Asynchronous
+    @WebMethod(operationName = "cargarFactura")
+//    public Future<RespuestaCargaFacturaDTO cargarFactura(@WebParam(name = "facturas") PeticionCargaFacturaDTO peticion) {
+    public RespuestaCargaFacturaDTO cargarFactura(@WebParam(name = "facturas") PeticionCargaFacturaDTO peticion) {
+        ManejadorLog manejarLog = new ManejadorLog();
+        RespuestaCargaFacturaDTO respuesta = new RespuestaCargaFacturaDTO();
+        manejarLog.debug("Entro a metodo : GestorLineaCapturaWS-consultaLCGeneradas");
+        try {
+            respuesta.setProceso(new Proceso("0","EXITOSO"));
+            respuesta.setUuid(UUIDFrisa.regresaUUID());
+                    
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        manejarLog.debug("Termina metodo : GestorLineaCapturaWS-consultaLCGeneradas");
+        return (respuesta);
+//        return new AsyncResult<RespuestaCargaFacturaDTO>(respuesta);
+    }
+    
+//    // Operación asíncrona con retorno de llamada.
+//       Future<RespuestaCargaFacturaDTO> cargarFacturaPrimavera(PeticionCargaFacturaDTO peticion, 
+//              AsyncHandler<Score> handler){
+//           RespuestaCargaFacturaDTO respuesta = new RespuestaCargaFacturaDTO();
+//           
+//           return new AsyncResult<RespuestaCargaFacturaDTO>(respuesta);
+//       }
+    @WebMethod (operationName = "consultarEstadoCarga")
+    public RespuestaCargaFacturaDTO consultarEstadoCarga(@WebParam(name = "uuid") String pUUID) {
+        ManejadorLog manejarLog = new ManejadorLog();
+        RespuestaCargaFacturaDTO respuesta = new RespuestaCargaFacturaDTO();
+        manejarLog.debug("Entro a metodo : GestorLineaCapturaWS-consultarEstadoCarga");
+        try {
+            respuesta.setProceso(new Proceso("0","EXITOSO"));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        manejarLog.debug("Termina metodo : GestorLineaCapturaWS-consultarEstadoCarga");
+        return respuesta;
     }
 
 }

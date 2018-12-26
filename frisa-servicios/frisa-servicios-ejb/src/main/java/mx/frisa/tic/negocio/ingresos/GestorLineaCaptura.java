@@ -13,6 +13,8 @@ import mx.frisa.tic.datos.dto.ingresos.LCFactDetDTO;
 
 import mx.frisa.tic.datos.dto.ingresos.LineaCapturaDTO;
 import mx.frisa.tic.datos.dto.ingresos.LineaCaptutaFacturaDTO;
+import mx.frisa.tic.datos.dto.ingresos.PeticionCargaFacturaDTO;
+import mx.frisa.tic.datos.dto.ingresos.RespuestaCargaFacturaDTO;
 
 /**
  *
@@ -27,37 +29,35 @@ public interface GestorLineaCaptura {
      * @return List<LineaCapturaDTO>
      */
     public List<LineaCapturaDTO> consultarLineaCaptura(LineaCapturaDTO lineaCaptura);
-    
+
     /**
      *
      * @param pLC
      * @return int
      */
     public int ejecutaCuentaFacturas(String pLC);
-  
-  
-    
+
     /**
      *
      * @param idBatch
      * @return
      */
     public int ejecutaBatchLC(String idBatch);
-    
+
     /**
-     * 
+     *
      * @param detalleLineaCaptura
      * @return
-    */
+     */
     public List<DetalleLineaCapturaDTO> consultarDetalleLineaCaptura(DetalleLineaCapturaDTO detalleLineaCaptura);
-    
+
     /**
      *
      * @param facturaERP
      * @return
      */
     public List<DetalleLCPagosDTO> consultarLCPagos(String facturaERP);
-    
+
     /**
      *
      * @param lcFactDetalle
@@ -65,16 +65,13 @@ public interface GestorLineaCaptura {
      */
     public List<LCFactDetDTO> consultarLCFactDet(LCFactDetDTO lcFactDetalle);
 
-
-    
-     /**
+    /**
      *
      * @param idBatch
      * @return String
      */
-
     public String consultaBatchFinalizado(String idBatch);
-    
+
     /**
      *
      * @param idBatch
@@ -82,5 +79,5 @@ public interface GestorLineaCaptura {
      */
     public List<LineaCaptutaFacturaDTO> consultaLCGeneradas(String idBatch);
 
-
+    public RespuestaCargaFacturaDTO cargarFacturas(PeticionCargaFacturaDTO peticion);
 }

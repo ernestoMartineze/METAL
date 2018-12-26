@@ -7,6 +7,7 @@ package mx.frisa.tic.negocio.remoto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+import java.util.Date;
 
 /**
  *
@@ -21,18 +22,32 @@ public class G_1 {
     @JacksonXmlProperty(localName = "STMT_TO_DATE")
     private String STMT_TO_DATE;
     
+    @JacksonXmlProperty(localName = "STATEMENT_HEADER_ID")
+    private String STATEMENT_HEADER_ID;
+    @JacksonXmlProperty(localName = "STATEMENT_LINE_ID")
+    private String STATEMENT_LINE_ID;
+    @JacksonXmlProperty(localName = "BANK_ACCOUNT_ID")
+    private String BANK_ACCOUNT_ID;
     @JacksonXmlProperty(localName = "STATEMENT_NUMBER")
-    private String STATEMENT_NUMBER;
+    private String STATEMENT_NUMBER; //Fecha
+    @JacksonXmlProperty(localName = "REFERENCIA")
+    private String REFERENCIA;
+    
+    
+    @JacksonXmlProperty(localName = "DESCRIP_LOOKUP")
+    private String DESCRIP_LOOKUP;
     
    
     @JacksonXmlProperty(localName = "LINE_NUMBER")
     private String LINE_NUMBER;
-    @JacksonXmlProperty(localName = "RECON_STATUS")
-    private String RECON_STATUS;
+    @JacksonXmlProperty(localName = "ADDITIONAL_ENTRY_INFORMATION")
+    private String ADDITIONAL_ENTRY_INFORMATION;
     @JacksonXmlProperty(localName = "TRX_TYPE")
     private String TRX_TYPE;
-    @JacksonXmlProperty(localName = "FLOW_INDICATOR")
-    private String FLOW_INDICATOR;
+    @JacksonXmlProperty(localName = "PROYECTO_PROPIETARIO")
+    private String PROYECTO_PROPIETARIO;
+    @JacksonXmlProperty(localName = "LINEA_CAPTURA")
+    private String LINEA_CAPTURA;
     @JacksonXmlProperty(localName = "AMOUNT")
     private String AMOUNT;
     @JacksonXmlProperty(localName = "TRX_CODE")
@@ -66,12 +81,52 @@ public class G_1 {
         this.STMT_TO_DATE = STMT_TO_DATE;
     }
 
+    public String getSTATEMENT_HEADER_ID() {
+        return STATEMENT_HEADER_ID;
+    }
+
+    public void setSTATEMENT_HEADER_ID(String STATEMENT_HEADER_ID) {
+        this.STATEMENT_HEADER_ID = STATEMENT_HEADER_ID;
+    }
+
+    public String getSTATEMENT_LINE_ID() {
+        return STATEMENT_LINE_ID;
+    }
+
+    public void setSTATEMENT_LINE_ID(String STATEMENT_LINE_ID) {
+        this.STATEMENT_LINE_ID = STATEMENT_LINE_ID;
+    }
+
+    public String getBANK_ACCOUNT_ID() {
+        return BANK_ACCOUNT_ID;
+    }
+
+    public void setBANK_ACCOUNT_ID(String BANK_ACCOUNT_ID) {
+        this.BANK_ACCOUNT_ID = BANK_ACCOUNT_ID;
+    }
+
     public String getSTATEMENT_NUMBER() {
         return STATEMENT_NUMBER;
     }
 
     public void setSTATEMENT_NUMBER(String STATEMENT_NUMBER) {
         this.STATEMENT_NUMBER = STATEMENT_NUMBER;
+    }
+
+    public String getREFERENCIA() {
+        return REFERENCIA;
+    }
+
+    public void setREFERENCIA(String REFERENCIA) {
+        this.REFERENCIA = REFERENCIA;
+    }
+
+    public String getDESCRIP_LOOKUP() {
+        return DESCRIP_LOOKUP;
+    }
+
+    public void setDESCRIP_LOOKUP(String DESCRIP_LOOKUP) {
+        this.DESCRIP_LOOKUP = DESCRIP_LOOKUP;
     }
 
     public String getLINE_NUMBER() {
@@ -82,12 +137,12 @@ public class G_1 {
         this.LINE_NUMBER = LINE_NUMBER;
     }
 
-    public String getRECON_STATUS() {
-        return RECON_STATUS;
+    public String getADDITIONAL_ENTRY_INFORMATION() {
+        return ADDITIONAL_ENTRY_INFORMATION;
     }
 
-    public void setRECON_STATUS(String RECON_STATUS) {
-        this.RECON_STATUS = RECON_STATUS;
+    public void setADDITIONAL_ENTRY_INFORMATION(String ADDITIONAL_ENTRY_INFORMATION) {
+        this.ADDITIONAL_ENTRY_INFORMATION = ADDITIONAL_ENTRY_INFORMATION;
     }
 
     public String getTRX_TYPE() {
@@ -98,12 +153,20 @@ public class G_1 {
         this.TRX_TYPE = TRX_TYPE;
     }
 
-    public String getFLOW_INDICATOR() {
-        return FLOW_INDICATOR;
+    public String getPROYECTO_PROPIETARIO() {
+        return PROYECTO_PROPIETARIO;
     }
 
-    public void setFLOW_INDICATOR(String FLOW_INDICATOR) {
-        this.FLOW_INDICATOR = FLOW_INDICATOR;
+    public void setPROYECTO_PROPIETARIO(String PROYECTO_PROPIETARIO) {
+        this.PROYECTO_PROPIETARIO = PROYECTO_PROPIETARIO;
+    }
+
+    public String getLINEA_CAPTURA() {
+        return LINEA_CAPTURA;
+    }
+
+    public void setLINEA_CAPTURA(String LINEA_CAPTURA) {
+        this.LINEA_CAPTURA = LINEA_CAPTURA;
     }
 
     public String getAMOUNT() {
@@ -129,6 +192,17 @@ public class G_1 {
     public void setCURRENCY_CODE(String CURRENCY_CODE) {
         this.CURRENCY_CODE = CURRENCY_CODE;
     }
+
+    public String getIdEstadoCuenta() {
+        return idEstadoCuenta;
+    }
+
+    public void setIdEstadoCuenta(String idEstadoCuenta) {
+        this.idEstadoCuenta = idEstadoCuenta;
+    }
+    
+    
+
 
     
 }

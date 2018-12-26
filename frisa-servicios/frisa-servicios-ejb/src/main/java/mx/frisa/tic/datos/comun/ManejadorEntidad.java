@@ -18,7 +18,6 @@
  */
 package mx.frisa.tic.datos.comun;
 
-
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -55,6 +54,12 @@ public class ManejadorEntidad<T> {
         return et;
     }
 
+    protected java.sql.Connection getConexionJPA() {
+        em.getTransaction().begin();
+        java.sql.Connection connection = em.unwrap(java.sql.Connection.class); // unwraps the Connection class.
+        return connection;
+    }
+
     public void instanciarManager() {
         ManejadorLog manejadorLog = new ManejadorLog();
         try {
@@ -63,12 +68,9 @@ public class ManejadorEntidad<T> {
 
         } catch (Exception e) {
             manejadorLog.debug("##### error instanciarManager :" + e.getMessage());
-     
+
         }
     }
-    
-    
-      
 
     public void iniciaTransaccion(EntityTransaction et) {
         et.begin();
@@ -89,7 +91,7 @@ public class ManejadorEntidad<T> {
             manejadorLog.debug("cerrarManager OK");
         } catch (Exception e) {
             manejadorLog.debug("##### error instanciarManager :" + e.getMessage());
-   
+
         }
     }
 
@@ -138,14 +140,14 @@ public class ManejadorEntidad<T> {
 
         return bExito;
     }
-    
+
     public Boolean elimina(T entity) {
         Boolean bExito = true;
         ManejadorLog manejadorLog = new ManejadorLog();
         instanciarManager();
         EntityManager em = this.getEntityManager();
         try {
-             em.getTransaction().begin();
+            em.getTransaction().begin();
             em.remove(em.merge(entity));
             em.getTransaction().commit();
             bExito = true;

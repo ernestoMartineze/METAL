@@ -153,6 +153,7 @@ public class AdaptadorWS {
         pPayload = pPayload.replaceAll(parametro, valor);
         return pPayload;
     }
+
     
     private String inyectaParametroNota(String pPayload, String nombreParametro, String valor) {
         pPayload = pPayload.replaceAll(nombreParametro, valor);
@@ -170,6 +171,7 @@ public class AdaptadorWS {
 
         String outputString = "";
         String wsURL = PropiedadesFRISA.recuperaPropiedadBackend("edoCuentaServiceEndPoint");
+
         String xmlInput
                 = this.getCadenaDesdeB64(PropiedadesFRISA.recuperaPropiedadBackend("edoCuentaServicePayload"));
 
@@ -186,6 +188,9 @@ public class AdaptadorWS {
                     
             
             outputString = enviarMsg(wsURL, SOAPAction, xmlInput, PropiedadesFRISA.recuperaPropiedadBackend("edoCuentaServiceContentType"));
+
+//            outputString = consumir.getEstadosCuenta(fechaInicio, fechaFinal, noCuenta);
+
             //Parse the String output to a org.w3c.dom.Document and be able to reach every node with the org.w3c.dom API.
             Document document = parseXmlFile(outputString);
             NodeList nodeLst = document.getElementsByTagName("ns2:reportBytes");
@@ -525,8 +530,10 @@ public class AdaptadorWS {
         AdaptadorWS adaptadorWS
                 = new AdaptadorWS();
         try {
+
 //            RespuestaERP_Edo_Cuenta respuesta = adaptadorWS.getERP_ejecutarReporteEdoCuenta("11-05-2018", "11-05-2018", "0521838999");
             RespuestaMetodoPagoDTO respuesta = adaptadorWS.getERP_obtenerMetodosCargaInicial();
+
             System.out.println(respuesta.getProceso());
 
 //            List<PagoDTO> pagosDto = new ArrayList<PagoDTO>();
@@ -539,6 +546,7 @@ public class AdaptadorWS {
             e.printStackTrace();
         }
     }
+
     
     public RespuestaERP_Nota_Credito getERP_ejecutarNotaCredito(CreditMemoDTO nota) throws MalformedURLException,
             IOException,

@@ -32,7 +32,7 @@ public class GestorFacturasWS {
     /**
      * Web service operation
      *
-     * @param lcFactura
+     * @param lineaCaptura
      * @return
      */
     @WebMethod(operationName = "consultarLCFacturas")
@@ -41,7 +41,7 @@ public class GestorFacturasWS {
         RespuestaLCFacturaDTO respuestaLCFactura = new RespuestaLCFacturaDTO();
         ManejadorLog manejarLog = new ManejadorLog();
         List<LCFacturaDTO> lcFacturas = new ArrayList<>();
-        manejarLog.debug("Entro a metodo : GestorLineaCapturaWS-consultarLineaCaptura");
+        manejarLog.debug("Entro a metodo : GestorFacturasWS-consultarLCFacturas");
         try {
             lcFacturas = gestorFacturasBean.consultarLCFactura(lineaCaptura);
             respuestaLCFactura.setProceso(new Proceso("0", "Exitoso"));
@@ -50,7 +50,7 @@ public class GestorFacturasWS {
             ex.printStackTrace();
             respuestaLCFactura.setProceso(new Proceso("1", ex.getLocalizedMessage()));
         }
-        manejarLog.debug("Termina metodo : GestorLineaCapturaWS-consultarLineaCaptura");
+        manejarLog.debug("Termina metodo : GestorFacturasWS-consultarLCFacturas");
 
         return respuestaLCFactura;
     }
