@@ -203,6 +203,7 @@ public class ProcedimientoAlmacendo extends ManejadorEntidad {
             procedure.registerStoredProcedureParameter("pORG_ID", String.class, ParameterMode.OUT);
             procedure.registerStoredProcedureParameter("pCUSTOMER_ID", String.class, ParameterMode.OUT);
             procedure.registerStoredProcedureParameter("pSITE_ID", String.class, ParameterMode.OUT);
+            procedure.registerStoredProcedureParameter("pBillCustomerName", String.class, ParameterMode.OUT);
 
             procedure.setParameter("PBANK_ACCOUNT_NUM", lineaEstadoCuenta.getBankAccountNum()+"");
             procedure.setParameter("pTRX_DATE", lineaEstadoCuenta.getTrxDate());
@@ -238,6 +239,7 @@ public class ProcedimientoAlmacendo extends ManejadorEntidad {
             String pORG_ID = (String) procedure.getOutputParameterValue("pORG_ID");
             String pCUSTOMER_ID = (String) procedure.getOutputParameterValue("pCUSTOMER_ID");
             String pSITE_ID = (String) procedure.getOutputParameterValue("pSITE_ID");
+            String pBillCustomerName = (String) procedure.getOutputParameterValue("pBillCustomerName");
             lineaEstadoCuenta.setIdEdoCta(BigDecimal.valueOf(Long.valueOf(idEdoCuenta+"")));
             manejadorLog.debug("pORG_ID : " + pORG_ID);
             manejadorLog.debug("pIdPago : " + pIdPago);
@@ -253,6 +255,7 @@ public class ProcedimientoAlmacendo extends ManejadorEntidad {
             respuestaDTO.setIdPago(pIdPago);
             respuestaDTO.setOrgID(pORG_ID);
             respuestaDTO.setCustomerID(pCUSTOMER_ID);
+            respuestaDTO.setSiteID(pSITE_ID);
             respuestaDTO.setSiteID(pSITE_ID);
             
         } catch (Exception ex) {

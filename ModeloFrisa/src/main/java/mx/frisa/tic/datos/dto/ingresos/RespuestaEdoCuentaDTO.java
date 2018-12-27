@@ -17,18 +17,27 @@ public class RespuestaEdoCuentaDTO {
     String orgID;
     String siteID;
     String customerID;
+    String billCustomerName;
     
 
     public RespuestaEdoCuentaDTO() {
     }
-    
-    
 
     public RespuestaEdoCuentaDTO(String proceso, String idError, String descripcionError) {
         this.proceso = proceso;
         this.idError = idError;
         this.descripcionError = descripcionError;
     }
+
+    public String getBillCustomerName() {
+        return billCustomerName;
+    }
+
+    public void setBillCustomerName(String billCustomerName) {
+        this.billCustomerName = billCustomerName;
+    }
+    
+    
 
     public String getProceso() {
         return proceso;

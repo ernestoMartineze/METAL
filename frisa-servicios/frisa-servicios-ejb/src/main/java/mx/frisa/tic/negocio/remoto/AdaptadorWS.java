@@ -169,7 +169,6 @@ public class AdaptadorWS {
 
         String SOAPAction
                 = PropiedadesFRISA.recuperaPropiedadBackend("edoCuentaServiceSoapAction");
-        
 
         //Ready with sending the request.
         try {
@@ -177,8 +176,7 @@ public class AdaptadorWS {
             xmlInput = inyectaParametro(xmlInput, "FROM-DATE", fechaInicio);
             xmlInput = inyectaParametro(xmlInput, "TO-DATE", fechaFinal);
             xmlInput = inyectaParametro(xmlInput, "BANK_ACCOUNT_NUMBER", noCuenta);
-                    
-            
+
             outputString = enviarMsg(wsURL, SOAPAction, xmlInput, PropiedadesFRISA.recuperaPropiedadBackend("edoCuentaServiceContentType"));
 //            outputString = consumir.getEstadosCuenta(fechaInicio, fechaFinal, noCuenta);
             //Parse the String output to a org.w3c.dom.Document and be able to reach every node with the org.w3c.dom API.
@@ -190,7 +188,6 @@ public class AdaptadorWS {
             respestaWS.setDATA_DSObject((DATA_DS) respuestaXMLaPOJO(getCadenaDesdeB64(resultado), new DATA_DS()));
 
 //            respestaWS.setDATA_DSObject((DATA_DS) respuestaXMLaPOJO(getCadenaDesdeB64(outputString), new DATA_DS()));
-
         } catch (Exception ex) {
             ex.printStackTrace();
             respestaWS.setProceso(new Proceso("100", "ERROR"));
@@ -228,21 +225,20 @@ public class AdaptadorWS {
             Document document = parseXmlFile(outputString);
             NodeList nodeLst = document.getElementsByTagName("ns2:reportBytes");
             String resultado = nodeLst.item(0).getTextContent();
-            
 
             //Write the SOAP message formatted to the console.
             MetodoPagoOBI metodos = new MetodoPagoOBI();
             metodos = (MetodoPagoOBI) respuestaXMLaPOJO(getCadenaDesdeB64(resultado), metodos);
-            respestaWS.setProceso(new Proceso ("0","EXITOSO"));
+            respestaWS.setProceso(new Proceso("0", "EXITOSO"));
             respestaWS.setMetodosPago(metodos);
-            
 
         } catch (Exception ex) {
             ex.printStackTrace();
-            respestaWS.setProceso(new Proceso ("100",ex.getLocalizedMessage()));
+            respestaWS.setProceso(new Proceso("100", ex.getLocalizedMessage()));
         }
         return respestaWS;
     }
+
     public RespuestaDTO getERP_obtenerMetodosPorID(String pORG_ID, String pCuentaBancaria) throws MalformedURLException,
             IOException,
             ParserConfigurationException,
@@ -265,14 +261,13 @@ public class AdaptadorWS {
         try {
             //Read the response.
 //            ConsumirBI consumir = new ConsumirBI();
-            
+
             outputString = enviarMsg(wsURL, SOAPAction, xmlInput, PropiedadesFRISA.recuperaPropiedadBackend("GetMetodosPagoTodosServiceContentType"));
 //            outputString = consumir.getMetodosPago(pORG_ID, pCuentaBancaria, "NO ES CARGA INICIAL");
             //Parse the String output to a org.w3c.dom.Document and be able to reach every node with the org.w3c.dom API.
             Document document = parseXmlFile(outputString);
             NodeList nodeLst = document.getElementsByTagName("ns2:reportBytes");
             String resultado = nodeLst.item(0).getTextContent();
-            
 
             //Write the SOAP message formatted to the console.
             respestaWS.setIdError("0");
@@ -298,46 +293,44 @@ public class AdaptadorWS {
         String wsURL = PropiedadesFRISA.recuperaPropiedadBackend("encabezadoFacturaServiceEndPoint");
 
 //        for (PagoDTO pagoDto : pagos) {
-            String xmlInput 
-                    = this.getCadenaDesdeB64(PropiedadesFRISA.recuperaPropiedadBackend("encabezadoFacturaServicePayload"));
-           
-            xmlInput = inyectaParametro(xmlInput, "com:Amount", pagos.getMonto());
-            xmlInput = inyectaParametro(xmlInput, "com:Comments", "");
-            xmlInput = inyectaParametro(xmlInput, "currencyCode", pagos.getMoneda());
-            xmlInput = inyectaParametro(xmlInput, "com:CurrencyCode", pagos.getMoneda());
-            xmlInput = inyectaParametro(xmlInput, "com:GlDate", "2018-12-17");
-            xmlInput = inyectaParametro(xmlInput, "com:OrgId", pagos.getUnidadNegocio());
-            xmlInput = inyectaParametro(xmlInput, "com:ReceiptDate", "2018-12-17");
-            xmlInput = inyectaParametro(xmlInput, "com:ReceiptMethodId", pagos.getMetodoId());
-            xmlInput = inyectaParametro(xmlInput, "com:ReceiptNumber", pagos.getNroRecibo());
+        String xmlInput
+                = this.getCadenaDesdeB64(PropiedadesFRISA.recuperaPropiedadBackend("encabezadoFacturaServicePayload"));
 
-            String SOAPAction
-                    = PropiedadesFRISA.recuperaPropiedadBackend("encabezadoFacturaServiceSoapAction");
+        xmlInput = inyectaParametro(xmlInput, "com:Amount", pagos.getMonto());
+        xmlInput = inyectaParametro(xmlInput, "com:Comments", "");
+        xmlInput = inyectaParametro(xmlInput, "currencyCode", pagos.getMoneda());
+        xmlInput = inyectaParametro(xmlInput, "com:CurrencyCode", pagos.getMoneda());
+        xmlInput = inyectaParametro(xmlInput, "com:GlDate", "2018-12-17");
+        xmlInput = inyectaParametro(xmlInput, "com:OrgId", pagos.getUnidadNegocio());
+        xmlInput = inyectaParametro(xmlInput, "com:ReceiptDate", "2018-12-17");
+        xmlInput = inyectaParametro(xmlInput, "com:ReceiptMethodId", pagos.getMetodoId());
+        xmlInput = inyectaParametro(xmlInput, "com:ReceiptNumber", pagos.getNroRecibo());
 
-            //Ready with sending the request.
-            try {
-                //Read the response.
-                outputString = enviarMsg(wsURL, SOAPAction, xmlInput, PropiedadesFRISA.recuperaPropiedadBackend("encabezadoFacturaServiceContentType"));
-                //Parse the String output to a org.w3c.dom.Document and be able to reach every node with the org.w3c.dom API.
-                if (outputString.indexOf("=_Part") > -1) {
-                    outputString = outputString.substring(outputString.indexOf("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>"), outputString.lastIndexOf("</env:Envelope>") + 15);
-                }
-                System.out.println("outputString : " + outputString);
+        String SOAPAction
+                = PropiedadesFRISA.recuperaPropiedadBackend("encabezadoFacturaServiceSoapAction");
 
-                Document document = parseXmlFile(outputString);
-                NodeList nodeLst = document.getElementsByTagName("ns3:CashReceiptId");
-                String resultado = nodeLst.item(0).getTextContent();
-
-                
-                respestaWS.setNumeroRecibo(resultado);
-                System.out.println("resultado : " + resultado);
-            } catch (Exception ex) {
-                ex.printStackTrace();
-                respestaWS.setProceso(new Proceso("100", "ERROR"));
+        //Ready with sending the request.
+        try {
+            //Read the response.
+            outputString = enviarMsg(wsURL, SOAPAction, xmlInput, PropiedadesFRISA.recuperaPropiedadBackend("encabezadoFacturaServiceContentType"));
+            //Parse the String output to a org.w3c.dom.Document and be able to reach every node with the org.w3c.dom API.
+            if (outputString.indexOf("=_Part") > -1) {
+                outputString = outputString.substring(outputString.indexOf("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>"), outputString.lastIndexOf("</env:Envelope>") + 15);
             }
+            System.out.println("outputString : " + outputString);
+
+            Document document = parseXmlFile(outputString);
+            NodeList nodeLst = document.getElementsByTagName("ns3:CashReceiptId");
+            String resultado = nodeLst.item(0).getTextContent();
+
+            respestaWS.setNumeroRecibo(resultado);
+            System.out.println("resultado : " + resultado);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            respestaWS.setProceso(new Proceso("100", "ERROR"));
+        }
 
 //        }
-
         return respestaWS;
     }
 
@@ -354,6 +347,9 @@ public class AdaptadorWS {
         String wsURL = PropiedadesFRISA.recuperaPropiedadBackend("aplicaPagoFacturaServiceEndPoint");
 
         for (PagoDTO pagoDto : pagos) {
+            if (pagoDto.getNroRecibo().equals("")) {
+                continue;
+            }
             String xmlInput
                     = this.getCadenaDesdeB64(PropiedadesFRISA.recuperaPropiedadBackend("aplicaPagoFacturaServicePayload"));
 
@@ -362,8 +358,16 @@ public class AdaptadorWS {
 
             //Ready with sending the request.
             try {
-                //Read the response.
+                //Inyectar parametros a la peticion
+                xmlInput = inyectaParametro(xmlInput, "com:AmountApplied", pagoDto.getMonto());
+                xmlInput = inyectaParametro(xmlInput, "com:ReceiptNumber", pagoDto.getNroRecibo());
+                xmlInput = inyectaParametro(xmlInput, "com:TransactionNumber", pagoDto.getIdCabeceraRecibo() + "");
+                xmlInput = inyectaParametro(xmlInput, "com:TransactionDate", pagoDto.getFechaCreacion());
+                xmlInput = inyectaParametro(xmlInput, "com:CustomerName", pagoDto.getBillCustomerName());
+                xmlInput = inyectaParametro(xmlInput, "com:ApplicationDate", pagoDto.getFechaAplicacion());
+                xmlInput = inyectaParametro(xmlInput, "com:AccountingDate", pagoDto.getFechaContable());
 
+                //Read the response.
                 outputString = enviarMsg(wsURL, SOAPAction, xmlInput, PropiedadesFRISA.recuperaPropiedadBackend("aplicaPagoFacturaServiceContentType"));
 
                 //Parse the String output to a org.w3c.dom.Document and be able to reach every node with the org.w3c.dom API.
@@ -417,7 +421,7 @@ public class AdaptadorWS {
         String responseString = "";
         String wsURL = endPoint;
 //        URL url = new URL(wsURL);
-        
+
         URL url = new URL(null, wsURL, new sun.net.www.protocol.https.Handler());
         URLConnection connection = url.openConnection();
         HttpsURLConnection httpConn = (HttpsURLConnection) connection;
@@ -457,8 +461,8 @@ public class AdaptadorWS {
             while ((responseString = in.readLine()) != null) {
                 outputString = outputString + responseString;
             }
-            System.out.println ("Respuesta :");
-            System.out.println (outputString);
+            System.out.println("Respuesta :");
+            System.out.println(outputString);
         } catch (Exception ex) {
             ex.printStackTrace();
             respestaWS.setProceso(new Proceso("100", "ERROR"));
@@ -476,7 +480,7 @@ public class AdaptadorWS {
     private String getCadenaDesdeB64(String cadB64) {
         String str = new String(DatatypeConverter.parseBase64Binary(cadB64));
 //          String res = DatatypeConverter.printBase64Binary(str.getBytes());
-          System.out.println(str);
+        System.out.println(str);
         return str;
     }
 

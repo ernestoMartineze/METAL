@@ -11,7 +11,7 @@ import javax.ejb.EJB;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
-import javax.xml.ws.AsyncHandler;
+import mx.frisa.tic.datos.comun.DAO;
 import mx.frisa.tic.datos.dto.ingresos.DetalleLCPagosDTO;
 import mx.frisa.tic.datos.dto.ingresos.DetalleLineaCapturaDTO;
 
@@ -28,6 +28,7 @@ import mx.frisa.tic.datos.dto.ingresos.RespuestaDetalleLineaCapturaDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaLCFactDetDTO;
 
 import mx.frisa.tic.datos.dto.ingresos.RespuestaLineaCapturaDTO;
+import mx.frisa.tic.datos.entidades.XxfrtCargaFactura;
 import mx.frisa.tic.negocio.ingresos.GestorLineaCaptura;
 import mx.frisa.tic.negocio.utils.ManejadorLog;
 import mx.frisa.tic.utils.UUIDFrisa;
@@ -232,6 +233,7 @@ public class GestorLineaCapturaWS {
         manejarLog.debug("Entro a metodo : GestorLineaCapturaWS-consultaLCGeneradas");
         try {
             respuesta.setProceso(new Proceso("0","EXITOSO"));
+            DAO<XxfrtCargaFactura> cargaFacturaDao = new DAO(XxfrtCargaFactura.class);
             respuesta.setUuid(UUIDFrisa.regresaUUID());
                     
         } catch (Exception ex) {
