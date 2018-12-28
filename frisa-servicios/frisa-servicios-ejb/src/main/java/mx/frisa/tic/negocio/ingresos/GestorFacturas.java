@@ -8,6 +8,7 @@ package mx.frisa.tic.negocio.ingresos;
 import java.util.List;
 import javax.ejb.Local;
 import mx.frisa.tic.datos.dto.ingresos.LCFacturaDTO;
+import mx.frisa.tic.datos.dto.ingresos.ProcessInterfaceLineDTO;
 
 /**
  *
@@ -22,4 +23,11 @@ public interface GestorFacturas {
      * @return
      */
     public List<LCFacturaDTO> consultarLCFactura(String idLineaCaptura);
+    
+    /**
+     *
+     * @param idBatch
+     * @return
+     */
+    public List<ProcessInterfaceLineDTO> consultarDetalleFactura(String idBatch);
 }

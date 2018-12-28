@@ -11,8 +11,11 @@ import javax.ejb.EJB;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
+import mx.frisa.tic.datos.dto.ingresos.InterfaceLineDTO;
 import mx.frisa.tic.datos.dto.ingresos.LCFacturaDTO;
 import mx.frisa.tic.datos.dto.ingresos.Proceso;
+import mx.frisa.tic.datos.dto.ingresos.ProcessInterfaceLineDTO;
+import mx.frisa.tic.datos.dto.ingresos.RespuestaDetalleFacturaDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaLCFacturaDTO;
 import mx.frisa.tic.negocio.ingresos.GestorFacturasBean;
 import mx.frisa.tic.negocio.utils.ManejadorLog;
@@ -53,6 +56,32 @@ public class GestorFacturasWS {
         manejarLog.debug("Termina metodo : GestorFacturasWS-consultarLCFacturas");
 
         return respuestaLCFactura;
+    }
+    
+    /**
+     * Web service operation
+     *
+     * @param idBatch
+     * @return
+     */
+    @WebMethod(operationName = "consultaDetalleFacturas")
+    public RespuestaDetalleFacturaDTO consultaDetalleFacturas(@WebParam(name = "idBatch") String idBatch) {
+
+        RespuestaDetalleFacturaDTO respuestaDetalleFactura = new RespuestaDetalleFacturaDTO();
+        ManejadorLog manejarLog = new ManejadorLog();
+        List<ProcessInterfaceLineDTO> processInterfaceLine = new ArrayList<>();
+        manejarLog.debug("Entro a metodo : GestorFacturasWS-consultarLCFacturas");
+        try {
+            processInterfaceLine = gestorFacturasBean.consultarDetalleFactura(idBatch);
+            respuestaDetalleFactura.setProceso(new Proceso("0", "Exitoso"));
+            respuestaDetalleFactura.setProcessInterfaceLine(processInterfaceLine);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            respuestaDetalleFactura.setProceso(new Proceso("1", ex.getLocalizedMessage()));
+        }
+        manejarLog.debug("Termina metodo : GestorFacturasWS-consultarLCFacturas");
+
+        return respuestaDetalleFactura;
     }
     
 }
