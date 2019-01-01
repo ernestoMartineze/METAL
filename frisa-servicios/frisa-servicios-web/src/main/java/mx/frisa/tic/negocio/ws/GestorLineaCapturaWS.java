@@ -7,14 +7,10 @@ package mx.frisa.tic.negocio.ws;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Future;
-import javax.ejb.AsyncResult;
-import javax.ejb.Asynchronous;
 import javax.ejb.EJB;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
-import javax.xml.ws.AsyncHandler;
 import mx.frisa.tic.datos.dto.ingresos.DetalleLCPagosDTO;
 import mx.frisa.tic.datos.dto.ingresos.DetalleLineaCapturaDTO;
 
@@ -265,5 +261,22 @@ public class GestorLineaCapturaWS {
         manejarLog.debug("Termina metodo : GestorLineaCapturaWS-consultarEstadoCarga");
         return respuesta;
     }
-
+    
+    @WebMethod(operationName = "consultaBatchFinalizado")
+    public String consultaBatchLC(@WebParam(name = "idBatch") String idBatch) {
+        ManejadorLog manejarLog = new ManejadorLog();
+        manejarLog.debug("Entro a metodo : GestorLineaCapturaWS-consultaBatchFinalizado");
+        String respuesta = "SIN RESPUESTA";
+        try {
+            respuesta = gestorLineaCapturaBean.consultaBatchFinalizado(idBatch);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        manejarLog.debug("Termina metodo : GestorLineaCapturaWS-consultaBatchFinalizado");
+        return respuesta;
+    }
+    
+    
+    
+    
 }
