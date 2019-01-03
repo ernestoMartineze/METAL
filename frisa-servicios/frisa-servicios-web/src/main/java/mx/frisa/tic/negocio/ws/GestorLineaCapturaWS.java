@@ -5,7 +5,9 @@
  */
 package mx.frisa.tic.negocio.ws;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.jws.WebMethod;
@@ -224,33 +226,28 @@ public class GestorLineaCapturaWS {
         return respuestaLCFactDetDTO;
     }
     
+    
 //    @Asynchronous
     @WebMethod(operationName = "cargarFactura")
 //    public Future<RespuestaCargaFacturaDTO cargarFactura(@WebParam(name = "facturas") PeticionCargaFacturaDTO peticion) {
     public RespuestaCargaFacturaDTO cargarFactura(@WebParam(name = "facturas") PeticionCargaFacturaDTO peticion) {
         ManejadorLog manejarLog = new ManejadorLog();
         RespuestaCargaFacturaDTO respuesta = new RespuestaCargaFacturaDTO();
-        manejarLog.debug("Entro a metodo : GestorLineaCapturaWS-consultaLCGeneradas");
+        manejarLog.debug("Entro a metodo : GestorLineaCapturaWS-cargarFactura");
         try {
-            respuesta.setProceso(new Proceso("0","EXITOSO"));
-            DAO<XxfrtCargaFactura> cargaFacturaDao = new DAO(XxfrtCargaFactura.class);
-            respuesta.setUuid(UUIDFrisa.regresaUUID());
-                    
+            
+            respuesta  = gestorLineaCapturaBean.cargarFacturas(peticion);
+            
         } catch (Exception ex) {
             ex.printStackTrace();
+            respuesta.setProceso(new Proceso ("ERROR",ex.getMessage()));
         }
-        manejarLog.debug("Termina metodo : GestorLineaCapturaWS-consultaLCGeneradas");
+        manejarLog.debug("Termina metodo : GestorLineaCapturaWS-cargarFactura");
         return (respuesta);
 //        return new AsyncResult<RespuestaCargaFacturaDTO>(respuesta);
     }
     
-//    // Operación asíncrona con retorno de llamada.
-//       Future<RespuestaCargaFacturaDTO> cargarFacturaPrimavera(PeticionCargaFacturaDTO peticion, 
-//              AsyncHandler<Score> handler){
-//           RespuestaCargaFacturaDTO respuesta = new RespuestaCargaFacturaDTO();
-//           
-//           return new AsyncResult<RespuestaCargaFacturaDTO>(respuesta);
-//       }
+
     @WebMethod (operationName = "consultarEstadoCarga")
     public RespuestaCargaFacturaDTO consultarEstadoCarga(@WebParam(name = "uuid") String pUUID) {
         ManejadorLog manejarLog = new ManejadorLog();

@@ -293,15 +293,15 @@ public class DAO<T> extends ManejadorEntidad implements Serializable {
         EntityManager em = this.getEntityManager();
         try {
             System.out.println("ENTIDAD: " + entity);
-//            em.getTransaction().begin();
+            em.getTransaction().begin();
             em.persist(entity);
-//            em.getTransaction().commit();
+            em.getTransaction().commit();
 
             validarErrorInsert(false);
         } catch (Exception e) {
             e.printStackTrace();
             validarErrorInsert(true);
-//            em.getTransaction().rollback();
+            em.getTransaction().rollback();
         } finally {
             em.close();
             this.cerrarManager();

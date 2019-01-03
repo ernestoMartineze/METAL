@@ -24,8 +24,8 @@ public class GestorEstadoDeCuentaWS {
     // "Web Service > Add Operation"
 
     @WebMethod(operationName = "procesarEstadosCuenta")
-    public RespuestaDTO procesarEstadosCuenta(@WebParam(name = "fechaInicio") String fechaInicio, @WebParam(name = "fechaFinal") String fechaFinal, @WebParam(name = "numeroCuenta") String numeroCuenta) {
-        return ejbRefEdoCuenta.procesarEstadosCuenta(fechaInicio, fechaFinal, numeroCuenta);
+    public RespuestaDTO procesarEstadosCuenta(@WebParam(name = "fechaInicio") String fechaInicio, @WebParam(name = "fechaFinal") String fechaFinal) {
+        return ejbRefEdoCuenta.procesarEstadosCuenta(fechaInicio, fechaFinal, "");
     }
     
 }

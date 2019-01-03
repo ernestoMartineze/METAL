@@ -6,6 +6,7 @@
 package mx.frisa.tic.datos.entidades;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -55,6 +56,9 @@ public class XxfrtCargaFactura implements Serializable {
     @Size(max = 1)
     @Column(name = "ESTATUS")
     private String estatus;
+    
+    @Column(name = "IDBATCH")
+    private BigInteger idBatch;
 
     public XxfrtCargaFactura() {
     }
@@ -123,9 +127,17 @@ public class XxfrtCargaFactura implements Serializable {
         return true;
     }
 
+    public BigInteger getIdBatch() {
+        return idBatch;
+    }
+
+    public void setIdBatch(BigInteger idBatch) {
+        this.idBatch = idBatch;
+    }
+
     @Override
     public String toString() {
         return "mx.frisa.tic.datos.entidades.XxfrtCargaFactura[ uuid=" + uuid + " ]";
     }
-    
+
 }
