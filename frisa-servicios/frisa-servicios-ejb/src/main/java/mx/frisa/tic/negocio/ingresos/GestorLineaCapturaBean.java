@@ -4,12 +4,18 @@
  */
 package mx.frisa.tic.negocio.ingresos;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import mx.frisa.tic.datos.comun.DAO;
@@ -31,6 +37,8 @@ import mx.frisa.tic.datos.entidades.XxfrLineaCaptura;
 import mx.frisa.tic.datos.entidades.XxfrtCargaFactura;
 import mx.frisa.tic.datos.entidades.XxfrvConsultaLc;
 import mx.frisa.tic.datos.entidades.XxfrvConsultaLcPagos;
+import mx.frisa.tic.negocio.utils.PropiedadesFRISA;
+import mx.frisa.tic.utils.ManejadorArchivo;
 import mx.frisa.tic.utils.UUIDFrisa;
 
 /**
@@ -281,17 +289,25 @@ public class GestorLineaCapturaBean implements GestorLineaCaptura {
         RespuestaCargaFacturaDTO respuesta = new RespuestaCargaFacturaDTO();
 
         try {
+
             XxfrtCargaFactura cargaArchivo = new XxfrtCargaFactura();
             cargaArchivo.setEstatus("R"); //Registrada
             cargaArchivo.setFechaRegistro(new Date()); //Registrada
             cargaArchivo.setIdBatch(BigInteger.valueOf(Long.valueOf(peticion.getIdBatch())));
             cargaArchivo.setDatosrecibidos(peticion.getFacturas());
             cargaArchivo.setUuid(UUIDFrisa.regresaUUID());
+
+            String dtosJSON = lanzarCargaFacturas(peticion.getFacturas(), cargaArchivo.getUuid());
+            String restaAlProcesarJSON = procesarJSONcomoFactura(dtosJSON);
+
+            cargaArchivo.setDatosjson(dtosJSON);
             DAO<XxfrtCargaFactura> cargaFacturaDao = new DAO(XxfrtCargaFactura.class);
             cargaFacturaDao.registra(cargaArchivo);
             respuesta.setUuid(cargaArchivo.getUuid());
-            if (lanzarCargaFacturas(peticion.getFacturas(), cargaArchivo.getUuid())) {
+
+            if (!dtosJSON.equals("")) {
                 respuesta.setProceso(new Proceso("0", "EXITOSO"));
+                
             } else {
                 respuesta.setProceso(new Proceso("1", "ERROR"));
             }
@@ -303,15 +319,22 @@ public class GestorLineaCapturaBean implements GestorLineaCaptura {
         return respuesta;
     }
 
-    private Boolean lanzarCargaFacturas(String datosFactura, String uuid) {
-        Boolean termino = false;
-        try (FileOutputStream archivoZip = new FileOutputStream(uuid + ".zip");) {
-            byte contenido[] = datosFactura.getBytes();
-            archivoZip.write(contenido, 0, contenido.length);
-            termino = true;
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        return termino;
+    private String lanzarCargaFacturas(String datosFactura, String uuid) throws IOException {
+
+        String pathZip = PropiedadesFRISA.recuperaPropiedadBackend("pathFileSysteZIP");
+        String dirArchivoZip = pathZip + uuid;
+        String nombreArchivoZip = pathZip + uuid + "/" + uuid + ".zip";
+
+        String facturasJson = ManejadorArchivo.procesarArchivoZip(dirArchivoZip, nombreArchivoZip, datosFactura);
+        return facturasJson;
     }
+
+    private String procesarJSONcomoFactura(String dtosJSON) {
+        String respuesta="";
+        
+        
+        
+        return respuesta;
+    }
+
 }

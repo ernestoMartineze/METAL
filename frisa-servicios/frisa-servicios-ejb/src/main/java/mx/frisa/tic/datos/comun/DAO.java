@@ -164,7 +164,7 @@ public class DAO<T> extends ManejadorEntidad implements Serializable {
         ManejadorLog manejadorLog = new ManejadorLog();
         try {
             manejadorLog.debug("Consultado por : " + pQueryNamed);
-
+            
             Query q = em.createNamedQuery(pQueryNamed);
             
             int tamanioListaParametros = plistaParametros.size();
@@ -315,12 +315,12 @@ public class DAO<T> extends ManejadorEntidad implements Serializable {
     public Boolean actualizaQuery(String scriptQuery) {
         this.instanciarManager();
         EntityManager em = this.getEntityManager();
-        this.iniciaTransaccion(em.getTransaction());
+        
         Boolean termina = false;
         ManejadorLog manejadorLog = new ManejadorLog();
         try {
             manejadorLog.debug("actualizaQuery: " + scriptQuery);
-
+            this.iniciaTransaccion(em.getTransaction());
             em.createNativeQuery(scriptQuery);
             manejadorLog.debug("createNativeQuery");
             em.getTransaction().commit();
