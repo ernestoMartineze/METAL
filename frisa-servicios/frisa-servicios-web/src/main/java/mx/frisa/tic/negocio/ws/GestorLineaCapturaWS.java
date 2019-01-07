@@ -30,7 +30,6 @@ import mx.frisa.tic.datos.dto.ingresos.RespuestaDetalleLineaCapturaDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaLCFactDetDTO;
 
 import mx.frisa.tic.datos.dto.ingresos.RespuestaLineaCapturaDTO;
-import mx.frisa.tic.datos.entidades.XxfrtCargaFactura;
 import mx.frisa.tic.negocio.ingresos.GestorLineaCaptura;
 import mx.frisa.tic.negocio.utils.ManejadorLog;
 import mx.frisa.tic.utils.UUIDFrisa;
