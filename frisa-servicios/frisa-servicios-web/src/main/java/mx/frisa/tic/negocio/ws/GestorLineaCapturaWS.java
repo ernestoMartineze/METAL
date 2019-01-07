@@ -44,7 +44,7 @@ public class GestorLineaCapturaWS {
     @EJB(beanName = "GestorLineaCapturaBean")
     private GestorLineaCaptura gestorLineaCapturaBean;
 
-   
+
 
 
     /**
@@ -92,7 +92,7 @@ public class GestorLineaCapturaWS {
 
         return numeroFacturas;
     }
-    
+
     /**
      * Web service operation
      * @param idBatch
@@ -111,7 +111,7 @@ public class GestorLineaCapturaWS {
         manejarLog.debug("Termina metodo : GestorLineaCapturaWS-ejecutaBatchLC");
         return respuesta;
     }
-    
+
     /**
      * Web service operation
      */
@@ -145,7 +145,7 @@ public class GestorLineaCapturaWS {
         return respuestaDetalleLineaCapturaDto;
 
     }
-    
+
     /**
      * Web service operation
      * @param idBatch
@@ -173,7 +173,7 @@ public class GestorLineaCapturaWS {
     @WebMethod(operationName = "consultaDetalleLCPagos")
     public RespuestaDetalleLCPagosDTO consultaDetalleLCPagos(@WebParam(name = "facturaERP") String facturaERP) {
 
-        
+
         RespuestaDetalleLCPagosDTO respuestaDetalleLCPagosDTO = new RespuestaDetalleLCPagosDTO();
         ManejadorLog manejarLog = new ManejadorLog();
         List<DetalleLCPagosDTO> detalleLCPagosDTO = new ArrayList<>();
@@ -224,8 +224,8 @@ public class GestorLineaCapturaWS {
 
         return respuestaLCFactDetDTO;
     }
-    
-    
+
+
 //    @Asynchronous
     @WebMethod(operationName = "cargarFactura")
 //    public Future<RespuestaCargaFacturaDTO cargarFactura(@WebParam(name = "facturas") PeticionCargaFacturaDTO peticion) {
@@ -234,9 +234,9 @@ public class GestorLineaCapturaWS {
         RespuestaCargaFacturaDTO respuesta = new RespuestaCargaFacturaDTO();
         manejarLog.debug("Entro a metodo : GestorLineaCapturaWS-cargarFactura");
         try {
-            
+
             respuesta  = gestorLineaCapturaBean.cargarFacturas(peticion);
-            
+
         } catch (Exception ex) {
             ex.printStackTrace();
             respuesta.setProceso(new Proceso ("ERROR",ex.getMessage()));
@@ -245,7 +245,7 @@ public class GestorLineaCapturaWS {
         return (respuesta);
 //        return new AsyncResult<RespuestaCargaFacturaDTO>(respuesta);
     }
-    
+
 
     @WebMethod (operationName = "consultarEstadoCarga")
     public RespuestaCargaFacturaDTO consultarEstadoCarga(@WebParam(name = "uuid") String pUUID) {
@@ -260,5 +260,22 @@ public class GestorLineaCapturaWS {
         manejarLog.debug("Termina metodo : GestorLineaCapturaWS-consultarEstadoCarga");
         return respuesta;
     }
+
+    @WebMethod(operationName = "consultaBatchFinalizado")
+    public String consultaBatchLC(@WebParam(name = "idBatch") String idBatch) {
+        ManejadorLog manejarLog = new ManejadorLog();
+        manejarLog.debug("Entro a metodo : GestorLineaCapturaWS-consultaBatchFinalizado");
+        String respuesta = "SIN RESPUESTA";
+        try {
+            respuesta = gestorLineaCapturaBean.consultaBatchFinalizado(idBatch);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        manejarLog.debug("Termina metodo : GestorLineaCapturaWS-consultaBatchFinalizado");
+        return respuesta;
+    }
+
+
+
 
 }

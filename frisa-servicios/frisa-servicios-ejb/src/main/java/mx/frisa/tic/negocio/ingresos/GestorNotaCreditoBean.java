@@ -5,13 +5,18 @@
  */
 package mx.frisa.tic.negocio.ingresos;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.List;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
-import mx.frisa.tic.datos.dto.ingresos.NotaCreditoDTO;
-import mx.frisa.tic.datos.dto.ingresos.RespuestaDTO;
-import mx.frisa.tic.datos.enums.ProcesoEnum;
+import mx.frisa.tic.datos.comun.DAO;
+import mx.frisa.tic.datos.dto.ingresos.CreditMemoDTO;
+import mx.frisa.tic.datos.dto.ingresos.NotaCreditoListaDTO;
+import mx.frisa.tic.datos.dto.ingresos.Proceso;
+import mx.frisa.tic.datos.entidades.XxfrtNotaCredito;
+import mx.frisa.tic.negocio.remoto.AdaptadorWS;
+import mx.frisa.tic.negocio.remoto.RespuestaERP_Nota_Credito;
 import mx.frisa.tic.negocio.utils.ManejadorLog;
 
 /**
@@ -23,25 +28,77 @@ import mx.frisa.tic.negocio.utils.ManejadorLog;
 public class GestorNotaCreditoBean implements GestorNotaCreditoBeanLocal {
 
     @Override
-    public RespuestaDTO cargarNota(NotaCreditoDTO notaCredito) {
-
-        RespuestaDTO respuesta = new RespuestaDTO();
+    public RespuestaERP_Nota_Credito cargarNota(NotaCreditoListaDTO notaCredito) {
+        RespuestaERP_Nota_Credito respuesta = new RespuestaERP_Nota_Credito();
         ManejadorLog manejaLog = new ManejadorLog();
-        manejaLog.debug("Datos de entrada " + notaCredito);
-        try {
-
-            if (notaCredito.isValido()) {
-                respuesta.setIdError("0");
-                respuesta.setDescripcionError("");
-                respuesta.setProceso(ProcesoEnum.EXITOSO.toString());
-            } else {
-                respuesta.setIdError("1");
-                respuesta.setDescripcionError(notaCredito.getMsgError());
-                respuesta.setProceso(ProcesoEnum.ERROR.toString());
+        AdaptadorWS adapter = new AdaptadorWS();
+        XxfrtNotaCredito notaPersist = new XxfrtNotaCredito(); 
+        DAO<XxfrtNotaCredito> notaCreditoDAO = new DAO(XxfrtNotaCredito.class);
+        List<CreditMemoDTO> notas = notaCredito.getNotas();
+        for(CreditMemoDTO nota : notas){
+            try{
+                respuesta = adapter.getERP_ejecutarNotaCredito(nota);
+//                respuesta.setProceso(new Proceso("000","REGISTRADO EN ERP"));
             }
-
-        } catch (Exception ex) {
-            Logger.getLogger(GestorNotaCreditoBean.class.getName()).log(Level.SEVERE, null, ex);
+            catch(Exception Ex){
+                //manejaLog.error(Ex, this.getClass());
+                //Ex.printStackTrace();
+                respuesta.setProceso(new Proceso("100","ERROR - No se puede enlazar con el WS: getERP_ejecutarNotaCredito"));
+            }
+            try{
+                System.out.println("Persistiendo objeto en BD: Nota de Crédito");
+                notaPersist.setBatchsourcesequenceid(BigInteger.valueOf(nota.getBatchSourceSequenceId().intValue()));
+                notaPersist.setCustomertransactionid(BigInteger.valueOf(nota.getCustomerTransactionId().intValue()));
+                notaPersist.setComments(nota.getComments());
+                notaPersist.setCustomertrxtypesequenceid(BigInteger.valueOf(nota.getCustomerTransactionTypeSequenceId().intValue()));
+                notaPersist.setCustomerreference(nota.getCustomerReference());
+                notaPersist.setCustomerreferencedate(nota.getCustomerReferenceDate().toGregorianCalendar().getTime());
+                notaPersist.setDocumentsequenceid(BigInteger.valueOf(nota.getDocumentSequenceId().intValue()));
+                notaPersist.setDocumentsequencevalue(BigInteger.valueOf(nota.getDocumentSequenceValue().intValue()));
+                notaPersist.setFreightamount(BigDecimal.valueOf(nota.getFreightAmount().getValue().intValue()));
+                notaPersist.setFreightpercent(BigDecimal.valueOf(nota.getFreightPercent().intValue()));
+                notaPersist.setGldate(nota.getGlDate().toGregorianCalendar().getTime());
+                notaPersist.setInternalnotes(nota.getInternalNotes());
+                notaPersist.setLineamount(BigDecimal.valueOf(nota.getLineAmount().getValue().intValue()));
+                notaPersist.setLinepercent(BigDecimal.valueOf(nota.getLinePercent().intValue()));
+                notaPersist.setMethodforrules(nota.getMethodForRules());
+                notaPersist.setPreviouscustomertransactionid(BigInteger.valueOf(nota.getPreviousCustomerTransactionId().intValue()));
+                notaPersist.setReasoncode(nota.getReasonCode());
+                notaPersist.setSplitterminationmethod(nota.getSplitTerminationMethod());
+                notaPersist.setTransactiondate(nota.getTransactionDate().toGregorianCalendar().getTime());
+                notaPersist.setCurrencycode(nota.getCurrencyCode());
+                notaPersist.setTransactionnumber(nota.getTransactionNumber());
+                notaPersist.setTaxamount(BigDecimal.valueOf(nota.getTaxAmount().getValue().intValue()));
+                notaPersist.setTaxpercent(BigDecimal.valueOf(nota.getTaxPercent().intValue()));
+                notaPersist.setComputetax(nota.getComputeTax());
+                notaPersist.setCustomertrxid(BigDecimal.valueOf(nota.getCreditMemoFLEXVA().getCustomerTrxId().intValue()));
+                notaPersist.setProyecto(nota.getCreditMemoFLEXVA().getProyecto());
+                notaPersist.setEstatusdecfdi(nota.getCreditMemoFLEXVA().getEstatusDeCfdi());
+                notaPersist.setUsodecfdi(nota.getCreditMemoFLEXVA().getUsoDeCfdi());
+                notaPersist.setFormadepago(nota.getCreditMemoFLEXVA().getFormaDePago());
+                notaPersist.setFoliodecancelacionsat(nota.getCreditMemoFLEXVA().getFolioDeCancelaciOnSat());
+                notaPersist.setUuiddocumentorelacionado(nota.getCreditMemoFLEXVA().getUuidDocumentoRelacionado());
+                notaPersist.setNumerodecontrato(nota.getCreditMemoFLEXVA().getUuidDocumentoRelacionado());
+                notaPersist.setLineadecaptura(nota.getCreditMemoFLEXVA().getLineaDeCaptura());
+                notaPersist.setSerie(nota.getCreditMemoFLEXVA().getSerie());
+                notaPersist.setFolio(nota.getCreditMemoFLEXVA().getFolio());
+                notaPersist.setFechadeprescripcion(nota.getCreditMemoFLEXVA().getFechaDePrescripcion());
+                notaPersist.setFechatimbrado(nota.getCreditMemoFLEXVA().getFechaTimbrado());
+                notaPersist.setAddendaid(nota.getCreditMemoFLEXVA().getAddendaid());
+                notaPersist.setFlexContext(nota.getCreditMemoFLEXVA().getFLEXContext());
+                notaPersist.setFlexContextDisplayvalue(nota.getCreditMemoFLEXVA().getFLEXContextDisplayValue());
+                notaPersist.setFlexNumofsegments(BigInteger.valueOf(nota.getCreditMemoFLEXVA().getFLEXNumOfSegments()));
+//                notaPersist.setIdNotacredito(BigDecimal.ZERO);
+                if(respuesta.getProceso().getDescripcion().contains("Eror en WS ERP")){
+                     notaPersist.setEstadoErp("300");
+                }
+                notaCreditoDAO.registra(notaPersist);
+            }
+            catch(Exception Ex){
+                manejaLog.error(Ex, this.getClass());
+                Ex.printStackTrace();
+                respuesta.setProceso(new Proceso("100","ERROR - La información de la nota de crédito no se puede guardar en la base de datos"));
+            }
         }
         return respuesta;
     }

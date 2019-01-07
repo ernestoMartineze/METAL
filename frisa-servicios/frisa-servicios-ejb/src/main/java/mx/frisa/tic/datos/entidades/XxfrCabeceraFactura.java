@@ -204,8 +204,8 @@ public class XxfrCabeceraFactura implements Serializable {
     private String idbatch;
     @OneToMany(mappedBy = "idfacturaprimavera", fetch = FetchType.LAZY)
     private List<XxfrLineaCapturaFactura> xxfrLineaCapturaFacturaList;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "xxfrCabeceraFactura", fetch = FetchType.LAZY)
-    private XxfrtNotaCredito xxfrtNotaCredito;
+    /*@OneToOne(cascade = CascadeType.ALL, mappedBy = "xxfrCabeceraFactura", fetch = FetchType.LAZY)
+    private XxfrtNotaCredito xxfrtNotaCredito;*/
 
     public XxfrCabeceraFactura() {
     }
@@ -527,13 +527,13 @@ public class XxfrCabeceraFactura implements Serializable {
         this.xxfrLineaCapturaFacturaList = xxfrLineaCapturaFacturaList;
     }
 
-    public XxfrtNotaCredito getXxfrtNotaCredito() {
+    /*public XxfrtNotaCredito getXxfrtNotaCredito() {
         return xxfrtNotaCredito;
     }
 
     public void setXxfrtNotaCredito(XxfrtNotaCredito xxfrtNotaCredito) {
         this.xxfrtNotaCredito = xxfrtNotaCredito;
-    }
+    }*/
 
     @Override
     public int hashCode() {
