@@ -25,6 +25,10 @@ public class PagoDTO {
     protected String FechaCreacion;
     protected String CustomerId;
     protected String SiteId;
+    protected String BillCustomerName;
+    protected String fechaAplicacion;
+    protected String fechaContable;
+    
 
     public PagoDTO() {
     }
@@ -42,6 +46,30 @@ public class PagoDTO {
         this.FechaCreacion = FechaCreacion;
         this.CustomerId = CustomerId;
         this.SiteId = SiteId;
+    }
+
+    public String getBillCustomerName() {
+        return BillCustomerName;
+    }
+
+    public void setBillCustomerName(String BillCustomerName) {
+        this.BillCustomerName = BillCustomerName;
+    }
+
+    public String getFechaAplicacion() {
+        return fechaAplicacion;
+    }
+
+    public void setFechaAplicacion(String fechaAplicacion) {
+        this.fechaAplicacion = fechaAplicacion;
+    }
+
+    public String getFechaContable() {
+        return fechaContable;
+    }
+
+    public void setFechaContable(String fechaContable) {
+        this.fechaContable = fechaContable;
     }
 
     

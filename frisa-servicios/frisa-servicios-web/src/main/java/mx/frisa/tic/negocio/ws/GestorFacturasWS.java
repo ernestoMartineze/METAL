@@ -11,7 +11,6 @@ import javax.ejb.EJB;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
-import mx.frisa.tic.datos.dto.ingresos.InterfaceLineDTO;
 import mx.frisa.tic.datos.dto.ingresos.LCFacturaDTO;
 import mx.frisa.tic.datos.dto.ingresos.Proceso;
 import mx.frisa.tic.datos.dto.ingresos.ProcessInterfaceLineDTO;
@@ -29,7 +28,7 @@ public class GestorFacturasWS {
 
     @EJB(beanName = "GestorFacturasBean")
     private GestorFacturasBean gestorFacturasBean;
-    
+
     // "Web Service > Add Operation"
 
     /**
@@ -57,7 +56,7 @@ public class GestorFacturasWS {
 
         return respuestaLCFactura;
     }
-    
+
     /**
      * Web service operation
      *
@@ -83,5 +82,5 @@ public class GestorFacturasWS {
 
         return respuestaDetalleFactura;
     }
-    
+
 }
