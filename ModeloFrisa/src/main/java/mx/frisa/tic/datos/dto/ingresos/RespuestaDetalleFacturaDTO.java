@@ -15,7 +15,7 @@ public class RespuestaDetalleFacturaDTO {
     
     public static final long serialVersionUID = 0L;
     private Proceso proceso;
-    private List<ProcessInterfaceLineDTO> processInterfaceLine;
+    private List<FacturaLCDTO> factura_LC;
 
     public Proceso getProceso() {
         return proceso;
@@ -25,12 +25,12 @@ public class RespuestaDetalleFacturaDTO {
         this.proceso = proceso;
     }
 
-    public List<ProcessInterfaceLineDTO> getProcessInterfaceLine() {
-        return processInterfaceLine;
+    public List<FacturaLCDTO> getFactura_LC() {
+        return factura_LC;
     }
 
-    public void setProcessInterfaceLine(List<ProcessInterfaceLineDTO> processInterfaceLine) {
-        this.processInterfaceLine = processInterfaceLine;
+    public void setFactura_LC(List<FacturaLCDTO> factura_LC) {
+        this.factura_LC = factura_LC;
     }
     
 }

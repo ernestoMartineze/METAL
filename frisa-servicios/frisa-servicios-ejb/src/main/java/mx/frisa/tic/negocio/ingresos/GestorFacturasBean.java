@@ -5,19 +5,20 @@
  */
 package mx.frisa.tic.negocio.ingresos;
 
+import java.math.BigInteger;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import mx.frisa.tic.datos.comun.DAO;
 import mx.frisa.tic.datos.dto.comun.CatalogoParametroDTO;
-import mx.frisa.tic.datos.dto.ingresos.InterfaceLineDTO;
+import mx.frisa.tic.datos.dto.ingresos.Cabecera_FacturaDTO;
+import mx.frisa.tic.datos.dto.ingresos.FacturaLCDTO;
 import mx.frisa.tic.datos.dto.ingresos.LCFacturaDTO;
-import mx.frisa.tic.datos.dto.ingresos.ProcessInterfaceLineDTO;
-import mx.frisa.tic.datos.dto.ingresos.TransactionInterfaceHeaderDffDTO;
-import mx.frisa.tic.datos.dto.ingresos.TransactionInterfaceLineDffDTO;
-import mx.frisa.tic.datos.dto.ingresos.TransactionLineDffDTO;
+import mx.frisa.tic.datos.dto.ingresos.LineaDTO;
+import mx.frisa.tic.datos.dto.ingresos.Lineas_FacturaDTO;
 import mx.frisa.tic.datos.entidades.XxfrDetalleFactura;
 import mx.frisa.tic.datos.entidades.XxfrvConsultaLcFactura;
 
@@ -63,78 +64,95 @@ public class GestorFacturasBean implements GestorFacturas{
     }
 
     @Override
-    public List<ProcessInterfaceLineDTO> consultarDetalleFactura(String idBatch) {
+    public List<FacturaLCDTO> consultarDetalleFactura(String idBatch) {
         DAO<XxfrDetalleFactura> detalleFacturaDAO = new DAO(XxfrDetalleFactura.class);
-        List<ProcessInterfaceLineDTO> processInterfaceLineDTO = new ArrayList<ProcessInterfaceLineDTO>();
+        List<FacturaLCDTO> Factura_LC = new ArrayList<FacturaLCDTO>();
         List<XxfrDetalleFactura> detalleFacturas = new ArrayList<>();
         List<CatalogoParametroDTO> parametros =new ArrayList<>();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         parametros.add(new CatalogoParametroDTO("idbatch",idBatch,"CADENA"));
         detalleFacturas = detalleFacturaDAO.consultaQueryByParameters("XxfrDetalleFactura.findByIdbatch",parametros);
-        System.out.println("busqueda = "+detalleFacturas.size());
+//        System.out.println("busqueda = "+detalleFacturas.size());
         for (XxfrDetalleFactura detalleFactura : detalleFacturas) {
-            
-            TransactionInterfaceLineDffDTO TransactionInterfaceLineDff = new TransactionInterfaceLineDffDTO();
-            TransactionInterfaceLineDff.setOrderLineNumber(""+detalleFactura.getOrderlinenumber());
-            TransactionInterfaceLineDff.setOrderNumber(detalleFactura.getOrdernumber());
-            TransactionInterfaceLineDff.set_FLEX_NumOfSegments(detalleFactura.getFlexNumofsegments());
-            TransactionInterfaceLineDff.set__FLEX_Context(detalleFactura.getFlexContext());
-            TransactionInterfaceLineDff.set__FLEX_Context_DisplayValue(detalleFactura.getFlexContextDisplayvalue());
-            
-            TransactionLineDffDTO TransactionLineDff = new TransactionLineDffDTO();
-            TransactionLineDff.setDescripciOnAdicional1(detalleFactura.getDescripcionadicional1());
-            TransactionLineDff.setDescripciOnAdicional2(detalleFactura.getDescripcionadicional2());
-            TransactionLineDff.setDescripciOnAdicional3(detalleFactura.getDescripcionadicional3());
-            TransactionLineDff.setDescripciOnAdicional4(detalleFactura.getDescripcionadicional4());
-            TransactionLineDff.setDescripciOnAdicional5(detalleFactura.getDescripcionadicional5());
-            TransactionLineDff.setPeriodoDeFacturacionDesde(formatter.format(detalleFactura.getPeriododefacturaciondesde()));
-            TransactionLineDff.setPeriodoDeFacturacionHasta(formatter.format(detalleFactura.getPeriododefacturacionhasta()));
-            TransactionLineDff.setSiguienteFechaDeExigibilidad(formatter.format(detalleFactura.getSiguientefechadeexigibilidad()));
-            TransactionLineDff.set__FLEX_Context(detalleFactura.getFlexContext1());
-            
-            TransactionInterfaceHeaderDffDTO TransactionInterfaceHeaderDff = new TransactionInterfaceHeaderDffDTO();
-            TransactionInterfaceHeaderDff.setAddendaid(detalleFactura.getAddendaid());
-            TransactionInterfaceHeaderDff.setFacturaUnifier(detalleFactura.getFacturaunifier());
-            TransactionInterfaceHeaderDff.setFolio(detalleFactura.getFolio());
-            TransactionInterfaceHeaderDff.setLineaDeCaptura(detalleFactura.getLineadecaptura());
-            TransactionInterfaceHeaderDff.setNUmeroDeLocal(detalleFactura.getNumerodelocal());
-            TransactionInterfaceHeaderDff.setNumeroDeContrato(""+detalleFactura.getNumerodecontrato());
-            TransactionInterfaceHeaderDff.setProyecto(""+detalleFactura.getProyecto());
-            TransactionInterfaceHeaderDff.setSerie(detalleFactura.getSerie());
-            TransactionInterfaceHeaderDff.set__FLEX_Context(detalleFactura.getFlexContext2());
-            
-            InterfaceLineDTO interfaceLine = new InterfaceLineDTO();
-            interfaceLine.setOrgId(detalleFactura.getOrgid());
-            interfaceLine.setBatchSourceName(detalleFactura.getBatchsourcename());
-            interfaceLine.setBillCustomerAccountNumber(detalleFactura.getBillcustomeraccountnumber());
-            interfaceLine.setBillCustomerSiteNumber(""+detalleFactura.getBillcustomersitenumber());
-            interfaceLine.setCurrencyCode(detalleFactura.getCurrencycode());
-            interfaceLine.setCustomerTrxTypeName(detalleFactura.getCustomertrxtypename());
-            interfaceLine.setDescription(detalleFactura.getDescription());
-            interfaceLine.setGlDate(formatter.format(detalleFactura.getGldate()));
-            interfaceLine.setLineType(detalleFactura.getLinetype());
-            interfaceLine.setMemoLineName(detalleFactura.getMemolinename());
-            interfaceLine.setOrigSystemBatchName(detalleFactura.getOrigsystembatchname());
-            interfaceLine.setPaymentTermsName(detalleFactura.getPaymenttermsname());
-            interfaceLine.setQuantity(""+detalleFactura.getQuantity());
-            interfaceLine.setTaxCode(detalleFactura.getTaxcode());
-            interfaceLine.setTrxDate(formatter.format(detalleFactura.getTrxdate()));
-            interfaceLine.setUnitSellingPrice(detalleFactura.getUnitsellingprice());
-            interfaceLine.setUnitSellingPriceObjectCurrencyCode(detalleFactura.getCurrencycode());
-            interfaceLine.setTransactionInterfaceHeaderDff(TransactionInterfaceHeaderDff);
-            interfaceLine.setTransactionInterfaceLineDff(TransactionInterfaceLineDff);
-            interfaceLine.setTransactionLineDff(TransactionLineDff);
-            
-            ProcessInterfaceLineDTO processInterfaceLine = new ProcessInterfaceLineDTO();
-            processInterfaceLine.setInterfaceLine(interfaceLine);
-            
-            System.out.println(processInterfaceLine.getInterfaceLine().getBatchSourceName());
+//            System.out.println("detalleFactura.getDescripmanual()"+ detalleFactura.getDescripmanual());
+            LineaDTO linea = new LineaDTO();
+            linea.setDescripManual(detalleFactura.getDescripmanual());
+            linea.setDescripOrigen(detalleFactura.getDescriporigen());
+            linea.setDescripciOnAdicional1(detalleFactura.getDescripcionadicional1());
+            linea.setDescripciOnAdicional2(detalleFactura.getDescripcionadicional2());
+            linea.setDescripciOnAdicional3(detalleFactura.getDescripcionadicional3());
+            linea.setDescripciOnAdicional4(detalleFactura.getDescripcionadicional4());
+            linea.setDescripciOnAdicional5(detalleFactura.getDescripcionadicional5());
+            linea.setLineType(detalleFactura.getLinetype());
+            linea.setMemoLineName(detalleFactura.getMemolinename());
+            linea.setMontoIVALinea(detalleFactura.getMontoivalinea());
+            linea.setMontotaxCodeRetIva(detalleFactura.getMontotaxcoderetiva());
+            linea.setMontotaxCodoRetISR(detalleFactura.getMontotaxcodoretisr());
+            linea.setOrderLineNumber(detalleFactura.getOrderlinenumber());
+            linea.setOrderNumber(detalleFactura.getOrdernumber());
+            linea.setPeriodoDeFacturacionDesde(formatter.format(detalleFactura.getPeriododefacturaciondesde()));
+            linea.setPeriodoDeFacturacionHasta(formatter.format(detalleFactura.getPeriododefacturacionhasta()));
+            linea.setQuantity(detalleFactura.getQuantity());
+            linea.setSiguienteFechaDeExigibilidad(formatter.format(detalleFactura.getSiguientefechadeexigibilidad()));
+            linea.setTaxCode(detalleFactura.getTaxcode());
+            linea.setTaxCodeRetIva(detalleFactura.getTaxcoderetiva());
+            linea.setTaxCodoRetISR(detalleFactura.getTaxcodoretisr());
+            linea.setUnitSellingPrice(detalleFactura.getUnitsellingprice());
+            linea.setFlexContext(detalleFactura.getFlexContext());
+            linea.setFlexContextDisplayvalue(detalleFactura.getFlexContextDisplayvalue());
+            linea.setFlexNumofsegments(detalleFactura.getFlexNumofsegments());
             //Agregar los valores necesarios requeridos....
-            processInterfaceLineDTO.add(processInterfaceLine);
+            int indiceFactura = getIndiceFactura(detalleFactura.getFacturaunifier(), Factura_LC);
+            if(indiceFactura == -1){
+                Cabecera_FacturaDTO cabecera_Factura = new Cabecera_FacturaDTO();
+                cabecera_Factura.setAddendaid(detalleFactura.getAddendaid());
+                cabecera_Factura.setBillCustomerAccountNumber(detalleFactura.getBillcustomeraccountnumber());
+                cabecera_Factura.setBillCustomerSiteNumber(detalleFactura.getBillcustomersitenumber());
+                cabecera_Factura.setBusinessUnit(detalleFactura.getBusinessunit());
+                cabecera_Factura.setCurrencyCode(detalleFactura.getCurrencycode());
+                cabecera_Factura.setCustomerTrxTypeName(detalleFactura.getCustomertrxtypename());
+                cabecera_Factura.setDescription(detalleFactura.getDescription());
+                cabecera_Factura.setFacturaUnifier(detalleFactura.getFacturaunifier());
+                cabecera_Factura.setGlDate(formatter.format(detalleFactura.getGldate()));
+                cabecera_Factura.setLineaDeCaptura(detalleFactura.getLineadecaptura());
+                cabecera_Factura.setNumeroDeContrato(detalleFactura.getNumerodecontrato());
+                cabecera_Factura.setNumeroDeLocal(detalleFactura.getNumerodelocal());
+                cabecera_Factura.setOrgId(detalleFactura.getOrgid());
+                cabecera_Factura.setOrigSystemBatchName(detalleFactura.getOrigsystembatchname());
+                cabecera_Factura.setPaymentTermsName(detalleFactura.getPaymenttermsname());
+                cabecera_Factura.setProyecto(detalleFactura.getProyecto());
+                cabecera_Factura.setTrxDate(formatter.format(detalleFactura.getTrxdate()));
+                cabecera_Factura.setBatchSourceName(detalleFactura.getBatchsourcename());
+                cabecera_Factura.setFolio(detalleFactura.getFolio());
+                //Agregar los valores necesarios requeridos....
+                
+                Lineas_FacturaDTO lineas_Factura = new Lineas_FacturaDTO();
+                List<LineaDTO> lineas= new ArrayList<LineaDTO>();
+                lineas.add(linea);
+                lineas_Factura.setLineaDTO(lineas);
+                
+                FacturaLCDTO facturaLC = new FacturaLCDTO();
+                facturaLC.setCabecera_Factura(cabecera_Factura);
+                facturaLC.setLineas_Factura(lineas_Factura);
 
+                Factura_LC.add(facturaLC);
+            }else{
+                Factura_LC.get(indiceFactura).getLineas_Factura().getLineaDTO().add(linea);
+            }
         }
-        return processInterfaceLineDTO;
+        return Factura_LC;
     }
     
-    
+    public int getIndiceFactura(BigInteger idFacturaPrimavera, List<FacturaLCDTO> facturaLC){
+        int indice=-1;
+        int count=0;
+        for(FacturaLCDTO factura :facturaLC){
+            if(factura.getCabecera_Factura().getFacturaUnifier() == idFacturaPrimavera){
+                indice=count;
+            }
+            count++;
+        }
+        return indice;
+    }
+
 }
