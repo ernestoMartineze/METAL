@@ -4,8 +4,6 @@
  * and open the template in the editor.
  */
 package mx.frisa.tic.datos.dto.ingresos;
-
-import java.math.BigDecimal;
 import java.math.BigInteger;
 
 /**

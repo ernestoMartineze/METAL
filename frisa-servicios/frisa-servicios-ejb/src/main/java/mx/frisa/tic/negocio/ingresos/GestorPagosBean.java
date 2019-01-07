@@ -32,7 +32,7 @@ public class GestorPagosBean implements GestorPagos {
 
     @Override
     public RespuestaProcesaFacturasDTO generarPago(List<PagoDTO> pagos) {
-        RespuestaProcesaFacturasDTO respuesta= new RespuestaProcesaFacturasDTO();
+        RespuestaProcesaFacturasDTO respuesta = new RespuestaProcesaFacturasDTO();
         /*SECUENCIA DEL PROCESO 
         1. Consulta de estado de cuenta (ERP)
         2. Validar existencia de LC o Ref (BD)
@@ -57,77 +57,79 @@ public class GestorPagosBean implements GestorPagos {
         ManejadorLog log = new ManejadorLog();
         DateFormat dateFormat = new SimpleDateFormat("dd-mm-yyyy");
         DAO<XxfrvFactparapagos> consultaDAO = new DAO(XxfrvFactparapagos.class);
-        List<XxfrvFactparapagos> facturasDTO =  new ArrayList();
+        List<XxfrvFactparapagos> facturasDTO = new ArrayList();
         List<FacturaPagoDTO> facturasAlCobro = new ArrayList();
-        List<FacturaPagoDTO> facturas =  new ArrayList();
-        List<PagoDTO> response =  new ArrayList();
+        List<FacturaPagoDTO> facturas = new ArrayList();
+        List<PagoDTO> response = new ArrayList();
         StringBuilder query = new StringBuilder();
         StringBuilder paramLc = new StringBuilder();
         RespuestaProcesaFacturasDTO respuesta = new RespuestaProcesaFacturasDTO("ERROR", "100", "Existe error en proceso de facturas al cobro");
 
+        //REcorrer los pagos y solo generar facturas de aquellas que tienen LINEA DE CAPTURA y numero de recibo de pago
         for (PagoDTO pago : pagos) {
-            paramLc.append("'" + pago.getLineaCaptura() + "',");
-            
-        }
-
-       
-        query.append("SELECT x ")
-                .append(" FROM XxfrvFactparapagos x ")
-                .append("WHERE x.lineacaptura in (")
-                .append(paramLc.toString().substring(0, paramLc.toString().length() - 1))
-                .append(")");
-        try {
-            facturasDTO = consultaDAO.consultaQueryNativo(query.toString());
-        } catch (Exception ex) {
-            log.debug("Error al ejecutar el query: " + query.toString());
-            log.error(ex, GestorPagosBean.class);
-        }
-
-        for (XxfrvFactparapagos pago : facturasDTO) {
-            FacturaPagoDTO factura = new FacturaPagoDTO();
-            factura.setIdlinea(pago.getIdlinea());
-            factura.setBusinessunitname(pago.getBusinessunitname());
-            factura.setTransactionsource(pago.getTransactionsource());
-            factura.setTransactiontype(pago.getTransactiontype());
-            factura.setCreationdatetrx(dateFormat.format(pago.getCreationdatetrx()));
-            factura.setCreationdategl(dateFormat.format(pago.getCreationdategl()));
-            factura.setBilltoconsumername(pago.getBilltoconsumername());
-            factura.setBilltolocation(pago.getBilltolocation());
-            factura.setPaymenttermdays(pago.getPaymenttermdays());
-            factura.setGenerationtype(pago.getGenerationtype());
-            factura.setIdfacturaprimavera(pago.getIdfacturaprimavera());
-            factura.setLinenumber(pago.getLinenumber());
-            factura.setMemolinename(pago.getMemolinename());
-            factura.setDescription_origen(pago.getDescriptionOrigen());
-            factura.setQuantity(pago.getQuantity());
-            factura.setMontobrutolinea(pago.getMontobrutolinea());
-            factura.setClasificadordescuento(pago.getClasificadordescuento());
-            factura.setDescadicional1(pago.getDescadicional1());
-            factura.setDescadicional2(pago.getDescadicional2());
-            factura.setDescadicional3(pago.getDescadicional3());
-            factura.setDescadicional4(pago.getDescadicional4());
-            factura.setDescadicional5(pago.getDescadicional5());
-            factura.setFechadesde(dateFormat.format(pago.getFechadesde()));
-            factura.setFechahasta(dateFormat.format(pago.getFechahasta()));
-            factura.setDffheadercontext(pago.getDffheadercontext());
-            factura.setFechaexigibilidad(dateFormat.format(pago.getFechaexigibilidad()));
-            factura.setProjectid(pago.getProjectid());
-            factura.setFolioavisocargo(pago.getFolioavisocargo());
-            factura.setLocalnumber(pago.getLocalnumber());
-            factura.setLineacaptura(pago.getLineacaptura());
-            facturas.add(factura);
-            if (factura.getGenerationtype().equals("INVOICE_TO_COLLECTION")) {
-                facturasAlCobro.add(factura);
+            if (!pago.getNroRecibo().equals("")) {
+                paramLc.append("'" + pago.getLineaCaptura() + "',");
             }
         }
-        //TODO - Llamada al servicio de creación de facturas
-        AdaptadorWS adaptador = new AdaptadorWS();
-        if (facturasAlCobro.size() > 0) {
-            adaptador.getOBI_generarFacturaAlCobro(facturasAlCobro);
-        }
-        respuesta = new RespuestaProcesaFacturasDTO("EXITOSO", "0", "");
-        respuesta.setFacturas(facturas);
+        //En caso de no contar con ninguan linea de captura valida no debe generar alguna consulta
+        if (paramLc.length() != 0) {
+            query.append("SELECT x ")
+                    .append(" FROM XxfrvFactparapagos x ")
+                    .append("WHERE x.lineacaptura in (")
+                    .append(paramLc.toString().substring(0, paramLc.toString().length() - 1))
+                    .append(")");
+            try {
+                facturasDTO = consultaDAO.consultaQueryNativo(query.toString());
+            } catch (Exception ex) {
+                log.debug("Error al ejecutar el query: " + query.toString());
+                log.error(ex, GestorPagosBean.class);
+            }
 
+            for (XxfrvFactparapagos pago : facturasDTO) {
+                FacturaPagoDTO factura = new FacturaPagoDTO();
+                factura.setIdlinea(pago.getIdlinea());
+                factura.setBusinessunitname(pago.getBusinessunitname());
+                factura.setTransactionsource(pago.getTransactionsource());
+                factura.setTransactiontype(pago.getTransactiontype());
+                factura.setCreationdatetrx(dateFormat.format(pago.getCreationdatetrx()));
+                factura.setCreationdategl(dateFormat.format(pago.getCreationdategl()));
+                factura.setBilltoconsumername(pago.getBilltoconsumername());
+                factura.setBilltolocation(pago.getBilltolocation());
+                factura.setPaymenttermdays(pago.getPaymenttermdays());
+                factura.setGenerationtype(pago.getGenerationtype());
+                factura.setIdfacturaprimavera(pago.getIdfacturaprimavera());
+                factura.setLinenumber(pago.getLinenumber());
+                factura.setMemolinename(pago.getMemolinename());
+                factura.setDescription_origen(pago.getDescriptionOrigen());
+                factura.setQuantity(pago.getQuantity());
+                factura.setMontobrutolinea(pago.getMontobrutolinea());
+                factura.setClasificadordescuento(pago.getClasificadordescuento());
+                factura.setDescadicional1(pago.getDescadicional1());
+                factura.setDescadicional2(pago.getDescadicional2());
+                factura.setDescadicional3(pago.getDescadicional3());
+                factura.setDescadicional4(pago.getDescadicional4());
+                factura.setDescadicional5(pago.getDescadicional5());
+                factura.setFechadesde(dateFormat.format(pago.getFechadesde()));
+                factura.setFechahasta(dateFormat.format(pago.getFechahasta()));
+                factura.setDffheadercontext(pago.getDffheadercontext());
+                factura.setFechaexigibilidad(dateFormat.format(pago.getFechaexigibilidad()));
+                factura.setProjectid(pago.getProjectid());
+                factura.setFolioavisocargo(pago.getFolioavisocargo());
+                factura.setLocalnumber(pago.getLocalnumber());
+                factura.setLineacaptura(pago.getLineacaptura());
+                facturas.add(factura);
+                if (factura.getGenerationtype().equals("INVOICE_TO_COLLECTION")) {
+                    facturasAlCobro.add(factura);
+                }
+            }
+            //TODO - Llamada al servicio de creación de facturas
+            AdaptadorWS adaptador = new AdaptadorWS();
+            if (facturasAlCobro.size() > 0) {
+                adaptador.getOBI_generarFacturaAlCobro(facturasAlCobro);
+            }
+            respuesta = new RespuestaProcesaFacturasDTO("EXITOSO", "0", "");
+            respuesta.setFacturas(facturas);
+        }
         return respuesta;
     }
 }
