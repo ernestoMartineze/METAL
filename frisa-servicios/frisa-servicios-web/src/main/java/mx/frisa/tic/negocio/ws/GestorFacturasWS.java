@@ -7,12 +7,16 @@ package mx.frisa.tic.negocio.ws;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
-import mx.frisa.tic.datos.dto.ingresos.InterfaceLineDTO;
 import mx.frisa.tic.datos.dto.ingresos.LCFacturaDTO;
+import mx.frisa.tic.datos.dto.ingresos.Proceso;
+import mx.frisa.tic.datos.dto.ingresos.ProcessInterfaceLineDTO;
+import mx.frisa.tic.datos.dto.ingresos.RespuestaDetalleFacturaDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaLCFacturaDTO;
+import mx.frisa.tic.negocio.ingresos.GestorFacturasBean;
 import mx.frisa.tic.negocio.utils.ManejadorLog;
 
 /**
