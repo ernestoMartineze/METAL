@@ -5,6 +5,7 @@
  */
 package mx.frisa.tic.datos.comun;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
@@ -15,6 +16,7 @@ import javax.persistence.ParameterMode;
 import javax.persistence.StoredProcedureQuery;
 import mx.frisa.tic.datos.dto.ingresos.LineaCaptutaFacturaDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaDTO;
+import mx.frisa.tic.datos.dto.ingresos.RespuestaEdoCuentaDTO;
 import mx.frisa.tic.datos.entidades.XxfrcOrganizacionMetodopago;
 import mx.frisa.tic.datos.entidades.XxfrcOrganizacionMetodopagoPK;
 import mx.frisa.tic.datos.entidades.XxfrtEstadoCuenta;
@@ -168,10 +170,10 @@ public class ProcedimientoAlmacendo extends ManejadorEntidad {
         return facturas;
     }/**/
 
-    public RespuestaDTO ejecutarEstadoCuenta(XxfrtEstadoCuenta lineaEstadoCuenta) {
+    public RespuestaEdoCuentaDTO ejecutarEstadoCuenta(XxfrtEstadoCuenta lineaEstadoCuenta) {
         ManejadorLog manejadorLog = new ManejadorLog();
         manejadorLog.debug("Entró ejecutarProcedimiento : getBANK_ACCOUNT_NUM=" + lineaEstadoCuenta.getBankAccountNum());
-        RespuestaDTO respuestaDTO = new RespuestaDTO("ERROR", "100", "");
+        RespuestaEdoCuentaDTO respuestaDTO = new RespuestaEdoCuentaDTO("ERROR", "100", "");
         try {
             super.instanciarManager();
             StoredProcedureQuery procedure = super.getEntityManager().createStoredProcedureQuery("INGRESOS.XXFRP_ESTADO_CUENTA");
@@ -195,6 +197,10 @@ public class ProcedimientoAlmacendo extends ManejadorEntidad {
             procedure.registerStoredProcedureParameter("pDESCRIP_LOOKUP", String.class, ParameterMode.IN);
             
             procedure.registerStoredProcedureParameter("PRESPUESTA", int.class, ParameterMode.OUT);
+            procedure.registerStoredProcedureParameter("pIdEdoCuenta", int.class, ParameterMode.OUT);
+            procedure.registerStoredProcedureParameter("pIdMetodo", BigInteger.class, ParameterMode.OUT);
+            procedure.registerStoredProcedureParameter("pIdPago", int.class, ParameterMode.OUT);
+            procedure.registerStoredProcedureParameter("pORG_ID", int.class, ParameterMode.OUT);
 
             procedure.setParameter("PBANK_ACCOUNT_NUM", "0521838999");
             procedure.setParameter("pTRX_DATE", lineaEstadoCuenta.getTrxDate());
@@ -209,27 +215,45 @@ public class ProcedimientoAlmacendo extends ManejadorEntidad {
             procedure.setParameter("pSTATEMENT_HEADER_ID", lineaEstadoCuenta.getStatementHeaderId());
             procedure.setParameter("pSTATEMENT_LINE_ID", lineaEstadoCuenta.getStatementLineId());
             procedure.setParameter("pBANK_ACCOUNT_ID", lineaEstadoCuenta.getBankAccountId());
-            procedure.setParameter("pSTMT_FROM_DATE", lineaEstadoCuenta.getStmtFromDate());
-            procedure.setParameter("pSTMT_TO_DATE", lineaEstadoCuenta.getStmtToDate());
-            procedure.setParameter("pSTATEMENT_NUMBER", lineaEstadoCuenta.getStatementNumber());
+            procedure.setParameter("pSTMT_FROM_DATE", "2018-05-11");
+//            procedure.setParameter("pSTMT_FROM_DATE", lineaEstadoCuenta.getStmtFromDate());
+            procedure.setParameter("pSTMT_TO_DATE", "2018-05-11");
+//            procedure.setParameter("pSTMT_TO_DATE", lineaEstadoCuenta.getStmtToDate());
+            procedure.setParameter("pSTATEMENT_NUMBER", "2018-05-11");
+//            procedure.setParameter("pSTATEMENT_NUMBER", lineaEstadoCuenta.getStatementNumber());
             procedure.setParameter("pDESCRIP_LOOKUP", lineaEstadoCuenta.getDescripLookup());
             procedure.setParameter("pLINE_CAPTURE", lineaEstadoCuenta.getLineCapture());
 
             Boolean ejecuta = procedure.execute();
 
             int respuestaProceso = 0;
+            int idEdoCuenta = 0;
 
             respuestaProceso = (int) procedure.getOutputParameterValue("PRESPUESTA");
+            idEdoCuenta = (int) procedure.getOutputParameterValue("pIdEdoCuenta");
+            Long idMetodoPago = (Long) procedure.getOutputParameterValue("pIdMetodo");
+            Integer pIdPago = (Integer) procedure.getOutputParameterValue("pIdPago");
+            BigInteger pORG_ID = (BigInteger) procedure.getOutputParameterValue("pORG_ID");
+            lineaEstadoCuenta.setIdEdoCta(BigDecimal.valueOf(Long.valueOf(idEdoCuenta+"")));
+            manejadorLog.debug("pORG_ID : " + pORG_ID);
+            manejadorLog.debug("pIdPago : " + pIdPago);
+            manejadorLog.debug("idMetodoPago : " + idMetodoPago);
             ejecuta = true;
 
             manejadorLog.debug("Resultado: " + respuestaProceso);
             manejadorLog.debug("Resultado : " + ejecuta);
-            respuestaDTO = new RespuestaDTO("EXITOSO", "1", "");
+            respuestaDTO = new RespuestaEdoCuentaDTO("EXITOSO", "0", "");
+            respuestaDTO.setIdLineaCaptura(respuestaProceso);
+            respuestaDTO.setIdEdoCuenta(idEdoCuenta);
+            respuestaDTO.setIdMetodoPago(idMetodoPago);
+            respuestaDTO.setIdPago(pIdPago);
+            respuestaDTO.setOrgID(pORG_ID);
+            
         } catch (Exception ex) {
             ex.printStackTrace();
             manejadorLog.error("Resultado: " + ex.getLocalizedMessage());
             manejadorLog.error("Resultado: " + ex.getMessage());
-            respuestaDTO = new RespuestaDTO("ERROR", "100", ex.getMessage());
+            respuestaDTO = new RespuestaEdoCuentaDTO("ERROR", "100", ex.getMessage());
         }
         return respuestaDTO;
     }
@@ -257,7 +281,7 @@ public class ProcedimientoAlmacendo extends ManejadorEntidad {
             for (MetodoPagoG1OBI metodo : metodos.getG_1()) {
                 XxfrcOrganizacionMetodopago metodoPagoEntidad = new XxfrcOrganizacionMetodopago();
                 XxfrcOrganizacionMetodopagoPK metodoPk = new XxfrcOrganizacionMetodopagoPK();
-                metodoPk.setBankAccountId(BigInteger.valueOf(Long.valueOf(metodo.getBANK_ACCOUNT_NUM())));
+                metodoPk.setBankAccountId(BigInteger.valueOf(Long.valueOf(metodo.getBAU_BANK_ACCOUNTID())));
                 metodoPk.setOrgId(BigInteger.valueOf(Long.valueOf(metodo.getORG_ID())));
                 metodoPk.setReceiptMethodId(BigInteger.valueOf(Long.valueOf(metodo.getRECEIPT_METHOD_ID())));
                 metodoPagoEntidad.setBankAccountNum(BigInteger.valueOf(Long.valueOf(metodo.getBANK_ACCOUNT_NUM())));

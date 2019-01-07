@@ -221,7 +221,10 @@ public class GestorLineaCapturaWS {
 
         return respuestaLCFactDetDTO;
     }
+    
+//    @Asynchronous
     @WebMethod(operationName = "cargarFactura")
+//    public Future<RespuestaCargaFacturaDTO cargarFactura(@WebParam(name = "facturas") PeticionCargaFacturaDTO peticion) {
     public RespuestaCargaFacturaDTO cargarFactura(@WebParam(name = "facturas") PeticionCargaFacturaDTO peticion) {
         ManejadorLog manejarLog = new ManejadorLog();
         RespuestaCargaFacturaDTO respuesta = new RespuestaCargaFacturaDTO();
@@ -234,8 +237,17 @@ public class GestorLineaCapturaWS {
             ex.printStackTrace();
         }
         manejarLog.debug("Termina metodo : GestorLineaCapturaWS-consultaLCGeneradas");
-        return respuesta;
+        return (respuesta);
+//        return new AsyncResult<RespuestaCargaFacturaDTO>(respuesta);
     }
+    
+//    // Operación asíncrona con retorno de llamada.
+//       Future<RespuestaCargaFacturaDTO> cargarFacturaPrimavera(PeticionCargaFacturaDTO peticion, 
+//              AsyncHandler<Score> handler){
+//           RespuestaCargaFacturaDTO respuesta = new RespuestaCargaFacturaDTO();
+//           
+//           return new AsyncResult<RespuestaCargaFacturaDTO>(respuesta);
+//       }
     @WebMethod (operationName = "consultarEstadoCarga")
     public RespuestaCargaFacturaDTO consultarEstadoCarga(@WebParam(name = "uuid") String pUUID) {
         ManejadorLog manejarLog = new ManejadorLog();
@@ -249,5 +261,22 @@ public class GestorLineaCapturaWS {
         manejarLog.debug("Termina metodo : GestorLineaCapturaWS-consultarEstadoCarga");
         return respuesta;
     }
-
+    
+    @WebMethod(operationName = "consultaBatchFinalizado")
+    public String consultaBatchLC(@WebParam(name = "idBatch") String idBatch) {
+        ManejadorLog manejarLog = new ManejadorLog();
+        manejarLog.debug("Entro a metodo : GestorLineaCapturaWS-consultaBatchFinalizado");
+        String respuesta = "SIN RESPUESTA";
+        try {
+            respuesta = gestorLineaCapturaBean.consultaBatchFinalizado(idBatch);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        manejarLog.debug("Termina metodo : GestorLineaCapturaWS-consultaBatchFinalizado");
+        return respuesta;
+    }
+    
+    
+    
+    
 }

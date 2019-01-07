@@ -46,6 +46,8 @@ public class G_1 {
     private String TRX_TYPE;
     @JacksonXmlProperty(localName = "PROYECTO_PROPIETARIO")
     private String PROYECTO_PROPIETARIO;
+    @JacksonXmlProperty(localName = "LINEA_CAPTURA")
+    private String LINEA_CAPTURA;
     @JacksonXmlProperty(localName = "AMOUNT")
     private String AMOUNT;
     @JacksonXmlProperty(localName = "TRX_CODE")
@@ -159,6 +161,14 @@ public class G_1 {
         this.PROYECTO_PROPIETARIO = PROYECTO_PROPIETARIO;
     }
 
+    public String getLINEA_CAPTURA() {
+        return LINEA_CAPTURA;
+    }
+
+    public void setLINEA_CAPTURA(String LINEA_CAPTURA) {
+        this.LINEA_CAPTURA = LINEA_CAPTURA;
+    }
+
     public String getAMOUNT() {
         return AMOUNT;
     }
@@ -190,8 +200,9 @@ public class G_1 {
     public void setIdEstadoCuenta(String idEstadoCuenta) {
         this.idEstadoCuenta = idEstadoCuenta;
     }
-
     
+    
+
 
     
 }

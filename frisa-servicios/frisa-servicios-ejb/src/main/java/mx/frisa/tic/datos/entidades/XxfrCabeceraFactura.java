@@ -77,6 +77,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "XxfrCabeceraFactura.findByIdbatch", query = "SELECT x FROM XxfrCabeceraFactura x WHERE x.idbatch = :idbatch")})
 public class XxfrCabeceraFactura implements Serializable {
 
+    @Size(max = 20)
+    @Column(name = "ORGID")
+    private String orgid;
+
     @Column(name = "CUSTOMERID")
     private BigInteger customerid;
     @Column(name = "SITEID")
@@ -200,8 +204,8 @@ public class XxfrCabeceraFactura implements Serializable {
     private String idbatch;
     @OneToMany(mappedBy = "idfacturaprimavera", fetch = FetchType.LAZY)
     private List<XxfrLineaCapturaFactura> xxfrLineaCapturaFacturaList;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "xxfrCabeceraFactura", fetch = FetchType.LAZY)
-    private XxfrtNotaCredito xxfrtNotaCredito;
+    /*@OneToOne(cascade = CascadeType.ALL, mappedBy = "xxfrCabeceraFactura", fetch = FetchType.LAZY)
+    private XxfrtNotaCredito xxfrtNotaCredito;*/
 
     public XxfrCabeceraFactura() {
     }
@@ -523,13 +527,13 @@ public class XxfrCabeceraFactura implements Serializable {
         this.xxfrLineaCapturaFacturaList = xxfrLineaCapturaFacturaList;
     }
 
-    public XxfrtNotaCredito getXxfrtNotaCredito() {
+    /*public XxfrtNotaCredito getXxfrtNotaCredito() {
         return xxfrtNotaCredito;
     }
 
     public void setXxfrtNotaCredito(XxfrtNotaCredito xxfrtNotaCredito) {
         this.xxfrtNotaCredito = xxfrtNotaCredito;
-    }
+    }*/
 
     @Override
     public int hashCode() {
@@ -587,6 +591,14 @@ public class XxfrCabeceraFactura implements Serializable {
 
     public void setXxfrInvoiceLinesList(List<XxfrInvoiceLines> xxfrInvoiceLinesList) {
         this.xxfrInvoiceLinesList = xxfrInvoiceLinesList;
+    }
+
+    public String getOrgid() {
+        return orgid;
+    }
+
+    public void setOrgid(String orgid) {
+        this.orgid = orgid;
     }
     
 }
