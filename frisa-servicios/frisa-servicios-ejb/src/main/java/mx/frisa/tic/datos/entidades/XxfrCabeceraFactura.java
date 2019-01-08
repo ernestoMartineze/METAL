@@ -19,7 +19,6 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -76,6 +75,12 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "XxfrCabeceraFactura.findByEstadoprocesamiento", query = "SELECT x FROM XxfrCabeceraFactura x WHERE x.estadoprocesamiento = :estadoprocesamiento"),
     @NamedQuery(name = "XxfrCabeceraFactura.findByIdbatch", query = "SELECT x FROM XxfrCabeceraFactura x WHERE x.idbatch = :idbatch")})
 public class XxfrCabeceraFactura implements Serializable {
+
+    @Size(max = 125)
+    @Column(name = "BATCHSOURCENAME")
+    private String batchsourcename;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "xxfrCabeceraFactura", fetch = FetchType.LAZY)
+    private List<XxfrtBitacoraCarga> xxfrtBitacoraCargaList;
 
     @Size(max = 20)
     @Column(name = "ORGID")
@@ -599,6 +604,23 @@ public class XxfrCabeceraFactura implements Serializable {
 
     public void setOrgid(String orgid) {
         this.orgid = orgid;
+    }
+
+    public String getBatchsourcename() {
+        return batchsourcename;
+    }
+
+    public void setBatchsourcename(String batchsourcename) {
+        this.batchsourcename = batchsourcename;
+    }
+
+    @XmlTransient
+    public List<XxfrtBitacoraCarga> getXxfrtBitacoraCargaList() {
+        return xxfrtBitacoraCargaList;
+    }
+
+    public void setXxfrtBitacoraCargaList(List<XxfrtBitacoraCarga> xxfrtBitacoraCargaList) {
+        this.xxfrtBitacoraCargaList = xxfrtBitacoraCargaList;
     }
     
 }

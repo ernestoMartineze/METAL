@@ -54,6 +54,29 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "XxfrInvoiceLines.findByFechaexigibilidad", query = "SELECT x FROM XxfrInvoiceLines x WHERE x.fechaexigibilidad = :fechaexigibilidad")})
 public class XxfrInvoiceLines implements Serializable {
 
+    @Size(max = 125)
+    @Column(name = "LINETYPE")
+    private String linetype;
+    @Size(max = 125)
+    @Column(name = "FLEX_CONTEXT")
+    private String flexContext;
+    @Size(max = 125)
+    @Column(name = "FLEX_CONTEXT_DISPLAYVALUE")
+    private String flexContextDisplayvalue;
+    @Size(max = 125)
+    @Column(name = "FLEX_NUMOFSEGMENTS")
+    private String flexNumofsegments;
+    @Column(name = "MONTOIVALINEA")
+    private BigInteger montoivalinea;
+    @Column(name = "TAXCLASSIFICATIONCODERETIVA")
+    private BigInteger taxclassificationcoderetiva;
+    @Column(name = "MONTOBRUTOLINEARETIVA")
+    private BigInteger montobrutolinearetiva;
+    @Column(name = "TAXCLASSIFICATIONCODEISR")
+    private BigInteger taxclassificationcodeisr;
+    @Column(name = "MONTOBRUTOLINEAISR")
+    private BigInteger montobrutolineaisr;
+
     @JoinColumn(name = "IDFACTURAPRIMAVERA", referencedColumnName = "IDFACTURAPRIMAVERA", insertable = false, updatable = false)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private XxfrCabeceraFactura xxfrCabeceraFactura;
@@ -306,6 +329,78 @@ public class XxfrInvoiceLines implements Serializable {
 
     public void setXxfrCabeceraFactura(XxfrCabeceraFactura xxfrCabeceraFactura) {
         this.xxfrCabeceraFactura = xxfrCabeceraFactura;
+    }
+
+    public String getLinetype() {
+        return linetype;
+    }
+
+    public void setLinetype(String linetype) {
+        this.linetype = linetype;
+    }
+
+    public String getFlexContext() {
+        return flexContext;
+    }
+
+    public void setFlexContext(String flexContext) {
+        this.flexContext = flexContext;
+    }
+
+    public String getFlexContextDisplayvalue() {
+        return flexContextDisplayvalue;
+    }
+
+    public void setFlexContextDisplayvalue(String flexContextDisplayvalue) {
+        this.flexContextDisplayvalue = flexContextDisplayvalue;
+    }
+
+    public String getFlexNumofsegments() {
+        return flexNumofsegments;
+    }
+
+    public void setFlexNumofsegments(String flexNumofsegments) {
+        this.flexNumofsegments = flexNumofsegments;
+    }
+
+    public BigInteger getMontoivalinea() {
+        return montoivalinea;
+    }
+
+    public void setMontoivalinea(BigInteger montoivalinea) {
+        this.montoivalinea = montoivalinea;
+    }
+
+    public BigInteger getTaxclassificationcoderetiva() {
+        return taxclassificationcoderetiva;
+    }
+
+    public void setTaxclassificationcoderetiva(BigInteger taxclassificationcoderetiva) {
+        this.taxclassificationcoderetiva = taxclassificationcoderetiva;
+    }
+
+    public BigInteger getMontobrutolinearetiva() {
+        return montobrutolinearetiva;
+    }
+
+    public void setMontobrutolinearetiva(BigInteger montobrutolinearetiva) {
+        this.montobrutolinearetiva = montobrutolinearetiva;
+    }
+
+    public BigInteger getTaxclassificationcodeisr() {
+        return taxclassificationcodeisr;
+    }
+
+    public void setTaxclassificationcodeisr(BigInteger taxclassificationcodeisr) {
+        this.taxclassificationcodeisr = taxclassificationcodeisr;
+    }
+
+    public BigInteger getMontobrutolineaisr() {
+        return montobrutolineaisr;
+    }
+
+    public void setMontobrutolineaisr(BigInteger montobrutolineaisr) {
+        this.montobrutolineaisr = montobrutolineaisr;
     }
     
 }
