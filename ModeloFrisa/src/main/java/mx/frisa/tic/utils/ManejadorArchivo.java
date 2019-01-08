@@ -12,7 +12,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Base64;
+import java.util.List;
+import java.util.stream.Stream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -120,10 +126,10 @@ public class ManejadorArchivo {
         return bytes;
     }
 
-    public static String procesarArchivoZip(String dirArchivoZip, String nombreArchivoZip, String datosFactura) throws IOException {
+    public static List<Object> procesarArchivoZip(String dirArchivoZip, String nombreArchivoZip, String datosFactura) throws IOException {
         System.err.println("Creando ZIP : " + nombreArchivoZip);
         FileOutputStream archivoZip = null;
-        String datosJsonTxt = "";
+        List<Object> datosJsonTxt = new ArrayList();
         try {
             System.err.println("Validando DIR ZIP : " + dirArchivoZip);
             File dirZip = new File(dirArchivoZip);
@@ -140,7 +146,7 @@ public class ManejadorArchivo {
             byte[] datos = decodeBase64ToFileBinary(datosFactura);
             archivoZip.write(datos);
             archivoZip.close();
-            datosJsonTxt = recuperarJson(dirArchivoZip+ File.separator + "descomp", nombreArchivoZip);
+            datosJsonTxt = recuperarJson(dirArchivoZip + File.separator + "descomp", nombreArchivoZip);
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -149,12 +155,12 @@ public class ManejadorArchivo {
         return datosJsonTxt;
     }
 
-    private static String recuperarJson(String dirArchivoZip, String archivoZip) {
+    private static List<Object> recuperarJson(String dirArchivoZip, String archivoZip) {
         return unzip(archivoZip, dirArchivoZip);
     }
 
-    private static String unzip(String zipFilePath, String destDir) {
-        String fileName="";
+    private static List<Object> unzip(String zipFilePath, String destDir) {
+        String fileName = "";
         StringBuilder result = new StringBuilder();
         File dir = new File(destDir);
         // create output directory if it doesn't exist
@@ -168,26 +174,28 @@ public class ManejadorArchivo {
             fis = new FileInputStream(zipFilePath);
             ZipInputStream zis = new ZipInputStream(fis);
             ZipEntry ze = zis.getNextEntry();
-            
+
             while (ze != null) {
-                fileName = ze.getName();
-                File newFile = new File(destDir + File.separator + fileName);
+                fileName = destDir + File.separator + ze.getName();
+                File newFile = new File(fileName);
+
                 System.out.println("Unzipping to " + newFile.getAbsolutePath());
                 //create directories for sub directories in zip
                 new File(newFile.getParent()).mkdirs();
                 FileOutputStream fos = new FileOutputStream(newFile);
                 int len;
-                
-                
+
                 while ((len = zis.read(buffer)) > 0) {
                     fos.write(buffer, 0, len);
-                    String datosJson = new String(buffer, StandardCharsets.US_ASCII);
-                    result.append(datosJson);
+
                 }
                 fos.close();
                 //close this ZipEntry
                 zis.closeEntry();
                 ze = zis.getNextEntry();
+
+                //Leer el JSON
+                result.append(leerLineasDelArchivo(fileName));
             }
             //close last ZipEntry
             zis.closeEntry();
@@ -196,7 +204,18 @@ public class ManejadorArchivo {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return result.toString();
+
+        return Arrays.asList(result.toString(), fileName);
+    }
+
+    private static String leerLineasDelArchivo(String filePath) {
+        StringBuilder contentBuilder = new StringBuilder();
+        try (Stream<String> stream = Files.lines(Paths.get(filePath), StandardCharsets.UTF_8)) {
+            stream.forEach(s -> contentBuilder.append(s).append("\n"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return contentBuilder.toString();
     }
 
 }

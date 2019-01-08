@@ -1,0 +1,288 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "facturas": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "idfacturaprimavera": {
+              "type": "integer"
+            },
+            "facilitynumber": {
+              "type": "string"
+            },
+            "companyaccountcode": {
+              "type": "integer"
+            },
+            "businessunitname": {
+              "type": "string"
+            },
+            "transactionsource": {
+              "type": "string"
+            },
+            "transactiontype": {
+              "type": "string"
+            },
+            "creationdatetrx": {
+              "type": "string"
+            },
+            "creationdategl": {
+              "type": "string"
+            },
+            "currency": {
+              "type": "string"
+            },
+            "billtoconsumername": {
+              "type": "string"
+            },
+            "billtolocation": {
+              "type": "integer"
+            },
+            "paymenttermdays": {
+              "type": "integer"
+            },
+            "paymenttermdate": {
+              "type": "string"
+            },
+            "graceperiod": {
+              "type": "integer"
+            },
+            "paymentmethod": {
+              "type": "string"
+            },
+            "dffheadercontext": {
+              "type": "string"
+            },
+            "contractnumber": {
+              "type": "integer"
+            },
+            "contextrentas": {
+              "type": "string"
+            },
+            "localnumber": {
+              "type": "string"
+            },
+            "referencenumber": {
+              "type": "string"
+            },
+            "addendum": {
+              "type": "string"
+            },
+            "tipocobranza": {
+              "type": "string"
+            },
+            "divisiontype": {
+              "type": "string"
+            },
+            "projectid": {
+              "type": "integer"
+            },
+            "generationtype": {
+              "type": "string"
+            },
+            "grouptype": {
+              "type": "string"
+            },
+            "bankname": {
+              "type": "string"
+            },
+            "bankaccountnumber": {
+              "type": "string"
+            },
+            "totalamount": {
+              "type": "integer"
+            },
+            "idlineacaptura": {
+              "type": "string"
+            },
+            "estadoprocesamiento": {
+              "type": "string"
+            },
+            "idbatch": {
+              "type": "string"
+            },
+            "customerid": {
+              "type": "integer"
+            },
+            "siteid": {
+              "type": "integer"
+            },
+            "transactionid": {
+              "type": "string"
+            },
+            "orgid": {
+              "type": "string"
+            },
+            "BATCHSOURCENAME": {
+              "type": "string"
+            },
+            "Lineas": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "idfacturaprimavera": {
+                      "type": "integer"
+                    },
+                    "linenumber": {
+                      "type": "integer"
+                    },
+                    "description_origen": {
+                      "type": "string"
+                    },
+                    "descriptionmanual": {
+                      "type": "string"
+                    },
+                    "memolinename": {
+                      "type": "string"
+                    },
+                    "quantity": {
+                      "type": "integer"
+                    },
+                    "taxclassificationcode": {
+                      "type": "string"
+                    },
+                    "taxrate": {
+                      "type": "integer"
+                    },
+                    "clasificadordescuento": {
+                      "type": "string"
+                    },
+                    "descadicional1": {
+                      "type": "string"
+                    },
+                    "descadicional2": {
+                      "type": "string"
+                    },
+                    "descadicional3": {
+                      "type": "string"
+                    },
+                    "descadicional4": {
+                      "type": "string"
+                    },
+                    "descadicional5": {
+                      "type": "string"
+                    },
+                    "montobrutolinea": {
+                      "type": "integer"
+                    },
+                    "montonetolinea": {
+                      "type": "integer"
+                    },
+                    "idconcepto": {
+                      "type": "integer"
+                    },
+                    "fechadesde": {
+                      "type": "string"
+                    },
+                    "fechahasta": {
+                      "type": "string"
+                    },
+                    "fechaexigibilidad": {
+                      "type": "string"
+                    },
+                    "LINETYPE": {
+                      "type": "string"
+                    },
+                    "FLEX_CONTEXT": {
+                      "type": "string"
+                    },
+                    "FLEX_CONTEXT_DISPLAYVALUE": {
+                      "type": "string"
+                    },
+                    "FLEX_NUMOFSEGMENTS": {
+                      "type": "string"
+                    },
+                    "MONTOIVALINEA": {
+                      "type": "integer"
+                    },
+                    "TAXCLASSIFICATIONCODERETIVA": {
+                      "type": "string"
+                    },
+                    "MONTOBRUTOLINEARETIVA": {
+                      "type": "integer"
+                    },
+                    "TAXCLASSIFICATIONCODEISR": {
+                      "type": "integer"
+                    },
+                    "MONTOBRUTOLINEAISR": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "idfacturaprimavera",
+                    "linenumber",
+                    "description_origen",
+                    "descriptionmanual",
+                    "memolinename",
+                    "quantity",
+                    "taxclassificationcode",
+                    "taxrate",
+                    "clasificadordescuento",
+                    "descadicional1",
+                    "descadicional2",
+                    "descadicional3",
+                    "descadicional4",
+                    "descadicional5",
+                    "montobrutolinea",
+                    "montonetolinea",
+                    "idconcepto",
+                    "fechadesde",
+                    "fechahasta",
+                    "fechaexigibilidad"
+                  ]
+                }
+              ]
+            }
+          },
+          "required": [
+            "idfacturaprimavera",
+            "facilitynumber",
+            "companyaccountcode",
+            "businessunitname",
+            "transactionsource",
+            "transactiontype",
+            "creationdatetrx",
+            "creationdategl",
+            "currency",
+            "billtoconsumername",
+            "billtolocation",
+            "paymenttermdays",
+            "paymenttermdate",
+            "graceperiod",
+            "paymentmethod",
+            "dffheadercontext",
+            "contractnumber",
+            "contextrentas",
+            "localnumber",
+            "referencenumber",
+            "addendum",
+            "tipocobranza",
+            "divisiontype",
+            "projectid",
+            "generationtype",
+            "grouptype",
+            "bankname",
+            "bankaccountnumber",
+            "totalamount",
+            "idlineacaptura",
+            "estadoprocesamiento",
+            "idbatch",
+            "customerid",
+            "siteid",
+            "transactionid",
+            "orgid",
+            "Lineas"
+          ]
+        }
+      ]
+    }
+  },
+  "required": [
+    "facturas"
+  ]
+}

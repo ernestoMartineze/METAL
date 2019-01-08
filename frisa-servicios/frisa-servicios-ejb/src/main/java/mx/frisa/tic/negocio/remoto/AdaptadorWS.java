@@ -513,7 +513,7 @@ public class AdaptadorWS {
             manejadorLog.debug("Error 0006 :" + ex.getMessage());
             manejadorLog.error("Error :" + ex.getMessage());
             manejadorLog.error("Error :" + ex.getLocalizedMessage());
-            throw new JsonSyntaxException("Failed : HTTP error code : " + ex.getMessage());
+            throw new JsonSyntaxException("Failed : " + ex.getMessage());
         }
 
         return vObj;
