@@ -31,6 +31,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "XxfrcOrganizacionMetodopago.findAll", query = "SELECT x FROM XxfrcOrganizacionMetodopago x"),
     @NamedQuery(name = "XxfrcOrganizacionMetodopago.findByOrgId", query = "SELECT x FROM XxfrcOrganizacionMetodopago x WHERE x.xxfrcOrganizacionMetodopagoPK.orgId = :orgId"),
+    @NamedQuery(name = "XxfrcOrganizacionMetodopago.findByOrgIdNoBank", query = "SELECT x FROM XxfrcOrganizacionMetodopago x WHERE x.xxfrcOrganizacionMetodopagoPK.orgId = :orgId and x.xxfrcOrganizacionMetodopagoPK.bankAccountId = :bankAccountId"),
     @NamedQuery(name = "XxfrcOrganizacionMetodopago.findByBankAccountId", query = "SELECT x FROM XxfrcOrganizacionMetodopago x WHERE x.xxfrcOrganizacionMetodopagoPK.bankAccountId = :bankAccountId"),
     @NamedQuery(name = "XxfrcOrganizacionMetodopago.findByReceiptMethodId", query = "SELECT x FROM XxfrcOrganizacionMetodopago x WHERE x.xxfrcOrganizacionMetodopagoPK.receiptMethodId = :receiptMethodId"),
     @NamedQuery(name = "XxfrcOrganizacionMetodopago.findByReceiptMethodName", query = "SELECT x FROM XxfrcOrganizacionMetodopago x WHERE x.receiptMethodName = :receiptMethodName"),

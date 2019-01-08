@@ -164,7 +164,7 @@ public class DAO<T> extends ManejadorEntidad implements Serializable {
         ManejadorLog manejadorLog = new ManejadorLog();
         try {
             manejadorLog.debug("Consultado por : " + pQueryNamed);
-
+            
             Query q = em.createNamedQuery(pQueryNamed);
             
             int tamanioListaParametros = plistaParametros.size();
@@ -293,15 +293,15 @@ public class DAO<T> extends ManejadorEntidad implements Serializable {
         EntityManager em = this.getEntityManager();
         try {
             System.out.println("ENTIDAD: " + entity);
-//            em.getTransaction().begin();
+            em.getTransaction().begin();
             em.persist(entity);
-//            em.getTransaction().commit();
+            em.getTransaction().commit();
 
             validarErrorInsert(false);
         } catch (Exception e) {
             e.printStackTrace();
             validarErrorInsert(true);
-//            em.getTransaction().rollback();
+            em.getTransaction().rollback();
         } finally {
             em.close();
             this.cerrarManager();
@@ -310,17 +310,37 @@ public class DAO<T> extends ManejadorEntidad implements Serializable {
     }
     
     
+    public void actualizar(T entity) {
+        this.instanciarManager();
+        EntityManager em = this.getEntityManager();
+        try {
+            System.out.println("ENTIDAD: " + entity);
+            em.getTransaction().begin();
+            em.merge(entity);
+            em.getTransaction().commit();
+
+            validarErrorInsert(false);
+        } catch (Exception e) {
+            e.printStackTrace();
+            validarErrorInsert(true);
+            em.getTransaction().rollback();
+        } finally {
+            em.close();
+            this.cerrarManager();
+        }
+
+    }
  
 
     public Boolean actualizaQuery(String scriptQuery) {
         this.instanciarManager();
         EntityManager em = this.getEntityManager();
-        this.iniciaTransaccion(em.getTransaction());
+        
         Boolean termina = false;
         ManejadorLog manejadorLog = new ManejadorLog();
         try {
             manejadorLog.debug("actualizaQuery: " + scriptQuery);
-
+            this.iniciaTransaccion(em.getTransaction());
             em.createNativeQuery(scriptQuery);
             manejadorLog.debug("createNativeQuery");
             em.getTransaction().commit();

@@ -28,7 +28,7 @@ public class GestorFacturasWS {
 
     @EJB(beanName = "GestorFacturasBean")
     private GestorFacturasBean gestorFacturasBean;
-    
+
     // "Web Service > Add Operation"
 
     /**
@@ -56,7 +56,7 @@ public class GestorFacturasWS {
 
         return respuestaLCFactura;
     }
-    
+
     /**
      * Web service operation
      *
@@ -82,5 +82,5 @@ public class GestorFacturasWS {
 
         return respuestaDetalleFactura;
     }
-    
+
 }
