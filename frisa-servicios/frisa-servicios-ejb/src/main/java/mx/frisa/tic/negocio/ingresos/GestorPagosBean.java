@@ -16,8 +16,13 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import mx.frisa.tic.datos.comun.DAO;
 import mx.frisa.tic.datos.dto.ingresos.FacturaPagoDTO;
+import mx.frisa.tic.datos.dto.ingresos.FiltroPagoSinReferencia;
+import mx.frisa.tic.datos.dto.ingresos.LineaEstadoCuentaDTO;
 import mx.frisa.tic.datos.dto.ingresos.PagoDTO;
+import mx.frisa.tic.datos.dto.ingresos.Proceso;
+import mx.frisa.tic.datos.dto.ingresos.RespuestaPagoSinReferencia;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaProcesaFacturasDTO;
+import mx.frisa.tic.datos.entidades.XxfrtEstadoCuenta;
 import mx.frisa.tic.datos.entidades.XxfrvFactparapagos;
 import mx.frisa.tic.negocio.remoto.AdaptadorWS;
 import mx.frisa.tic.negocio.utils.ManejadorLog;
@@ -130,6 +135,60 @@ public class GestorPagosBean implements GestorPagos {
             respuesta = new RespuestaProcesaFacturasDTO("EXITOSO", "0", "");
             respuesta.setFacturas(facturas);
         }
+        return respuesta;
+    }
+
+    public RespuestaPagoSinReferencia consultarPagosSinReferencia(FiltroPagoSinReferencia filtros) {
+        RespuestaPagoSinReferencia respuesta = new RespuestaPagoSinReferencia();
+        ManejadorLog log = new ManejadorLog();
+        DAO<XxfrtEstadoCuenta> lineasEstadoCuentaDAO = new DAO(XxfrtEstadoCuenta.class);
+        List<XxfrtEstadoCuenta> lineasEdoCtaEntidad = new ArrayList();
+        String queryArmado = "SELECT x FROM XxfrtEstadoCuenta x WHERE ";
+
+        try {
+            
+            //Para saber si necesitamos eliminar de la consulta a los PAGOS APLICADOS
+            if (filtros.getMostrarAplicar().equals("NO")) {
+                queryArmado += " x.rmethodid = 0 ";
+
+            } else { // De lo contrario, se muestran los Manuales POR APLICAR, y LOS APLICADOS que cumplan el criterio
+                queryArmado += " x.rmethodid in (0,1) ";
+            }
+
+            if (!filtros.getCuentaBancaria().equals("")) {
+                queryArmado += " and x.bankAccountNum =".concat(filtros.getCuentaBancaria());
+
+            }
+            if (!(filtros.getFechaFinal().equals("")
+                    && filtros.getFechaFinal().equals(""))) {
+                queryArmado += " and x.glDate between "
+                        .concat(" '").concat(filtros.getFechaInicial() + "'")
+                        .concat(" and ")
+                        .concat(" '").concat(filtros.getFechaFinal() + " 23:59'");
+
+            }
+            //HAcer la consulta
+            System.err.println("queryArmado : " + queryArmado);
+            lineasEdoCtaEntidad = (List<XxfrtEstadoCuenta>) lineasEstadoCuentaDAO.consultaQueryNativo(queryArmado);
+            List<LineaEstadoCuentaDTO> lineas = new ArrayList();
+            for (XxfrtEstadoCuenta lineasEdoCuentaEnt : lineasEdoCtaEntidad) {
+                LineaEstadoCuentaDTO lineaDto = new LineaEstadoCuentaDTO();
+                lineaDto.setIdEstadoCuenta(lineasEdoCuentaEnt.getIdEdoCta());
+                lineaDto.setCuentaBancaria(lineasEdoCuentaEnt.getBankAccountNum());
+                lineaDto.setFecha(lineasEdoCuentaEnt.getGlDate().toString());
+                lineaDto.setConceptoMovimiento(lineasEdoCuentaEnt.getAddiotionalEntryInformation());
+                lineaDto.setIdPago(lineasEdoCuentaEnt.getIdEdoCta());
+                lineaDto.setMonto(lineasEdoCuentaEnt.getAmount());
+                lineaDto.setMetodoPago(lineasEdoCuentaEnt.getReceiptMethodId());
+                lineaDto.setTipoDeposito(lineasEdoCuentaEnt.getDescripLookup());
+                lineas.add(lineaDto);
+            }
+            respuesta.setProceso(new Proceso("0", "EXITOSO"));
+            respuesta.setLineas(lineas);
+        } catch (Exception ex) {
+            respuesta.setProceso(new Proceso("700", "ERROR"));
+        }
+
         return respuesta;
     }
 }

@@ -114,7 +114,7 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
                             edoCuenta.getCurrencyCode(),
                             edoCtaDto.getOrgID() + "", //ORG_ID
                             edoCtaDto.getIdPago() + "", // Numero de recibo Secuencial 
-                            edoCuenta.getAmount() + "", edoCuenta.getTrxDate() + "", edoCtaDto.getCustomerID(), edoCtaDto.getSiteID());
+                            edoCuenta.getAmount() + "", edoCuenta.getGlDate()+ "", edoCtaDto.getCustomerID(), edoCtaDto.getSiteID());
                     
                     pago.setFechaContable("2018-12-26");
                     pago.setFechaAplicacion("2018-12-26");

@@ -7,7 +7,9 @@ package mx.frisa.tic.negocio.ingresos;
 
 import java.util.List;
 import javax.ejb.Local;
+import mx.frisa.tic.datos.dto.ingresos.FiltroPagoSinReferencia;
 import mx.frisa.tic.datos.dto.ingresos.PagoDTO;
+import mx.frisa.tic.datos.dto.ingresos.RespuestaPagoSinReferencia;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaProcesaFacturasDTO;
 
 /**
@@ -22,5 +24,6 @@ public interface GestorPagos {
      * @param pago
      * @return
      */
-    public RespuestaProcesaFacturasDTO generarPago(List<PagoDTO> pagos);
+    RespuestaProcesaFacturasDTO generarPago(List<PagoDTO> pagos);
+    RespuestaPagoSinReferencia consultarPagosSinReferencia(FiltroPagoSinReferencia filtros);
 }

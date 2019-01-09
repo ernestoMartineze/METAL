@@ -206,7 +206,7 @@ public class ProcedimientoAlmacendo extends ManejadorEntidad {
             procedure.registerStoredProcedureParameter("pBillCustomerName", String.class, ParameterMode.OUT);
 
             procedure.setParameter("PBANK_ACCOUNT_NUM", lineaEstadoCuenta.getBankAccountNum()+"");
-            procedure.setParameter("pTRX_DATE", lineaEstadoCuenta.getTrxDate());
+            procedure.setParameter("pTRX_DATE", lineaEstadoCuenta.getGlDate());
             procedure.setParameter("pLINE_NUMBER", lineaEstadoCuenta.getLineNumber() + "");
             procedure.setParameter("pTRX_TYPE", lineaEstadoCuenta.getTrxType());
             procedure.setParameter("pAMOUNT", lineaEstadoCuenta.getAmount() + "");

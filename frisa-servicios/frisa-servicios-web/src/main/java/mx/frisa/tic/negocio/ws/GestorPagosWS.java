@@ -5,13 +5,15 @@
  */
 package mx.frisa.tic.negocio.ws;
 
-import java.util.ArrayList;
+
 import java.util.List;
 import javax.ejb.EJB;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
+import mx.frisa.tic.datos.dto.ingresos.FiltroPagoSinReferencia;
 import mx.frisa.tic.datos.dto.ingresos.PagoDTO;
+import mx.frisa.tic.datos.dto.ingresos.RespuestaPagoSinReferencia;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaProcesaFacturasDTO;
 import mx.frisa.tic.negocio.ingresos.GestorPagos;
 
@@ -29,6 +31,15 @@ public class GestorPagosWS {
     public RespuestaProcesaFacturasDTO generarPago(@WebParam(name = "pago") List<PagoDTO> pagos ) {
         
         return ejbRef.generarPago(pagos);
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "consultarPagosSinReferencia")
+    public RespuestaPagoSinReferencia consultarPagosSinReferencia(@WebParam(name = "filtros") FiltroPagoSinReferencia filtros) {
+        
+        return ejbRef.consultarPagosSinReferencia(filtros);
     }
     
 }
