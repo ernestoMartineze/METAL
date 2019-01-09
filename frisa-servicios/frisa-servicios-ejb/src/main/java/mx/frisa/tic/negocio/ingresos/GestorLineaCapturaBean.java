@@ -10,6 +10,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
@@ -32,11 +33,13 @@ import mx.frisa.tic.datos.dto.ingresos.LineaCaptutaFacturaDTO;
 import mx.frisa.tic.datos.dto.ingresos.PeticionCargaFacturaDTO;
 import mx.frisa.tic.datos.dto.ingresos.Proceso;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaCargaFacturaDTO;
+import mx.frisa.tic.datos.dto.ingresos.RespuestaDTO;
 import mx.frisa.tic.datos.entidades.XxfrConsultaLcFacDet;
 import mx.frisa.tic.datos.entidades.XxfrLineaCaptura;
 import mx.frisa.tic.datos.entidades.XxfrtCargaFactura;
 import mx.frisa.tic.datos.entidades.XxfrvConsultaLc;
 import mx.frisa.tic.datos.entidades.XxfrvConsultaLcPagos;
+import mx.frisa.tic.datos.entidades.XxfrCabeceraFactura;
 import mx.frisa.tic.negocio.utils.PropiedadesFRISA;
 import mx.frisa.tic.utils.ManejadorArchivo;
 import mx.frisa.tic.utils.UUIDFrisa;
@@ -307,7 +310,7 @@ public class GestorLineaCapturaBean implements GestorLineaCaptura {
 
             if (!dtosJSON.equals("")) {
                 respuesta.setProceso(new Proceso("0", "EXITOSO"));
-                
+
             } else {
                 respuesta.setProceso(new Proceso("1", "ERROR"));
             }
@@ -330,11 +333,42 @@ public class GestorLineaCapturaBean implements GestorLineaCaptura {
     }
 
     private String procesarJSONcomoFactura(String dtosJSON) {
-        String respuesta="";
-        
-        
-        
+        String respuesta = "";
+
         return respuesta;
     }
 
+    public RespuestaDTO actualizarIdERP(BigDecimal IdPrimavera, String IdErp) {
+
+        RespuestaDTO respuesta = new RespuestaDTO();
+        DAO<XxfrCabeceraFactura> lcidprimDAO = new DAO(XxfrCabeceraFactura.class);
+
+        List<XxfrCabeceraFactura> lcidprim = new ArrayList<>();
+        try {
+
+            if (IdPrimavera != null) {
+                List<CatalogoParametroDTO> parametros = new ArrayList<>();
+                parametros.add(new CatalogoParametroDTO("idfacturaprimavera", IdPrimavera + "", "NUMERO"));
+                lcidprim = lcidprimDAO.consultaQueryByParameters("XxfrCabeceraFactura.findByIdfacturaprimavera", parametros);
+
+                for (XxfrCabeceraFactura lcidRespuesta : lcidprim) {
+
+                    lcidRespuesta.setRelatederpinvoice(IdErp);
+                    lcidprimDAO.actualiza(lcidRespuesta);
+                }
+                respuesta.setProceso("EXITOSO");
+                respuesta.setIdError("0");
+            } else {
+                respuesta.setProceso("Error");
+                respuesta.setIdError("600");
+            }
+
+        } catch (Exception ex) {
+            respuesta.setProceso("ERROR");
+            respuesta.setDescripcionError(ex.getMessage());
+            respuesta.setIdError("600");
+        }
+
+        return respuesta;
+    }
 }

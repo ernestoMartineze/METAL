@@ -5,6 +5,7 @@
  */
 package mx.frisa.tic.negocio.ws;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
@@ -23,6 +24,7 @@ import mx.frisa.tic.datos.dto.ingresos.LineaCaptutaFacturaDTO;
 import mx.frisa.tic.datos.dto.ingresos.PeticionCargaFacturaDTO;
 import mx.frisa.tic.datos.dto.ingresos.Proceso;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaCargaFacturaDTO;
+import mx.frisa.tic.datos.dto.ingresos.RespuestaDTO;
 
 
 import mx.frisa.tic.datos.dto.ingresos.RespuestaDetalleLCPagosDTO;
@@ -274,8 +276,18 @@ public class GestorLineaCapturaWS {
         manejarLog.debug("Termina metodo : GestorLineaCapturaWS-consultaBatchFinalizado");
         return respuesta;
     }
-
-
-
-
+    
+    @WebMethod(operationName = "actualizarIdERP") 
+    public RespuestaDTO actualizarIdERP(@WebParam(name="IdPrimavera")BigDecimal IdPrimavera,@WebParam(name="IdErp") String IdErp){
+        RespuestaDTO respuesta = new RespuestaDTO();
+        ManejadorLog manejarLog = new ManejadorLog();
+        manejarLog.debug("Entro a metodo : actualizarIdERP");
+        try {
+            respuesta = gestorLineaCapturaBean.actualizarIdERP(IdPrimavera, IdErp);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        manejarLog.debug("Termina metodo : actualizarIdERP");
+        return respuesta;
+    }
 }
