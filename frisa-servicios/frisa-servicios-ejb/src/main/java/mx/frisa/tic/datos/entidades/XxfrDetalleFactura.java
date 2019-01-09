@@ -6,6 +6,7 @@
 package mx.frisa.tic.datos.entidades;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -73,6 +74,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "XxfrDetalleFactura.findByNumerodelocal", query = "SELECT x FROM XxfrDetalleFactura x WHERE x.numerodelocal = :numerodelocal")})
 public class XxfrDetalleFactura implements Serializable {
 
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     private static final long serialVersionUID = 1L;
     @Column(name = "IDFACTURAPRIMAVERA")
     @Id
@@ -125,9 +127,6 @@ public class XxfrDetalleFactura implements Serializable {
     @Size(max = 16)
     @Column(name = "PAYMENTTERMSNAME")
     private String paymenttermsname;
-    @Size(max = 16)
-    @Column(name = "UNITSELLINGPRICE")
-    private String unitsellingprice;
     @Size(max = 12)
     @Column(name = "FLEX_CONTEXT")
     private String flexContext;
@@ -137,9 +136,6 @@ public class XxfrDetalleFactura implements Serializable {
     @Size(max = 18)
     @Column(name = "FLEX_NUMOFSEGMENTS")
     private String flexNumofsegments;
-    @Size(max = 11)
-    @Column(name = "ORDERNUMBER")
-    private String ordernumber;
     @Basic(optional = false)
     @NotNull
     @Column(name = "ORDERLINENUMBER")
@@ -187,15 +183,41 @@ public class XxfrDetalleFactura implements Serializable {
     @Size(max = 9)
     @Column(name = "ADDENDAID")
     private String addendaid;
-    @Size(max = 14)
-    @Column(name = "FACTURAUNIFIER")
-    private String facturaunifier;
     @Size(max = 12)
     @Column(name = "FLEX_CONTEXT2")
     private String flexContext2;
     @Size(max = 20)
     @Column(name = "NUMERODELOCAL")
     private String numerodelocal;
+    @Column(name = "UNITSELLINGPRICE")
+    private BigDecimal unitsellingprice;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "ORDERNUMBER")
+    private BigInteger ordernumber;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "FACTURAUNIFIER")
+    private BigInteger facturaunifier;
+    @Column(name = "MONTOIVALINEA")
+    private BigInteger montoivalinea;
+    @Column(name = "TAXCODERETIVA")
+    private BigInteger taxcoderetiva;
+    @Column(name = "MONTOTAXCODERETIVA")
+    private BigInteger montotaxcoderetiva;
+    @Column(name = "TAXCODORETISR")
+    private BigInteger taxcodoretisr;
+    @Column(name = "MONTOTAXCODORETISR")
+    private BigInteger montotaxcodoretisr;
+    @Size(max = 100)
+    @Column(name = "DESCRIPORIGEN")
+    private String descriporigen;
+    @Size(max = 100)
+    @Column(name = "DESCRIPMANUAL")
+    private String descripmanual;
+    @Size(max = 20)
+    @Column(name = "BUSINESSUNIT")
+    private String businessunit;
 
     public XxfrDetalleFactura() {
     }
@@ -328,13 +350,6 @@ public class XxfrDetalleFactura implements Serializable {
         this.paymenttermsname = paymenttermsname;
     }
 
-    public String getUnitsellingprice() {
-        return unitsellingprice;
-    }
-
-    public void setUnitsellingprice(String unitsellingprice) {
-        this.unitsellingprice = unitsellingprice;
-    }
 
     public String getFlexContext() {
         return flexContext;
@@ -360,13 +375,6 @@ public class XxfrDetalleFactura implements Serializable {
         this.flexNumofsegments = flexNumofsegments;
     }
 
-    public String getOrdernumber() {
-        return ordernumber;
-    }
-
-    public void setOrdernumber(String ordernumber) {
-        this.ordernumber = ordernumber;
-    }
 
     public short getOrderlinenumber() {
         return orderlinenumber;
@@ -496,13 +504,6 @@ public class XxfrDetalleFactura implements Serializable {
         this.addendaid = addendaid;
     }
 
-    public String getFacturaunifier() {
-        return facturaunifier;
-    }
-
-    public void setFacturaunifier(String facturaunifier) {
-        this.facturaunifier = facturaunifier;
-    }
 
     public String getFlexContext2() {
         return flexContext2;
@@ -526,6 +527,94 @@ public class XxfrDetalleFactura implements Serializable {
 
     public void setIdbatch(String idbatch) {
         this.idbatch = idbatch;
+    }
+
+    public BigDecimal getUnitsellingprice() {
+        return unitsellingprice;
+    }
+
+    public void setUnitsellingprice(BigDecimal unitsellingprice) {
+        this.unitsellingprice = unitsellingprice;
+    }
+
+    public BigInteger getOrdernumber() {
+        return ordernumber;
+    }
+
+    public void setOrdernumber(BigInteger ordernumber) {
+        this.ordernumber = ordernumber;
+    }
+
+    public BigInteger getFacturaunifier() {
+        return facturaunifier;
+    }
+
+    public void setFacturaunifier(BigInteger facturaunifier) {
+        this.facturaunifier = facturaunifier;
+    }
+
+    public BigInteger getMontoivalinea() {
+        return montoivalinea;
+    }
+
+    public void setMontoivalinea(BigInteger montoivalinea) {
+        this.montoivalinea = montoivalinea;
+    }
+
+    public BigInteger getTaxcoderetiva() {
+        return taxcoderetiva;
+    }
+
+    public void setTaxcoderetiva(BigInteger taxcoderetiva) {
+        this.taxcoderetiva = taxcoderetiva;
+    }
+
+    public BigInteger getMontotaxcoderetiva() {
+        return montotaxcoderetiva;
+    }
+
+    public void setMontotaxcoderetiva(BigInteger montotaxcoderetiva) {
+        this.montotaxcoderetiva = montotaxcoderetiva;
+    }
+
+    public BigInteger getTaxcodoretisr() {
+        return taxcodoretisr;
+    }
+
+    public void setTaxcodoretisr(BigInteger taxcodoretisr) {
+        this.taxcodoretisr = taxcodoretisr;
+    }
+
+    public BigInteger getMontotaxcodoretisr() {
+        return montotaxcodoretisr;
+    }
+
+    public void setMontotaxcodoretisr(BigInteger montotaxcodoretisr) {
+        this.montotaxcodoretisr = montotaxcodoretisr;
+    }
+
+    public String getDescriporigen() {
+        return descriporigen;
+    }
+
+    public void setDescriporigen(String descriporigen) {
+        this.descriporigen = descriporigen;
+    }
+
+    public String getDescripmanual() {
+        return descripmanual;
+    }
+
+    public void setDescripmanual(String descripmanual) {
+        this.descripmanual = descripmanual;
+    }
+
+    public String getBusinessunit() {
+        return businessunit;
+    }
+
+    public void setBusinessunit(String businessunit) {
+        this.businessunit = businessunit;
     }
     
 }
