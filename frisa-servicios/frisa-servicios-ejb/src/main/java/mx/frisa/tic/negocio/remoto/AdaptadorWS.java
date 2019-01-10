@@ -481,6 +481,7 @@ public class AdaptadorWS {
                 isr = new InputStreamReader(new GZIPInputStream(httpConn.getErrorStream()));
             }else{
                 isr = new InputStreamReader(httpConn.getErrorStream());
+                
             }
         }
         BufferedReader in = new BufferedReader(isr);
