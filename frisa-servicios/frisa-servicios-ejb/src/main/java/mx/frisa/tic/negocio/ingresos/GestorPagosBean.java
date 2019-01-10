@@ -6,6 +6,7 @@
 package mx.frisa.tic.negocio.ingresos;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -15,11 +16,16 @@ import java.util.logging.Logger;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import mx.frisa.tic.datos.comun.DAO;
+import mx.frisa.tic.datos.dto.ingresos.AplicarPagoDTO;
 import mx.frisa.tic.datos.dto.ingresos.FacturaPagoDTO;
 import mx.frisa.tic.datos.dto.ingresos.FiltroPagoSinReferencia;
 import mx.frisa.tic.datos.dto.ingresos.LineaEstadoCuentaDTO;
 import mx.frisa.tic.datos.dto.ingresos.PagoDTO;
+import mx.frisa.tic.datos.dto.ingresos.PagoPorAplicarDTO;
+import mx.frisa.tic.datos.dto.ingresos.PeticionExistente;
 import mx.frisa.tic.datos.dto.ingresos.Proceso;
+import mx.frisa.tic.datos.dto.ingresos.RespuestaClienteDTO;
+import mx.frisa.tic.datos.dto.ingresos.RespuestaDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaPagoSinReferencia;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaProcesaFacturasDTO;
 import mx.frisa.tic.datos.entidades.XxfrtEstadoCuenta;
@@ -146,7 +152,7 @@ public class GestorPagosBean implements GestorPagos {
         String queryArmado = "SELECT x FROM XxfrtEstadoCuenta x WHERE ";
 
         try {
-            
+
             //Para saber si necesitamos eliminar de la consulta a los PAGOS APLICADOS
             if (filtros.getMostrarAplicar().equals("NO")) {
                 queryArmado += " x.rmethodid = 0 ";
@@ -191,4 +197,64 @@ public class GestorPagosBean implements GestorPagos {
 
         return respuesta;
     }
+
+    @Override
+    public RespuestaClienteDTO consultarReferenciaLCExistente(PeticionExistente filtros) {
+
+        RespuestaClienteDTO respuesta = new RespuestaClienteDTO();
+        ManejadorLog log = new ManejadorLog();
+
+        try {
+            log.debug("Entro consultarReferenciaLCExistente");
+            if (filtros.getLineaCaptura().equals("")) {
+                respuesta.setCliente("Nueva Wal-Mart DE MEXICO SA DE CV");
+                respuesta.setEstadoCobro("Por Aplicar");
+                respuesta.setEstadoConciliacion("Conciliado");
+                respuesta.setIdPago(BigDecimal.ONE);
+                respuesta.setMontoPendienteDeAplicar(BigDecimal.TEN);
+                respuesta.setNombrePago("1345");
+                respuesta.setProyectoID(BigDecimal.TEN);
+                respuesta.setUnidadNegocio("LMF MUNDO E - RENTAS");
+                respuesta.setProceso(new Proceso("0", "EXITOSO"));
+            } else {
+                respuesta.setProceso(new Proceso("800", "ERROR : No existe la referencia al documento."));
+            }
+
+            log.debug("TErmino consultarReferenciaLCExistente");
+        } catch (Exception ex) {
+            respuesta.setProceso(new Proceso("700", "ERROR"));
+            ex.printStackTrace();
+        }
+
+        return respuesta;
+    }
+
+    @Override
+    public RespuestaDTO aplicarPagoManual(AplicarPagoDTO aplicarPagoDTO) {
+
+        RespuestaDTO respuesta = new RespuestaDTO();
+        ManejadorLog log = new ManejadorLog();
+        log.debug("Entro aplicarPagoManual");
+        try {
+            for (PagoPorAplicarDTO pagoXAplicar : aplicarPagoDTO.getPagoPorAplicar()) {
+                respuesta.setProceso("EXITOSO");
+                respuesta.setIdError("0");
+                break;
+            }
+            if (respuesta.getIdError().equals("")) {
+                respuesta.setProceso("ERROR");
+                respuesta.setIdError("900");
+                respuesta.setDescripcionError("ERROR : Al procesar la aplicación del pago.");
+            }
+
+        } catch (Exception ex) {
+            respuesta.setProceso("ERROR");
+            respuesta.setIdError("900");
+            respuesta.setDescripcionError("ERROR : " + ex.getLocalizedMessage());
+            ex.printStackTrace();
+        }
+        log.debug("Termino aplicarPagoManual");
+        return respuesta;
+    }
+
 }
