@@ -14,16 +14,35 @@ import mx.frisa.tic.datos.dto.ingresos.Proceso;
  */
 public class RespuestaERP_Nota_Credito {
 
-    List<DATA_DS> DATA_DSObject;
+    String messageID;
+    String CustomerTransactionId;
+    String transactionNumber;
     Proceso proceso;
 
-    public List<DATA_DS> getDATA_DSObject() {
-        return DATA_DSObject;
+    public String getMessageID() {
+        return messageID;
     }
 
-    public void setDATA_DSObject(List<DATA_DS> DATA_DSObject) {
-        this.DATA_DSObject = DATA_DSObject;
+    public void setMessageID(String messageID) {
+        this.messageID = messageID;
     }
+
+    public String getCustomerTransactionId() {
+        return CustomerTransactionId;
+    }
+
+    public void setCustomerTransactionId(String CustomerTransactionId) {
+        this.CustomerTransactionId = CustomerTransactionId;
+    }
+
+    public String getTransactionNumber() {
+        return transactionNumber;
+    }
+
+    public void setTransactionNumber(String transactionNumber) {
+        this.transactionNumber = transactionNumber;
+    }
+
 
     public Proceso getProceso() {
         return proceso;
