@@ -5,7 +5,12 @@
  */
 package mx.frisa.tic.negocio.ingresos;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.Singleton;
+import mx.frisa.tic.datos.comun.DAO;
+import mx.frisa.tic.datos.dto.ingresos.RespuestaDTO;
+import mx.frisa.tic.datos.entidades.XxfrcTipoMoneda;
 
 /**
  *
@@ -23,6 +28,19 @@ public class CatalogosBean implements CatalogosBeanLocal {
     @Override
     public String consultarPais(int id, String clave) {
         return null;
+    }
+    @Override
+    public RespuestaDTO consultarTipoMoneda(){
+        RespuestaDTO respuesta = new RespuestaDTO();
+        DAO<XxfrcTipoMoneda> catTipoMonedaDao = new DAO(XxfrcTipoMoneda.class);
+        List<XxfrcTipoMoneda> listaTiposMoneda = new ArrayList<>();
+        listaTiposMoneda = (List<XxfrcTipoMoneda>) catTipoMonedaDao.consultaQueryNamed("XxfrcTipoMoneda.findAll");
+        
+        for(XxfrcTipoMoneda tipoMonedaEntidad : listaTiposMoneda){
+//            TipoMonedaDTO tipoMonedaDto = new TipoMonedaDTO();
+//            tipoMonedaDto.set
+        }
+        return respuesta;
     }
 
     

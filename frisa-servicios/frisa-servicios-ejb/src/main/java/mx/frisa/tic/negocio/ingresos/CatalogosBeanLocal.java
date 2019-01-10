@@ -6,6 +6,7 @@
 package mx.frisa.tic.negocio.ingresos;
 
 import javax.ejb.Local;
+import mx.frisa.tic.datos.dto.ingresos.RespuestaDTO;
 
 /**
  *
@@ -21,5 +22,7 @@ public interface CatalogosBeanLocal {
      * @return
      */
     String consultarPais(int id, String clave);
+    RespuestaDTO consultarTipoMoneda();
+    
     
 }
