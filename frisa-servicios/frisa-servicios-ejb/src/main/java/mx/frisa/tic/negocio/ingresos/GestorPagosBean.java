@@ -16,6 +16,9 @@ import java.util.logging.Logger;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import mx.frisa.tic.datos.comun.DAO;
+import mx.frisa.tic.datos.dto.CONSTANTE;
+import mx.frisa.tic.datos.dto.comun.CatalogoParametroDTO;
+import mx.frisa.tic.datos.dto.comun.ParametroDTO;
 import mx.frisa.tic.datos.dto.ingresos.AplicarPagoDTO;
 import mx.frisa.tic.datos.dto.ingresos.FacturaPagoDTO;
 import mx.frisa.tic.datos.dto.ingresos.FiltroPagoSinReferencia;
@@ -29,6 +32,8 @@ import mx.frisa.tic.datos.dto.ingresos.RespuestaDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaPagoSinReferencia;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaProcesaFacturasDTO;
 import mx.frisa.tic.datos.entidades.XxfrtEstadoCuenta;
+import mx.frisa.tic.datos.entidades.XxfrvConsultaLc;
+import mx.frisa.tic.datos.entidades.XxfrvConsultaLcFactura;
 import mx.frisa.tic.datos.entidades.XxfrvFactparapagos;
 import mx.frisa.tic.negocio.remoto.AdaptadorWS;
 import mx.frisa.tic.negocio.utils.ManejadorLog;
@@ -206,16 +211,37 @@ public class GestorPagosBean implements GestorPagos {
 
         try {
             log.debug("Entro consultarReferenciaLCExistente");
-            if (filtros.getLineaCaptura().equals("")) {
-                respuesta.setCliente("Nueva Wal-Mart DE MEXICO SA DE CV");
-                respuesta.setEstadoCobro("Por Aplicar");
-                respuesta.setEstadoConciliacion("Conciliado");
-                respuesta.setIdPago(BigDecimal.ONE);
-                respuesta.setMontoPendienteDeAplicar(BigDecimal.TEN);
-                respuesta.setNombrePago("1345");
-                respuesta.setProyectoID(BigDecimal.TEN);
-                respuesta.setUnidadNegocio("LMF MUNDO E - RENTAS");
+            if (!filtros.getLineaCaptura().equals("") || !filtros.getReferencia().equals("")) {
+                DAO<XxfrvConsultaLcFactura> lineasOreferenciasDao = new DAO(XxfrvConsultaLcFactura.class);
+                List<XxfrvConsultaLcFactura> lineasReferencias = new ArrayList<>();
+
+                //Buscar por
+                String nombreConsulta = "";
+                List<CatalogoParametroDTO> parametros = new ArrayList<>();
+
+                if (!filtros.getLineaCaptura().equals("")) {
+                    nombreConsulta = "XxfrvConsultaLcFactura.findByLineacaptura";
+                    parametros.add(new CatalogoParametroDTO("lineacaptura", filtros.getLineaCaptura(), CONSTANTE.CADENA));
+                } else {
+                    nombreConsulta = "XxfrvConsultaLcFactura.findByReferencia";
+                    parametros.add(new CatalogoParametroDTO("referencenumber", filtros.getReferencia(), CONSTANTE.CADENA));
+                }
+                lineasReferencias = (List<XxfrvConsultaLcFactura>) lineasOreferenciasDao.consultaQueryByParameters(nombreConsulta, parametros);
+
                 respuesta.setProceso(new Proceso("0", "EXITOSO"));
+                for (XxfrvConsultaLcFactura lineasReferenRecuperada : lineasReferencias) {
+                    respuesta.setCliente(lineasReferenRecuperada.getBilltoconsumername());
+                    respuesta.setProyectoID(BigDecimal.valueOf(lineasReferenRecuperada.getProjectid()));
+                    //CONSULTAR POR 
+                    respuesta.setEstadoCobro("Por Aplicar");
+                    respuesta.setEstadoConciliacion("Conciliado");
+                    respuesta.setIdPago(BigDecimal.ONE);
+                    respuesta.setMontoPendienteDeAplicar(BigDecimal.TEN);
+                    respuesta.setNombrePago("1345");
+                    respuesta.setUnidadNegocio("LMF MUNDO E - RENTAS");
+                    break;
+                }
+
             } else {
                 respuesta.setProceso(new Proceso("800", "ERROR : No existe la referencia al documento."));
             }
