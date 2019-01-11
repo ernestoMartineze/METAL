@@ -7,7 +7,7 @@
                 <af:gridRow marginTop="5px" height="auto" id="gr1">
                     <af:gridCell marginStart="5px" width="100%" marginEnd="5px" id="gc1">
                         <af:panelGroupLayout id="pgl3" inlineStyle="width:1265px;">
-                            <af:panelGridLayout id="pgl2">
+                            <af:panelGridLayout id="pgl2" dimensionsFrom="auto" rendered="true">
                                 <af:gridRow marginTop="5px" id="gr3">
                                     <af:gridCell marginStart="5px" width="50%" id="gc3">
                                         <af:inputText label="Cuenta Bancaria" id="it1"/>
