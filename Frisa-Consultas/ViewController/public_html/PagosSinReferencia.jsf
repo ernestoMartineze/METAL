@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html>
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
+    <af:document title="PagosSinReferencia.jsf" id="d1">
+        <af:form id="f1">
+            <af:panelGridLayout id="pgl1">
+                <af:gridRow marginTop="5px" height="auto" id="gr1">
+                    <af:gridCell marginStart="5px" width="100%" marginEnd="5px" id="gc1">
+                        <af:panelGroupLayout id="pgl3" inlineStyle="width:1265px;">
+                            <af:panelGridLayout id="pgl2" dimensionsFrom="auto" rendered="true">
+                                <af:gridRow marginTop="5px" id="gr3">
+                                    <af:gridCell marginStart="5px" width="50%" id="gc3">
+                                        <af:inputText label="Cuenta Bancaria" id="it1"/>
+                                    </af:gridCell>
+                                    <af:gridCell marginStart="5px" width="33%" id="gc4"/>
+                                    <af:gridCell marginStart="5px" width="33%" marginEnd="5px" id="gc5"/>
+                                </af:gridRow>
+                                <af:gridRow marginTop="5px" height="auto" id="gr4">
+                                    <af:gridCell marginStart="5px" width="50%" id="gc6">
+                                        <af:inputDate label="De" id="id1"/>
+                                    </af:gridCell>
+                                    <af:gridCell marginStart="5px" width="33%" id="gc7">
+                                        <af:inputDate label="Hasta" id="id2"/>
+                                    </af:gridCell>
+                                    <af:gridCell marginStart="5px" width="33%" marginEnd="5px" id="gc8">
+                                        <af:selectBooleanCheckbox text="selectBooleanCheckbox 1" label="Aplicados"
+                                                                  id="sbc1"/>
+                                    </af:gridCell>
+                                </af:gridRow>
+                                <af:gridRow marginTop="5px" height="auto" marginBottom="5px" id="gr5">
+                                    <af:gridCell marginStart="5px" width="34%" id="gc9">
+                                        <af:button text="Validar" id="b1"/>
+                                        <af:button text="Aplicar" id="b2"/>
+                                    </af:gridCell>
+                                    <af:gridCell marginStart="5px" width="33%" id="gc10"/>
+                                </af:gridRow>
+                            </af:panelGridLayout>
+                        </af:panelGroupLayout>
+                    </af:gridCell>
+                </af:gridRow>
+                <af:gridRow marginTop="5px" height="auto" marginBottom="5px" id="gr2">
+                    <af:gridCell marginStart="5px" width="100%" marginEnd="5px" id="gc2">
+                        <?audit suppress oracle.adf.faces.invalidHalignForGridCell?>
+                        <af:table var="row" rowBandingInterval="0" id="t1">
+                            <af:column sortable="false" headerText="Nombre de la Cuenta Bancaria" id="c1" width="100">
+                                <af:outputText value="#{row.col1}" id="ot1"/>
+                            </af:column>
+                            <af:column sortable="false" headerText="Fecha" id="c2" width="100">
+                                <af:outputText value="#{row.col2}" id="ot2"/>
+                            </af:column>
+                            <af:column sortable="false" headerText="Moneda" id="c3" width="101">
+                                <af:outputText value="#{row.col3}" id="ot3"/>
+                            </af:column>
+                            <af:column sortable="false" headerText="Monto" id="c4" width="99">
+                                <af:outputText value="#{row.col4}" id="ot4"/>
+                            </af:column>
+                            <af:column sortable="false" headerText="Tipo de Deposito" id="c5" width="100">
+                                <af:outputText value="#{row.col5}" id="ot5"/>
+                            </af:column>
+                            <af:column sortable="false" headerText="Concepto de Deposito" id="c6" width="100">
+                                <af:outputText value="#{row.col6}" id="ot6"/>
+                            </af:column>
+                            <af:column sortable="false" headerText="Referencia" id="c7" width="100">
+                                <af:outputText value="#{row.col7}" id="ot7"/>
+                            </af:column>
+                            <af:column sortable="false" headerText="Linea de Captura" id="c8" width="100">
+                                <af:outputText value="#{row.col8}" id="ot8"/>
+                            </af:column>
+                            <af:column sortable="false" headerText="Unidad de Negocio" id="c9" width="100">
+                                <af:outputText value="#{row.col9}" id="ot9"/>
+                            </af:column>
+                            <af:column sortable="false" headerText="Proyecto" id="c10" width="100">
+                                <af:outputText value="#{row.col10}" id="ot10"/>
+                            </af:column>
+                            <af:column sortable="false" headerText="Cliente" id="c11" width="100">
+                                <af:outputText value="#{row.col11}" id="ot11"/>
+                            </af:column>
+                            <af:column sortable="false" headerText="N° de Cobro" id="c12" width="100">
+                                <af:outputText value="#{row.col12}" id="ot12"/>
+                            </af:column>
+                        </af:table>
+                    </af:gridCell>
+                </af:gridRow>
+            </af:panelGridLayout>
+        </af:form>
+    </af:document>
+</f:view>
