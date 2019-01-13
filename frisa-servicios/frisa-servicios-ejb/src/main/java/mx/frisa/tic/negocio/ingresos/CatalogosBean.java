@@ -56,5 +56,65 @@ public class CatalogosBean implements CatalogosBeanLocal {
         return "Tu nombre " + nombreEnviado;
     }
 
+    //Metodo mio
+    @Override
+    public List<TipoMonedaDTO>  consultarTipoMoneda(String codigo){
+        RespuestaDTO respuesta = new RespuestaDTO();
+        DAO<XxfrcTipoMoneda> catTipoMonedaDao = new DAO(XxfrcTipoMoneda.class);
+        List<XxfrcTipoMoneda> listaTiposMoneda = new ArrayList<>();
+        listaTiposMoneda = (List<XxfrcTipoMoneda>) catTipoMonedaDao.consultaQueryNamed("XxfrcTipoMoneda.findAll");
+        List<TipoMonedaDTO> listaTipoMonedaDto = new ArrayList();
+        for(XxfrcTipoMoneda tipoMonedaEntidad : listaTiposMoneda){
+            TipoMonedaDTO tipoMonedaDto = new TipoMonedaDTO();
+            tipoMonedaDto.setCodigo(tipoMonedaEntidad.getCodigo());
+            tipoMonedaDto.setDescripcion(tipoMonedaEntidad.getDescripcion());
+            tipoMonedaDto.setInd_activo(tipoMonedaEntidad.getIndActivo());
+            listaTipoMonedaDto.add(tipoMonedaDto);
+            
+            System.err.println("Codigo : " + tipoMonedaEntidad.getCodigo());
+        }
+        respuesta.setProceso("EXITOSO");
+        respuesta.setIdError("0");
+        respuesta.setDescripcionError("");
+        return listaTipoMonedaDto;
+    }
+    
+ 
     
 }
+
+/*
+ 
+public List<TipoMonedaDTO>  consultarTipoMoneda(){
+        RespuestaDTO respuesta = new RespuestaDTO();
+        DAO<XxfrcTipoMoneda> catTipoMonedaDao = new DAO(XxfrcTipoMoneda.class);
+        List<XxfrcTipoMoneda> listaTiposMoneda = new ArrayList<>();
+        listaTiposMoneda = (List<XxfrcTipoMoneda>) catTipoMonedaDao.consultaQueryNamed("XxfrcTipoMoneda.findAll");
+        List<TipoMonedaDTO> listaTipoMonedaDto = new ArrayList();
+        for(XxfrcTipoMoneda tipoMonedaEntidad : listaTiposMoneda){
+            TipoMonedaDTO tipoMonedaDto = new TipoMonedaDTO();
+            tipoMonedaDto.setCodigo(tipoMonedaEntidad.getCodigo());
+            tipoMonedaDto.setDescripcion(tipoMonedaEntidad.getDescripcion());
+            tipoMonedaDto.setInd_activo(tipoMonedaEntidad.getIndActivo());
+            listaTipoMonedaDto.add(tipoMonedaDto);
+            
+            System.err.println("Codigo : " + tipoMonedaEntidad.getCodigo());
+        }
+        respuesta.setProceso("EXITOSO");
+        respuesta.setIdError("0");
+        respuesta.setDescripcionError("");
+        return listaTipoMonedaDto;
+    }
+    
+ 
+ 
+ 
+
+*/
+
+
+
+
+
+
+

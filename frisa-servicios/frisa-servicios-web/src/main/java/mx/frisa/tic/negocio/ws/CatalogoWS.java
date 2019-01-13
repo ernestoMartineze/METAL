@@ -5,11 +5,13 @@
  */
 package mx.frisa.tic.negocio.ws;
 
+import java.util.List;
 import javax.ejb.EJB;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaDTO;
+import mx.frisa.tic.datos.dto.ingresos.TipoMonedaDTO;
 import mx.frisa.tic.negocio.ingresos.CatalogosBean;
 import mx.frisa.tic.negocio.ingresos.CatalogosBeanLocal;
 
@@ -29,8 +31,8 @@ public class CatalogoWS {
     }
 
     @WebMethod(operationName = "consultarTipoMoneda")
-    public RespuestaDTO consultarTipoMoneda() {
-        return ejbRef.consultarTipoMoneda();
+    public List<TipoMonedaDTO> consultarTipoMoneda() {
+        return ejbRef.consultarTipoMoneda("CODIGOQUE QUIERA");
     }
     
 }
