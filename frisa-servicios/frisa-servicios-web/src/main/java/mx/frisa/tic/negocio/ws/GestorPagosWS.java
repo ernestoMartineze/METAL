@@ -28,12 +28,12 @@ import mx.frisa.tic.negocio.ingresos.GestorPagos;
 public class GestorPagosWS {
 
     @EJB
-    private GestorPagos ejbRef;
+    private GestorPagos ejbRefPagos;
 
     @WebMethod(operationName = "generarPago")
     public RespuestaProcesaFacturasDTO generarPago(@WebParam(name = "pago") List<PagoDTO> pagos) {
 
-        return ejbRef.generarPago(pagos);
+        return ejbRefPagos.generarPago(pagos);
     }
 
     /**
@@ -44,7 +44,7 @@ public class GestorPagosWS {
     @WebMethod(operationName = "consultarPagosSinReferencia")
     public RespuestaPagoSinReferencia consultarPagosSinReferencia(@WebParam(name = "filtros") FiltroPagoSinReferencia filtros) {
 
-        return ejbRef.consultarPagosSinReferencia(filtros);
+        return ejbRefPagos.consultarPagosSinReferencia(filtros);
     }
 
     /**
@@ -55,7 +55,7 @@ public class GestorPagosWS {
     @WebMethod(operationName = "consultarReferenciaLCExistente")
     public RespuestaClienteDTO consultarReferenciaLCExistente(@WebParam(name = "filtros") PeticionExistente filtros) {
 
-        return ejbRef.consultarReferenciaLCExistente(filtros);
+        return ejbRefPagos.consultarReferenciaLCExistente(filtros);
     }
 
     /**
@@ -66,7 +66,7 @@ public class GestorPagosWS {
     @WebMethod(operationName = "aplicarPagoManual")
     public RespuestaDTO aplicarPagoManual(@WebParam(name = "aplicarPago") AplicarPagoDTO aplicarPago) {
 
-        return ejbRef.aplicarPagoManual(aplicarPago); //ejbRef.aplicarPagoManual(filtros);
+        return ejbRefPagos.aplicarPagoManual(aplicarPago); //ejbRef.aplicarPagoManual(filtros);
     }
 
 }

@@ -10,6 +10,7 @@ import java.util.List;
 import javax.ejb.Singleton;
 import mx.frisa.tic.datos.comun.DAO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaDTO;
+import mx.frisa.tic.datos.dto.ingresos.TipoMonedaDTO;
 import mx.frisa.tic.datos.entidades.XxfrcTipoMoneda;
 
 /**
@@ -35,12 +36,24 @@ public class CatalogosBean implements CatalogosBeanLocal {
         DAO<XxfrcTipoMoneda> catTipoMonedaDao = new DAO(XxfrcTipoMoneda.class);
         List<XxfrcTipoMoneda> listaTiposMoneda = new ArrayList<>();
         listaTiposMoneda = (List<XxfrcTipoMoneda>) catTipoMonedaDao.consultaQueryNamed("XxfrcTipoMoneda.findAll");
-        
+        List<TipoMonedaDTO> listaTipoMonedaDto = new ArrayList();
         for(XxfrcTipoMoneda tipoMonedaEntidad : listaTiposMoneda){
-//            TipoMonedaDTO tipoMonedaDto = new TipoMonedaDTO();
-//            tipoMonedaDto.set
+            TipoMonedaDTO tipoMonedaDto = new TipoMonedaDTO();
+            tipoMonedaDto.setCodigo(tipoMonedaEntidad.getCodigo());
+            tipoMonedaDto.setDescripcion(tipoMonedaEntidad.getDescripcion());
+            tipoMonedaDto.setInd_activo(tipoMonedaEntidad.getIndActivo());
+            listaTipoMonedaDto.add(tipoMonedaDto);
+            
+            System.err.println("Codigo : " + tipoMonedaEntidad.getCodigo());
         }
+        respuesta.setProceso("EXITOSO");
+        respuesta.setIdError("0");
+        respuesta.setDescripcionError("");
         return respuesta;
+    }
+    
+    private String regresaMiNombre(String nombreEnviado){
+        return "Tu nombre " + nombreEnviado;
     }
 
     

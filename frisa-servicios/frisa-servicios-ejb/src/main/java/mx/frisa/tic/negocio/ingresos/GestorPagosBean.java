@@ -18,7 +18,6 @@ import javax.ejb.Stateless;
 import mx.frisa.tic.datos.comun.DAO;
 import mx.frisa.tic.datos.dto.CONSTANTE;
 import mx.frisa.tic.datos.dto.comun.CatalogoParametroDTO;
-import mx.frisa.tic.datos.dto.comun.ParametroDTO;
 import mx.frisa.tic.datos.dto.ingresos.AplicarPagoDTO;
 import mx.frisa.tic.datos.dto.ingresos.FacturaPagoDTO;
 import mx.frisa.tic.datos.dto.ingresos.FiltroPagoSinReferencia;
@@ -32,7 +31,6 @@ import mx.frisa.tic.datos.dto.ingresos.RespuestaDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaPagoSinReferencia;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaProcesaFacturasDTO;
 import mx.frisa.tic.datos.entidades.XxfrtEstadoCuenta;
-import mx.frisa.tic.datos.entidades.XxfrvConsultaLc;
 import mx.frisa.tic.datos.entidades.XxfrvConsultaLcFactura;
 import mx.frisa.tic.datos.entidades.XxfrvFactparapagos;
 import mx.frisa.tic.negocio.remoto.AdaptadorWS;
@@ -149,6 +147,13 @@ public class GestorPagosBean implements GestorPagos {
         return respuesta;
     }
 
+    /**
+     *
+     * @param filtros
+     * @return
+     */
+    
+    @Override
     public RespuestaPagoSinReferencia consultarPagosSinReferencia(FiltroPagoSinReferencia filtros) {
         RespuestaPagoSinReferencia respuesta = new RespuestaPagoSinReferencia();
         ManejadorLog log = new ManejadorLog();

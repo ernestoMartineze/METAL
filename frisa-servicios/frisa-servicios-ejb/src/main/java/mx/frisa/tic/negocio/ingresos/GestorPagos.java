@@ -25,7 +25,7 @@ public interface GestorPagos {
     
     /**
      *
-     * @param pago
+     * @param pagos
      * @return
      */
     RespuestaProcesaFacturasDTO generarPago(List<PagoDTO> pagos);
