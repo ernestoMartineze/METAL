@@ -202,6 +202,7 @@ public class GestorPagosBean implements GestorPagos {
             respuesta.setProceso(new Proceso("0", "EXITOSO"));
             respuesta.setLineas(lineas);
         } catch (Exception ex) {
+            ex.printStackTrace();
             respuesta.setProceso(new Proceso("700", "ERROR"));
         }
 
