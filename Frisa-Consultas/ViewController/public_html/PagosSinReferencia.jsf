@@ -23,7 +23,8 @@
                     <af:gridCell marginStart="5px" width="20%" marginEnd="5px" id="gc6"/>
                 </af:gridRow>
             </af:panelGridLayout>
-            <af:panelGridLayout id="pgl4" inlineStyle="margin:0px; margin-left:10px;">
+            <af:panelGridLayout id="pgl4"
+                                inlineStyle="margin:0px; margin-left:10px; margin-top:0px; margin-bottom:20px;">
                 <af:gridRow marginTop="5px" height="auto" marginBottom="5px" id="gr4">
                     <af:gridCell marginStart="5px" width="10%" id="gc8">
                         <af:selectBooleanCheckbox text="Aplicado?" id="sbc1"/>
@@ -38,27 +39,47 @@
                     <af:gridCell marginStart="5px" width="14%" marginEnd="5px" id="gc14"/>
                 </af:gridRow>
             </af:panelGridLayout>
+            <af:panelGridLayout id="pgl5" inlineStyle="padding-left:10px; margin-left:10px;">
+                <af:gridRow marginTop="5px" height="auto" marginBottom="5px" id="gr5">
+                    <af:gridCell marginStart="5px" width="5%" id="gc15">
+                        <af:button text="Validar" id="b2"/>
+                    </af:gridCell>
+                    <af:gridCell marginStart="5px" width="20%" id="gc16">
+                        <af:button text="Aplicar" id="b3"/>
+                    </af:gridCell>
+                    <af:gridCell marginStart="5px" width="20%" id="gc17"/>
+                    <af:gridCell marginStart="5px" width="20%" id="gc18"/>
+                    <af:gridCell marginStart="5px" width="20%" marginEnd="5px" id="gc19"/>
+                </af:gridRow>
+            </af:panelGridLayout>
             <af:panelGridLayout id="pgl3"
-                                inlineStyle="margin-top:15px; margin-bottom:10px; margin-left:10px; margin-right:10px;">
+                                inlineStyle="margin-top:0px; margin-bottom:10px; margin-left:10px; margin-right:10px;">
                 <af:gridRow marginTop="5px" height="auto" marginBottom="5px" id="gr3">
                     <af:gridCell marginStart="5px" width="100%" marginEnd="5px" id="gc7"
                                  inlineStyle="margin-bottom:0px; margin-left:0px; margin-top:0px;" halign="stretch">
                         <af:table var="row" rowBandingInterval="0" id="t1">
-                            <af:column sortable="false" headerText="col1" id="c1">
+                            <af:column sortable="false" headerText="Cuenta bancaria" id="c1" width="124">
                                 <af:outputText value="#{row.col1}" id="ot1"/>
                             </af:column>
-                            <af:column sortable="false" headerText="col2" id="c2">
+                            <af:column sortable="false" headerText="Fecha" id="c2" width="76">
                                 <af:outputText value="#{row.col2}" id="ot2"/>
                             </af:column>
-                            <af:column sortable="false" headerText="col3" id="c3">
+                            <af:column sortable="false" headerText="Moneda" id="c3" width="100">
                                 <af:outputText value="#{row.col3}" id="ot3"/>
                             </af:column>
-                            <af:column sortable="false" headerText="col4" id="c4">
+                            <af:column sortable="false" headerText="Monto" id="c4" width="100">
                                 <af:outputText value="#{row.col4}" id="ot4"/>
                             </af:column>
-                            <af:column sortable="false" headerText="col5" id="c5">
+                            <af:column sortable="false" headerText="Tipo deposito" id="c5" width="100">
                                 <af:outputText value="#{row.col5}" id="ot5"/>
                             </af:column>
+                            <af:column id="c7" headerText="Concepto de deposito" width="132"/>
+                            <af:column id="c6" headerText="Referencia" width="94"/>
+                            <af:column id="c8" headerText="Linea de captura" width="107"/>
+                            <af:column id="c9" headerText="Unidad de negocio" width="127"/>
+                            <af:column id="c10" headerText="Proyecto" width="99"/>
+                            <af:column id="c11" headerText="Cliente" width="65"/>
+                            <af:column id="c12" headerText="N° de cobro" width="95"/>
                         </af:table>
                     </af:gridCell>
                 </af:gridRow>
