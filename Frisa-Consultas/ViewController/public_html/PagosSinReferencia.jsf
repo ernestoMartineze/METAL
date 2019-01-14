@@ -30,7 +30,7 @@
                         <af:selectBooleanCheckbox text="Aplicado?" id="sbc1"/>
                     </af:gridCell>
                     <af:gridCell marginStart="5px" width="15%" id="gc9">
-                        <af:button text="Buscar" id="b1"/>
+                        <af:button text="Buscar" id="b1" action="#{PagoSinRefernciaBean.b1_action}"/>
                     </af:gridCell>
                     <af:gridCell marginStart="5px" width="14%" id="gc10"/>
                     <af:gridCell marginStart="5px" width="14%" id="gc11"/>
@@ -86,4 +86,5 @@
             </af:panelGridLayout>
         </af:form>
     </af:document>
+    <!--oracle-jdev-comment:preferred-managed-bean-name:PagoSinRefernciaBean-->
 </f:view>

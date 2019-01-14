@@ -12,4 +12,9 @@
     <managed-bean-scope>backingBean</managed-bean-scope>
     <!--oracle-jdev-comment:managed-bean-jsp-link:1ClienteDocumento.jsf-->
   </managed-bean>
+  <managed-bean id="__3">
+    <managed-bean-name>PagoSinRefernciaBean</managed-bean-name>
+    <managed-bean-class>mx.frisa.tic.view.backing.PagoSinRefernciaBean</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
 </adfc-config>
