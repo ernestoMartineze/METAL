@@ -38,6 +38,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "XxfrCabeceraFactura.findAll", query = "SELECT x FROM XxfrCabeceraFactura x"),
     @NamedQuery(name = "XxfrCabeceraFactura.findByIdfacturaprimavera", query = "SELECT x FROM XxfrCabeceraFactura x WHERE x.idfacturaprimavera = :idfacturaprimavera"),
+    @NamedQuery(name = "XxfrCabeceraFactura.findByIdfacturaprimavera2", query = "SELECT x FROM XxfrCabeceraFactura x WHERE x.idfacturaprimavera = :idfacturaprimavera"),
     @NamedQuery(name = "XxfrCabeceraFactura.findByFacilitynumber", query = "SELECT x FROM XxfrCabeceraFactura x WHERE x.facilitynumber = :facilitynumber"),
     @NamedQuery(name = "XxfrCabeceraFactura.findByCompanyaccountcode", query = "SELECT x FROM XxfrCabeceraFactura x WHERE x.companyaccountcode = :companyaccountcode"),
     @NamedQuery(name = "XxfrCabeceraFactura.findByBusinessunitname", query = "SELECT x FROM XxfrCabeceraFactura x WHERE x.businessunitname = :businessunitname"),
@@ -76,6 +77,20 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "XxfrCabeceraFactura.findByEstadoprocesamiento", query = "SELECT x FROM XxfrCabeceraFactura x WHERE x.estadoprocesamiento = :estadoprocesamiento"),
     @NamedQuery(name = "XxfrCabeceraFactura.findByIdbatch", query = "SELECT x FROM XxfrCabeceraFactura x WHERE x.idbatch = :idbatch")})
 public class XxfrCabeceraFactura implements Serializable {
+
+    @Size(max = 125)
+    @Column(name = "BATCHSOURCENAME")
+    private String batchsourcename;
+    @Size(max = 13)
+    @Column(name = "RFC")
+    private String rfc;
+    @Column(name = "CODIGOERROR")
+    private Long codigoerror;
+    @Size(max = 200)
+    @Column(name = "MENSAJEERROR")
+    private String mensajeerror;
+    @Column(name = "ERPTRANSACTIONNUMBER")
+    private Long erptransactionnumber;
 
     @Size(max = 20)
     @Column(name = "ORGID")
@@ -599,6 +614,46 @@ public class XxfrCabeceraFactura implements Serializable {
 
     public void setOrgid(String orgid) {
         this.orgid = orgid;
+    }
+
+    public String getBatchsourcename() {
+        return batchsourcename;
+    }
+
+    public void setBatchsourcename(String batchsourcename) {
+        this.batchsourcename = batchsourcename;
+    }
+
+    public String getRfc() {
+        return rfc;
+    }
+
+    public void setRfc(String rfc) {
+        this.rfc = rfc;
+    }
+
+    public Long getCodigoerror() {
+        return codigoerror;
+    }
+
+    public void setCodigoerror(Long codigoerror) {
+        this.codigoerror = codigoerror;
+    }
+
+    public String getMensajeerror() {
+        return mensajeerror;
+    }
+
+    public void setMensajeerror(String mensajeerror) {
+        this.mensajeerror = mensajeerror;
+    }
+
+    public Long getErptransactionnumber() {
+        return erptransactionnumber;
+    }
+
+    public void setErptransactionnumber(Long erptransactionnumber) {
+        this.erptransactionnumber = erptransactionnumber;
     }
     
 }

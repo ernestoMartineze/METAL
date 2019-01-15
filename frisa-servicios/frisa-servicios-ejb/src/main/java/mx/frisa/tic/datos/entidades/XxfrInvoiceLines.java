@@ -33,6 +33,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "XxfrInvoiceLines.findAll", query = "SELECT x FROM XxfrInvoiceLines x"),
     @NamedQuery(name = "XxfrInvoiceLines.findByIdfacturaprimavera", query = "SELECT x FROM XxfrInvoiceLines x WHERE x.xxfrInvoiceLinesPK.idfacturaprimavera = :idfacturaprimavera"),
+    @NamedQuery(name = "XxfrInvoiceLines.findByIdfacturaprimavera2", query = "SELECT x FROM XxfrInvoiceLines x WHERE x.xxfrInvoiceLinesPK.idfacturaprimavera = :idfacturaprimavera AND x.xxfrInvoiceLinesPK.linenumber = :linenumber"),
     @NamedQuery(name = "XxfrInvoiceLines.findByLinenumber", query = "SELECT x FROM XxfrInvoiceLines x WHERE x.xxfrInvoiceLinesPK.linenumber = :linenumber"),
     @NamedQuery(name = "XxfrInvoiceLines.findByDescriptionOrigen", query = "SELECT x FROM XxfrInvoiceLines x WHERE x.descriptionOrigen = :descriptionOrigen"),
     @NamedQuery(name = "XxfrInvoiceLines.findByDescriptionmanual", query = "SELECT x FROM XxfrInvoiceLines x WHERE x.descriptionmanual = :descriptionmanual"),
@@ -53,6 +54,32 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "XxfrInvoiceLines.findByFechahasta", query = "SELECT x FROM XxfrInvoiceLines x WHERE x.fechahasta = :fechahasta"),
     @NamedQuery(name = "XxfrInvoiceLines.findByFechaexigibilidad", query = "SELECT x FROM XxfrInvoiceLines x WHERE x.fechaexigibilidad = :fechaexigibilidad")})
 public class XxfrInvoiceLines implements Serializable {
+
+    @Size(max = 125)
+    @Column(name = "LINETYPE")
+    private String linetype;
+    @Size(max = 125)
+    @Column(name = "FLEX_CONTEXT")
+    private String flexContext;
+    @Size(max = 125)
+    @Column(name = "FLEX_CONTEXT_DISPLAYVALUE")
+    private String flexContextDisplayvalue;
+    @Size(max = 125)
+    @Column(name = "FLEX_NUMOFSEGMENTS")
+    private String flexNumofsegments;
+    @Column(name = "MONTOIVALINEA")
+    private BigDecimal montoivalinea;
+    @Column(name = "TAXCLASSIFICATIONCODERETIVA")
+    private BigInteger taxclassificationcoderetiva;
+    @Column(name = "MONTOBRUTOLINEARETIVA")
+    private BigDecimal montobrutolinearetiva;
+    @Column(name = "TAXCLASSIFICATIONCODEISR")
+    private BigInteger taxclassificationcodeisr;
+    @Column(name = "MONTOBRUTOLINEAISR")
+    private BigDecimal montobrutolineaisr;
+    @Size(max = 30)
+    @Column(name = "TAXIVALINEA")
+    private String taxivalinea;
 
     @JoinColumn(name = "IDFACTURAPRIMAVERA", referencedColumnName = "IDFACTURAPRIMAVERA", insertable = false, updatable = false)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
@@ -306,6 +333,86 @@ public class XxfrInvoiceLines implements Serializable {
 
     public void setXxfrCabeceraFactura(XxfrCabeceraFactura xxfrCabeceraFactura) {
         this.xxfrCabeceraFactura = xxfrCabeceraFactura;
+    }
+
+    public String getLinetype() {
+        return linetype;
+    }
+
+    public void setLinetype(String linetype) {
+        this.linetype = linetype;
+    }
+
+    public String getFlexContext() {
+        return flexContext;
+    }
+
+    public void setFlexContext(String flexContext) {
+        this.flexContext = flexContext;
+    }
+
+    public String getFlexContextDisplayvalue() {
+        return flexContextDisplayvalue;
+    }
+
+    public void setFlexContextDisplayvalue(String flexContextDisplayvalue) {
+        this.flexContextDisplayvalue = flexContextDisplayvalue;
+    }
+
+    public String getFlexNumofsegments() {
+        return flexNumofsegments;
+    }
+
+    public void setFlexNumofsegments(String flexNumofsegments) {
+        this.flexNumofsegments = flexNumofsegments;
+    }
+
+    public BigDecimal getMontoivalinea() {
+        return montoivalinea;
+    }
+
+    public void setMontoivalinea(BigDecimal montoivalinea) {
+        this.montoivalinea = montoivalinea;
+    }
+
+    public BigInteger getTaxclassificationcoderetiva() {
+        return taxclassificationcoderetiva;
+    }
+
+    public void setTaxclassificationcoderetiva(BigInteger taxclassificationcoderetiva) {
+        this.taxclassificationcoderetiva = taxclassificationcoderetiva;
+    }
+
+    public BigDecimal getMontobrutolinearetiva() {
+        return montobrutolinearetiva;
+    }
+
+    public void setMontobrutolinearetiva(BigDecimal montobrutolinearetiva) {
+        this.montobrutolinearetiva = montobrutolinearetiva;
+    }
+
+    public BigInteger getTaxclassificationcodeisr() {
+        return taxclassificationcodeisr;
+    }
+
+    public void setTaxclassificationcodeisr(BigInteger taxclassificationcodeisr) {
+        this.taxclassificationcodeisr = taxclassificationcodeisr;
+    }
+
+    public BigDecimal getMontobrutolineaisr() {
+        return montobrutolineaisr;
+    }
+
+    public void setMontobrutolineaisr(BigDecimal montobrutolineaisr) {
+        this.montobrutolineaisr = montobrutolineaisr;
+    }
+
+    public String getTaxivalinea() {
+        return taxivalinea;
+    }
+
+    public void setTaxivalinea(String taxivalinea) {
+        this.taxivalinea = taxivalinea;
     }
     
 }
