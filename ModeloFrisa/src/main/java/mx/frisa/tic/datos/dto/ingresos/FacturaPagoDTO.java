@@ -42,6 +42,10 @@ public class FacturaPagoDTO {
     protected String folioavisocargo;
     protected String localnumber;
     protected String lineacaptura;
+    protected Integer transactionID_ERP;
+    protected String customerTrxID_ERP;
+    protected String serviceStatus_ERP;
+    
     
 
     public String getIdlinea() {
@@ -283,5 +287,31 @@ public class FacturaPagoDTO {
     public void setLineacaptura(String lineacaptura) {
         this.lineacaptura = lineacaptura;
     }
+
+    public Integer getTransactionID_ERP() {
+        return transactionID_ERP;
+    }
+
+    public void setTransactionID_ERP(Integer transactionID_ERP) {
+        this.transactionID_ERP = transactionID_ERP;
+    }
+
+
+    public String getServiceStatus_ERP() {
+        return serviceStatus_ERP;
+    }
+
+    public void setServiceStatus_ERP(String serviceStatus_ERP) {
+        this.serviceStatus_ERP = serviceStatus_ERP;
+    }
+
+    public String getCustomerTrxID_ERP() {
+        return customerTrxID_ERP;
+    }
+
+    public void setCustomerTrxID_ERP(String customerTrxID_ERP) {
+        this.customerTrxID_ERP = customerTrxID_ERP;
+    }
+
     
 }
