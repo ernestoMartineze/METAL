@@ -20,7 +20,7 @@
   <managed-bean id="__4">
     <managed-bean-name>backing_PagoSinReferencia</managed-bean-name>
     <managed-bean-class>mx.frisa.tic.view.backing.PagoSinReferencia</managed-bean-class>
-    <managed-bean-scope>backingBean</managed-bean-scope>
+    <managed-bean-scope>pageFlow</managed-bean-scope>
     <!--oracle-jdev-comment:managed-bean-jsp-link:1PagoSinReferencia.jsf-->
   </managed-bean>
 </adfc-config>

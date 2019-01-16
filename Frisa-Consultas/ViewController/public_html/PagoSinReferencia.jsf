@@ -1,121 +1,122 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE html>
 <f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
-    <af:document title="PagoSinReferencia.jsf" id="d1" binding="#{backingBeanScope.backing_PagoSinReferencia.d1}">
-        <af:form id="f1" binding="#{backingBeanScope.backing_PagoSinReferencia.f1}">
-            <af:panelGridLayout id="pgl1" binding="#{backingBeanScope.backing_PagoSinReferencia.pgl1}">
+    <af:document title="PagoSinReferencia.jsf" id="d1" binding="#{pageFlowScope.backing_PagoSinReferencia.d1}">
+        <af:form id="f1" binding="#{pageFlowScope.backing_PagoSinReferencia.f1}">
+            <af:panelGridLayout id="pgl1" binding="#{pageFlowScope.backing_PagoSinReferencia.pgl1}">
                 <af:gridRow marginTop="5px" height="auto" marginBottom="5px" id="gr1"
-                            binding="#{backingBeanScope.backing_PagoSinReferencia.gr1}">
+                            binding="#{pageFlowScope.backing_PagoSinReferencia.gr1}">
                     <af:gridCell marginStart="5px" width="100%" marginEnd="5px" id="gc1"
-                                 binding="#{backingBeanScope.backing_PagoSinReferencia.gc1}">
+                                 binding="#{pageFlowScope.backing_PagoSinReferencia.gc1}">
                         <af:inputText label="Cuenta bancaria" id="cuentaBancariaT"
-                                      binding="#{backingBeanScope.backing_PagoSinReferencia.it1}"/>
+                                      binding="#{pageFlowScope.backing_PagoSinReferencia.cuentaBancariaIT}"/>
                     </af:gridCell>
                 </af:gridRow>
             </af:panelGridLayout>
-            <af:panelGridLayout id="pgl2" binding="#{backingBeanScope.backing_PagoSinReferencia.pgl2}">
+            <af:panelGridLayout id="pgl2" binding="#{pageFlowScope.backing_PagoSinReferencia.pgl2}">
                 <af:gridRow marginTop="5px" height="auto" marginBottom="5px" id="gr2"
-                            binding="#{backingBeanScope.backing_PagoSinReferencia.gr2}">
+                            binding="#{pageFlowScope.backing_PagoSinReferencia.gr2}">
                     <af:gridCell marginStart="5px" width="15%" id="gc2"
-                                 binding="#{backingBeanScope.backing_PagoSinReferencia.gc2}">
-                        <af:inputDate label="Desde" id="desdeT"
-                                      binding="#{backingBeanScope.backing_PagoSinReferencia.id2}"/>
+                                 binding="#{pageFlowScope.backing_PagoSinReferencia.gc2}">
+                        <af:inputDate label="Desde" id="fechaInicialIT"
+                                      binding="#{pageFlowScope.backing_PagoSinReferencia.fechaInicialIT}"/>
                     </af:gridCell>
                     <af:gridCell marginStart="5px" width="20%" id="gc3"
-                                 binding="#{backingBeanScope.backing_PagoSinReferencia.gc3}">
-                        <af:inputDate label="Hasta" id="hastaT"
-                                      binding="#{backingBeanScope.backing_PagoSinReferencia.id1}"/>
+                                 binding="#{pageFlowScope.backing_PagoSinReferencia.gc3}">
+                        <af:inputDate label="Hasta" id="fechaFinalIT"
+                                      binding="#{pageFlowScope.backing_PagoSinReferencia.fechaFinalIT}"/>
                     </af:gridCell>
                     <af:gridCell marginStart="5px" width="20%" id="gc4"
-                                 binding="#{backingBeanScope.backing_PagoSinReferencia.gc4}"/>
+                                 binding="#{pageFlowScope.backing_PagoSinReferencia.gc4}"/>
                     <af:gridCell marginStart="5px" width="20%" id="gc5"
-                                 binding="#{backingBeanScope.backing_PagoSinReferencia.gc5}"/>
+                                 binding="#{pageFlowScope.backing_PagoSinReferencia.gc5}"/>
                     <af:gridCell marginStart="5px" width="20%" marginEnd="5px" id="gc6"
-                                 binding="#{backingBeanScope.backing_PagoSinReferencia.gc6}"/>
+                                 binding="#{pageFlowScope.backing_PagoSinReferencia.gc6}"/>
                 </af:gridRow>
             </af:panelGridLayout>
-            <af:panelGridLayout id="pgl3" binding="#{backingBeanScope.backing_PagoSinReferencia.pgl3}">
+            <af:panelGridLayout id="pgl3" binding="#{pageFlowScope.backing_PagoSinReferencia.pgl3}">
                 <af:gridRow marginTop="5px" height="auto" marginBottom="5px" id="gr3"
-                            binding="#{backingBeanScope.backing_PagoSinReferencia.gr3}">
+                            binding="#{pageFlowScope.backing_PagoSinReferencia.gr3}">
                     <af:gridCell marginStart="5px" width="10%" id="gc7"
-                                 binding="#{backingBeanScope.backing_PagoSinReferencia.gc7}">
-                        <af:selectBooleanCheckbox text="Aplicados" id="aplicadosT"
-                                                  binding="#{backingBeanScope.backing_PagoSinReferencia.sbc1}"/>
+                                 binding="#{pageFlowScope.backing_PagoSinReferencia.gc7}">
+                        <af:selectBooleanCheckbox text="Aplicados" id="aplicadosCB"
+                                                  binding="#{pageFlowScope.backing_PagoSinReferencia.aplicadosCB}"/>
                     </af:gridCell>
                     <af:gridCell marginStart="5px" width="20%" id="gc8"
-                                 binding="#{backingBeanScope.backing_PagoSinReferencia.gc8}">
-                        <af:button text="Buscar pagos" id="botonBuscarP" binding="#{backingBeanScope.backing_PagoSinReferencia.b1}"
-                                   action="#{backingBeanScope.backing_PagoSinReferencia.buscarP_Action}"/>
+                                 binding="#{pageFlowScope.backing_PagoSinReferencia.gc8}">
+                        <af:button text="Buscar pagos" id="botonBuscarP" binding="#{pageFlowScope.backing_PagoSinReferencia.b1}"
+                                   action="#{pageFlowScope.backing_PagoSinReferencia.buscarP_Action}"/>
                     </af:gridCell>
                     <af:gridCell marginStart="5px" width="20%" id="gc9"
-                                 binding="#{backingBeanScope.backing_PagoSinReferencia.gc9}"/>
+                                 binding="#{pageFlowScope.backing_PagoSinReferencia.gc9}"/>
                     <af:gridCell marginStart="5px" width="20%" id="gc10"
-                                 binding="#{backingBeanScope.backing_PagoSinReferencia.gc10}"/>
+                                 binding="#{pageFlowScope.backing_PagoSinReferencia.gc10}"/>
                     <af:gridCell marginStart="5px" width="20%" marginEnd="5px" id="gc11"
-                                 binding="#{backingBeanScope.backing_PagoSinReferencia.gc11}"/>
+                                 binding="#{pageFlowScope.backing_PagoSinReferencia.gc11}"/>
                 </af:gridRow>
             </af:panelGridLayout>
-            <af:panelGridLayout id="pgl4" binding="#{backingBeanScope.backing_PagoSinReferencia.pgl4}">
+            <af:panelGridLayout id="pgl4" binding="#{pageFlowScope.backing_PagoSinReferencia.pgl4}">
                 <af:gridRow marginTop="5px" height="auto" marginBottom="5px" id="gr4"
-                            binding="#{backingBeanScope.backing_PagoSinReferencia.gr4}">
+                            binding="#{pageFlowScope.backing_PagoSinReferencia.gr4}">
                     <af:gridCell marginStart="5px" width="10%" id="gc12"
-                                 binding="#{backingBeanScope.backing_PagoSinReferencia.gc12}">
-                        <af:button text="Validar" id="b2" binding="#{backingBeanScope.backing_PagoSinReferencia.b2}"/>
+                                 binding="#{pageFlowScope.backing_PagoSinReferencia.gc12}">
+                        <af:button text="Validar" id="b2" binding="#{pageFlowScope.backing_PagoSinReferencia.b2}"/>
                     </af:gridCell>
                     <af:gridCell marginStart="5px" width="20%" id="gc13"
-                                 binding="#{backingBeanScope.backing_PagoSinReferencia.gc13}">
-                        <af:button text="Aplicar" id="b3" binding="#{backingBeanScope.backing_PagoSinReferencia.b3}"/>
+                                 binding="#{pageFlowScope.backing_PagoSinReferencia.gc13}">
+                        <af:button text="Aplicar" id="b3" binding="#{pageFlowScope.backing_PagoSinReferencia.b3}"/>
                     </af:gridCell>
                     <af:gridCell marginStart="5px" width="20%" id="gc14"
-                                 binding="#{backingBeanScope.backing_PagoSinReferencia.gc14}"/>
+                                 binding="#{pageFlowScope.backing_PagoSinReferencia.gc14}"/>
                     <af:gridCell marginStart="5px" width="20%" id="gc15"
-                                 binding="#{backingBeanScope.backing_PagoSinReferencia.gc15}"/>
+                                 binding="#{pageFlowScope.backing_PagoSinReferencia.gc15}"/>
                     <af:gridCell marginStart="5px" width="20%" marginEnd="5px" id="gc16"
-                                 binding="#{backingBeanScope.backing_PagoSinReferencia.gc16}"/>
+                                 binding="#{pageFlowScope.backing_PagoSinReferencia.gc16}"/>
                 </af:gridRow>
             </af:panelGridLayout>
-            <af:panelGridLayout id="pgl5" binding="#{backingBeanScope.backing_PagoSinReferencia.pgl5}">
+            <af:panelGridLayout id="pgl5" binding="#{pageFlowScope.backing_PagoSinReferencia.pgl5}">
                 <af:gridRow marginTop="5px" height="auto" marginBottom="5px" id="gr5"
-                            binding="#{backingBeanScope.backing_PagoSinReferencia.gr5}">
+                            binding="#{pageFlowScope.backing_PagoSinReferencia.gr5}">
                     <af:gridCell marginStart="5px" width="100%" marginEnd="5px" id="gc17"
-                                 binding="#{backingBeanScope.backing_PagoSinReferencia.gc17}" halign="stretch">
-                        <af:table var="row" rowBandingInterval="0" id="t1"
-                                  binding="#{backingBeanScope.backing_PagoSinReferencia.t1}">
-                            <af:column sortable="false" headerText="CuentaBancaria" id="c1">
-                                <af:outputText value="#{row.col1}" id="ot1"/>
+                                 binding="#{pageFlowScope.backing_PagoSinReferencia.gc17}" halign="stretch">
+                        <af:table value="#{pageFlowScope.backing_PagoSinReferencia.pagosVO}" var="row"
+                                  rowBandingInterval="0" id="t1"
+                                  binding="#{pageFlowScope.backing_PagoSinReferencia.t1}">
+                            <af:column sortable="false" headerText="Cuenta Bancaria" align="start" id="c2">
+                                <af:outputText value="#{row.cuentaBancaria}" id="ot2"/>
                             </af:column>
-                            <af:column sortable="false" headerText="Fecha" id="c2">
-                                <af:outputText value="#{row.col2}" id="ot2"/>
+                            <af:column sortable="false" headerText="Fecha" align="start" id="c3">
+                                <af:outputText value="#{row.fecha}" id="ot3"/>
                             </af:column>
-                            <af:column sortable="false" headerText="Moneda" id="c3">
-                                <af:outputText value="#{row.col3}" id="ot3"/>
+                            <af:column sortable="false" headerText="Moneda" align="start" id="c4">
+                                <af:outputText value="#{row.moneda}" id="ot4"/>
                             </af:column>
-                            <af:column sortable="false" headerText="Monto" id="c4">
-                                <af:outputText value="#{row.col4}" id="ot4"/>
+                            <af:column sortable="false" headerText="Monto" align="start" id="c1">
+                                <af:outputText value="#{row.monto}" id="ot1"/>
                             </af:column>
-                            <af:column sortable="false" headerText="Tipo deposito" id="c5">
-                                <af:outputText value="#{row.col5}" id="ot5"/>
+                            <af:column sortable="false" headerText="Tipo Deposito" align="start" id="c5">
+                                <af:outputText value="#{row.tipoDeposito}" id="ot5"/>
                             </af:column>
-                            <af:column sortable="false" headerText="ConceptoDeposito" id="c6">
-                                <af:outputText value="#{row.col6}" id="ot6"/>
+                            <af:column sortable="false" headerText="Concepto Deposito" align="start" id="c6">
+                                <af:outputText value="#{row.conceptoDeposito}" id="ot6"/>
                             </af:column>
-                            <af:column sortable="false" headerText="Referencia" id="c7">
-                                <af:outputText value="#{row.col7}" id="ot7"/>
+                            <af:column sortable="false" headerText="Referencia" align="start" id="c7">
+                                <af:outputText value="#{row.referencia}" id="ot7"/>
                             </af:column>
-                            <af:column sortable="false" headerText="Linea de captura" id="c8">
-                                <af:outputText value="#{row.col8}" id="ot8"/>
+                            <af:column sortable="false" headerText="Linea De Captura" align="start" id="c8">
+                                <af:outputText value="#{row.lineaDeCaptura}" id="ot8"/>
                             </af:column>
-                            <af:column sortable="false" headerText="Unidad de negocio" id="c9">
-                                <af:outputText value="#{row.col9}" id="ot9"/>
+                            <af:column sortable="false" headerText="Unidad De Negocio" align="start" id="c9">
+                                <af:outputText value="#{row.unidadDeNegocio}" id="ot9"/>
                             </af:column>
-                            <af:column sortable="false" headerText="Proyecto" id="c10">
-                                <af:outputText value="#{row.col10}" id="ot10"/>
+                            <af:column sortable="false" headerText="Proyecto" align="start" id="c10">
+                                <af:outputText value="#{row.proyecto}" id="ot10"/>
                             </af:column>
-                            <af:column sortable="false" headerText="Cliente" id="c11">
-                                <af:outputText value="#{row.col11}" id="ot11"/>
+                            <af:column sortable="false" headerText="Cliente" align="start" id="c11">
+                                <af:outputText value="#{row.cliente}" id="ot11"/>
                             </af:column>
-                            <af:column sortable="false" headerText="N° de cuenta" id="c12">
-                                <af:outputText value="#{row.col12}" id="ot12"/>
+                            <af:column sortable="false" headerText="N Cuenta" align="start" id="c12">
+                                <af:outputText value="#{row.NCuenta}" id="ot12"/>
                             </af:column>
                         </af:table>
                     </af:gridCell>

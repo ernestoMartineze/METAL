@@ -1,14 +1,17 @@
 package mx.frisa.tic.view.backing;
 
+
+import java.text.ParseException;
+
 import mx.frisa.tic.negocio.ws.FiltroPagoSinReferencia;
 import mx.frisa.tic.negocio.ws.GestorPagosWS;
 import mx.frisa.tic.negocio.ws.GestorPagosWS_Service;
 import mx.frisa.tic.negocio.ws.LineaEstadoCuentaDTO;
+import mx.frisa.tic.negocio.ws.PagoSinReferenciaVO;
 import mx.frisa.tic.negocio.ws.RespuestaPagoSinReferencia;
 
 import oracle.adf.view.rich.component.rich.RichDocument;
 import oracle.adf.view.rich.component.rich.RichForm;
-import oracle.adf.view.rich.component.rich.data.RichTable;
 import oracle.adf.view.rich.component.rich.input.RichInputDate;
 import oracle.adf.view.rich.component.rich.input.RichInputText;
 import oracle.adf.view.rich.component.rich.input.RichSelectBooleanCheckbox;
@@ -16,14 +19,27 @@ import oracle.adf.view.rich.component.rich.layout.RichGridCell;
 import oracle.adf.view.rich.component.rich.layout.RichGridRow;
 import oracle.adf.view.rich.component.rich.layout.RichPanelGridLayout;
 import oracle.adf.view.rich.component.rich.nav.RichButton;
+import oracle.jbo.format.DefaultDateFormatter;
+
+import java.util.List;
+import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import oracle.adf.view.rich.component.rich.data.RichTable;
+import oracle.adf.view.rich.context.AdfFacesContext;
+
+import oracle.jbo.format.DefaultDateFormatter;
 
 public class PagoSinReferencia {
+    
+    //componentes
     private RichForm f1;
     private RichDocument d1;
     private RichPanelGridLayout pgl1;
     private RichGridRow gr1;
     private RichGridCell gc1;
-    private RichInputText it1;
+    private RichInputText cuentaBancariaIT;
     private RichPanelGridLayout pgl2;
     private RichGridRow gr2;
     private RichGridCell gc2;
@@ -38,9 +54,9 @@ public class PagoSinReferencia {
     private RichGridCell gc9;
     private RichGridCell gc10;
     private RichGridCell gc11;
-    private RichInputDate id1;
-    private RichInputDate id2;
-    private RichSelectBooleanCheckbox sbc1;
+    private RichInputDate fechaInicialIT;
+    private RichInputDate fechaFinalIT;
+    private RichSelectBooleanCheckbox aplicadosCB;
     private RichButton b1;
     private RichPanelGridLayout pgl4;
     private RichGridRow gr4;
@@ -52,9 +68,12 @@ public class PagoSinReferencia {
     private RichPanelGridLayout pgl5;
     private RichGridRow gr5;
     private RichGridCell gc17;
-    private RichTable t1;
     private RichButton b2;
     private RichButton b3;
+    
+    //variables y clases
+    private List<PagoSinReferenciaVO> pagosVO;
+    private RichTable t1;
 
     public void setF1(RichForm f1) {
         this.f1 = f1;
@@ -96,13 +115,12 @@ public class PagoSinReferencia {
         return gc1;
     }
 
-
-    public void setIt1(RichInputText it1) {
-        this.it1 = it1;
+    public void setCuentaBancariaIT(RichInputText cuentaBancariaIT) {
+        this.cuentaBancariaIT = cuentaBancariaIT;
     }
 
-    public RichInputText getIt1() {
-        return it1;
+    public RichInputText getCuentaBancariaIT() {
+        return cuentaBancariaIT;
     }
 
 
@@ -218,28 +236,29 @@ public class PagoSinReferencia {
         return gc11;
     }
 
-    public void setId1(RichInputDate id1) {
-        this.id1 = id1;
+    public void setFechaInicialIT(RichInputDate fechaInicialIT) {
+        this.fechaInicialIT = fechaInicialIT;
     }
 
-    public RichInputDate getId1() {
-        return id1;
+    public RichInputDate getFechaInicialIT() {
+        return fechaInicialIT;
     }
 
-    public void setId2(RichInputDate id2) {
-        this.id2 = id2;
+    public void setFechaFinalIT(RichInputDate fechaFinalIT) {
+        this.fechaFinalIT = fechaFinalIT;
     }
 
-    public RichInputDate getId2() {
-        return id2;
+    public RichInputDate getFechaFinalIT() {
+        return fechaFinalIT;
     }
 
-    public void setSbc1(RichSelectBooleanCheckbox sbc1) {
-        this.sbc1 = sbc1;
+
+    public void setAplicadosCB(RichSelectBooleanCheckbox aplicadosCB) {
+        this.aplicadosCB = aplicadosCB;
     }
 
-    public RichSelectBooleanCheckbox getSbc1() {
-        return sbc1;
+    public RichSelectBooleanCheckbox getAplicadosCB() {
+        return aplicadosCB;
     }
 
     public void setB1(RichButton b1) {
@@ -248,19 +267,6 @@ public class PagoSinReferencia {
 
     public RichButton getB1() {
         return b1;
-    }
-
-    public String buscarP_Action() {
-        // Add event code here...
-        GestorPagosWS_Service gestorPagosWS_Service = new GestorPagosWS_Service();
-        GestorPagosWS gestorPagosWS = gestorPagosWS_Service.getGestorPagosWSPort();
-        FiltroPagoSinReferencia filtros= new FiltroPagoSinReferencia();
-        
-        RespuestaPagoSinReferencia respuestaPagos = gestorPagosWS.consultarPagosSinReferencia(filtros);
-        for(LineaEstadoCuentaDTO linea: respuestaPagos.getLineas()){
-            System.out.println(linea.getConceptoMovimiento());
-            }
-        return null;
     }
 
     public void setPgl4(RichPanelGridLayout pgl4) {
@@ -343,13 +349,6 @@ public class PagoSinReferencia {
         return gc17;
     }
 
-    public void setT1(RichTable t1) {
-        this.t1 = t1;
-    }
-
-    public RichTable getT1() {
-        return t1;
-    }
 
     public void setB2(RichButton b2) {
         this.b2 = b2;
@@ -365,5 +364,66 @@ public class PagoSinReferencia {
 
     public RichButton getB3() {
         return b3;
+    }
+
+
+    public void setPagosVO(List<PagoSinReferenciaVO> pagosVO) {
+        this.pagosVO = pagosVO;
+    }
+
+    public List<PagoSinReferenciaVO> getPagosVO() {
+        return pagosVO;
+    }
+    
+    //eventos
+    public String buscarP_Action() {
+        // Add event code here...
+        this.pagosVO=new ArrayList();
+        GestorPagosWS_Service gestorPagosWS_Service = new GestorPagosWS_Service();
+        GestorPagosWS gestorPagosWS = gestorPagosWS_Service.getGestorPagosWSPort();
+        FiltroPagoSinReferencia filtros= new FiltroPagoSinReferencia();
+        String formattedDateF="";
+        String formattedDateI="";
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            formattedDateF = formatter.format(new Date(fechaFinalIT.getValue().toString()));
+            formattedDateI = formatter.format(new Date(fechaInicialIT.getValue().toString()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+         
+        filtros.setFechaFinal(formattedDateF);
+        filtros.setFechaInicial(formattedDateI);
+        filtros.setCuentaBancaria("");
+        if(!(boolean)(aplicadosCB.getValue())){
+            System.out.println(aplicadosCB.getValue());
+            filtros.setMostrarAplicar("NO");
+        }else{
+                filtros.setMostrarAplicar("");
+            }
+        RespuestaPagoSinReferencia respuestaPagos = gestorPagosWS.consultarPagosSinReferencia(filtros);
+        System.out.println(respuestaPagos.getLineas().size());
+        for(LineaEstadoCuentaDTO linea: respuestaPagos.getLineas()){
+            PagoSinReferenciaVO pagos= new PagoSinReferenciaVO();
+            pagos.setCuentaBancaria(""+linea.getCuentaBancaria());
+            pagos.setFecha(formatter.format(new Date(linea.getFecha())));                
+            pagos.setMoneda(null);
+            pagos.setMonto(""+linea.getMonto());
+            pagos.setTipoDeposito(linea.getTipoDeposito());
+            pagos.setConceptoDeposito(null);
+            this.pagosVO.add(pagos);
+        }
+        
+        AdfFacesContext.getCurrentInstance().addPartialTarget(t1);
+        System.out.println("Actualizando boton");
+        return null;
+    }
+
+    public void setT1(RichTable t1) {
+        this.t1 = t1;
+    }
+
+    public RichTable getT1() {
+        return t1;
     }
 }
