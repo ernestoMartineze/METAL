@@ -14,6 +14,8 @@ public class PagoSinReferenciaVO {
     private String proyecto;
     private String cliente;
     private String nCuenta;
+    private String idPago;
+    private String numeroRecibo;
     
     public PagoSinReferenciaVO() {
     }
@@ -113,5 +115,32 @@ public class PagoSinReferenciaVO {
 
     public String getNCuenta() {
         return nCuenta;
+    }
+
+    public void setIdPago(String idPago) {
+        this.idPago = idPago;
+    }
+
+    public String getIdPago() {
+        return idPago;
+    }
+
+
+    public void setNumeroRecibo(String numeroRecibo) {
+        this.numeroRecibo = numeroRecibo;
+    }
+
+    public String getNumeroRecibo() {
+        return numeroRecibo;
+    }
+
+    @Override
+    public String toString() {
+        // TODO Implement this method
+        System.out.println(cuentaBancaria+"  "+fecha+"  "+ moneda+"  "
+            +monto+"  "+tipoDeposito+"  "+conceptoDeposito+"  "+referencia+"  "
+            +lineaDeCaptura+"  "+unidadDeNegocio+"  "+proyecto+"  "+cliente+"  "
+           +nCuenta);
+        return super.toString();
     }
 }

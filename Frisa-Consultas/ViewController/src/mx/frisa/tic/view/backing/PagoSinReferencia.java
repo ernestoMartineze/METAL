@@ -3,12 +3,16 @@ package mx.frisa.tic.view.backing;
 
 import java.text.ParseException;
 
+import javax.faces.event.ValueChangeEvent;
+
 import mx.frisa.tic.negocio.ws.FiltroPagoSinReferencia;
 import mx.frisa.tic.negocio.ws.GestorPagosWS;
 import mx.frisa.tic.negocio.ws.GestorPagosWS_Service;
 import mx.frisa.tic.negocio.ws.LineaEstadoCuentaDTO;
 import mx.frisa.tic.negocio.ws.PagoSinReferenciaVO;
 import mx.frisa.tic.negocio.ws.RespuestaPagoSinReferencia;
+import mx.frisa.tic.negocio.ws.PeticionExistente;
+import mx.frisa.tic.negocio.ws.RespuestaClienteDTO;
 
 import oracle.adf.view.rich.component.rich.RichDocument;
 import oracle.adf.view.rich.component.rich.RichForm;
@@ -25,11 +29,14 @@ import java.util.List;
 import java.util.ArrayList;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.math.BigInteger;
 
 import oracle.adf.view.rich.component.rich.data.RichTable;
 import oracle.adf.view.rich.context.AdfFacesContext;
 
 import oracle.jbo.format.DefaultDateFormatter;
+
+import org.apache.myfaces.trinidad.event.AttributeChangeEvent;
 
 public class PagoSinReferencia {
     
@@ -73,6 +80,7 @@ public class PagoSinReferencia {
     
     //variables y clases
     private List<PagoSinReferenciaVO> pagosVO;
+    private List<PagoSinReferenciaVO> pagosAplicar;
     private RichTable t1;
 
     public void setF1(RichForm f1) {
@@ -385,32 +393,44 @@ public class PagoSinReferencia {
         String formattedDateF="";
         String formattedDateI="";
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        try {
+        //validamos fechas nulas
+        if(fechaFinalIT.getValue()!=null){
             formattedDateF = formatter.format(new Date(fechaFinalIT.getValue().toString()));
+            filtros.setFechaFinal(formattedDateF);
+        }else{
+            filtros.setFechaFinal("");
+        } 
+        if(fechaFinalIT.getValue()!=null){
             formattedDateI = formatter.format(new Date(fechaInicialIT.getValue().toString()));
-        } catch (Exception e) {
-            e.printStackTrace();
+            filtros.setFechaInicial(formattedDateI);
+        }else{
+            filtros.setFechaInicial("");
         }
-         
-        filtros.setFechaFinal(formattedDateF);
-        filtros.setFechaInicial(formattedDateI);
-        filtros.setCuentaBancaria("");
-        if(!(boolean)(aplicadosCB.getValue())){
-            System.out.println(aplicadosCB.getValue());
+        //validamos cuenta bancaria nula
+        if(cuentaBancariaIT.getValue() != null){
+            filtros.setCuentaBancaria(cuentaBancariaIT.getValue().toString());    
+        }else{
+            filtros.setCuentaBancaria("");              
+        }
+        //validamos checkbox para pagos aplicados
+        if(aplicadosCB.isSelected()){
             filtros.setMostrarAplicar("NO");
         }else{
-                filtros.setMostrarAplicar("");
-            }
+            filtros.setMostrarAplicar("");
+        }
+        
         RespuestaPagoSinReferencia respuestaPagos = gestorPagosWS.consultarPagosSinReferencia(filtros);
         System.out.println(respuestaPagos.getLineas().size());
         for(LineaEstadoCuentaDTO linea: respuestaPagos.getLineas()){
             PagoSinReferenciaVO pagos= new PagoSinReferenciaVO();
             pagos.setCuentaBancaria(""+linea.getCuentaBancaria());
-            pagos.setFecha(formatter.format(new Date(linea.getFecha())));                
+            pagos.setFecha(linea.getFecha());                
             pagos.setMoneda(null);
             pagos.setMonto(""+linea.getMonto());
             pagos.setTipoDeposito(linea.getTipoDeposito());
             pagos.setConceptoDeposito(null);
+            pagos.setIdPago(linea.getIdPago().toString());
+            //pagos.setNumeroRecibo(linea.get);
             this.pagosVO.add(pagos);
         }
         
@@ -425,5 +445,45 @@ public class PagoSinReferencia {
 
     public RichTable getT1() {
         return t1;
+    }
+
+    public String validarP_Action() {
+        // Add event code here...
+        pagosAplicar = new ArrayList();
+        System.out.println("validando pagos");
+        for(PagoSinReferenciaVO pagos:pagosVO){
+            if(pagos.getLineaDeCaptura()!=null || pagos.getReferencia()!=null){
+                GestorPagosWS_Service gestorPagosWS_Service = new GestorPagosWS_Service();
+                GestorPagosWS gestorPagosWS = gestorPagosWS_Service.getGestorPagosWSPort();
+                PeticionExistente peticion = new PeticionExistente();
+                peticion.setIdPago(new BigInteger(pagos.getIdPago()));
+                peticion.setLineaCaptura(pagos.getLineaDeCaptura()==null?"":pagos.getLineaDeCaptura());
+                //peticion.setNumeroRecibo(new BigInteger(pagos.getNumeroRecibo()));
+                peticion.setReferencia(pagos.getReferencia()==null?"":pagos.getReferencia());
+                RespuestaClienteDTO respuesta= gestorPagosWS.consultarReferenciaLCExistente(peticion);
+                System.out.println(respuesta.getProceso().getDescripcion());
+                if(respuesta.getProceso().getDescripcion().equals("EXITOSO")){
+                    if(respuesta.getIdPago()!=null){
+                            pagos.setUnidadDeNegocio(respuesta.getUnidadNegocio());
+                            pagos.setProyecto(respuesta.getProyectoID().toString());
+                            pagos.setCliente(respuesta.getCliente());
+                            pagos.setNCuenta(respuesta.getIdPago().toString());
+                            pagosAplicar.add(pagos);
+                        }          
+                }
+            }
+        }
+        AdfFacesContext.getCurrentInstance().addPartialTarget(t1);
+        return null;
+    }
+
+    public String aplicarB_Action() {
+        // Add event code here...
+        for(PagoSinReferenciaVO pago :pagosAplicar){
+            System.out.println(pago.getCliente());
+                System.out.println(pago.getUnidadDeNegocio());
+                System.out.println(pago.getProyecto());
+            }
+        return null;
     }
 }

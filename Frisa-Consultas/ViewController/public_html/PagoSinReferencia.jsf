@@ -3,7 +3,8 @@
 <f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
     <af:document title="PagoSinReferencia.jsf" id="d1" binding="#{pageFlowScope.backing_PagoSinReferencia.d1}">
         <af:form id="f1" binding="#{pageFlowScope.backing_PagoSinReferencia.f1}">
-            <af:panelGridLayout id="pgl1" binding="#{pageFlowScope.backing_PagoSinReferencia.pgl1}">
+            <af:panelGridLayout id="pgl1" binding="#{pageFlowScope.backing_PagoSinReferencia.pgl1}"
+                                inlineStyle="margin-bottom:0px; margin-left:10px; margin-right:10px; margin-top:10px;">
                 <af:gridRow marginTop="5px" height="auto" marginBottom="5px" id="gr1"
                             binding="#{pageFlowScope.backing_PagoSinReferencia.gr1}">
                     <af:gridCell marginStart="5px" width="100%" marginEnd="5px" id="gc1"
@@ -13,7 +14,8 @@
                     </af:gridCell>
                 </af:gridRow>
             </af:panelGridLayout>
-            <af:panelGridLayout id="pgl2" binding="#{pageFlowScope.backing_PagoSinReferencia.pgl2}">
+            <af:panelGridLayout id="pgl2" binding="#{pageFlowScope.backing_PagoSinReferencia.pgl2}"
+                                inlineStyle="margin-left:10px; margin-right:10px;">
                 <af:gridRow marginTop="5px" height="auto" marginBottom="5px" id="gr2"
                             binding="#{pageFlowScope.backing_PagoSinReferencia.gr2}">
                     <af:gridCell marginStart="5px" width="15%" id="gc2"
@@ -34,7 +36,8 @@
                                  binding="#{pageFlowScope.backing_PagoSinReferencia.gc6}"/>
                 </af:gridRow>
             </af:panelGridLayout>
-            <af:panelGridLayout id="pgl3" binding="#{pageFlowScope.backing_PagoSinReferencia.pgl3}">
+            <af:panelGridLayout id="pgl3" binding="#{pageFlowScope.backing_PagoSinReferencia.pgl3}"
+                                inlineStyle="margin-left:10px;">
                 <af:gridRow marginTop="5px" height="auto" marginBottom="5px" id="gr3"
                             binding="#{pageFlowScope.backing_PagoSinReferencia.gr3}">
                     <af:gridCell marginStart="5px" width="10%" id="gc7"
@@ -55,16 +58,19 @@
                                  binding="#{pageFlowScope.backing_PagoSinReferencia.gc11}"/>
                 </af:gridRow>
             </af:panelGridLayout>
-            <af:panelGridLayout id="pgl4" binding="#{pageFlowScope.backing_PagoSinReferencia.pgl4}">
+            <af:panelGridLayout id="pgl4" binding="#{pageFlowScope.backing_PagoSinReferencia.pgl4}"
+                                inlineStyle="margin-bottom:10px; margin-left:10px; margin-top:15px; margin-right:10px;">
                 <af:gridRow marginTop="5px" height="auto" marginBottom="5px" id="gr4"
                             binding="#{pageFlowScope.backing_PagoSinReferencia.gr4}">
-                    <af:gridCell marginStart="5px" width="10%" id="gc12"
+                    <af:gridCell marginStart="5px" width="5%" id="gc12"
                                  binding="#{pageFlowScope.backing_PagoSinReferencia.gc12}">
-                        <af:button text="Validar" id="b2" binding="#{pageFlowScope.backing_PagoSinReferencia.b2}"/>
+                        <af:button text="Validar" id="b2" binding="#{pageFlowScope.backing_PagoSinReferencia.b2}"
+                                   action="#{pageFlowScope.backing_PagoSinReferencia.b2_action}"/>
                     </af:gridCell>
                     <af:gridCell marginStart="5px" width="20%" id="gc13"
                                  binding="#{pageFlowScope.backing_PagoSinReferencia.gc13}">
-                        <af:button text="Aplicar" id="b3" binding="#{pageFlowScope.backing_PagoSinReferencia.b3}"/>
+                        <af:button text="Aplicar" id="b3" binding="#{pageFlowScope.backing_PagoSinReferencia.b3}"
+                                   action="#{pageFlowScope.backing_PagoSinReferencia.aplicarB_Action}"/>
                     </af:gridCell>
                     <af:gridCell marginStart="5px" width="20%" id="gc14"
                                  binding="#{pageFlowScope.backing_PagoSinReferencia.gc14}"/>
@@ -74,7 +80,8 @@
                                  binding="#{pageFlowScope.backing_PagoSinReferencia.gc16}"/>
                 </af:gridRow>
             </af:panelGridLayout>
-            <af:panelGridLayout id="pgl5" binding="#{pageFlowScope.backing_PagoSinReferencia.pgl5}">
+            <af:panelGridLayout id="pgl5" binding="#{pageFlowScope.backing_PagoSinReferencia.pgl5}"
+                                inlineStyle="margin-left:10px; margin-right:10px; margin-bottom:15px;">
                 <af:gridRow marginTop="5px" height="auto" marginBottom="5px" id="gr5"
                             binding="#{pageFlowScope.backing_PagoSinReferencia.gr5}">
                     <af:gridCell marginStart="5px" width="100%" marginEnd="5px" id="gc17"
@@ -101,10 +108,10 @@
                                 <af:outputText value="#{row.conceptoDeposito}" id="ot6"/>
                             </af:column>
                             <af:column sortable="false" headerText="Referencia" align="start" id="c7">
-                                <af:outputText value="#{row.referencia}" id="ot7"/>
+                                <af:inputText id="it1" value="#{row.referencia}"/>
                             </af:column>
                             <af:column sortable="false" headerText="Linea De Captura" align="start" id="c8">
-                                <af:outputText value="#{row.lineaDeCaptura}" id="ot8"/>
+                                <af:inputText id="it2" value="#{row.lineaDeCaptura}"/>
                             </af:column>
                             <af:column sortable="false" headerText="Unidad De Negocio" align="start" id="c9">
                                 <af:outputText value="#{row.unidadDeNegocio}" id="ot9"/>
@@ -115,7 +122,7 @@
                             <af:column sortable="false" headerText="Cliente" align="start" id="c11">
                                 <af:outputText value="#{row.cliente}" id="ot11"/>
                             </af:column>
-                            <af:column sortable="false" headerText="N Cuenta" align="start" id="c12">
+                            <af:column sortable="false" headerText="N° cobro" align="start" id="c12">
                                 <af:outputText value="#{row.NCuenta}" id="ot12"/>
                             </af:column>
                         </af:table>
