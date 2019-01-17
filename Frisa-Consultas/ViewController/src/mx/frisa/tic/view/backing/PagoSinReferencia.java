@@ -4,11 +4,14 @@ package mx.frisa.tic.view.backing;
 import java.text.ParseException;
 
 import mx.frisa.tic.negocio.ws.FiltroPagoSinReferencia;
+import mx.frisa.tic.negocio.ws.PeticionExistente;
+import mx.frisa.tic.negocio.ws.ConsultarReferenciaLCExistente;
 import mx.frisa.tic.negocio.ws.GestorPagosWS;
 import mx.frisa.tic.negocio.ws.GestorPagosWS_Service;
 import mx.frisa.tic.negocio.ws.LineaEstadoCuentaDTO;
 import mx.frisa.tic.negocio.ws.PagoSinReferenciaVO;
 import mx.frisa.tic.negocio.ws.RespuestaPagoSinReferencia;
+import mx.frisa.tic.negocio.ws.RespuestaClienteDTO;
 
 import oracle.adf.view.rich.component.rich.RichDocument;
 import oracle.adf.view.rich.component.rich.RichForm;
@@ -425,5 +428,40 @@ public class PagoSinReferencia {
 
     public RichTable getT1() {
         return t1;
+    }
+
+    public String b2_action() {
+        // Add event code here...
+        this.pagosVO = new ArrayList();
+        GestorPagosWS_Service gestorPagosWS_Service = new GestorPagosWS_Service();
+        GestorPagosWS gestorPagosWS = gestorPagosWS_Service.getGestorPagosWSPort();
+        
+        RespuestaClienteDTO consulta = new RespuestaClienteDTO();
+        PeticionExistente filtros = new PeticionExistente();
+        
+        try{
+            for( PagoSinReferenciaVO linea :pagosVO){
+               String referencia = linea.getReferencia();
+               filtros.setReferencia(""+linea.getReferencia());
+               String LC = linea.getLineaDeCaptura();
+               filtros.setLineaCaptura(""+linea.getLineaDeCaptura());
+                
+                if(referencia !=null || LC != null){
+                    consulta = gestorPagosWS.consultarReferenciaLCExistente(filtros);
+                    
+                    linea.setUnidadDeNegocio(consulta.getUnidadNegocio());
+                    linea.setProyecto(""+consulta.getProyectoID());
+                    linea.setCliente(consulta.getCliente());
+                    linea.setNCuenta(""+consulta.getNumeroCobro());
+                    this.pagosVO.add(linea);
+                } 
+        }
+       
+
+    }catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        AdfFacesContext.getCurrentInstance().addPartialTarget(t1);
+        return null;
     }
 }

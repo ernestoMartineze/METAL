@@ -60,7 +60,8 @@
                             binding="#{pageFlowScope.backing_PagoSinReferencia.gr4}">
                     <af:gridCell marginStart="5px" width="10%" id="gc12"
                                  binding="#{pageFlowScope.backing_PagoSinReferencia.gc12}">
-                        <af:button text="Validar" id="b2" binding="#{pageFlowScope.backing_PagoSinReferencia.b2}"/>
+                        <af:button text="Validar" id="b2" binding="#{pageFlowScope.backing_PagoSinReferencia.b2}"
+                                   action="#{pageFlowScope.backing_PagoSinReferencia.b2_action}"/>
                     </af:gridCell>
                     <af:gridCell marginStart="5px" width="20%" id="gc13"
                                  binding="#{pageFlowScope.backing_PagoSinReferencia.gc13}">
