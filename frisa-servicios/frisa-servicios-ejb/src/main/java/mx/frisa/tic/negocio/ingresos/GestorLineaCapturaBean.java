@@ -419,9 +419,9 @@ public class GestorLineaCapturaBean implements GestorLineaCaptura {
 //                    lineaFactura.setFechadesde(String.lineasFacturaSOA.getFechadesde());
 //                    lineaFactura.setFechaexigibilidad(lineasFacturaSOA.getFechaexigibilidad());
 //                    lineaFactura.setFechahasta(lineasFacturaSOA.getFechahasta());
-                    lineaFactura.setFechadesde(new Date());
-                    lineaFactura.setFechaexigibilidad(new Date());
-                    lineaFactura.setFechahasta(new Date());
+                    lineaFactura.setFechadesde(new Date()); //CORREGIR DE FUENTE
+                    lineaFactura.setFechaexigibilidad(new Date()); //CORREGIR DE FUENTE
+                    lineaFactura.setFechahasta(new Date()); //CORREGIR DE FUENTE
                     lineaFactura.setDescriptionOrigen(lineasFacturaSOA.getDescription_origen());
                     lineaFactura.setDescriptionmanual(lineasFacturaSOA.getDescriptionmanual());
                     lineaFactura.setDescadicional1(lineasFacturaSOA.getDescadicional1());

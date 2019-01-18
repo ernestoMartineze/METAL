@@ -330,6 +330,24 @@ public class DAO<T> extends ManejadorEntidad implements Serializable {
         }
 
     }
+    public T consultarPorID(T entity, Object valor) {
+        this.instanciarManager();
+        EntityManager em = this.getEntityManager();
+        try {
+            System.out.println("ENTIDAD: " + entity);
+            entity = (T) em.find(entity.getClass(),valor);
+            em.merge(entity);
+
+            validarErrorInsert(false);
+        } catch (Exception e) {
+            e.printStackTrace();
+            validarErrorInsert(true);
+        } finally {
+            em.close();
+            this.cerrarManager();
+        }
+        return entity;
+    }
  
 
     public Boolean actualizaQuery(String scriptQuery) {

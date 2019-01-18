@@ -51,15 +51,8 @@ public class CreditMemoDTO {
     protected BigDecimal taxPercent = null;
     protected String computeTax = null;
     protected CreditMemoFLEXDTO creditMemoFLEXVA = null;
-    protected String estado_erp = null;
 
-    public String getEstado_erp() {
-        return estado_erp;
-    }
-
-    public void setEstado_erp(String estado_erp) {
-        this.estado_erp = estado_erp;
-    }
+    
 
     /**
      * Obtiene el valor de la propiedad batchSourceSequenceId.
