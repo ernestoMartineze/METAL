@@ -36,5 +36,11 @@ public class FechaUtils {
         String strDate = dateFormat.format(date);
         return strDate;
     }
+        public static String convierteHoyFecha() {
+        Date date = Calendar.getInstance().getTime();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String strDate = dateFormat.format(date);
+        return strDate;
+    }
 
 }

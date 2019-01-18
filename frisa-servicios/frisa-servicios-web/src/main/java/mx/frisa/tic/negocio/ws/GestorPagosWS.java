@@ -65,7 +65,6 @@ public class GestorPagosWS {
      */
     @WebMethod(operationName = "aplicarPagoManual")
     public RespuestaDTO aplicarPagoManual(@WebParam(name = "aplicarPago") AplicarPagoDTO aplicarPago) {
-
         return ejbRefPagos.aplicarPagoManual(aplicarPago); //ejbRef.aplicarPagoManual(filtros);
     }
 

@@ -36,6 +36,7 @@ import mx.frisa.tic.datos.dto.ingresos.PagoDTO;
 import mx.frisa.tic.datos.dto.ingresos.Proceso;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaMetodoPagoDTO;
+import mx.frisa.tic.datos.entidades.XxfrCabeceraFactura;
 import mx.frisa.tic.negocio.utils.ManejadorLog;
 import mx.frisa.tic.negocio.utils.PropiedadesFRISA;
 import mx.frisa.tic.utils.FechaUtils;
@@ -116,6 +117,8 @@ public class AdaptadorWS {
                 factura.setServiceStatus_ERP(serviceStatus);
                 factura.setCustomerTrxID_ERP(customerTrxId);
                 facturasProcesadas.add(factura);
+                
+                
             }
             //        System.out.println(formattedSOAPResponse);
         } catch (Exception ex) {
@@ -293,7 +296,7 @@ public class AdaptadorWS {
         xmlInput = inyectaParametro(xmlInput, "com:OrgId", pagos.getUnidadNegocio());
         xmlInput = inyectaParametro(xmlInput, "com:ReceiptDate", "2018-12-17");
         xmlInput = inyectaParametro(xmlInput, "com:ReceiptMethodId", pagos.getMetodoId());
-        xmlInput = inyectaParametro(xmlInput, "com:ReceiptNumber", pagos.getNroRecibo());
+        xmlInput = inyectaParametro(xmlInput, "com:ReceiptNumber", pagos.getIdEdoCta()+"");
 
         String SOAPAction
                 = PropiedadesFRISA.recuperaPropiedadBackend("encabezadoFacturaServiceSoapAction");
@@ -380,6 +383,65 @@ public class AdaptadorWS {
             }
 
         }
+
+        return respestaWS;
+    }
+    public RespuestaERP_EncabezadoRecibo getERP_AplicarPago(PagoDTO pagoDto, List<XxfrCabeceraFactura> pLstFacturas) throws MalformedURLException,
+            IOException,
+            ParserConfigurationException,
+            SAXException {
+
+        //Code to make a webservice HTTP request
+        RespuestaERP_EncabezadoRecibo respestaWS = new RespuestaERP_EncabezadoRecibo();
+        respestaWS.setProceso(new Proceso("0", "EXITOSO"));
+        String outputString = "";
+        String wsURL = PropiedadesFRISA.recuperaPropiedadBackend("aplicaPagoFacturaServiceEndPoint");
+
+        
+            if (pagoDto.getNroRecibo().equals("")) {
+                respestaWS.setProceso(new Proceso("1001", "No existe numero de recibo para aplicacion del pago"));
+                return respestaWS;
+            }
+            String xmlInput
+                    = getCadenaDesdeB64(PropiedadesFRISA.recuperaPropiedadBackend("aplicaPagoFacturaServicePayload"));
+
+            String SOAPAction
+                    = PropiedadesFRISA.recuperaPropiedadBackend("aplicaPagoFacturaServiceSoapAction");
+
+            //Ready with sending the request.
+            try {
+                //Inyectar parametros a la peticion
+                xmlInput = inyectaParametro(xmlInput, "com:AmountApplied", pagoDto.getMonto());
+                xmlInput = inyectaParametro(xmlInput, "com:ReceiptNumber", pagoDto.getNroRecibo());
+                xmlInput = inyectaParametro(xmlInput, "com:TransactionNumber", pagoDto.getIdCabeceraRecibo()+ "");
+                xmlInput = inyectaParametro(xmlInput, "com:TransactionDate", pagoDto.getFechaCreacion());
+                xmlInput = inyectaParametro(xmlInput, "com:CustomerName", pagoDto.getBillCustomerName());
+                xmlInput = inyectaParametro(xmlInput, "com:ApplicationDate", pagoDto.getFechaAplicacion());
+                xmlInput = inyectaParametro(xmlInput, "com:AccountingDate", pagoDto.getFechaContable());
+
+                //Read the response.
+                outputString = enviarMsg(wsURL, SOAPAction, xmlInput, PropiedadesFRISA.recuperaPropiedadBackend("aplicaPagoFacturaServiceContentType"));
+
+                //Parse the String output to a org.w3c.dom.Document and be able to reach every node with the org.w3c.dom API.
+                if (outputString.indexOf("=_Part") > -1) {
+                    outputString = outputString.substring(outputString.indexOf("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>"), outputString.lastIndexOf("</env:Envelope>") + 15);
+                }
+
+                System.out.println("outputString : " + outputString);
+
+                Document document = parseXmlFile(outputString);
+                NodeList nodeLst = document.getElementsByTagName("ns3:CashReceiptId");
+                String resultado = nodeLst.item(0).getTextContent();
+
+                //Write the SOAP message formatted to the console.
+//                    String formattedSOAPResponse = formatXML(outputString);
+                respestaWS.setNumeroRecibo(resultado);
+                System.out.println("resultado : " + resultado);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                respestaWS.setProceso(new Proceso("100", "ERROR"));
+            }
+
 
         return respestaWS;
     }
