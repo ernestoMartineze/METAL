@@ -7,6 +7,7 @@ package mx.frisa.tic.negocio.ingresos;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ import mx.frisa.tic.datos.dto.ingresos.PagoDTO;
 import mx.frisa.tic.datos.dto.ingresos.PagoPorAplicarDTO;
 import mx.frisa.tic.datos.dto.ingresos.PeticionExistente;
 import mx.frisa.tic.datos.dto.ingresos.Proceso;
+import mx.frisa.tic.datos.dto.ingresos.RespuestaAplicarPagoDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaClienteDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaPagoSinReferencia;
@@ -359,27 +361,34 @@ public class GestorPagosBean implements GestorPagos {
     }
 
     @Override
-    public RespuestaDTO aplicarPagoManual(AplicarPagoDTO aplicarPagoDTO) {
+    public RespuestaAplicarPagoDTO aplicarPagoManual(AplicarPagoDTO aplicarPagoDTO) {
 
-        RespuestaDTO respuesta = new RespuestaDTO();
+        RespuestaAplicarPagoDTO respuesta = new RespuestaAplicarPagoDTO();
         ManejadorLog log = new ManejadorLog();
         log.debug("Entro aplicarPagoManual");
         try {
             for (PagoPorAplicarDTO pagoXAplicar : aplicarPagoDTO.getPagoPorAplicar()) {
-                respuesta.setProceso("EXITOSO");
-                respuesta.setIdError("0");
+                respuesta.setProceso(new Proceso("0", "EXITOSO"));
+                int contador = 0;
+                for (PagoPorAplicarDTO pagoPorAplicar : respuesta.getAplicarPago().getPagoPorAplicar()) {
+                    pagoPorAplicar.setTermino(BigInteger.ZERO);
+                    respuesta.getAplicarPago().getPagoPorAplicar().get(contador).setTermino(BigInteger.ZERO);
+                    if (contador == 1) {
+                        respuesta.getAplicarPago().getPagoPorAplicar().get(contador).setTermino(BigInteger.ONE);
+                    }
+                    contador++;
+                }
+
                 break;
             }
-            if (respuesta.getIdError().equals("")) {
-                respuesta.setProceso("ERROR");
-                respuesta.setIdError("901");
-                respuesta.setDescripcionError("ERROR : Al procesar la aplicación del pago por no existir información a procesar.");
+            if (!respuesta.getProceso().getTermino().equals("0")) {
+                respuesta.setProceso(new Proceso("901", "ERROR"));
+//                respuesta.setDescripcionError("ERROR : Al procesar la aplicación del pago por no existir información a procesar.");
             }
 
         } catch (Exception ex) {
-            respuesta.setProceso("ERROR");
-            respuesta.setIdError("900");
-            respuesta.setDescripcionError("ERROR : No es posible procesar la petición de aplicación de pago " + ex.getLocalizedMessage());
+            respuesta.setProceso(new Proceso("900", "ERROR"));
+//            respuesta.setDescripcionError("ERROR : No es posible procesar la petición de aplicación de pago " + ex.getLocalizedMessage());
             ex.printStackTrace();
         }
         log.debug("Termino aplicarPagoManual");

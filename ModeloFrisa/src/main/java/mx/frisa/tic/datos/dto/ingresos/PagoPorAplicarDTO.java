@@ -14,7 +14,7 @@ import java.math.BigInteger;
 public class PagoPorAplicarDTO {
     
     private String referencia;
-    private BigInteger idLineaCaputura, idPago, idEdoCuenta;
+    private BigInteger idLineaCaputura, idPago, idEdoCuenta, termino;
 
     public String getReferencia() {
         return referencia;
@@ -47,4 +47,13 @@ public class PagoPorAplicarDTO {
     public void setIdEdoCuenta(BigInteger idEdoCuenta) {
         this.idEdoCuenta = idEdoCuenta;
     }
+
+    public BigInteger getTermino() {
+        return termino;
+    }
+
+    public void setTermino(BigInteger termino) {
+        this.termino = termino;
+    }
+    
 }

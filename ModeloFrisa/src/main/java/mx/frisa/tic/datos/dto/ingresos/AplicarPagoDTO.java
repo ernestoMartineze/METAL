@@ -5,7 +5,7 @@
  */
 package mx.frisa.tic.datos.dto.ingresos;
 
-import java.math.BigInteger;
+
 import java.util.List;
 
 /**
