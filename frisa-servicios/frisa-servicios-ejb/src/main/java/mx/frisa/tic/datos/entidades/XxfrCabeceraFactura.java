@@ -217,8 +217,7 @@ public class XxfrCabeceraFactura implements Serializable {
     @Size(max = 20)
     @Column(name = "IDBATCH")
     private String idbatch;
-    @OneToMany(mappedBy = "idfacturaprimavera", fetch = FetchType.LAZY)
-    private List<XxfrLineaCapturaFactura> xxfrLineaCapturaFacturaList;
+
 
     @Column(name = "CUSTOMERTRXID_ERP")
     private String customerTrxID_erp;
@@ -543,14 +542,6 @@ public class XxfrCabeceraFactura implements Serializable {
         this.idbatch = idbatch;
     }
 
-    @XmlTransient
-    public List<XxfrLineaCapturaFactura> getXxfrLineaCapturaFacturaList() {
-        return xxfrLineaCapturaFacturaList;
-    }
-
-    public void setXxfrLineaCapturaFacturaList(List<XxfrLineaCapturaFactura> xxfrLineaCapturaFacturaList) {
-        this.xxfrLineaCapturaFacturaList = xxfrLineaCapturaFacturaList;
-    }
 
     /*public XxfrtNotaCredito getXxfrtNotaCredito() {
         return xxfrtNotaCredito;
@@ -613,18 +604,11 @@ public class XxfrCabeceraFactura implements Serializable {
     public List<XxfrInvoiceLines> getXxfrInvoiceLinesList() {
         return xxfrInvoiceLinesList;
     }
-
-    public void setXxfrInvoiceLinesList(List<XxfrInvoiceLines> xxfrInvoiceLinesList) {
+    
+        public void setXxfrInvoiceLinesList(List<XxfrInvoiceLines> xxfrInvoiceLinesList) {
         this.xxfrInvoiceLinesList = xxfrInvoiceLinesList;
     }
 
-    public String getOrgid() {
-        return orgid;
-    }
-
-    public void setOrgid(String orgid) {
-        this.orgid = orgid;
-    }
 
     public String getBatchsourcename() {
         return batchsourcename;
@@ -652,6 +636,26 @@ public class XxfrCabeceraFactura implements Serializable {
 
     public String getMensajeerror() {
         return mensajeerror;
+    }
+
+    public void setMensajeerror(String mensajeerror) {
+        this.mensajeerror = mensajeerror;
+    }
+
+    public Long getErptransactionnumber() {
+        return erptransactionnumber;
+    }
+
+    public void setErptransactionnumber(Long erptransactionnumber) {
+        this.erptransactionnumber = erptransactionnumber;
+    }
+
+    public String getOrgid() {
+        return orgid;
+    }
+
+    public void setOrgid(String orgid) {
+        this.orgid = orgid;
     }
 
     public String getCustomerTrxID_erp() {
