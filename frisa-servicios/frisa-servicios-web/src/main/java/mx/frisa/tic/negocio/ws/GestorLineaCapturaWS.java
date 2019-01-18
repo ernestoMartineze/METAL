@@ -5,16 +5,13 @@
  */
 package mx.frisa.tic.negocio.ws;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
+
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
-import mx.frisa.tic.datos.comun.DAO;
 import mx.frisa.tic.datos.dto.ingresos.DetalleLCPagosDTO;
 import mx.frisa.tic.datos.dto.ingresos.DetalleLineaCapturaDTO;
 import mx.frisa.tic.datos.dto.ingresos.FacturaActualizaIdERPDTO;
@@ -35,7 +32,6 @@ import mx.frisa.tic.datos.dto.ingresos.RespuestaLCFactDetDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaLineaCapturaDTO;
 import mx.frisa.tic.negocio.ingresos.GestorLineaCaptura;
 import mx.frisa.tic.negocio.utils.ManejadorLog;
-import mx.frisa.tic.utils.UUIDFrisa;
 
 /**
  *
