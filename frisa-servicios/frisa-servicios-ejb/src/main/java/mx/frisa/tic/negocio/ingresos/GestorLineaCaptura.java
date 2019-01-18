@@ -5,16 +5,19 @@
  */
 package mx.frisa.tic.negocio.ingresos;
 
+import java.math.BigDecimal;
 import java.util.List;
 import javax.ejb.Local;
 import mx.frisa.tic.datos.dto.ingresos.DetalleLCPagosDTO;
 import mx.frisa.tic.datos.dto.ingresos.DetalleLineaCapturaDTO;
+import mx.frisa.tic.datos.dto.ingresos.FacturaActualizaIdERPDTO;
 import mx.frisa.tic.datos.dto.ingresos.LCFactDetDTO;
 
 import mx.frisa.tic.datos.dto.ingresos.LineaCapturaDTO;
 import mx.frisa.tic.datos.dto.ingresos.LineaCaptutaFacturaDTO;
 import mx.frisa.tic.datos.dto.ingresos.PeticionCargaFacturaDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaCargaFacturaDTO;
+import mx.frisa.tic.datos.dto.ingresos.RespuestaDTO;
 
 /**
  *
@@ -80,4 +83,12 @@ public interface GestorLineaCaptura {
     public List<LineaCaptutaFacturaDTO> consultaLCGeneradas(String idBatch);
 
     public RespuestaCargaFacturaDTO cargarFacturas(PeticionCargaFacturaDTO peticion);
+    
+     /**
+     *
+     * @param IdPrimavera 
+     * @param IdErp
+     * @return List<RespuestaDTO>
+     */
+    public RespuestaDTO actualizarIdERP(List<FacturaActualizaIdERPDTO> facturas);
 }

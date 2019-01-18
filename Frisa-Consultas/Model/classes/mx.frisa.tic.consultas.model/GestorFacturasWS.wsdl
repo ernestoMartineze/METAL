@@ -5,6 +5,7 @@
       <xsd:import namespace="http://ws.negocio.tic.frisa.mx/" schemaLocation="GestorFacturasWS1.xsd"/>
     </xsd:schema>
   </types>
+  
   <message name="consultarLCFacturas">
     <part name="parameters" element="tns:consultarLCFacturas"/>
   </message>

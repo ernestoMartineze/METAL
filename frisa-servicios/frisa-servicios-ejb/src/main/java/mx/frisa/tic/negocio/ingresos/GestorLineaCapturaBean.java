@@ -5,10 +5,9 @@
 package mx.frisa.tic.negocio.ingresos;
 
 import com.github.fge.jsonschema.core.exceptions.ProcessingException;
-import java.io.File;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -22,6 +21,7 @@ import mx.frisa.tic.datos.dto.comun.CatalogoParametroDTO;
 import mx.frisa.tic.datos.dto.ingresos.CargaFacturasSOA;
 import mx.frisa.tic.datos.dto.ingresos.DetalleLCPagosDTO;
 import mx.frisa.tic.datos.dto.ingresos.DetalleLineaCapturaDTO;
+import mx.frisa.tic.datos.dto.ingresos.FacturaActualizaIdERPDTO;
 import mx.frisa.tic.datos.dto.ingresos.FacturaSOA;
 import mx.frisa.tic.datos.dto.ingresos.LCFactDetDTO;
 
@@ -31,15 +31,16 @@ import mx.frisa.tic.datos.dto.ingresos.LineasFacturaSOA;
 import mx.frisa.tic.datos.dto.ingresos.PeticionCargaFacturaDTO;
 import mx.frisa.tic.datos.dto.ingresos.Proceso;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaCargaFacturaDTO;
-import mx.frisa.tic.datos.entidades.XxfrCabeceraFactura;
+import mx.frisa.tic.datos.dto.ingresos.RespuestaDTO;
+import mx.frisa.tic.datos.dto.ingresos.lineaActualizaIdERPDTO;
 import mx.frisa.tic.datos.entidades.XxfrConsultaLcFacDet;
-import mx.frisa.tic.datos.entidades.XxfrInvoiceLines;
 import mx.frisa.tic.datos.entidades.XxfrInvoiceLinesPK;
 import mx.frisa.tic.datos.entidades.XxfrLineaCaptura;
 import mx.frisa.tic.datos.entidades.XxfrtCargaFactura;
 import mx.frisa.tic.datos.entidades.XxfrvConsultaLc;
 import mx.frisa.tic.datos.entidades.XxfrvConsultaLcPagos;
-import mx.frisa.tic.datos.validator.ValidationUtils;
+import mx.frisa.tic.datos.entidades.XxfrCabeceraFactura;
+import mx.frisa.tic.datos.entidades.XxfrInvoiceLines;
 import mx.frisa.tic.negocio.remoto.AdaptadorWS;
 import mx.frisa.tic.negocio.utils.PropiedadesFRISA;
 import mx.frisa.tic.utils.ManejadorArchivo;
@@ -52,7 +53,6 @@ import mx.frisa.tic.utils.UUIDFrisa;
 @Stateless(name = "GestorLineaCapturaBean")
 @LocalBean
 public class GestorLineaCapturaBean implements GestorLineaCaptura {
-    
 
     /**
      *
@@ -263,7 +263,7 @@ public class GestorLineaCapturaBean implements GestorLineaCaptura {
                 lcQuery.append(clausula).append(" x.businessunitname like '%").append(lcFactDetalle.getBusinessunitname()).append("%' ");
             }
             detallesLCFactDet = LcFacDetDAO.consultaQueryNativo(lcQuery.toString());
-//            parametros.add(new CatalogoParametroDTO(":lc",detalleLineaCaptura.getLineacaptura(),"CADENA | NUMERO"));            
+//            parametros.add(new CatalogoParametroDTO(":lc",detalleLineaCaptura.getLineacaptura(),"CADENA | NUMERO"));
         }
 
         for (XxfrConsultaLcFacDet detalleLcFac : detallesLCFactDet) {
@@ -305,13 +305,13 @@ public class GestorLineaCapturaBean implements GestorLineaCaptura {
             List<Object> respuestaLanza = lanzarCargaFacturas(peticion.getFacturas(), cargaArchivo.getUuid());
             String dtosJSON = (String) respuestaLanza.get(0);
             String nombreArchivo = (String) respuestaLanza.get(1);
-            
+
             cargaArchivo.setDatosjson(dtosJSON);
             DAO<XxfrtCargaFactura> cargaFacturaDao = new DAO(XxfrtCargaFactura.class);
             cargaFacturaDao.registra(cargaArchivo);
             respuesta.setUuid(cargaArchivo.getUuid());
-            
-            dtosJSON = procesarJSONcomoFactura (dtosJSON, nombreArchivo);
+
+            dtosJSON = procesarJSONcomoFactura(dtosJSON, nombreArchivo);
 
             if (!dtosJSON.equals("")) {
                 respuesta.setProceso(new Proceso("0", "EXITOSO"));
@@ -341,17 +341,16 @@ public class GestorLineaCapturaBean implements GestorLineaCaptura {
         String respuesta = "";
         //REcuperar B64 del esquema de validacion
         String esquemaValidaFacturaPath = PropiedadesFRISA.recuperaPropiedadBackend("esquemaValidaFacturaPath");
-        
+
         System.err.println("Archivo Esquema JS :" + esquemaValidaFacturaPath);
         System.err.println("Archivo Json Datos :" + datosJsonPathArchivo);
-        
+
 //        File esquema = new File (esquemaValidaFacturaPath);
 //        File datosJsonArchivo = new File (datosJsonPathArchivo);
-
         //Validar datos en la factura
 //        if (ValidationUtils.isJsonValid(esquema, datosJsonArchivo)) {
         if (true) {
-            
+
             //Procesar facturas
             AdaptadorWS adaptadorWS = new AdaptadorWS();
             CargaFacturasSOA facturasIn = new CargaFacturasSOA();
@@ -384,7 +383,7 @@ public class GestorLineaCapturaBean implements GestorLineaCaptura {
                 facturaEntidad.setFacilitynumber(factura.getFacilitynumber());
 //                facturaEntidad.setFolioavisocargo(factura.get());
                 facturaEntidad.setGenerationtype(factura.getGenerationtype());
-                facturaEntidad.setGraceperiod(Short.valueOf(""+factura.getGraceperiod()));
+                facturaEntidad.setGraceperiod(Short.valueOf("" + factura.getGraceperiod()));
                 facturaEntidad.setGrouptype(factura.getGrouptype());
                 facturaEntidad.setIdbatch(factura.getIdbatch());
 //                facturaEntidad.setLandtaxaccount(factura.get());
@@ -402,17 +401,17 @@ public class GestorLineaCapturaBean implements GestorLineaCaptura {
                 facturaEntidad.setTransactiontype(factura.getTransactiontype());
                 facturaEntidad.setBatchsourcename(factura.getBATCHSOURCENAME());
                 List<XxfrInvoiceLines> xxfrInvoiceLinesList = new ArrayList<>();
-                for ( LineasFacturaSOA lineasFacturaSOA : factura.getLineas()) {
+                for (LineasFacturaSOA lineasFacturaSOA : factura.getLineas()) {
                     XxfrInvoiceLines lineaFactura = new XxfrInvoiceLines();
-                    XxfrInvoiceLinesPK xxfrInvoiceLinesPK = new XxfrInvoiceLinesPK ();
+                    XxfrInvoiceLinesPK xxfrInvoiceLinesPK = new XxfrInvoiceLinesPK();
                     xxfrInvoiceLinesPK.setIdfacturaprimavera(BigInteger.valueOf(factura.getIdfacturaprimavera()));
-                    xxfrInvoiceLinesPK.setLinenumber(Short.valueOf(lineasFacturaSOA.getLinenumber()+""));
+                    xxfrInvoiceLinesPK.setLinenumber(Short.valueOf(lineasFacturaSOA.getLinenumber() + ""));
                     lineaFactura.setXxfrInvoiceLinesPK(xxfrInvoiceLinesPK);
                     lineaFactura.setIdconcepto(lineasFacturaSOA.getIdconcepto());
                     lineaFactura.setMemolinename(lineasFacturaSOA.getMemolinename());
                     lineaFactura.setClasificadordescuento(lineasFacturaSOA.getClasificadordescuento());
                     lineaFactura.setTaxclassificationcode(lineasFacturaSOA.getTaxclassificationcode());
-                    lineaFactura.setQuantity(Integer.valueOf(lineasFacturaSOA.getQuantity()+""));
+                    lineaFactura.setQuantity(Integer.valueOf(lineasFacturaSOA.getQuantity() + ""));
                     lineaFactura.setTaxrate(BigInteger.valueOf(lineasFacturaSOA.getTaxrate()));
                     lineaFactura.setMontobrutolinea(BigDecimal.valueOf(lineasFacturaSOA.getMontobrutolinea()));
                     lineaFactura.setMontonetolinea(BigDecimal.valueOf(lineasFacturaSOA.getMontonetolinea()));
@@ -429,19 +428,17 @@ public class GestorLineaCapturaBean implements GestorLineaCaptura {
                     lineaFactura.setDescadicional3(lineasFacturaSOA.getDescadicional3());
                     lineaFactura.setDescadicional4(lineasFacturaSOA.getDescadicional4());
                     lineaFactura.setDescadicional5(lineasFacturaSOA.getDescadicional5());
-                    
-                    
+
                     lineaFactura.setLinetype(lineasFacturaSOA.getLinetype());
                     lineaFactura.setFlexContext(lineasFacturaSOA.getFlexContext());
                     lineaFactura.setFlexContextDisplayvalue(lineasFacturaSOA.getFlexContextDisplayvalue());
                     lineaFactura.setFlexNumofsegments(lineasFacturaSOA.getFlexNumofsegments());
-                    lineaFactura.setMontoivalinea(lineasFacturaSOA.getMontoivalinea());
+                    lineaFactura.setMontoivalinea(BigDecimal.valueOf(Long.valueOf("" + lineasFacturaSOA.getMontoivalinea())));
                     lineaFactura.setTaxclassificationcode(lineasFacturaSOA.getTaxclassificationcode());
-                    lineaFactura.setMontobrutolinearetiva(lineasFacturaSOA.getMontobrutolinearetiva());
+                    lineaFactura.setMontobrutolinearetiva(BigDecimal.valueOf(Long.valueOf("" + lineasFacturaSOA.getMontobrutolinearetiva())));
                     lineaFactura.setTaxclassificationcodeisr(lineasFacturaSOA.getTaxclassificationcodeisr());
-                    lineaFactura.setMontobrutolineaisr(lineasFacturaSOA.getMontobrutolineaisr());
-                    
-                    
+                    lineaFactura.setMontobrutolineaisr(BigDecimal.valueOf(Long.valueOf("" + lineasFacturaSOA.getMontobrutolineaisr())));
+
                     xxfrInvoiceLinesList.add(lineaFactura);
                 }
                 facturaEntidad.setXxfrInvoiceLinesList(xxfrInvoiceLinesList);
@@ -450,8 +447,65 @@ public class GestorLineaCapturaBean implements GestorLineaCaptura {
             //Si todo termina con bien mandamos los datos JSON intactos de regreso
             respuesta = dtosJSON;
         }
+        return respuesta;
+    }
+        //public RespuestaDTO actualizarIdERP(BigDecimal IdPrimavera, String IdErp) {
+    @Override
+    public RespuestaDTO actualizarIdERP(List<FacturaActualizaIdERPDTO> facturas) {
+        RespuestaDTO respuesta = new RespuestaDTO();
+        DAO<XxfrCabeceraFactura> lcidprimDAO = new DAO(XxfrCabeceraFactura.class);
+        DAO<XxfrInvoiceLines> lineasFacturaDAO = new DAO(XxfrInvoiceLines.class);
+        List<XxfrCabeceraFactura> listaFacturas = new ArrayList<>();
+        List<XxfrInvoiceLines> lineasFactura = new ArrayList<>();
+
+        for (FacturaActualizaIdERPDTO facturaReq : facturas) {
+            try {
+                if (facturaReq.getCabecera().getIdfacturaprimavera() != null) {
+                    List<CatalogoParametroDTO> parametrosC = new ArrayList<>();
+                    parametrosC.add(new CatalogoParametroDTO("idfacturaprimavera", facturaReq.getCabecera().getIdfacturaprimavera() + "", "NUMERO"));
+                    listaFacturas = lcidprimDAO.consultaQueryByParameters("XxfrCabeceraFactura.findByIdfacturaprimavera2", parametrosC);
+                    Boolean responseOperation = false;
+                    XxfrCabeceraFactura cabeceraBD = listaFacturas.get(0);
+                    for (lineaActualizaIdERPDTO lineaReq : facturaReq.getLineas().getLinea()) {
+                        List<XxfrInvoiceLines> listaTMP = new ArrayList<>();
+                        for (XxfrInvoiceLines lineaFacturaBD : cabeceraBD.getXxfrInvoiceLinesList()) {
+                            if (lineaReq.getLinenumber() == lineaFacturaBD.getXxfrInvoiceLinesPK().getLinenumber()) {
+                                lineaFacturaBD.setTaxivalinea(lineaReq.getTaxivalinea());
+                                lineaFacturaBD.setMontoivalinea(lineaReq.getMontoivalinea());
+                                lineaFacturaBD.setTaxclassificationcoderetiva(lineaReq.getTaxclassificationcoderetiva());
+                                lineaFacturaBD.setMontobrutolinearetiva(lineaReq.getMontobrutolinearetiva());
+                                lineaFacturaBD.setTaxclassificationcodeisr(lineaReq.getTaxclassificationcodeisr());
+                                lineaFacturaBD.setMontobrutolineaisr(lineaReq.getMontobrutolineaisr());
+                            }
+                            listaTMP.add(lineaFacturaBD);
+                        }
+                        cabeceraBD.getXxfrInvoiceLinesList().clear();
+                        cabeceraBD.getXxfrInvoiceLinesList().addAll(listaTMP);
+                    }
+                    cabeceraBD.setRelatederpinvoice(facturaReq.getCabecera().getRelatederpinvoice());
+                    cabeceraBD.setCodigoerror(facturaReq.getCabecera().getCodigoerror());
+                    cabeceraBD.setMensajeerror(facturaReq.getCabecera().getMensajeerror());
+                    cabeceraBD.setErptransactionnumber(facturaReq.getCabecera().getErptransactionnumber());
+                    responseOperation = lcidprimDAO.actualiza(cabeceraBD);
+                    if (responseOperation) {
+                        respuesta.setProceso("EXITOSO");
+                        respuesta.setIdError("0");
+                    } else {
+                        respuesta.setProceso("ERROR - No se pudo guardar la información");
+                        respuesta.setIdError("600");
+                    }
+                } else {
+                    respuesta.setProceso("ERROR - Debe ingresar el ID Factura Primavera");
+                    respuesta.setIdError("600");
+                }
+            } catch (Exception ex) {
+                respuesta.setProceso("ERROR - Validar los datos de la petición");
+                respuesta.setIdError("600");
+                ex.printStackTrace();
+            }
+
+        }
 
         return respuesta;
     }
-
 }
