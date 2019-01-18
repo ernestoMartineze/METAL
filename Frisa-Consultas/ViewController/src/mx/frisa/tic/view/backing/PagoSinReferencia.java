@@ -1,19 +1,16 @@
 package mx.frisa.tic.view.backing;
 
 
-import java.text.ParseException;
-
-import javax.faces.event.ValueChangeEvent;
-
 import mx.frisa.tic.negocio.ws.FiltroPagoSinReferencia;
 import mx.frisa.tic.negocio.ws.PeticionExistente;
-import mx.frisa.tic.negocio.ws.ConsultarReferenciaLCExistente;
 import mx.frisa.tic.negocio.ws.GestorPagosWS;
 import mx.frisa.tic.negocio.ws.GestorPagosWS_Service;
 import mx.frisa.tic.negocio.ws.LineaEstadoCuentaDTO;
 import mx.frisa.tic.negocio.ws.PagoSinReferenciaVO;
 import mx.frisa.tic.negocio.ws.RespuestaPagoSinReferencia;
 import mx.frisa.tic.negocio.ws.RespuestaClienteDTO;
+import mx.frisa.tic.negocio.ws.PagoPorAplicarDTO;
+import mx.frisa.tic.negocio.ws.AplicarPagoDTO;
 
 import oracle.adf.view.rich.component.rich.RichDocument;
 import oracle.adf.view.rich.component.rich.RichForm;
@@ -24,7 +21,6 @@ import oracle.adf.view.rich.component.rich.layout.RichGridCell;
 import oracle.adf.view.rich.component.rich.layout.RichGridRow;
 import oracle.adf.view.rich.component.rich.layout.RichPanelGridLayout;
 import oracle.adf.view.rich.component.rich.nav.RichButton;
-import oracle.jbo.format.DefaultDateFormatter;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -34,10 +30,6 @@ import java.math.BigInteger;
 
 import oracle.adf.view.rich.component.rich.data.RichTable;
 import oracle.adf.view.rich.context.AdfFacesContext;
-
-import oracle.jbo.format.DefaultDateFormatter;
-
-import org.apache.myfaces.trinidad.event.AttributeChangeEvent;
 
 public class PagoSinReferencia {
     
@@ -81,7 +73,7 @@ public class PagoSinReferencia {
     
     //variables y clases
     private List<PagoSinReferenciaVO> pagosVO;
-    private List<PagoSinReferenciaVO> pagosAplicar;
+    private List<PagoPorAplicarDTO> pagoPorAplicar;
     private RichTable t1;
 
     public void setF1(RichForm f1) {
@@ -451,7 +443,7 @@ public class PagoSinReferencia {
 
     public String validarP_Action() {
         // Add event code here...
-        pagosAplicar = new ArrayList();
+        //pagosAplicar = new ArrayList();
         System.out.println("validando pagos");
         for(PagoSinReferenciaVO pagos:pagosVO){
             if(pagos.getLineaDeCaptura()!=null || pagos.getReferencia()!=null){
@@ -470,7 +462,7 @@ public class PagoSinReferencia {
                             pagos.setProyecto(respuesta.getProyectoID().toString());
                             pagos.setCliente(respuesta.getCliente());
                             pagos.setNCuenta(respuesta.getIdPago().toString());
-                            pagosAplicar.add(pagos);
+                            //pagosAplicar.add(pagos);
                         }          
                 }
             }
@@ -481,41 +473,47 @@ public class PagoSinReferencia {
 
     public String aplicarB_Action() {
         // Add event code here...
-        for(PagoSinReferenciaVO pago :pagosAplicar){
-            System.out.println(pago.getCliente());
-                System.out.println(pago.getUnidadDeNegocio());
-                System.out.println(pago.getProyecto());
-            }
+        for(PagoPorAplicarDTO pago :pagoPorAplicar){
+            System.out.println(pago.getIdEdoCuenta());
+            System.out.println(pago.getIdLineaCaputura());
+            System.out.println(pago.getIdPago());
+        }
+        return null;
     }
             
     public String b2_action() {
         // Add event code here...
-        this.pagosVO = new ArrayList();
+        //this.pagosVO = new ArrayList();
         GestorPagosWS_Service gestorPagosWS_Service = new GestorPagosWS_Service();
         GestorPagosWS gestorPagosWS = gestorPagosWS_Service.getGestorPagosWSPort();
         
         RespuestaClienteDTO consulta = new RespuestaClienteDTO();
-        PeticionExistente filtros = new PeticionExistente();
-        
+        AplicarPagoDTO aplicarPago = new AplicarPagoDTO();
+        pagoPorAplicar = new ArrayList();
         try{
             for( PagoSinReferenciaVO linea :pagosVO){
-               String referencia = linea.getReferencia();
-               filtros.setReferencia(""+linea.getReferencia());
-               String LC = linea.getLineaDeCaptura();
-               filtros.setLineaCaptura(""+linea.getLineaDeCaptura());
-                
+                PeticionExistente filtros = new PeticionExistente();
+                String referencia = linea.getReferencia();
+                String LC = linea.getLineaDeCaptura();
                 if(referencia !=null || LC != null){
+                    filtros.setReferencia(linea.getReferencia());
+                    filtros.setLineaCaptura(linea.getLineaDeCaptura()==null?"":linea.getLineaDeCaptura());
                     consulta = gestorPagosWS.consultarReferenciaLCExistente(filtros);
-                    
-                    linea.setUnidadDeNegocio(consulta.getUnidadNegocio());
-                    linea.setProyecto(""+consulta.getProyectoID());
-                    linea.setCliente(consulta.getCliente());
-                    linea.setNCuenta(""+consulta.getNumeroCobro());
-                    this.pagosVO.add(linea);
+                    if(consulta.getIdPago()!=null){
+                        PagoPorAplicarDTO pagoDTO = new PagoPorAplicarDTO();
+                        linea.setUnidadDeNegocio(consulta.getUnidadNegocio());
+                        linea.setProyecto(consulta.getProyectoID()==null?"":""+consulta.getProyectoID());
+                        linea.setCliente(consulta.getCliente());
+                        linea.setNCuenta(consulta.getNumeroCobro()==null?"":""+consulta.getNumeroCobro());
+                        //pagoDTO.setIdEdoCuenta(linea.get);
+                        pagoDTO.setIdLineaCaputura(new BigInteger(linea.getLineaDeCaptura()==null?"0":linea.getLineaDeCaptura()));
+                        pagoDTO.setIdPago(new BigInteger(linea.getIdPago()==null?"0":linea.getIdPago()));
+                        pagoDTO.setReferencia(linea.getReferencia());
+                        pagoPorAplicar.add(pagoDTO);
+                    }
                 } 
+            aplicarPago.setPagoPorAplicar(pagoPorAplicar);
         }
-       
-
     }catch (Exception ex) {
             ex.printStackTrace();
         }
