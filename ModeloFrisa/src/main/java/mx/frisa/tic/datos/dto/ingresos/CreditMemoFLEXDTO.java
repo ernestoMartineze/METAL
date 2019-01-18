@@ -34,6 +34,7 @@ public class CreditMemoFLEXDTO {
     protected String fechaDePrescripcion = null;
     protected String fechaTimbrado = null;
     protected String addendaid = null;
+    protected String facturaUnifier;
     protected String flexContext = null;
     protected String flexContextDisplayValue = null;
     protected Integer flexNumOfSegments = null;
@@ -172,6 +173,14 @@ public class CreditMemoFLEXDTO {
 
     public void setFLEXNumOfSegments(Integer value) {
         this.flexNumOfSegments = value;
+    }
+
+    public String getFacturaUnifier() {
+        return facturaUnifier;
+    }
+
+    public void setFacturaUnifier(String facturaUnifier) {
+        this.facturaUnifier = facturaUnifier;
     }
 
 }
