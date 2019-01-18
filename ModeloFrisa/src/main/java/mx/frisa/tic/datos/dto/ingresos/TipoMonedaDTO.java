@@ -12,7 +12,7 @@ package mx.frisa.tic.datos.dto.ingresos;
 public class TipoMonedaDTO {
     String codigo;
     String descripcion;
-    int ind_activo;
+    String ind_activo;
     String cveTipoMonedaFrisa;
 
     public String getCodigo() {
@@ -31,11 +31,11 @@ public class TipoMonedaDTO {
         this.descripcion = descripcion;
     }
 
-    public int getInd_activo() {
+    public String getInd_activo() {
         return ind_activo;
     }
 
-    public void setInd_activo(int ind_activo) {
+    public void setInd_activo(String ind_activo) {
         this.ind_activo = ind_activo;
     }
 

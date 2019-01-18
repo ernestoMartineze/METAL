@@ -13,16 +13,8 @@ import java.util.List;
  */
 public class NotaCreditoListaDTO {
     
-    Proceso proceso;
+    
     List<CreditMemoDTO> notas;
-
-    public Proceso getProceso() {
-        return proceso;
-    }
-
-    public void setProceso(Proceso proceso) {
-        this.proceso = proceso;
-    }
 
     public List<CreditMemoDTO> getNotas() {
         return notas;

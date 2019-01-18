@@ -12,31 +12,39 @@ import com.google.gson.JsonSyntaxException;
 import com.sun.org.apache.xml.internal.serialize.OutputFormat;
 import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.zip.GZIPInputStream;
 import javax.net.ssl.HttpsURLConnection;
 import javax.xml.bind.DatatypeConverter;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import mx.frisa.tic.datos.dto.CONSTANTE;
 import mx.frisa.tic.datos.dto.ingresos.CreditMemoDTO;
+import mx.frisa.tic.datos.dto.ingresos.CreditMemoFLEXDTO;
 import mx.frisa.tic.datos.dto.ingresos.FacturaPagoDTO;
 import mx.frisa.tic.datos.dto.ingresos.NotaCreditoListaDTO;
 import mx.frisa.tic.datos.dto.ingresos.PagoDTO;
 import mx.frisa.tic.datos.dto.ingresos.Proceso;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaMetodoPagoDTO;
+import mx.frisa.tic.datos.entidades.XxfrCabeceraFactura;
 import mx.frisa.tic.negocio.utils.ManejadorLog;
 import mx.frisa.tic.negocio.utils.PropiedadesFRISA;
+import mx.frisa.tic.utils.FechaUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
@@ -48,113 +56,93 @@ import org.xml.sax.SAXException;
  */
 public class AdaptadorWS {
 
-    public RespuestaERP_Edo_Cuenta getOBI_generarFacturaAlCobro(List<FacturaPagoDTO> facturas) throws MalformedURLException, IOException {
+    public RespuestaCreaFactura getOBI_generarFacturaAlCobro(List<FacturaPagoDTO> facturas) throws MalformedURLException, IOException {
 
-        String xmlInput = "<soapenv:Envelope xmlns:inv=\"http://xmlns.oracle.com/apps/financials/receivables/transactions/invoices/invoiceService/\" \n"
-                + "xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" \n"
-                + "xmlns:tran=\"http://xmlns.oracle.com/apps/financials/receivables/transactions/shared/model/flex/TransactionHeaderDff/\"\n"
-                + "xmlns:tran1=\"http://xmlns.oracle.com/apps/financials/receivables/transactions/shared/model/flex/TransactionHeaderGdf/\"  \n"
-                + "xmlns:tran4=\"http://xmlns.oracle.com/apps/financials/receivables/transactions/shared/model/flex/TransactionLineDff/\" \n"
-                + "xmlns:typ=\"http://xmlns.oracle.com/apps/financials/receivables/transactions/invoices/invoiceService/types/\" \n"
-                + "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n"
-                + "<soapenv:Body>\n"
-                + "      <typ:createSimpleInvoice>\n"
-                + "         <typ:invoiceHeaderInformation>\n"
-                + "            <inv:BusinessUnit>LMF MUNDO E - RENTAS</inv:BusinessUnit>\n"
-                + "            <inv:TransactionSource>RENTA</inv:TransactionSource>\n"
-                + "            <inv:TransactionType>FAC_INGRESOS_MN</inv:TransactionType>\n"
-                + "            <inv:TrxDate>2018-09-08</inv:TrxDate>\n"
-                + "            <inv:GlDate>2018-09-08</inv:GlDate>\n"
-                + "            <inv:BillToCustomerName>Nueva Wal-Mart DE MEXICO SA DE CV</inv:BillToCustomerName>\n"
-                + "            <inv:BillToAccountNumber>10249</inv:BillToAccountNumber>\n"
-                + "            <inv:PaymentTermsName>IMMEDIATE</inv:PaymentTermsName>\n"
-                + "            <inv:InvoiceLine>\n"
-                + "               <inv:LineNumber>1</inv:LineNumber>\n"
-                + "               <inv:MemoLineName>FACTURA RENTA MENSUAL LOCAL</inv:MemoLineName>\n"
-                + "               <inv:Description>FACTURA RENTA MENSUAL LOCAL</inv:Description>\n"
-                + "               <inv:Quantity>1</inv:Quantity>\n"
-                + "               <inv:UnitSellingPrice>45000</inv:UnitSellingPrice>\n"
-                + "               <inv:TaxClassificationCode>IVA 16% AR</inv:TaxClassificationCode>\n"
-                + "               <inv:TransactionLineFLEX xsi:type=\"tran4:Rentas\">\n"
-                + "                  <tran4:descripciOnAdicional1>Des 1 JP</tran4:descripciOnAdicional1>\n"
-                + "                  <tran4:descripciOnAdicional2>Des 2 JP</tran4:descripciOnAdicional2>\n"
-                + "                  <tran4:descripciOnAdicional3>Des 3 JP</tran4:descripciOnAdicional3>\n"
-                + "                  <tran4:descripciOnAdicional4>Des 4 JP</tran4:descripciOnAdicional4>\n"
-                + "                  <tran4:descripciOnAdicional5>Des 5 JP</tran4:descripciOnAdicional5>\n"
-                + "                  <tran4:periodoDeFacturacionDesde>01-09-2018</tran4:periodoDeFacturacionDesde>\n"
-                + "                  <tran4:periodoDeFacturacionHasta>31-09-2018</tran4:periodoDeFacturacionHasta>\n"
-                + "                  <tran4:__FLEX_Context>RENTAS</tran4:__FLEX_Context>\n"
-                + "                  <tran4:siguienteFechaDeExigibilidad>31-09-2018</tran4:siguienteFechaDeExigibilidad>\n"
-                + "               </inv:TransactionLineFLEX>\n"
-                + "            </inv:InvoiceLine>\n"
-                + "			<inv:InvoiceLine>\n"
-                + "               <inv:LineNumber>2</inv:LineNumber>\n"
-                + "               <inv:MemoLineName>FACTURA VARIOS SERVICIOS</inv:MemoLineName>\n"
-                + "               <inv:Description>FACTURA VARIOS SERVICIOS</inv:Description>\n"
-                + "               <inv:Quantity>1</inv:Quantity>\n"
-                + "               <inv:UnitSellingPrice>45000</inv:UnitSellingPrice>\n"
-                + "               <inv:TaxClassificationCode>IVA 16% AR</inv:TaxClassificationCode>\n"
-                + "               <inv:TransactionLineFLEX xsi:type=\"tran4:Rentas\">\n"
-                + "                  <tran4:descripciOnAdicional1>Des 1 JP</tran4:descripciOnAdicional1>\n"
-                + "                  <tran4:descripciOnAdicional2>Des 2 JP</tran4:descripciOnAdicional2>\n"
-                + "                  <tran4:descripciOnAdicional3>Des 3 JP</tran4:descripciOnAdicional3>\n"
-                + "                  <tran4:descripciOnAdicional4>Des 4 JP</tran4:descripciOnAdicional4>\n"
-                + "                  <tran4:descripciOnAdicional5>Des 5 JP</tran4:descripciOnAdicional5>\n"
-                + "                  <tran4:periodoDeFacturacionDesde>01-09-2018</tran4:periodoDeFacturacionDesde>\n"
-                + "                  <tran4:periodoDeFacturacionHasta>31-09-2018</tran4:periodoDeFacturacionHasta>\n"
-                + "                  <tran4:__FLEX_Context>RENTAS</tran4:__FLEX_Context>\n"
-                + "                  <tran4:siguienteFechaDeExigibilidad>31-09-2018</tran4:siguienteFechaDeExigibilidad>\n"
-                + "               </inv:TransactionLineFLEX>\n"
-                + "            </inv:InvoiceLine>\n"
-                + "            <inv:TransactionHeaderFLEX xsi:type=\"tran:Rentas\">\n"
-                + "               <tran:proyecto>151</tran:proyecto>\n"
-                + "               <tran:folio>J-000-001</tran:folio>\n"
-                + "               <tran:__FLEX_Context>RENTAS</tran:__FLEX_Context>\n"
-                + "               <tran:nUmeroDeLocal>24JPL</tran:nUmeroDeLocal>\n"
-                + "            </inv:TransactionHeaderFLEX>\n"
-                + "         </typ:invoiceHeaderInformation>\n"
-                + "      </typ:createSimpleInvoice>\n"
-                + "   </soapenv:Body>\n"
-                + "</soapenv:Envelope>";
+        String xmlInput = this.getCadenaDesdeB64(PropiedadesFRISA.recuperaPropiedadBackend("generaFacturaServicePayload"));
 
 //Code to make a webservice HTTP request
-        RespuestaERP_Edo_Cuenta respestaWS = new RespuestaERP_Edo_Cuenta();
+        RespuestaCreaFactura respestaWS = new RespuestaCreaFactura();
         respestaWS.setProceso(new Proceso("0", "EXITOSO"));
-        String responseString = "";
         String outputString = "";
-        String wsURL = "https://efar-test.fin.us2.oraclecloud.com:443/fscmService/RecInvoiceService";
+        List<FacturaPagoDTO> facturasProcesadas = new ArrayList();
+        String wsURL = PropiedadesFRISA.recuperaPropiedadBackend("generaFacturaServiceEndPoint");
 
         String SOAPAction
-                = "http://xmlns.oracle.com/apps/financials/receivables/transactions/invoices/invoiceService/";
+                = PropiedadesFRISA.recuperaPropiedadBackend("generaFacturaServiceSoapAction");
+        String tipoContenido
+                = PropiedadesFRISA.recuperaPropiedadBackend("generaFacturaServiceContentType");
 
         //Ready with sending the request.
         try {
-            //Read the response.
+            //Genera todas las facturas al cobro detectadas
+            for (FacturaPagoDTO factura : facturas) {
+                //Parametrizar mensaje
+                xmlInput = inyectaParametro(xmlInput, "inv:BusinessUnit", factura.getBusinessunitname());
+                xmlInput = inyectaParametro(xmlInput, "inv:TransactionSource", factura.getTransactionsource());
+                xmlInput = inyectaParametro(xmlInput, "inv:TransactionType", factura.getTransactiontype());
+                xmlInput = inyectaParametro(xmlInput, "inv:TrxDate", FechaUtils.convierteHoy().substring(0, 10));
+                xmlInput = inyectaParametro(xmlInput, "inv:GlDate", FechaUtils.convierteHoy().substring(0, 10));
+                xmlInput = inyectaParametro(xmlInput, "inv:BillToCustomerName", factura.getBilltoconsumername());
+                xmlInput = inyectaParametro(xmlInput, "inv:BillToAccountNumber", factura.getBilltolocation() + "");
+                String terminoPago = "";
+                if (factura.getPaymenttermdays() > 0) {
+                    terminoPago = "IMMEDIATE";
+                } else {
+                    terminoPago = factura.getPaymenttermdays().toString();
+                }
+                xmlInput = inyectaParametro(xmlInput, "inv:PaymentTermsName", terminoPago);
+                xmlInput = inyectaParametro(xmlInput, "inv:LineNumber", factura.getIdlinea());
+                xmlInput = inyectaParametro(xmlInput, "inv:MemoLineName", factura.getMemolinename());
+                xmlInput = inyectaParametro(xmlInput, "inv:Description", factura.getDescription_origen());
+                xmlInput = inyectaParametro(xmlInput, "inv:Quantity", factura.getQuantity() + "");
+                xmlInput = inyectaParametro(xmlInput, "inv:UnitSellingPrice", factura.getMontobrutolinea() + "");
+                xmlInput = inyectaParametro(xmlInput, "inv:TaxClassificationCode", factura.getTransactionsource());
+                xmlInput = inyectaParametro(xmlInput, "tran4:descripciOnAdicional1", factura.getDescadicional1());
+                xmlInput = inyectaParametro(xmlInput, "tran4:descripciOnAdicional2", factura.getDescadicional2());
+                xmlInput = inyectaParametro(xmlInput, "tran4:descripciOnAdicional3", factura.getDescadicional3());
+                xmlInput = inyectaParametro(xmlInput, "tran4:descripciOnAdicional4", factura.getDescadicional4());
+                xmlInput = inyectaParametro(xmlInput, "tran4:descripciOnAdicional5", factura.getDescadicional5());
+                xmlInput = inyectaParametro(xmlInput, "tran4:periodoDeFacturacionDesde", factura.getFechadesde());
+                xmlInput = inyectaParametro(xmlInput, "tran4:periodoDeFacturacionHasta", factura.getFechahasta());
+                xmlInput = inyectaParametro(xmlInput, "tran4:siguienteFechaDeExigibilidad", factura.getFechaexigibilidad());
+                xmlInput = inyectaParametro(xmlInput, "tran:proyecto", factura.getProjectid() + "");
+                xmlInput = inyectaParametro(xmlInput, "tran:folio", factura.getFolioavisocargo());
+                xmlInput = inyectaParametro(xmlInput, "tran:nUmeroDeLocal", factura.getLinenumber() + "");
 
-            outputString = enviarMsg(wsURL, SOAPAction, xmlInput, "text/xml; charset=UTF-8");
-            //Parse the String output to a org.w3c.dom.Document and be able to reach every node with the org.w3c.dom API.
-            Document document = parseXmlFile(outputString);
-            NodeList nodeLst = document.getElementsByTagName("ns2:reportBytes");
-            String resultado = nodeLst.item(0).getTextContent();
+                outputString = enviarMsg(wsURL, SOAPAction, xmlInput, tipoContenido);
+                //Parse the String output to a org.w3c.dom.Document and be able to reach every node with the org.w3c.dom API.
+                Document document = parseXmlFile(outputString);
+                NodeList nodeLstServiceStatus = document.getElementsByTagName("ns2:ServiceStatus");
+                
+                String serviceStatus = recuperarValorDesdeNodo(outputString, "ns2:ServiceStatus");
+                String transactionNumber = recuperarValorDesdeNodo(outputString, "ns2:TransactionNumber");
+                String customerTrxId = recuperarValorDesdeNodo(outputString, "ns2:CustomerTrxId");
 
-            //Write the SOAP message formatted to the console.
-            //        String formattedSOAPResponse = formatXML(outputString);
-            respestaWS.setDATA_DSObject((DATA_DS) respuestaXMLaPOJO(getCadenaDesdeB64(resultado), new DATA_DS()));
+                factura.setTransactionID_ERP(Integer.valueOf(transactionNumber));
+                factura.setServiceStatus_ERP(serviceStatus);
+                factura.setCustomerTrxID_ERP(customerTrxId);
+                facturasProcesadas.add(factura);
+                
+                
+            }
             //        System.out.println(formattedSOAPResponse);
         } catch (Exception ex) {
             ex.printStackTrace();
             respestaWS.setProceso(new Proceso("100", "ERROR"));
         }
+        respestaWS.setFacturas(facturasProcesadas);
         return respestaWS;
     }
 
     private String inyectaParametro(String pPayload, String nombreParametro, String valor) {
         String parametro = "_PARAM" + nombreParametro + "_";
+        if (valor == null) {
+            valor = "";
+        }
         pPayload = pPayload.replaceAll(parametro, valor);
         return pPayload;
     }
 
-    
     private String inyectaParametroNota(String pPayload, String nombreParametro, String valor) {
         pPayload = pPayload.replaceAll(nombreParametro, valor);
         return pPayload;
@@ -188,7 +176,6 @@ public class AdaptadorWS {
             outputString = enviarMsg(wsURL, SOAPAction, xmlInput, PropiedadesFRISA.recuperaPropiedadBackend("edoCuentaServiceContentType"));
 
 //            outputString = consumir.getEstadosCuenta(fechaInicio, fechaFinal, noCuenta);
-
             //Parse the String output to a org.w3c.dom.Document and be able to reach every node with the org.w3c.dom API.
             Document document = parseXmlFile(outputString);
             NodeList nodeLst = document.getElementsByTagName("ns2:reportBytes");
@@ -314,7 +301,7 @@ public class AdaptadorWS {
         xmlInput = inyectaParametro(xmlInput, "com:OrgId", pagos.getUnidadNegocio());
         xmlInput = inyectaParametro(xmlInput, "com:ReceiptDate", "2018-12-17");
         xmlInput = inyectaParametro(xmlInput, "com:ReceiptMethodId", pagos.getMetodoId());
-        xmlInput = inyectaParametro(xmlInput, "com:ReceiptNumber", pagos.getNroRecibo());
+        xmlInput = inyectaParametro(xmlInput, "com:ReceiptNumber", pagos.getIdEdoCta()+"");
 
         String SOAPAction
                 = PropiedadesFRISA.recuperaPropiedadBackend("encabezadoFacturaServiceSoapAction");
@@ -404,6 +391,65 @@ public class AdaptadorWS {
 
         return respestaWS;
     }
+    public RespuestaERP_EncabezadoRecibo getERP_AplicarPago(PagoDTO pagoDto, List<XxfrCabeceraFactura> pLstFacturas) throws MalformedURLException,
+            IOException,
+            ParserConfigurationException,
+            SAXException {
+
+        //Code to make a webservice HTTP request
+        RespuestaERP_EncabezadoRecibo respestaWS = new RespuestaERP_EncabezadoRecibo();
+        respestaWS.setProceso(new Proceso("0", "EXITOSO"));
+        String outputString = "";
+        String wsURL = PropiedadesFRISA.recuperaPropiedadBackend("aplicaPagoFacturaServiceEndPoint");
+
+        
+            if (pagoDto.getNroRecibo().equals("")) {
+                respestaWS.setProceso(new Proceso("1001", "No existe numero de recibo para aplicacion del pago"));
+                return respestaWS;
+            }
+            String xmlInput
+                    = getCadenaDesdeB64(PropiedadesFRISA.recuperaPropiedadBackend("aplicaPagoFacturaServicePayload"));
+
+            String SOAPAction
+                    = PropiedadesFRISA.recuperaPropiedadBackend("aplicaPagoFacturaServiceSoapAction");
+
+            //Ready with sending the request.
+            try {
+                //Inyectar parametros a la peticion
+                xmlInput = inyectaParametro(xmlInput, "com:AmountApplied", pagoDto.getMonto());
+                xmlInput = inyectaParametro(xmlInput, "com:ReceiptNumber", pagoDto.getNroRecibo());
+                xmlInput = inyectaParametro(xmlInput, "com:TransactionNumber", pagoDto.getIdCabeceraRecibo()+ "");
+                xmlInput = inyectaParametro(xmlInput, "com:TransactionDate", pagoDto.getFechaCreacion());
+                xmlInput = inyectaParametro(xmlInput, "com:CustomerName", pagoDto.getBillCustomerName());
+                xmlInput = inyectaParametro(xmlInput, "com:ApplicationDate", pagoDto.getFechaAplicacion());
+                xmlInput = inyectaParametro(xmlInput, "com:AccountingDate", pagoDto.getFechaContable());
+
+                //Read the response.
+                outputString = enviarMsg(wsURL, SOAPAction, xmlInput, PropiedadesFRISA.recuperaPropiedadBackend("aplicaPagoFacturaServiceContentType"));
+
+                //Parse the String output to a org.w3c.dom.Document and be able to reach every node with the org.w3c.dom API.
+                if (outputString.indexOf("=_Part") > -1) {
+                    outputString = outputString.substring(outputString.indexOf("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>"), outputString.lastIndexOf("</env:Envelope>") + 15);
+                }
+
+                System.out.println("outputString : " + outputString);
+
+                Document document = parseXmlFile(outputString);
+                NodeList nodeLst = document.getElementsByTagName("ns3:CashReceiptId");
+                String resultado = nodeLst.item(0).getTextContent();
+
+                //Write the SOAP message formatted to the console.
+//                    String formattedSOAPResponse = formatXML(outputString);
+                respestaWS.setNumeroRecibo(resultado);
+                System.out.println("resultado : " + resultado);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                respestaWS.setProceso(new Proceso("100", "ERROR"));
+            }
+
+
+        return respestaWS;
+    }
 
     //format the XML in your String
     public String formatXML(String unformattedXml) throws IOException, ParserConfigurationException, SAXException {
@@ -438,7 +484,7 @@ public class AdaptadorWS {
         ByteArrayOutputStream bout = new ByteArrayOutputStream();
         String xmlInput
                 = msg;
-        System.out.println("msg : " + msg);
+//        System.out.println("msg : " + msg);
         byte[] buffer = new byte[xmlInput.length()];
         buffer = xmlInput.getBytes();
         bout.write(buffer);
@@ -447,8 +493,9 @@ public class AdaptadorWS {
         httpConn.setRequestProperty("Content-Length",
                 String.valueOf(b.length));
         httpConn.setRequestProperty("Content-Type", contentType);
+        httpConn.setRequestProperty("Accept-Encoding", "gzip");
         String encodedAuthorization = PropiedadesFRISA.recuperaPropiedadBackend("autinticaBasico");
-
+        
         //        System.out.println("Encoded Authorization String for FinLitLog is :" + encodedAuthorization);
         httpConn.setRequestProperty("Authorization", "Basic " + encodedAuthorization);
 
@@ -456,27 +503,36 @@ public class AdaptadorWS {
         httpConn.setRequestMethod("POST");
         httpConn.setDoOutput(true);
         httpConn.setDoInput(true);
-        OutputStream out = httpConn.getOutputStream();
-        //Write the content of the request to the outputstream of the HTTP Connection.
-        out.write(b);
-        out.close();
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(httpConn.getOutputStream(), "UTF-8"));
+        bw.write(xmlInput);
+        bw.flush();
+        bw.close();
         //Ready with sending the request.
-        try (InputStreamReader isr
-                = new InputStreamReader(httpConn.getInputStream());) {
-            //Read the response.
-
-            BufferedReader in = new BufferedReader(isr);
-
-            //Write the SOAP message response to a String.
-            while ((responseString = in.readLine()) != null) {
-                outputString = outputString + responseString;
+        InputStreamReader isr = null;
+        if (httpConn.getResponseCode() == 200) {
+            System.out.println(httpConn.getResponseMessage());
+            System.out.println(httpConn.toString());
+            if(httpConn.getContentEncoding().equals("gzip")){
+                isr = new InputStreamReader(new GZIPInputStream(httpConn.getInputStream()));
+            }else{
+                isr = new InputStreamReader(httpConn.getInputStream());
             }
-            System.out.println("Respuesta :");
-            System.out.println(outputString);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            respestaWS.setProceso(new Proceso("100", "ERROR"));
+        } else {
+            if(httpConn.getContentEncoding().equals("gzip")){
+                isr = new InputStreamReader(new GZIPInputStream(httpConn.getErrorStream()));
+            }else{
+                isr = new InputStreamReader(httpConn.getErrorStream());
+                
+            }
         }
+        BufferedReader in = new BufferedReader(isr);
+
+        //Write the SOAP message response to a String.
+        while ((responseString = in.readLine()) != null) {
+            outputString = outputString + responseString;
+        }
+        System.out.println ("Respuesta :");
+        System.out.println (outputString);
         return outputString;
     }
 
@@ -489,8 +545,6 @@ public class AdaptadorWS {
 
     private String getCadenaDesdeB64(String cadB64) {
         String str = new String(DatatypeConverter.parseBase64Binary(cadB64));
-//          String res = DatatypeConverter.printBase64Binary(str.getBytes());
-        System.out.println(str);
         return str;
     }
 
@@ -538,18 +592,11 @@ public class AdaptadorWS {
 
             System.out.println(respuesta.getProceso());
 
-//            List<PagoDTO> pagosDto = new ArrayList<PagoDTO>();
-//            pagosDto.add(new PagoDTO(BigDecimal.ONE, BigDecimal.ONE, "02546545455", "11234567890123145", "123",
-//                    "MXN", "300000002785501", "TEST-016", "1000", "2018-12-05", "", "300000007076442"));
-//            RespuestaERP_EncabezadoRecibo respuesta = adaptadorWS.getERP_generarEncabezadoRecibo(pagosDto);
-//            RespuestaERP_Edo_Cuenta respuesta = adaptadorWS.getOBI_generarFacturaAlCobro(null);
-//            System.out.println(respuesta.getProceso().getTermino());
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    
     public RespuestaERP_Nota_Credito getERP_ejecutarNotaCredito(CreditMemoDTO nota) throws MalformedURLException,
             IOException,
             ParserConfigurationException,
@@ -558,56 +605,96 @@ public class AdaptadorWS {
         respuestaWS.setProceso(new Proceso("0", "EXITOSO"));
         List<DATA_DS> lista = null;
         String outputString = "";
-//        System.err.println("Endpoint: "+PropiedadesFRISA.recuperaPropiedadBackend("GetGeneraNotaCreditoServiceEndPoint"));
         String wsURL = PropiedadesFRISA.recuperaPropiedadBackend("GetGeneraNotaCreditoServiceEndPoint");
-        try{
-//            System.err.println("Llamando WS - ERP: Nota de Crédito");
+        try {
             String xmlInput
-                = this.getCadenaDesdeB64(PropiedadesFRISA.recuperaPropiedadBackend("GetGeneraNotaCreditoServicePayload"));
+                    = this.getCadenaDesdeB64(PropiedadesFRISA.recuperaPropiedadBackend("GetGeneraNotaCreditoServicePayload"));
             String SOAPAction
                     = PropiedadesFRISA.recuperaPropiedadBackend("edoCuentaServiceSoapAction");
-            xmlInput = inyectaParametroNota(xmlInput, "_BATCHSOURCESEQUENCEID", nota.getBatchSourceSequenceId().toString());
-            xmlInput = inyectaParametroNota(xmlInput, "_CUSTOMERTRANSACTIONID", nota.getCustomerReference());
-            xmlInput = inyectaParametroNota(xmlInput, "_COMMENTS", nota.getComments());
-            xmlInput = inyectaParametroNota(xmlInput, "_CUSTOMERTRANSACTIONTYPESEQUENCEID", nota.getCustomerTransactionTypeSequenceId().toString());
-            xmlInput = inyectaParametroNota(xmlInput, "_CUSTOMERREFERENCEDATE", nota.getCustomerReferenceDate().toString());
-            xmlInput = inyectaParametroNota(xmlInput, "_CUSTOMERREFERENCE", nota.getCustomerReference());
-            xmlInput = inyectaParametroNota(xmlInput, "_DOCUMENTSEQUENCEID", nota.getDocumentSequenceId().toString());
-            xmlInput = inyectaParametroNota(xmlInput, "_DOCUMENTSEQUENCEVALUE", nota.getDocumentSequenceValue().toString());
-            xmlInput = inyectaParametroNota(xmlInput, "_FREIGHTAMOUNT", nota.getFreightAmount().getValue().toString());
-            xmlInput = inyectaParametroNota(xmlInput, "_FREIGHTPERCENT", nota.getFreightPercent().toString());
-            xmlInput = inyectaParametroNota(xmlInput, "_GLDATE", nota.getGlDate().toString());
-            xmlInput = inyectaParametroNota(xmlInput, "_INTERNALNOTES", nota.getInternalNotes());
-            xmlInput = inyectaParametroNota(xmlInput, "_LINEAMOUNT", nota.getLineAmount().getValue().toString());
-            xmlInput = inyectaParametroNota(xmlInput, "_LINEPERCENT", nota.getLinePercent().toString());
-            xmlInput = inyectaParametroNota(xmlInput, "_METHODFORRULES", nota.getMethodForRules());
-            xmlInput = inyectaParametroNota(xmlInput, "_PREVIOUSCUSTOMERTRANSACTIONID", nota.getPreviousCustomerTransactionId().toString());
-            xmlInput = inyectaParametroNota(xmlInput, "_REASONCODE", nota.getReasonCode());
-            xmlInput = inyectaParametroNota(xmlInput, "_SPLITTERMINATIONMETHOD", nota.getSplitTerminationMethod());
-            xmlInput = inyectaParametroNota(xmlInput, "_TRANSACTIONDATE", nota.getTransactionDate().toString());
-            xmlInput = inyectaParametroNota(xmlInput, "_CURRENCYCODE", nota.getCurrencyCode());
-            xmlInput = inyectaParametroNota(xmlInput, "_TRANSACTIONNUMBER", nota.getTransactionNumber());
-            xmlInput = inyectaParametroNota(xmlInput, "_TAXAMOUNT", nota.getTaxAmount().getValue().toString());
-            xmlInput = inyectaParametroNota(xmlInput, "_TAXPERCENT", nota.getTaxPercent().toString());
-            xmlInput = inyectaParametroNota(xmlInput, "_COMPUTETAX", nota.getComputeTax());
-            xmlInput = inyectaParametroNota(xmlInput, "_CUSTOMERTRXID", nota.getCreditMemoFLEXVA().getCustomerTrxId().toString());
-            xmlInput = inyectaParametroNota(xmlInput, "_PROYECTO", nota.getCreditMemoFLEXVA().getProyecto());
-            xmlInput = inyectaParametroNota(xmlInput, "_ESTATUSDECFDI", nota.getCreditMemoFLEXVA().getEstatusDeCfdi());
-            xmlInput = inyectaParametroNota(xmlInput, "_USODECFDI", nota.getCreditMemoFLEXVA().getUsoDeCfdi());
-            xmlInput = inyectaParametroNota(xmlInput, "_FORMADEPAGO", nota.getCreditMemoFLEXVA().getFormaDePago());
-            xmlInput = inyectaParametroNota(xmlInput, "_FOLIODECANCELACIONSAT", nota.getCreditMemoFLEXVA().getFolioDeCancelaciOnSat());
-            xmlInput = inyectaParametroNota(xmlInput, "_UUIDDOCUMENTORELACIONADO", nota.getCreditMemoFLEXVA().getUuidDocumentoRelacionado());
-            xmlInput = inyectaParametroNota(xmlInput, "_NUMERODECONTRATO", nota.getCreditMemoFLEXVA().getNumeroDeContrato());
-            xmlInput = inyectaParametroNota(xmlInput, "_LINEADECAPTURA", nota.getCreditMemoFLEXVA().getLineaDeCaptura());
-            xmlInput = inyectaParametroNota(xmlInput, "_SERIE", nota.getCreditMemoFLEXVA().getSerie());
-            xmlInput = inyectaParametroNota(xmlInput, "_FOLIO", nota.getCreditMemoFLEXVA().getFolio());
-            xmlInput = inyectaParametroNota(xmlInput, "_FECHADEPRESCRIPCION", nota.getCreditMemoFLEXVA().getFechaDePrescripcion());
-            xmlInput = inyectaParametroNota(xmlInput, "_FECHATIMBRADO", nota.getCreditMemoFLEXVA().getFechaTimbrado());
-            xmlInput = inyectaParametroNota(xmlInput, "_ADDENDAID", nota.getCreditMemoFLEXVA().getAddendaid());
-            xmlInput = inyectaParametroNota(xmlInput, "_FLEX_CONTEXT", nota.getCreditMemoFLEXVA().getFLEXContext());
-            xmlInput = inyectaParametroNota(xmlInput, "_DISPLAYVALUE", nota.getCreditMemoFLEXVA().getFLEXContextDisplayValue());
-            xmlInput = inyectaParametroNota(xmlInput, "_FLEX_NUMOFSEGMENTS", nota.getCreditMemoFLEXVA().getFLEXNumOfSegments().toString());
-            xmlInput = inyectaParametroNota(xmlInput, "_FLEX_NUMOFSEGMENTS", nota.getCreditMemoFLEXVA().getFLEXNumOfSegments().toString());
+
+            xmlInput = inyectaParametroNota(xmlInput, "_BATCHSOURCESEQUENCEID", nota.getBatchSourceSequenceId()==null?"":nota.getBatchSourceSequenceId().toString());
+            xmlInput = inyectaParametroNota(xmlInput, "_CUSTOMERTRANSACTIONID", nota.getCustomerTransactionId()==null?"":nota.getCustomerTransactionId().toString());
+            xmlInput = inyectaParametroNota(xmlInput, "_COMMENTS", nota.getComments()==null?"":nota.getComments());
+            xmlInput = inyectaParametroNota(xmlInput, "_CUSTOMERTRANSACTIONTYPESEQUENCEID", nota.getCustomerTransactionTypeSequenceId()==null?"":nota.getCustomerTransactionTypeSequenceId().toString());
+            xmlInput = inyectaParametroNota(xmlInput, "_CUSTOMERREFERENCEDATE", nota.getCustomerReferenceDate()==null?"":nota.getCustomerReferenceDate().toString());
+            xmlInput = inyectaParametroNota(xmlInput, "_CUSTOMERREFERENCE", nota.getCustomerReference()==null?"":nota.getCustomerReference());
+            xmlInput = inyectaParametroNota(xmlInput, "_DOCUMENTSEQUENCEID", nota.getDocumentSequenceId()==0?"":nota.getDocumentSequenceId().toString());
+            xmlInput = inyectaParametroNota(xmlInput, "_DOCUMENTSEQUENCEVALUE", nota.getDocumentSequenceValue()==0?"":nota.getDocumentSequenceValue().toString());
+            if(nota.getFreightAmount()!=null){
+                xmlInput = inyectaParametroNota(xmlInput, "_CURRENCYCODE_FREIGHTAMOUNT",nota.getFreightAmount().getCurrencyCode()==null?nota.getCurrencyCode(): nota.getCurrencyCode());
+                xmlInput = inyectaParametroNota(xmlInput, "_FREIGHTAMOUNT",nota.getFreightAmount().getValue()==null?"": nota.getFreightAmount().getValue().toString());
+            }else{
+                xmlInput = inyectaParametroNota(xmlInput, "_CURRENCYCODE_FREIGHTAMOUNT",nota.getCurrencyCode());
+                xmlInput = inyectaParametroNota(xmlInput, "_FREIGHTAMOUNT","");
+            }
+            xmlInput = inyectaParametroNota(xmlInput, "_FREIGHTPERCENT", nota.getFreightPercent()==null ?"":nota.getFreightPercent().toString());
+            xmlInput = inyectaParametroNota(xmlInput, "_GLDATE", nota.getGlDate()==null?"":nota.getGlDate().toString());
+            xmlInput = inyectaParametroNota(xmlInput, "_INTERNALNOTES", nota.getInternalNotes()==null?"":nota.getInternalNotes());
+            if(nota.getLineAmount()!=null){
+                xmlInput = inyectaParametroNota(xmlInput, "_CURRENCYCODE_LINEAMOUNT", nota.getLineAmount().getCurrencyCode()==null?nota.getCurrencyCode(): nota.getCurrencyCode());
+                xmlInput = inyectaParametroNota(xmlInput, "_LINEAMOUNT", nota.getLineAmount().getValue()==null ?"":nota.getLineAmount().getValue().toString());
+            }else{
+                xmlInput = inyectaParametroNota(xmlInput, "_CURRENCYCODE_LINEAMOUNT",nota.getCurrencyCode());
+                xmlInput = inyectaParametroNota(xmlInput, "_LINEAMOUNT","");
+            }
+            xmlInput = inyectaParametroNota(xmlInput, "_LINEPERCENT", nota.getLinePercent()==null?"":nota.getLinePercent().toString());
+            xmlInput = inyectaParametroNota(xmlInput, "_METHODFORRULES", nota.getMethodForRules()==null?"":nota.getMethodForRules());
+            xmlInput = inyectaParametroNota(xmlInput, "_PREVIOUSCUSTOMERTRANSACTIONID", nota.getPreviousCustomerTransactionId()==null?"":nota.getPreviousCustomerTransactionId().toString());
+            xmlInput = inyectaParametroNota(xmlInput, "_REASONCODE", nota.getReasonCode()==null?"":nota.getReasonCode());
+            xmlInput = inyectaParametroNota(xmlInput, "_SPLITTERMINATIONMETHOD", nota.getSplitTerminationMethod()==null?"":nota.getSplitTerminationMethod());
+            xmlInput = inyectaParametroNota(xmlInput, "_TRANSACTIONDATE", nota.getTransactionDate()==null?"":nota.getTransactionDate().toString());
+            xmlInput = inyectaParametroNota(xmlInput, "_TRANSACTIONNUMBER", nota.getTransactionNumber()==null?"":nota.getTransactionNumber());
+            if(nota.getTaxAmount()!=null){
+                xmlInput = inyectaParametroNota(xmlInput, "_CURRENCYCODE_TAXAMOUNT", nota.getTaxAmount().getCurrencyCode()==null? nota.getCurrencyCode():nota.getCurrencyCode());
+                xmlInput = inyectaParametroNota(xmlInput, "_TAXAMOUNT", nota.getTaxAmount().getValue()==null?"":nota.getTaxAmount().getValue().toString());
+            }else{
+                xmlInput = inyectaParametroNota(xmlInput, "_CURRENCYCODE_TAXAMOUNT", nota.getCurrencyCode());
+                xmlInput = inyectaParametroNota(xmlInput, "_TAXAMOUNT", "");
+            }
+            xmlInput = inyectaParametroNota(xmlInput, "_CURRENCYCODE", nota.getCurrencyCode()==null?"":nota.getCurrencyCode());
+            xmlInput = inyectaParametroNota(xmlInput, "_TAXPERCENT", nota.getTaxPercent()==null?"":nota.getTaxPercent().toString());
+            xmlInput = inyectaParametroNota(xmlInput, "_COMPUTETAX", nota.getComputeTax()==null?"":nota.getComputeTax());
+            CreditMemoFLEXDTO creditMemoFLEXVA = nota.getCreditMemoFLEXVA();
+            if(creditMemoFLEXVA!=null){
+                xmlInput = inyectaParametroNota(xmlInput, "_CUSTOMERTRXID", creditMemoFLEXVA.getCustomerTrxId()==null?"":creditMemoFLEXVA.getCustomerTrxId().toString());
+                xmlInput = inyectaParametroNota(xmlInput, "_PROYECTO", creditMemoFLEXVA.getProyecto()==null?"":creditMemoFLEXVA.getProyecto());
+                xmlInput = inyectaParametroNota(xmlInput, "_ESTATUSDECFDI", creditMemoFLEXVA.getEstatusDeCfdi()==null?"":creditMemoFLEXVA.getEstatusDeCfdi());
+                xmlInput = inyectaParametroNota(xmlInput, "_USODECFDI", creditMemoFLEXVA.getUsoDeCfdi()==null?"":creditMemoFLEXVA.getUsoDeCfdi());
+                xmlInput = inyectaParametroNota(xmlInput, "_FORMADEPAGO", creditMemoFLEXVA.getFormaDePago()==null?"":creditMemoFLEXVA.getFormaDePago());
+                xmlInput = inyectaParametroNota(xmlInput, "_FOLIODECANCELACIONSAT", creditMemoFLEXVA.getFolioDeCancelaciOnSat()==null?"":creditMemoFLEXVA.getFolioDeCancelaciOnSat());
+                xmlInput = inyectaParametroNota(xmlInput, "_UUIDDOCUMENTORELACIONADO", creditMemoFLEXVA.getUuidDocumentoRelacionado()==null?"":creditMemoFLEXVA.getUuidDocumentoRelacionado());
+                xmlInput = inyectaParametroNota(xmlInput, "_NUMERODECONTRATO", creditMemoFLEXVA.getNumeroDeContrato()==null?"":creditMemoFLEXVA.getNumeroDeContrato());
+                xmlInput = inyectaParametroNota(xmlInput, "_LINEADECAPTURA", creditMemoFLEXVA.getLineaDeCaptura()==null?"":creditMemoFLEXVA.getLineaDeCaptura());
+                xmlInput = inyectaParametroNota(xmlInput, "_SERIE", creditMemoFLEXVA.getSerie()==null?"":creditMemoFLEXVA.getSerie());
+                xmlInput = inyectaParametroNota(xmlInput, "_FOLIO", creditMemoFLEXVA.getFolio()==null?"":creditMemoFLEXVA.getFolio());
+                xmlInput = inyectaParametroNota(xmlInput, "_FECHADEPRESCRIPCION", creditMemoFLEXVA.getFechaDePrescripcion()==null?"":creditMemoFLEXVA.getFechaDePrescripcion());
+                xmlInput = inyectaParametroNota(xmlInput, "_FECHATIMBRADO", creditMemoFLEXVA.getFechaTimbrado()==null?"":creditMemoFLEXVA.getFechaTimbrado());
+                xmlInput = inyectaParametroNota(xmlInput, "_ADDENDAID", creditMemoFLEXVA.getAddendaid()==null?"":creditMemoFLEXVA.getAddendaid());
+                xmlInput = inyectaParametroNota(xmlInput, "_FACTURAUNIFIER", creditMemoFLEXVA.getFacturaUnifier()==null?"":creditMemoFLEXVA.getFacturaUnifier());
+                xmlInput = inyectaParametroNota(xmlInput, "_FLEX_CONTEXT_DISPLAYVALUE", creditMemoFLEXVA.getFLEXContextDisplayValue()==null?"":creditMemoFLEXVA.getFLEXContextDisplayValue());
+                xmlInput = inyectaParametroNota(xmlInput, "_FLEX_CONTEXT", creditMemoFLEXVA.getFLEXContext()==null?"":creditMemoFLEXVA.getFLEXContext());
+                xmlInput = inyectaParametroNota(xmlInput, "_FLEX_NUMOFSEGMENTS", creditMemoFLEXVA.getFLEXNumOfSegments()==0?"":creditMemoFLEXVA.getFLEXNumOfSegments().toString());
+            }else{
+                xmlInput = inyectaParametroNota(xmlInput, "_CUSTOMERTRXID", "");
+                xmlInput = inyectaParametroNota(xmlInput, "_PROYECTO", "");
+                xmlInput = inyectaParametroNota(xmlInput, "_ESTATUSDECFDI", "");
+                xmlInput = inyectaParametroNota(xmlInput, "_USODECFDI", "");
+                xmlInput = inyectaParametroNota(xmlInput, "_FORMADEPAGO", "");
+                xmlInput = inyectaParametroNota(xmlInput, "_FOLIODECANCELACIONSAT", "");
+                xmlInput = inyectaParametroNota(xmlInput, "_UUIDDOCUMENTORELACIONADO", "");
+                xmlInput = inyectaParametroNota(xmlInput, "_NUMERODECONTRATO", "");
+                xmlInput = inyectaParametroNota(xmlInput, "_LINEADECAPTURA", "");
+                xmlInput = inyectaParametroNota(xmlInput, "_SERIE", "");
+                xmlInput = inyectaParametroNota(xmlInput, "_FOLIO", "");
+                xmlInput = inyectaParametroNota(xmlInput, "_FECHADEPRESCRIPCION", "");
+                xmlInput = inyectaParametroNota(xmlInput, "_FECHATIMBRADO", "");
+                xmlInput = inyectaParametroNota(xmlInput, "_ADDENDAID", "");
+                xmlInput = inyectaParametroNota(xmlInput, "_FACTURAUNIFIER", "");
+                xmlInput = inyectaParametroNota(xmlInput, "_FLEX_CONTEXT_DISPLAYVALUE", "");
+                xmlInput = inyectaParametroNota(xmlInput, "_FLEX_CONTEXT", "");
+                xmlInput = inyectaParametroNota(xmlInput, "_FLEX_NUMOFSEGMENTS", "");
+            }
+            
             try{
                 outputString = enviarMsg(wsURL, SOAPAction, xmlInput, PropiedadesFRISA.recuperaPropiedadBackend("GetGeneraNotaCreditoContentType"));
                 if (outputString.indexOf("=_Part") > -1) {
@@ -615,25 +702,35 @@ public class AdaptadorWS {
                 }
                 Document document = parseXmlFile(outputString);
                 NodeList nodeLst;
-                nodeLst = document.getElementsByTagName("ns2:reportBytes");
+                nodeLst = document.getElementsByTagName("ns0:createCreditMemoResponse");
+                
                 if(nodeLst.getLength()>0){
+                    nodeLst= document.getElementsByTagName("wsa:MessageID");
+                    respuestaWS.setMessageID(nodeLst.item(0).getTextContent());
+                    nodeLst= document.getElementsByTagName("ns1:CustomerTransactionId");
+                    respuestaWS.setCustomerTransactionId(nodeLst.item(0).getTextContent());
+                    nodeLst= document.getElementsByTagName("ns1:TransactionNumber");
+                    respuestaWS.setTransactionNumber(nodeLst.item(0).getTextContent());
                     respuestaWS.setProceso(new Proceso("0","EXITOSO"));
                 }else{
                     nodeLst = document.getElementsByTagName("faultstring");
-                    respuestaWS.setProceso(new Proceso("100","Eror en WS ERP : "+nodeLst.item(0).getTextContent()));
-            }
-//                String resultado = nodeLst.item(0).getTextContent();
-//                lista.add((DATA_DS) respuestaXMLaPOJO(getCadenaDesdeB64(resultado), new DATA_DS()));
-            }catch(Exception ex){
+                    respuestaWS.setProceso(new Proceso("100","Error en WS ERP : faultstring= "+nodeLst.item(0).getTextContent()));
+                }
+            } catch (Exception ex) {
                 ex.printStackTrace();
-                respuestaWS.setProceso(new Proceso("100", "Eror en WS ERP : "+ex.toString()));
+
+                respuestaWS.setProceso(new Proceso("100", "Eror en WS ERP : " + ex.toString()));
             }
-        }
-        catch(Exception Ex){
-//            System.err.println(Ex.getLocalizedMessage());
+        } catch (Exception Ex) {
             Ex.printStackTrace();
         }
-        respuestaWS.setDATA_DSObject(lista);
         return respuestaWS;
+    }
+
+    private String recuperarValorDesdeNodo(String outputString, String nombreNodo) throws ParserConfigurationException, SAXException, IOException {
+
+        Document document = parseXmlFile(outputString);
+        NodeList nodeLstServiceStatus = document.getElementsByTagName(nombreNodo);
+        return nodeLstServiceStatus.item(0).getTextContent();
     }
 }

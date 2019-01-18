@@ -5,13 +5,18 @@
  */
 package mx.frisa.tic.negocio.ws;
 
-import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
+import mx.frisa.tic.datos.dto.ingresos.AplicarPagoDTO;
+import mx.frisa.tic.datos.dto.ingresos.FiltroPagoSinReferencia;
 import mx.frisa.tic.datos.dto.ingresos.PagoDTO;
+import mx.frisa.tic.datos.dto.ingresos.PeticionExistente;
+import mx.frisa.tic.datos.dto.ingresos.RespuestaClienteDTO;
+import mx.frisa.tic.datos.dto.ingresos.RespuestaDTO;
+import mx.frisa.tic.datos.dto.ingresos.RespuestaPagoSinReferencia;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaProcesaFacturasDTO;
 import mx.frisa.tic.negocio.ingresos.GestorPagos;
 
@@ -23,12 +28,44 @@ import mx.frisa.tic.negocio.ingresos.GestorPagos;
 public class GestorPagosWS {
 
     @EJB
-    private GestorPagos ejbRef;
+    private GestorPagos ejbRefPagos;
 
     @WebMethod(operationName = "generarPago")
-    public RespuestaProcesaFacturasDTO generarPago(@WebParam(name = "pago") List<PagoDTO> pagos ) {
-        
-        return ejbRef.generarPago(pagos);
+    public RespuestaProcesaFacturasDTO generarPago(@WebParam(name = "pago") List<PagoDTO> pagos) {
+
+        return ejbRefPagos.generarPago(pagos);
     }
-    
+
+    /**
+     * Web service operation
+     * @param filtros
+     * @return 
+     */
+    @WebMethod(operationName = "consultarPagosSinReferencia")
+    public RespuestaPagoSinReferencia consultarPagosSinReferencia(@WebParam(name = "filtros") FiltroPagoSinReferencia filtros) {
+
+        return ejbRefPagos.consultarPagosSinReferencia(filtros);
+    }
+
+    /**
+     *
+     * @param filtros
+     * @return
+     */
+    @WebMethod(operationName = "consultarReferenciaLCExistente")
+    public RespuestaClienteDTO consultarReferenciaLCExistente(@WebParam(name = "filtros") PeticionExistente filtros) {
+
+        return ejbRefPagos.consultarReferenciaLCExistente(filtros);
+    }
+
+    /**
+     *
+     * @param filtros
+     * @return
+     */
+    @WebMethod(operationName = "aplicarPagoManual")
+    public RespuestaDTO aplicarPagoManual(@WebParam(name = "aplicarPago") AplicarPagoDTO aplicarPago) {
+        return ejbRefPagos.aplicarPagoManual(aplicarPago); //ejbRef.aplicarPagoManual(filtros);
+    }
+
 }

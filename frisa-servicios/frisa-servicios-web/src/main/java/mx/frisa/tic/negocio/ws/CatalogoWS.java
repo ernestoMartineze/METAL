@@ -5,11 +5,14 @@
  */
 package mx.frisa.tic.negocio.ws;
 
+import java.util.List;
 import javax.ejb.EJB;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaDTO;
+import mx.frisa.tic.datos.dto.ingresos.TipoMonedaDTO;
+import mx.frisa.tic.negocio.ingresos.CatalogosBean;
 import mx.frisa.tic.negocio.ingresos.CatalogosBeanLocal;
 
 /**
@@ -20,8 +23,7 @@ import mx.frisa.tic.negocio.ingresos.CatalogosBeanLocal;
 public class CatalogoWS {
 
     @EJB
-    private CatalogosBeanLocal ejbRef;// Add business logic below. (Right-click in editor and choose
-    // "Web Service > Add Operation"
+    private CatalogosBeanLocal ejbRef;
 
     @WebMethod(operationName = "consultarPais")
     public String consultarPais(@WebParam(name = "id") int id, @WebParam(name = "clave") String clave) {
@@ -29,8 +31,8 @@ public class CatalogoWS {
     }
 
     @WebMethod(operationName = "consultarTipoMoneda")
-    public RespuestaDTO consultarTipoMoneda() {
-        return ejbRef.consultarTipoMoneda();
+    public List<TipoMonedaDTO> consultarTipoMoneda() {
+        return ejbRef.consultarTipoMoneda("CODIGOQUE QUIERA");
     }
     
 }

@@ -204,9 +204,10 @@ public class ProcedimientoAlmacendo extends ManejadorEntidad {
             procedure.registerStoredProcedureParameter("pCUSTOMER_ID", String.class, ParameterMode.OUT);
             procedure.registerStoredProcedureParameter("pSITE_ID", String.class, ParameterMode.OUT);
             procedure.registerStoredProcedureParameter("pBillCustomerName", String.class, ParameterMode.OUT);
+            procedure.registerStoredProcedureParameter("pReferencia", String.class, ParameterMode.OUT);
 
             procedure.setParameter("PBANK_ACCOUNT_NUM", lineaEstadoCuenta.getBankAccountNum()+"");
-            procedure.setParameter("pTRX_DATE", lineaEstadoCuenta.getTrxDate());
+            procedure.setParameter("pTRX_DATE", lineaEstadoCuenta.getGlDate());
             procedure.setParameter("pLINE_NUMBER", lineaEstadoCuenta.getLineNumber() + "");
             procedure.setParameter("pTRX_TYPE", lineaEstadoCuenta.getTrxType());
             procedure.setParameter("pAMOUNT", lineaEstadoCuenta.getAmount() + "");
@@ -240,11 +241,13 @@ public class ProcedimientoAlmacendo extends ManejadorEntidad {
             String pCUSTOMER_ID = (String) procedure.getOutputParameterValue("pCUSTOMER_ID");
             String pSITE_ID = (String) procedure.getOutputParameterValue("pSITE_ID");
             String pBillCustomerName = (String) procedure.getOutputParameterValue("pBillCustomerName");
+            String pReferencia = (String) procedure.getOutputParameterValue("pReferencia");
             lineaEstadoCuenta.setIdEdoCta(BigDecimal.valueOf(Long.valueOf(idEdoCuenta+"")));
             manejadorLog.debug("pORG_ID : " + pORG_ID);
             manejadorLog.debug("pIdPago : " + pIdPago);
             manejadorLog.debug("idMetodoPago : " + idMetodoPago);
-            ejecuta = true;
+            manejadorLog.debug("pReferencia : " + pReferencia);
+            
 
             manejadorLog.debug("Resultado: " + respuestaProceso);
             manejadorLog.debug("Resultado : " + ejecuta);
@@ -256,7 +259,9 @@ public class ProcedimientoAlmacendo extends ManejadorEntidad {
             respuestaDTO.setOrgID(pORG_ID);
             respuestaDTO.setCustomerID(pCUSTOMER_ID);
             respuestaDTO.setSiteID(pSITE_ID);
-            respuestaDTO.setSiteID(pSITE_ID);
+            respuestaDTO.setReferencia(pReferencia);
+            
+            ejecuta = true;
             
         } catch (Exception ex) {
             ex.printStackTrace();

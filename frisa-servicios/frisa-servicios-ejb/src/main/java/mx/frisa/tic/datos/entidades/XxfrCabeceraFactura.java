@@ -60,6 +60,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "XxfrCabeceraFactura.findByLocalnumber", query = "SELECT x FROM XxfrCabeceraFactura x WHERE x.localnumber = :localnumber"),
     @NamedQuery(name = "XxfrCabeceraFactura.findByLandtaxaccount", query = "SELECT x FROM XxfrCabeceraFactura x WHERE x.landtaxaccount = :landtaxaccount"),
     @NamedQuery(name = "XxfrCabeceraFactura.findByReferencenumber", query = "SELECT x FROM XxfrCabeceraFactura x WHERE x.referencenumber = :referencenumber"),
+    @NamedQuery(name = "XxfrCabeceraFactura.findByReferencenumberMonto", query = "SELECT x FROM XxfrCabeceraFactura x WHERE x.referencenumber = :referencenumber and x.estadoprocesamiento = 'REGISTRADA'"),
     @NamedQuery(name = "XxfrCabeceraFactura.findByRelatederpinvoice", query = "SELECT x FROM XxfrCabeceraFactura x WHERE x.relatederpinvoice = :relatederpinvoice"),
     @NamedQuery(name = "XxfrCabeceraFactura.findByLegalinvoiceuse", query = "SELECT x FROM XxfrCabeceraFactura x WHERE x.legalinvoiceuse = :legalinvoiceuse"),
     @NamedQuery(name = "XxfrCabeceraFactura.findByAddendum", query = "SELECT x FROM XxfrCabeceraFactura x WHERE x.addendum = :addendum"),
@@ -218,8 +219,18 @@ public class XxfrCabeceraFactura implements Serializable {
     private String idbatch;
     @OneToMany(mappedBy = "idfacturaprimavera", fetch = FetchType.LAZY)
     private List<XxfrLineaCapturaFactura> xxfrLineaCapturaFacturaList;
-    /*@OneToOne(cascade = CascadeType.ALL, mappedBy = "xxfrCabeceraFactura", fetch = FetchType.LAZY)
-    private XxfrtNotaCredito xxfrtNotaCredito;*/
+
+    @Column(name = "CUSTOMERTRXID_ERP")
+    private String customerTrxID_erp;
+
+        @Column(name = "TRANSACTIONNUMBER_ERP")
+    private String transactioNumber_erp;
+
+
+
+
+
+
 
     public XxfrCabeceraFactura() {
     }
@@ -643,16 +654,22 @@ public class XxfrCabeceraFactura implements Serializable {
         return mensajeerror;
     }
 
-    public void setMensajeerror(String mensajeerror) {
-        this.mensajeerror = mensajeerror;
+    public String getCustomerTrxID_erp() {
+        return customerTrxID_erp;
     }
 
-    public Long getErptransactionnumber() {
-        return erptransactionnumber;
+    public void setCustomerTrxID_erp(String customerTrxID_erp) {
+        this.customerTrxID_erp = customerTrxID_erp;
     }
 
-    public void setErptransactionnumber(Long erptransactionnumber) {
-        this.erptransactionnumber = erptransactionnumber;
+    public String getTransactioNumber_erp() {
+        return transactioNumber_erp;
     }
+
+    public void setTransactioNumber_erp(String transactioNumber_erp) {
+        this.transactioNumber_erp = transactioNumber_erp;
+    }
+
+
 
 }

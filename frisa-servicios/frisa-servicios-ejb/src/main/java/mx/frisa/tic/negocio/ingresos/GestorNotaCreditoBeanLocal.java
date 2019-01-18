@@ -5,7 +5,6 @@
  */
 package mx.frisa.tic.negocio.ingresos;
 
-import java.util.List;
 import javax.ejb.Local;
 import mx.frisa.tic.datos.dto.ingresos.NotaCreditoListaDTO;
 import mx.frisa.tic.negocio.remoto.RespuestaERP_Nota_Credito;

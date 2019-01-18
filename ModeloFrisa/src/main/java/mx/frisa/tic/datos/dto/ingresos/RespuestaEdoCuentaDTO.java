@@ -18,6 +18,7 @@ public class RespuestaEdoCuentaDTO {
     String siteID;
     String customerID;
     String billCustomerName;
+    String referencia;
     
 
     public RespuestaEdoCuentaDTO() {
@@ -117,6 +118,14 @@ public class RespuestaEdoCuentaDTO {
 
     public void setCustomerID(String customerID) {
         this.customerID = customerID;
+    }
+
+    public String getReferencia() {
+        return referencia;
+    }
+
+    public void setReferencia(String referencia) {
+        this.referencia = referencia;
     }
 
 
