@@ -17,6 +17,7 @@ import javax.jws.WebService;
 import mx.frisa.tic.datos.comun.DAO;
 import mx.frisa.tic.datos.dto.ingresos.DetalleLCPagosDTO;
 import mx.frisa.tic.datos.dto.ingresos.DetalleLineaCapturaDTO;
+import mx.frisa.tic.datos.dto.ingresos.FacturaActualizaIdERPDTO;
 
 import mx.frisa.tic.datos.dto.ingresos.LCFactDetDTO;
 import mx.frisa.tic.datos.dto.ingresos.LineaCapturaDTO;
@@ -278,13 +279,14 @@ public class GestorLineaCapturaWS {
     }
     
     @WebMethod(operationName = "actualizarIdERP") 
-    public RespuestaDTO actualizarIdERP(@WebParam(name="IdPrimavera")BigDecimal IdPrimavera,@WebParam(name="IdErp") String IdErp){
+    public RespuestaDTO actualizarIdERP(List<FacturaActualizaIdERPDTO> facturas){
         RespuestaDTO respuesta = new RespuestaDTO();
         ManejadorLog manejarLog = new ManejadorLog();
         manejarLog.debug("Entro a metodo : actualizarIdERP");
         try {
-            respuesta = gestorLineaCapturaBean.actualizarIdERP(IdPrimavera, IdErp);
+            respuesta = gestorLineaCapturaBean.actualizarIdERP(facturas);
         } catch (Exception ex) {
+            System.err.println("ERROR: " + respuesta.getIdError() + " - " + respuesta.getDescripcionError());
             ex.printStackTrace();
         }
         manejarLog.debug("Termina metodo : actualizarIdERP");

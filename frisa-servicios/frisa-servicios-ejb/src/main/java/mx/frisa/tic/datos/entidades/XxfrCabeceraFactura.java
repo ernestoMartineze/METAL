@@ -37,6 +37,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "XxfrCabeceraFactura.findAll", query = "SELECT x FROM XxfrCabeceraFactura x"),
     @NamedQuery(name = "XxfrCabeceraFactura.findByIdfacturaprimavera", query = "SELECT x FROM XxfrCabeceraFactura x WHERE x.idfacturaprimavera = :idfacturaprimavera"),
+    @NamedQuery(name = "XxfrCabeceraFactura.findByIdfacturaprimavera2", query = "SELECT x FROM XxfrCabeceraFactura x WHERE x.idfacturaprimavera = :idfacturaprimavera"),
     @NamedQuery(name = "XxfrCabeceraFactura.findByFacilitynumber", query = "SELECT x FROM XxfrCabeceraFactura x WHERE x.facilitynumber = :facilitynumber"),
     @NamedQuery(name = "XxfrCabeceraFactura.findByCompanyaccountcode", query = "SELECT x FROM XxfrCabeceraFactura x WHERE x.companyaccountcode = :companyaccountcode"),
     @NamedQuery(name = "XxfrCabeceraFactura.findByBusinessunitname", query = "SELECT x FROM XxfrCabeceraFactura x WHERE x.businessunitname = :businessunitname"),
@@ -79,8 +80,16 @@ public class XxfrCabeceraFactura implements Serializable {
     @Size(max = 125)
     @Column(name = "BATCHSOURCENAME")
     private String batchsourcename;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "xxfrCabeceraFactura", fetch = FetchType.LAZY)
-    private List<XxfrtBitacoraCarga> xxfrtBitacoraCargaList;
+    @Size(max = 13)
+    @Column(name = "RFC")
+    private String rfc;
+    @Column(name = "CODIGOERROR")
+    private Long codigoerror;
+    @Size(max = 200)
+    @Column(name = "MENSAJEERROR")
+    private String mensajeerror;
+    @Column(name = "ERPTRANSACTIONNUMBER")
+    private Long erptransactionnumber;
 
     @Size(max = 20)
     @Column(name = "ORGID")
@@ -614,13 +623,36 @@ public class XxfrCabeceraFactura implements Serializable {
         this.batchsourcename = batchsourcename;
     }
 
-    @XmlTransient
-    public List<XxfrtBitacoraCarga> getXxfrtBitacoraCargaList() {
-        return xxfrtBitacoraCargaList;
+    public String getRfc() {
+        return rfc;
     }
 
-    public void setXxfrtBitacoraCargaList(List<XxfrtBitacoraCarga> xxfrtBitacoraCargaList) {
-        this.xxfrtBitacoraCargaList = xxfrtBitacoraCargaList;
+    public void setRfc(String rfc) {
+        this.rfc = rfc;
     }
-    
+
+    public Long getCodigoerror() {
+        return codigoerror;
+    }
+
+    public void setCodigoerror(Long codigoerror) {
+        this.codigoerror = codigoerror;
+    }
+
+    public String getMensajeerror() {
+        return mensajeerror;
+    }
+
+    public void setMensajeerror(String mensajeerror) {
+        this.mensajeerror = mensajeerror;
+    }
+
+    public Long getErptransactionnumber() {
+        return erptransactionnumber;
+    }
+
+    public void setErptransactionnumber(Long erptransactionnumber) {
+        this.erptransactionnumber = erptransactionnumber;
+    }
+
 }
