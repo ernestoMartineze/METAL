@@ -16,6 +16,7 @@ public class PagoSinReferenciaVO {
     private String nCuenta;
     private String idPago;
     private String numeroRecibo;
+    private String inlineStyle;
     
     public PagoSinReferenciaVO() {
     }
@@ -132,6 +133,15 @@ public class PagoSinReferenciaVO {
 
     public String getNumeroRecibo() {
         return numeroRecibo;
+    }
+
+
+    public void setInlineStyle(String inlineStyle) {
+        this.inlineStyle = inlineStyle;
+    }
+
+    public String getInlineStyle() {
+        return inlineStyle;
     }
 
     @Override

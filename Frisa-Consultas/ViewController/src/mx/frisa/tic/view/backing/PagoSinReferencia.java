@@ -28,7 +28,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.math.BigInteger;
 
+import mx.frisa.tic.negocio.ws.RespuestaDTO;
+
+import oracle.adf.view.rich.component.rich.RichDialog;
+import oracle.adf.view.rich.component.rich.RichPopup;
 import oracle.adf.view.rich.component.rich.data.RichTable;
+import oracle.adf.view.rich.component.rich.output.RichOutputText;
 import oracle.adf.view.rich.context.AdfFacesContext;
 
 public class PagoSinReferencia {
@@ -73,8 +78,12 @@ public class PagoSinReferencia {
     
     //variables y clases
     private List<PagoSinReferenciaVO> pagosVO;
-    private List<PagoPorAplicarDTO> pagoPorAplicar;
+    private AplicarPagoDTO aplicarPago;
+    private RespuestaDTO respuesta; 
     private RichTable t1;
+    private RichPopup p1;
+    private RichOutputText ot7;
+    private RichDialog d2;
 
     public void setF1(RichForm f1) {
         this.f1 = f1;
@@ -441,6 +450,14 @@ public class PagoSinReferencia {
     }
 
 
+    public void setRespuesta(RespuestaDTO respuesta) {
+        this.respuesta = respuesta;
+    }
+
+    public RespuestaDTO getRespuesta() {
+        return respuesta;
+    }
+
     public String validarP_Action() {
         // Add event code here...
         //pagosAplicar = new ArrayList();
@@ -473,11 +490,17 @@ public class PagoSinReferencia {
 
     public String aplicarB_Action() {
         // Add event code here...
-        for(PagoPorAplicarDTO pago :pagoPorAplicar){
-            System.out.println(pago.getIdEdoCuenta());
-            System.out.println(pago.getIdLineaCaputura());
-            System.out.println(pago.getIdPago());
-        }
+        //for(PagoPorAplicarDTO pago :pagoPorAplicar){
+            GestorPagosWS_Service gestorPagosWS_Service = new GestorPagosWS_Service();
+            GestorPagosWS gestorPagosWS = gestorPagosWS_Service.getGestorPagosWSPort();
+            //AplicarPagoDTO aplicarPago = new AplicarPagoDTO();
+            //aplicarPago.
+            respuesta = gestorPagosWS.aplicarPagoManual(aplicarPago);
+            if (respuesta.getProceso().equals("ERROR")){
+                    RichPopup.PopupHints hints = new RichPopup.PopupHints();
+                    p1.show(hints);
+                }
+            System.out.println(respuesta.getProceso());
         return null;
     }
             
@@ -488,8 +511,8 @@ public class PagoSinReferencia {
         GestorPagosWS gestorPagosWS = gestorPagosWS_Service.getGestorPagosWSPort();
         
         RespuestaClienteDTO consulta = new RespuestaClienteDTO();
-        AplicarPagoDTO aplicarPago = new AplicarPagoDTO();
-        pagoPorAplicar = new ArrayList();
+        aplicarPago = new AplicarPagoDTO();
+        List<PagoPorAplicarDTO> pagoPorAplicar = new ArrayList();
         try{
             for( PagoSinReferenciaVO linea :pagosVO){
                 PeticionExistente filtros = new PeticionExistente();
@@ -506,10 +529,13 @@ public class PagoSinReferencia {
                         linea.setCliente(consulta.getCliente());
                         linea.setNCuenta(consulta.getNumeroCobro()==null?"":""+consulta.getNumeroCobro());
                         //pagoDTO.setIdEdoCuenta(linea.get);
+                        linea.setInlineStyle("background-color:#4bf50c;");
                         pagoDTO.setIdLineaCaputura(new BigInteger(linea.getLineaDeCaptura()==null?"0":linea.getLineaDeCaptura()));
                         pagoDTO.setIdPago(new BigInteger(linea.getIdPago()==null?"0":linea.getIdPago()));
                         pagoDTO.setReferencia(linea.getReferencia());
                         pagoPorAplicar.add(pagoDTO);
+                    }else{
+                        linea.setInlineStyle("background-color:#f74c1e;");
                     }
                 } 
             aplicarPago.setPagoPorAplicar(pagoPorAplicar);
@@ -519,5 +545,29 @@ public class PagoSinReferencia {
         }
         AdfFacesContext.getCurrentInstance().addPartialTarget(t1);
         return null;
+    }
+
+    public void setP1(RichPopup p1) {
+        this.p1 = p1;
+    }
+
+    public RichPopup getP1() {
+        return p1;
+    }
+
+    public void setOt7(RichOutputText ot7) {
+        this.ot7 = ot7;
+    }
+
+    public RichOutputText getOt7() {
+        return ot7;
+    }
+
+    public void setD2(RichDialog d2) {
+        this.d2 = d2;
+    }
+
+    public RichDialog getD2() {
+        return d2;
     }
 }
