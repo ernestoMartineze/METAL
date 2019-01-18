@@ -29,5 +29,5 @@ public interface GestorFacturas {
      * @param idBatch
      * @return
      */
-    public List<FacturaLCDTO> consultarDetalleFactura(String idBatch);
+    List<FacturaLCDTO> consultarDetalleFactura(String idBatch);
 }

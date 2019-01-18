@@ -27,18 +27,20 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "XXFRV_CONSULTA_LC_FACTURA")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "XxfrvConsultaLcFactura.findAll", query = "SELECT x FROM XxfrvConsultaLcFactura x")
-    , @NamedQuery(name = "XxfrvConsultaLcFactura.findByIdfacturaprimavera", query = "SELECT x FROM XxfrvConsultaLcFactura x WHERE x.idfacturaprimavera = :idfacturaprimavera")
-    , @NamedQuery(name = "XxfrvConsultaLcFactura.findByRelatederpinvoice", query = "SELECT x FROM XxfrvConsultaLcFactura x WHERE x.relatederpinvoice = :relatederpinvoice")
-    , @NamedQuery(name = "XxfrvConsultaLcFactura.findByBilltoconsumername", query = "SELECT x FROM XxfrvConsultaLcFactura x WHERE x.billtoconsumername = :billtoconsumername")
-    , @NamedQuery(name = "XxfrvConsultaLcFactura.findByCompanyaccountcode", query = "SELECT x FROM XxfrvConsultaLcFactura x WHERE x.companyaccountcode = :companyaccountcode")
-    , @NamedQuery(name = "XxfrvConsultaLcFactura.findByPaymenttermdate", query = "SELECT x FROM XxfrvConsultaLcFactura x WHERE x.paymenttermdate = :paymenttermdate")
-    , @NamedQuery(name = "XxfrvConsultaLcFactura.findByProjectid", query = "SELECT x FROM XxfrvConsultaLcFactura x WHERE x.projectid = :projectid")
-    , @NamedQuery(name = "XxfrvConsultaLcFactura.findByTotalamount", query = "SELECT x FROM XxfrvConsultaLcFactura x WHERE x.totalamount = :totalamount")
-    , @NamedQuery(name = "XxfrvConsultaLcFactura.findByIdlineacaptura", query = "SELECT x FROM XxfrvConsultaLcFactura x WHERE x.idlineacaptura = :idlineacaptura")
-    , @NamedQuery(name = "XxfrvConsultaLcFactura.findByLinenumber", query = "SELECT x FROM XxfrvConsultaLcFactura x WHERE x.linenumber = :linenumber")
-    , @NamedQuery(name = "XxfrvConsultaLcFactura.findByMontobrutolinea", query = "SELECT x FROM XxfrvConsultaLcFactura x WHERE x.montobrutolinea = :montobrutolinea")
-    , @NamedQuery(name = "XxfrvConsultaLcFactura.findByTaxrate", query = "SELECT x FROM XxfrvConsultaLcFactura x WHERE x.taxrate = :taxrate")})
+    @NamedQuery(name = "XxfrvConsultaLcFactura.findAll", query = "SELECT x FROM XxfrvConsultaLcFactura x"),
+    @NamedQuery(name = "XxfrvConsultaLcFactura.findByIdfacturaprimavera", query = "SELECT x FROM XxfrvConsultaLcFactura x WHERE x.idfacturaprimavera = :idfacturaprimavera"),
+    @NamedQuery(name = "XxfrvConsultaLcFactura.findByRelatederpinvoice", query = "SELECT x FROM XxfrvConsultaLcFactura x WHERE x.relatederpinvoice = :relatederpinvoice"),
+    @NamedQuery(name = "XxfrvConsultaLcFactura.findByBilltoconsumername", query = "SELECT x FROM XxfrvConsultaLcFactura x WHERE x.billtoconsumername = :billtoconsumername"),
+    @NamedQuery(name = "XxfrvConsultaLcFactura.findByCompanyaccountcode", query = "SELECT x FROM XxfrvConsultaLcFactura x WHERE x.companyaccountcode = :companyaccountcode"),
+    @NamedQuery(name = "XxfrvConsultaLcFactura.findByPaymenttermdate", query = "SELECT x FROM XxfrvConsultaLcFactura x WHERE x.paymenttermdate = :paymenttermdate"),
+    @NamedQuery(name = "XxfrvConsultaLcFactura.findByProjectid", query = "SELECT x FROM XxfrvConsultaLcFactura x WHERE x.projectid = :projectid"),
+    @NamedQuery(name = "XxfrvConsultaLcFactura.findByTotalamount", query = "SELECT x FROM XxfrvConsultaLcFactura x WHERE x.totalamount = :totalamount"),
+    @NamedQuery(name = "XxfrvConsultaLcFactura.findByIdlineacaptura", query = "SELECT x FROM XxfrvConsultaLcFactura x WHERE x.idlineacaptura = :idlineacaptura"),
+    @NamedQuery(name = "XxfrvConsultaLcFactura.findByLinenumber", query = "SELECT x FROM XxfrvConsultaLcFactura x WHERE x.linenumber = :linenumber"),
+    @NamedQuery(name = "XxfrvConsultaLcFactura.findByMontobrutolinea", query = "SELECT x FROM XxfrvConsultaLcFactura x WHERE x.montobrutolinea = :montobrutolinea"),
+    @NamedQuery(name = "XxfrvConsultaLcFactura.findByLineacaptura", query = "SELECT x FROM XxfrvConsultaLcFactura x WHERE x.lineacaptura = :lineacaptura"),
+    @NamedQuery(name = "XxfrvConsultaLcFactura.findByReferencia", query = "SELECT x FROM XxfrvConsultaLcFactura x WHERE x.referencenumber = :referencenumber"),
+    @NamedQuery(name = "XxfrvConsultaLcFactura.findByTaxrate", query = "SELECT x FROM XxfrvConsultaLcFactura x WHERE x.taxrate = :taxrate")})
 public class XxfrvConsultaLcFactura implements Serializable {
 
     @Column(name = "TAXRATE")
@@ -77,7 +79,10 @@ public class XxfrvConsultaLcFactura implements Serializable {
     private String idlineacaptura;
     @Column(name = "MONTOBRUTOLINEA")
     private BigDecimal montobrutolinea;
-
+    @Column(name = "LINEACAPTURA")
+    private String lineacaptura;
+    @Column(name = "REFERENCENUMBER")
+    private String referencenumber;
 
     public XxfrvConsultaLcFactura() {
     }
@@ -146,7 +151,6 @@ public class XxfrvConsultaLcFactura implements Serializable {
         this.idlineacaptura = idlineacaptura;
     }
 
-
     public BigDecimal getMontobrutolinea() {
         return montobrutolinea;
     }
@@ -154,9 +158,6 @@ public class XxfrvConsultaLcFactura implements Serializable {
     public void setMontobrutolinea(BigDecimal montobrutolinea) {
         this.montobrutolinea = montobrutolinea;
     }
-
-
-
 
     public String getIdlinea() {
         return idlinea;
@@ -181,5 +182,22 @@ public class XxfrvConsultaLcFactura implements Serializable {
     public void setTaxrate(BigDecimal taxrate) {
         this.taxrate = taxrate;
     }
+
+    public String getLineacaptura() {
+        return lineacaptura;
+    }
+
+    public void setLineacaptura(String lineacaptura) {
+        this.lineacaptura = lineacaptura;
+    }
+
+    public String getReferencenumber() {
+        return referencenumber;
+    }
+
+    public void setReferencenumber(String referencenumber) {
+        this.referencenumber = referencenumber;
+    }
+
     
 }

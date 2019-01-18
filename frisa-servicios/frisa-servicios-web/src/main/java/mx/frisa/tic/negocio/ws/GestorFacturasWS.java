@@ -16,6 +16,7 @@ import mx.frisa.tic.datos.dto.ingresos.LCFacturaDTO;
 import mx.frisa.tic.datos.dto.ingresos.Proceso;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaDetalleFacturaDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaLCFacturaDTO;
+import mx.frisa.tic.negocio.ingresos.GestorFacturas;
 import mx.frisa.tic.negocio.ingresos.GestorFacturasBean;
 import mx.frisa.tic.negocio.utils.ManejadorLog;
 
@@ -27,7 +28,7 @@ import mx.frisa.tic.negocio.utils.ManejadorLog;
 public class GestorFacturasWS {
 
     @EJB(beanName = "GestorFacturasBean")
-    private GestorFacturasBean gestorFacturasBean;
+    private GestorFacturas gestorFacturasBean;
 
     // "Web Service > Add Operation"
 

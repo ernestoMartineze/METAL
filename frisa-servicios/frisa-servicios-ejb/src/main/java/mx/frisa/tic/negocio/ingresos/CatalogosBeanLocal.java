@@ -5,8 +5,10 @@
  */
 package mx.frisa.tic.negocio.ingresos;
 
+import java.util.List;
 import javax.ejb.Local;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaDTO;
+import mx.frisa.tic.datos.dto.ingresos.TipoMonedaDTO;
 
 /**
  *
@@ -23,6 +25,7 @@ public interface CatalogosBeanLocal {
      */
     String consultarPais(int id, String clave);
     RespuestaDTO consultarTipoMoneda();
+    List<TipoMonedaDTO>  consultarTipoMoneda(String codigo);
     
     
 }

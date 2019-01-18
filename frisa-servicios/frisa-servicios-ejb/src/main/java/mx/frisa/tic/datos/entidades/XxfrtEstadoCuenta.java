@@ -7,6 +7,7 @@ package mx.frisa.tic.datos.entidades;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -32,7 +33,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "XxfrtEstadoCuenta.findAll", query = "SELECT x FROM XxfrtEstadoCuenta x"),
     @NamedQuery(name = "XxfrtEstadoCuenta.findByIdEdoCta", query = "SELECT x FROM XxfrtEstadoCuenta x WHERE x.idEdoCta = :idEdoCta"),
     @NamedQuery(name = "XxfrtEstadoCuenta.findByBankAccountNum", query = "SELECT x FROM XxfrtEstadoCuenta x WHERE x.bankAccountNum = :bankAccountNum"),
-    @NamedQuery(name = "XxfrtEstadoCuenta.findByTrxDate", query = "SELECT x FROM XxfrtEstadoCuenta x WHERE x.trxDate = :trxDate"),
     @NamedQuery(name = "XxfrtEstadoCuenta.findByLineNumber", query = "SELECT x FROM XxfrtEstadoCuenta x WHERE x.lineNumber = :lineNumber"),
     @NamedQuery(name = "XxfrtEstadoCuenta.findByTrxType", query = "SELECT x FROM XxfrtEstadoCuenta x WHERE x.trxType = :trxType"),
     @NamedQuery(name = "XxfrtEstadoCuenta.findByAmount", query = "SELECT x FROM XxfrtEstadoCuenta x WHERE x.amount = :amount"),
@@ -95,9 +95,7 @@ public class XxfrtEstadoCuenta implements Serializable {
     @NotNull
     @Column(name = "ID_EDO_CTA")
     private BigDecimal idEdoCta;
-    @Column(name = "TRX_DATE")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date trxDate;
+
     @Size(max = 30)
     @Column(name = "TRX_TYPE")
     private String trxType;
@@ -158,21 +156,6 @@ public class XxfrtEstadoCuenta implements Serializable {
         this.idLineaCaptura = idLineaCaptura;
     }
 
-    public BigDecimal getRmethodid() {
-        return rmethodid;
-    }
-
-    public void setRmethodid(BigDecimal rmethodid) {
-        this.rmethodid = rmethodid;
-    }
-
-    public BigDecimal getCashreceiptid() {
-        return cashreceiptid;
-    }
-
-    public void setCashreceiptid(BigDecimal cashreceiptid) {
-        this.cashreceiptid = cashreceiptid;
-    }
 
     public Date getFecharegistroreciboerp() {
         return fecharegistroreciboerp;
@@ -262,14 +245,6 @@ public class XxfrtEstadoCuenta implements Serializable {
         this.idEdoCta = idEdoCta;
     }
 
-    public Date getTrxDate() {
-        return trxDate;
-    }
-
-    public void setTrxDate(Date trxDate) {
-        this.trxDate = trxDate;
-    }
-
     public String getTrxType() {
         return trxType;
     }
@@ -354,6 +329,23 @@ public class XxfrtEstadoCuenta implements Serializable {
         return "mx.frisa.tic.datos.entidades.XxfrtEstadoCuenta[ idEdoCta=" + idEdoCta + " ]";
     }
 
+    public BigDecimal getRmethodid() {
+        return rmethodid;
+    }
+
+    public void setRmethodid(BigDecimal rmethodid) {
+        this.rmethodid = rmethodid;
+    }
+
+    public BigDecimal getCashreceiptid() {
+        return cashreceiptid;
+    }
+
+    public void setCashreceiptid(BigDecimal cashreceiptid) {
+        this.cashreceiptid = cashreceiptid;
+    }
+    
+    
 
     
 }

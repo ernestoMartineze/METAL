@@ -5,9 +5,16 @@
  */
 package mx.frisa.tic.negocio.ingresos;
 
+import java.io.IOException;
 import java.util.List;
 import javax.ejb.Local;
+import mx.frisa.tic.datos.dto.ingresos.AplicarPagoDTO;
+import mx.frisa.tic.datos.dto.ingresos.FiltroPagoSinReferencia;
 import mx.frisa.tic.datos.dto.ingresos.PagoDTO;
+import mx.frisa.tic.datos.dto.ingresos.PeticionExistente;
+import mx.frisa.tic.datos.dto.ingresos.RespuestaClienteDTO;
+import mx.frisa.tic.datos.dto.ingresos.RespuestaDTO;
+import mx.frisa.tic.datos.dto.ingresos.RespuestaPagoSinReferencia;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaProcesaFacturasDTO;
 
 /**
@@ -19,8 +26,12 @@ public interface GestorPagos {
     
     /**
      *
-     * @param pago
+     * @param pagos
      * @return
      */
-    public RespuestaProcesaFacturasDTO generarPago(List<PagoDTO> pagos);
+    RespuestaProcesaFacturasDTO generarPago(List<PagoDTO> pagos);
+    RespuestaPagoSinReferencia consultarPagosSinReferencia(FiltroPagoSinReferencia filtros);
+    RespuestaClienteDTO  consultarReferenciaLCExistente ( PeticionExistente filtros);
+    RespuestaDTO aplicarPagoManual(AplicarPagoDTO aplicarPagoDTO);
+    RespuestaProcesaFacturasDTO recuperaFacturas(PagoDTO pago) throws IOException;
 }

@@ -24,6 +24,7 @@ import java.io.Writer;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.GZIPInputStream;
 import javax.net.ssl.HttpsURLConnection;
@@ -40,8 +41,10 @@ import mx.frisa.tic.datos.dto.ingresos.PagoDTO;
 import mx.frisa.tic.datos.dto.ingresos.Proceso;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaMetodoPagoDTO;
+import mx.frisa.tic.datos.entidades.XxfrCabeceraFactura;
 import mx.frisa.tic.negocio.utils.ManejadorLog;
 import mx.frisa.tic.negocio.utils.PropiedadesFRISA;
+import mx.frisa.tic.utils.FechaUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
@@ -53,113 +56,93 @@ import org.xml.sax.SAXException;
  */
 public class AdaptadorWS {
 
-    public RespuestaERP_Edo_Cuenta getOBI_generarFacturaAlCobro(List<FacturaPagoDTO> facturas) throws MalformedURLException, IOException {
+    public RespuestaCreaFactura getOBI_generarFacturaAlCobro(List<FacturaPagoDTO> facturas) throws MalformedURLException, IOException {
 
-        String xmlInput = "<soapenv:Envelope xmlns:inv=\"http://xmlns.oracle.com/apps/financials/receivables/transactions/invoices/invoiceService/\" \n"
-                + "xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" \n"
-                + "xmlns:tran=\"http://xmlns.oracle.com/apps/financials/receivables/transactions/shared/model/flex/TransactionHeaderDff/\"\n"
-                + "xmlns:tran1=\"http://xmlns.oracle.com/apps/financials/receivables/transactions/shared/model/flex/TransactionHeaderGdf/\"  \n"
-                + "xmlns:tran4=\"http://xmlns.oracle.com/apps/financials/receivables/transactions/shared/model/flex/TransactionLineDff/\" \n"
-                + "xmlns:typ=\"http://xmlns.oracle.com/apps/financials/receivables/transactions/invoices/invoiceService/types/\" \n"
-                + "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n"
-                + "<soapenv:Body>\n"
-                + "      <typ:createSimpleInvoice>\n"
-                + "         <typ:invoiceHeaderInformation>\n"
-                + "            <inv:BusinessUnit>LMF MUNDO E - RENTAS</inv:BusinessUnit>\n"
-                + "            <inv:TransactionSource>RENTA</inv:TransactionSource>\n"
-                + "            <inv:TransactionType>FAC_INGRESOS_MN</inv:TransactionType>\n"
-                + "            <inv:TrxDate>2018-09-08</inv:TrxDate>\n"
-                + "            <inv:GlDate>2018-09-08</inv:GlDate>\n"
-                + "            <inv:BillToCustomerName>Nueva Wal-Mart DE MEXICO SA DE CV</inv:BillToCustomerName>\n"
-                + "            <inv:BillToAccountNumber>10249</inv:BillToAccountNumber>\n"
-                + "            <inv:PaymentTermsName>IMMEDIATE</inv:PaymentTermsName>\n"
-                + "            <inv:InvoiceLine>\n"
-                + "               <inv:LineNumber>1</inv:LineNumber>\n"
-                + "               <inv:MemoLineName>FACTURA RENTA MENSUAL LOCAL</inv:MemoLineName>\n"
-                + "               <inv:Description>FACTURA RENTA MENSUAL LOCAL</inv:Description>\n"
-                + "               <inv:Quantity>1</inv:Quantity>\n"
-                + "               <inv:UnitSellingPrice>45000</inv:UnitSellingPrice>\n"
-                + "               <inv:TaxClassificationCode>IVA 16% AR</inv:TaxClassificationCode>\n"
-                + "               <inv:TransactionLineFLEX xsi:type=\"tran4:Rentas\">\n"
-                + "                  <tran4:descripciOnAdicional1>Des 1 JP</tran4:descripciOnAdicional1>\n"
-                + "                  <tran4:descripciOnAdicional2>Des 2 JP</tran4:descripciOnAdicional2>\n"
-                + "                  <tran4:descripciOnAdicional3>Des 3 JP</tran4:descripciOnAdicional3>\n"
-                + "                  <tran4:descripciOnAdicional4>Des 4 JP</tran4:descripciOnAdicional4>\n"
-                + "                  <tran4:descripciOnAdicional5>Des 5 JP</tran4:descripciOnAdicional5>\n"
-                + "                  <tran4:periodoDeFacturacionDesde>01-09-2018</tran4:periodoDeFacturacionDesde>\n"
-                + "                  <tran4:periodoDeFacturacionHasta>31-09-2018</tran4:periodoDeFacturacionHasta>\n"
-                + "                  <tran4:__FLEX_Context>RENTAS</tran4:__FLEX_Context>\n"
-                + "                  <tran4:siguienteFechaDeExigibilidad>31-09-2018</tran4:siguienteFechaDeExigibilidad>\n"
-                + "               </inv:TransactionLineFLEX>\n"
-                + "            </inv:InvoiceLine>\n"
-                + "			<inv:InvoiceLine>\n"
-                + "               <inv:LineNumber>2</inv:LineNumber>\n"
-                + "               <inv:MemoLineName>FACTURA VARIOS SERVICIOS</inv:MemoLineName>\n"
-                + "               <inv:Description>FACTURA VARIOS SERVICIOS</inv:Description>\n"
-                + "               <inv:Quantity>1</inv:Quantity>\n"
-                + "               <inv:UnitSellingPrice>45000</inv:UnitSellingPrice>\n"
-                + "               <inv:TaxClassificationCode>IVA 16% AR</inv:TaxClassificationCode>\n"
-                + "               <inv:TransactionLineFLEX xsi:type=\"tran4:Rentas\">\n"
-                + "                  <tran4:descripciOnAdicional1>Des 1 JP</tran4:descripciOnAdicional1>\n"
-                + "                  <tran4:descripciOnAdicional2>Des 2 JP</tran4:descripciOnAdicional2>\n"
-                + "                  <tran4:descripciOnAdicional3>Des 3 JP</tran4:descripciOnAdicional3>\n"
-                + "                  <tran4:descripciOnAdicional4>Des 4 JP</tran4:descripciOnAdicional4>\n"
-                + "                  <tran4:descripciOnAdicional5>Des 5 JP</tran4:descripciOnAdicional5>\n"
-                + "                  <tran4:periodoDeFacturacionDesde>01-09-2018</tran4:periodoDeFacturacionDesde>\n"
-                + "                  <tran4:periodoDeFacturacionHasta>31-09-2018</tran4:periodoDeFacturacionHasta>\n"
-                + "                  <tran4:__FLEX_Context>RENTAS</tran4:__FLEX_Context>\n"
-                + "                  <tran4:siguienteFechaDeExigibilidad>31-09-2018</tran4:siguienteFechaDeExigibilidad>\n"
-                + "               </inv:TransactionLineFLEX>\n"
-                + "            </inv:InvoiceLine>\n"
-                + "            <inv:TransactionHeaderFLEX xsi:type=\"tran:Rentas\">\n"
-                + "               <tran:proyecto>151</tran:proyecto>\n"
-                + "               <tran:folio>J-000-001</tran:folio>\n"
-                + "               <tran:__FLEX_Context>RENTAS</tran:__FLEX_Context>\n"
-                + "               <tran:nUmeroDeLocal>24JPL</tran:nUmeroDeLocal>\n"
-                + "            </inv:TransactionHeaderFLEX>\n"
-                + "         </typ:invoiceHeaderInformation>\n"
-                + "      </typ:createSimpleInvoice>\n"
-                + "   </soapenv:Body>\n"
-                + "</soapenv:Envelope>";
+        String xmlInput = this.getCadenaDesdeB64(PropiedadesFRISA.recuperaPropiedadBackend("generaFacturaServicePayload"));
 
 //Code to make a webservice HTTP request
-        RespuestaERP_Edo_Cuenta respestaWS = new RespuestaERP_Edo_Cuenta();
+        RespuestaCreaFactura respestaWS = new RespuestaCreaFactura();
         respestaWS.setProceso(new Proceso("0", "EXITOSO"));
-        String responseString = "";
         String outputString = "";
-        String wsURL = "https://efar-test.fin.us2.oraclecloud.com:443/fscmService/RecInvoiceService";
+        List<FacturaPagoDTO> facturasProcesadas = new ArrayList();
+        String wsURL = PropiedadesFRISA.recuperaPropiedadBackend("generaFacturaServiceEndPoint");
 
         String SOAPAction
-                = "http://xmlns.oracle.com/apps/financials/receivables/transactions/invoices/invoiceService/";
+                = PropiedadesFRISA.recuperaPropiedadBackend("generaFacturaServiceSoapAction");
+        String tipoContenido
+                = PropiedadesFRISA.recuperaPropiedadBackend("generaFacturaServiceContentType");
 
         //Ready with sending the request.
         try {
-            //Read the response.
+            //Genera todas las facturas al cobro detectadas
+            for (FacturaPagoDTO factura : facturas) {
+                //Parametrizar mensaje
+                xmlInput = inyectaParametro(xmlInput, "inv:BusinessUnit", factura.getBusinessunitname());
+                xmlInput = inyectaParametro(xmlInput, "inv:TransactionSource", factura.getTransactionsource());
+                xmlInput = inyectaParametro(xmlInput, "inv:TransactionType", factura.getTransactiontype());
+                xmlInput = inyectaParametro(xmlInput, "inv:TrxDate", FechaUtils.convierteHoy().substring(0, 10));
+                xmlInput = inyectaParametro(xmlInput, "inv:GlDate", FechaUtils.convierteHoy().substring(0, 10));
+                xmlInput = inyectaParametro(xmlInput, "inv:BillToCustomerName", factura.getBilltoconsumername());
+                xmlInput = inyectaParametro(xmlInput, "inv:BillToAccountNumber", factura.getBilltolocation() + "");
+                String terminoPago = "";
+                if (factura.getPaymenttermdays() > 0) {
+                    terminoPago = "IMMEDIATE";
+                } else {
+                    terminoPago = factura.getPaymenttermdays().toString();
+                }
+                xmlInput = inyectaParametro(xmlInput, "inv:PaymentTermsName", terminoPago);
+                xmlInput = inyectaParametro(xmlInput, "inv:LineNumber", factura.getIdlinea());
+                xmlInput = inyectaParametro(xmlInput, "inv:MemoLineName", factura.getMemolinename());
+                xmlInput = inyectaParametro(xmlInput, "inv:Description", factura.getDescription_origen());
+                xmlInput = inyectaParametro(xmlInput, "inv:Quantity", factura.getQuantity() + "");
+                xmlInput = inyectaParametro(xmlInput, "inv:UnitSellingPrice", factura.getMontobrutolinea() + "");
+                xmlInput = inyectaParametro(xmlInput, "inv:TaxClassificationCode", factura.getTransactionsource());
+                xmlInput = inyectaParametro(xmlInput, "tran4:descripciOnAdicional1", factura.getDescadicional1());
+                xmlInput = inyectaParametro(xmlInput, "tran4:descripciOnAdicional2", factura.getDescadicional2());
+                xmlInput = inyectaParametro(xmlInput, "tran4:descripciOnAdicional3", factura.getDescadicional3());
+                xmlInput = inyectaParametro(xmlInput, "tran4:descripciOnAdicional4", factura.getDescadicional4());
+                xmlInput = inyectaParametro(xmlInput, "tran4:descripciOnAdicional5", factura.getDescadicional5());
+                xmlInput = inyectaParametro(xmlInput, "tran4:periodoDeFacturacionDesde", factura.getFechadesde());
+                xmlInput = inyectaParametro(xmlInput, "tran4:periodoDeFacturacionHasta", factura.getFechahasta());
+                xmlInput = inyectaParametro(xmlInput, "tran4:siguienteFechaDeExigibilidad", factura.getFechaexigibilidad());
+                xmlInput = inyectaParametro(xmlInput, "tran:proyecto", factura.getProjectid() + "");
+                xmlInput = inyectaParametro(xmlInput, "tran:folio", factura.getFolioavisocargo());
+                xmlInput = inyectaParametro(xmlInput, "tran:nUmeroDeLocal", factura.getLinenumber() + "");
 
-            outputString = enviarMsg(wsURL, SOAPAction, xmlInput, "text/xml; charset=UTF-8");
-            //Parse the String output to a org.w3c.dom.Document and be able to reach every node with the org.w3c.dom API.
-            Document document = parseXmlFile(outputString);
-            NodeList nodeLst = document.getElementsByTagName("ns2:reportBytes");
-            String resultado = nodeLst.item(0).getTextContent();
+                outputString = enviarMsg(wsURL, SOAPAction, xmlInput, tipoContenido);
+                //Parse the String output to a org.w3c.dom.Document and be able to reach every node with the org.w3c.dom API.
+                Document document = parseXmlFile(outputString);
+                NodeList nodeLstServiceStatus = document.getElementsByTagName("ns2:ServiceStatus");
+                
+                String serviceStatus = recuperarValorDesdeNodo(outputString, "ns2:ServiceStatus");
+                String transactionNumber = recuperarValorDesdeNodo(outputString, "ns2:TransactionNumber");
+                String customerTrxId = recuperarValorDesdeNodo(outputString, "ns2:CustomerTrxId");
 
-            //Write the SOAP message formatted to the console.
-            //        String formattedSOAPResponse = formatXML(outputString);
-            respestaWS.setDATA_DSObject((DATA_DS) respuestaXMLaPOJO(getCadenaDesdeB64(resultado), new DATA_DS()));
+                factura.setTransactionID_ERP(Integer.valueOf(transactionNumber));
+                factura.setServiceStatus_ERP(serviceStatus);
+                factura.setCustomerTrxID_ERP(customerTrxId);
+                facturasProcesadas.add(factura);
+                
+                
+            }
             //        System.out.println(formattedSOAPResponse);
         } catch (Exception ex) {
             ex.printStackTrace();
             respestaWS.setProceso(new Proceso("100", "ERROR"));
         }
+        respestaWS.setFacturas(facturasProcesadas);
         return respestaWS;
     }
 
     private String inyectaParametro(String pPayload, String nombreParametro, String valor) {
         String parametro = "_PARAM" + nombreParametro + "_";
+        if (valor == null) {
+            valor = "";
+        }
         pPayload = pPayload.replaceAll(parametro, valor);
         return pPayload;
     }
 
-    
     private String inyectaParametroNota(String pPayload, String nombreParametro, String valor) {
         pPayload = pPayload.replaceAll(nombreParametro, valor);
         return pPayload;
@@ -193,7 +176,6 @@ public class AdaptadorWS {
             outputString = enviarMsg(wsURL, SOAPAction, xmlInput, PropiedadesFRISA.recuperaPropiedadBackend("edoCuentaServiceContentType"));
 
 //            outputString = consumir.getEstadosCuenta(fechaInicio, fechaFinal, noCuenta);
-
             //Parse the String output to a org.w3c.dom.Document and be able to reach every node with the org.w3c.dom API.
             Document document = parseXmlFile(outputString);
             NodeList nodeLst = document.getElementsByTagName("ns2:reportBytes");
@@ -319,7 +301,7 @@ public class AdaptadorWS {
         xmlInput = inyectaParametro(xmlInput, "com:OrgId", pagos.getUnidadNegocio());
         xmlInput = inyectaParametro(xmlInput, "com:ReceiptDate", "2018-12-17");
         xmlInput = inyectaParametro(xmlInput, "com:ReceiptMethodId", pagos.getMetodoId());
-        xmlInput = inyectaParametro(xmlInput, "com:ReceiptNumber", pagos.getNroRecibo());
+        xmlInput = inyectaParametro(xmlInput, "com:ReceiptNumber", pagos.getIdEdoCta()+"");
 
         String SOAPAction
                 = PropiedadesFRISA.recuperaPropiedadBackend("encabezadoFacturaServiceSoapAction");
@@ -406,6 +388,65 @@ public class AdaptadorWS {
             }
 
         }
+
+        return respestaWS;
+    }
+    public RespuestaERP_EncabezadoRecibo getERP_AplicarPago(PagoDTO pagoDto, List<XxfrCabeceraFactura> pLstFacturas) throws MalformedURLException,
+            IOException,
+            ParserConfigurationException,
+            SAXException {
+
+        //Code to make a webservice HTTP request
+        RespuestaERP_EncabezadoRecibo respestaWS = new RespuestaERP_EncabezadoRecibo();
+        respestaWS.setProceso(new Proceso("0", "EXITOSO"));
+        String outputString = "";
+        String wsURL = PropiedadesFRISA.recuperaPropiedadBackend("aplicaPagoFacturaServiceEndPoint");
+
+        
+            if (pagoDto.getNroRecibo().equals("")) {
+                respestaWS.setProceso(new Proceso("1001", "No existe numero de recibo para aplicacion del pago"));
+                return respestaWS;
+            }
+            String xmlInput
+                    = getCadenaDesdeB64(PropiedadesFRISA.recuperaPropiedadBackend("aplicaPagoFacturaServicePayload"));
+
+            String SOAPAction
+                    = PropiedadesFRISA.recuperaPropiedadBackend("aplicaPagoFacturaServiceSoapAction");
+
+            //Ready with sending the request.
+            try {
+                //Inyectar parametros a la peticion
+                xmlInput = inyectaParametro(xmlInput, "com:AmountApplied", pagoDto.getMonto());
+                xmlInput = inyectaParametro(xmlInput, "com:ReceiptNumber", pagoDto.getNroRecibo());
+                xmlInput = inyectaParametro(xmlInput, "com:TransactionNumber", pagoDto.getIdCabeceraRecibo()+ "");
+                xmlInput = inyectaParametro(xmlInput, "com:TransactionDate", pagoDto.getFechaCreacion());
+                xmlInput = inyectaParametro(xmlInput, "com:CustomerName", pagoDto.getBillCustomerName());
+                xmlInput = inyectaParametro(xmlInput, "com:ApplicationDate", pagoDto.getFechaAplicacion());
+                xmlInput = inyectaParametro(xmlInput, "com:AccountingDate", pagoDto.getFechaContable());
+
+                //Read the response.
+                outputString = enviarMsg(wsURL, SOAPAction, xmlInput, PropiedadesFRISA.recuperaPropiedadBackend("aplicaPagoFacturaServiceContentType"));
+
+                //Parse the String output to a org.w3c.dom.Document and be able to reach every node with the org.w3c.dom API.
+                if (outputString.indexOf("=_Part") > -1) {
+                    outputString = outputString.substring(outputString.indexOf("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>"), outputString.lastIndexOf("</env:Envelope>") + 15);
+                }
+
+                System.out.println("outputString : " + outputString);
+
+                Document document = parseXmlFile(outputString);
+                NodeList nodeLst = document.getElementsByTagName("ns3:CashReceiptId");
+                String resultado = nodeLst.item(0).getTextContent();
+
+                //Write the SOAP message formatted to the console.
+//                    String formattedSOAPResponse = formatXML(outputString);
+                respestaWS.setNumeroRecibo(resultado);
+                System.out.println("resultado : " + resultado);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                respestaWS.setProceso(new Proceso("100", "ERROR"));
+            }
+
 
         return respestaWS;
     }
@@ -504,8 +545,6 @@ public class AdaptadorWS {
 
     private String getCadenaDesdeB64(String cadB64) {
         String str = new String(DatatypeConverter.parseBase64Binary(cadB64));
-//          String res = DatatypeConverter.printBase64Binary(str.getBytes());
-//          System.out.println(str);
         return str;
     }
 
@@ -553,18 +592,11 @@ public class AdaptadorWS {
 
             System.out.println(respuesta.getProceso());
 
-//            List<PagoDTO> pagosDto = new ArrayList<PagoDTO>();
-//            pagosDto.add(new PagoDTO(BigDecimal.ONE, BigDecimal.ONE, "02546545455", "11234567890123145", "123",
-//                    "MXN", "300000002785501", "TEST-016", "1000", "2018-12-05", "", "300000007076442"));
-//            RespuestaERP_EncabezadoRecibo respuesta = adaptadorWS.getERP_generarEncabezadoRecibo(pagosDto);
-//            RespuestaERP_Edo_Cuenta respuesta = adaptadorWS.getOBI_generarFacturaAlCobro(null);
-//            System.out.println(respuesta.getProceso().getTermino());
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    
     public RespuestaERP_Nota_Credito getERP_ejecutarNotaCredito(CreditMemoDTO nota) throws MalformedURLException,
             IOException,
             ParserConfigurationException,
@@ -573,14 +605,13 @@ public class AdaptadorWS {
         respuestaWS.setProceso(new Proceso("0", "EXITOSO"));
         List<DATA_DS> lista = null;
         String outputString = "";
-//        System.err.println("Endpoint: "+PropiedadesFRISA.recuperaPropiedadBackend("GetGeneraNotaCreditoServiceEndPoint"));
         String wsURL = PropiedadesFRISA.recuperaPropiedadBackend("GetGeneraNotaCreditoServiceEndPoint");
-        try{
-//            System.err.println("Llamando WS - ERP: Nota de Crédito");
+        try {
             String xmlInput
-                = this.getCadenaDesdeB64(PropiedadesFRISA.recuperaPropiedadBackend("GetGeneraNotaCreditoServicePayload"));
+                    = this.getCadenaDesdeB64(PropiedadesFRISA.recuperaPropiedadBackend("GetGeneraNotaCreditoServicePayload"));
             String SOAPAction
                     = PropiedadesFRISA.recuperaPropiedadBackend("edoCuentaServiceSoapAction");
+
             xmlInput = inyectaParametroNota(xmlInput, "_BATCHSOURCESEQUENCEID", nota.getBatchSourceSequenceId()==null?"":nota.getBatchSourceSequenceId().toString());
             xmlInput = inyectaParametroNota(xmlInput, "_CUSTOMERTRANSACTIONID", nota.getCustomerTransactionId()==null?"":nota.getCustomerTransactionId().toString());
             xmlInput = inyectaParametroNota(xmlInput, "_COMMENTS", nota.getComments()==null?"":nota.getComments());
@@ -665,7 +696,6 @@ public class AdaptadorWS {
             }
             
             try{
-//                System.out.println("xmlInput "+xmlInput);
                 outputString = enviarMsg(wsURL, SOAPAction, xmlInput, PropiedadesFRISA.recuperaPropiedadBackend("GetGeneraNotaCreditoContentType"));
                 if (outputString.indexOf("=_Part") > -1) {
                     outputString = outputString.substring(outputString.indexOf("<?xml version=\"1.0\" encoding=\"utf-8\" ?>"), outputString.lastIndexOf("env:Envelope>") + 13);
@@ -686,17 +716,21 @@ public class AdaptadorWS {
                     nodeLst = document.getElementsByTagName("faultstring");
                     respuestaWS.setProceso(new Proceso("100","Error en WS ERP : faultstring= "+nodeLst.item(0).getTextContent()));
                 }
-//                String resultado = nodeLst.item(0).getTextContent();
-//                lista.add((DATA_DS) respuestaXMLaPOJO(getCadenaDesdeB64(resultado), new DATA_DS()));
-            }catch(Exception ex){
+            } catch (Exception ex) {
                 ex.printStackTrace();
-                respuestaWS.setProceso(new Proceso("100", "Error en WS ERP : "+ex.toString()));
+
+                respuestaWS.setProceso(new Proceso("100", "Eror en WS ERP : " + ex.toString()));
             }
-        }
-        catch(Exception Ex){
-//            System.err.println(Ex.getLocalizedMessage());
+        } catch (Exception Ex) {
             Ex.printStackTrace();
         }
         return respuestaWS;
+    }
+
+    private String recuperarValorDesdeNodo(String outputString, String nombreNodo) throws ParserConfigurationException, SAXException, IOException {
+
+        Document document = parseXmlFile(outputString);
+        NodeList nodeLstServiceStatus = document.getElementsByTagName(nombreNodo);
+        return nodeLstServiceStatus.item(0).getTextContent();
     }
 }
