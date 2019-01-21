@@ -19,6 +19,8 @@ public class CargaFacturasSOA {
     
     @JacksonXmlProperty(localName = "facturas")
     List<FacturaSOA> facturas;
+    @JacksonXmlProperty(localName = "idBatch")
+    String idBatch;
 
     public List<FacturaSOA> getFacturas() {
         return facturas;
@@ -27,6 +29,13 @@ public class CargaFacturasSOA {
     public void setFacturas(List<FacturaSOA> facturas) {
         this.facturas = facturas;
     }
-    
-    
+
+    public String getIdBatch() {
+        return idBatch;
+    }
+
+    public void setIdBatch(String idBatch) {
+        this.idBatch = idBatch;
+    }
+
 }

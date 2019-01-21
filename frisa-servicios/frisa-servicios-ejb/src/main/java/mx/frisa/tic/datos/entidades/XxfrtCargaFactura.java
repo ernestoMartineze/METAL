@@ -53,7 +53,7 @@ public class XxfrtCargaFactura implements Serializable {
     @Lob
     @Column(name = "DATOSJSON")
     private String datosjson;
-    @Size(max = 1)
+    @Size(max = 5)
     @Column(name = "ESTATUS")
     private String estatus;
     
