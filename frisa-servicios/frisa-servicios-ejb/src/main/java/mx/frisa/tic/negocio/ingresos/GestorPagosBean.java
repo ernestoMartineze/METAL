@@ -367,19 +367,20 @@ public class GestorPagosBean implements GestorPagos {
         ManejadorLog log = new ManejadorLog();
         log.debug("Entro aplicarPagoManual");
         try {
+            List<PagoPorAplicarDTO> pagoPorAplicar = aplicarPagoDTO.getPagoPorAplicar();
+            AplicarPagoDTO plicarPagoDTO = new AplicarPagoDTO();
+            plicarPagoDTO.setPagoPorAplicar(pagoPorAplicar);
+            respuesta.setAplicarPago(plicarPagoDTO);
             for (PagoPorAplicarDTO pagoXAplicar : aplicarPagoDTO.getPagoPorAplicar()) {
                 respuesta.setProceso(new Proceso("0", "EXITOSO"));
                 int contador = 0;
-                for (PagoPorAplicarDTO pagoPorAplicar : respuesta.getAplicarPago().getPagoPorAplicar()) {
-                    pagoPorAplicar.setTermino(BigInteger.ZERO);
-                    respuesta.getAplicarPago().getPagoPorAplicar().get(contador).setTermino(BigInteger.ZERO);
-                    if (contador == 1) {
-                        respuesta.getAplicarPago().getPagoPorAplicar().get(contador).setTermino(BigInteger.ONE);
-                    }
-                    contador++;
+                respuesta.getAplicarPago().getPagoPorAplicar().get(contador).setTermino(BigInteger.ZERO);
+                if (contador == 1) {
+                    respuesta.getAplicarPago().getPagoPorAplicar().get(contador).setTermino(BigInteger.ONE);
                 }
+                contador++;
 
-                break;
+                //break;
             }
             if (!respuesta.getProceso().getTermino().equals("0")) {
                 respuesta.setProceso(new Proceso("901", "ERROR"));
