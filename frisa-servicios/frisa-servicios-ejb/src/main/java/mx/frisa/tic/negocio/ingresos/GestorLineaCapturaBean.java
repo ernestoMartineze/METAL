@@ -374,6 +374,9 @@ public class GestorLineaCapturaBean implements GestorLineaCaptura {
                 facturaEntidad.setBilltoconsumername(factura.getBilltoconsumername());
                 facturaEntidad.setBilltolocation(factura.getBilltolocation());
                 facturaEntidad.setBusinessunitname(factura.getBusinessunitname());
+                facturaEntidad.setPaymenttermdays(Short.valueOf(""+factura.getPaymenttermdays()));
+                facturaEntidad.setPaymenttermdate(factura.getPaymenttermdate());
+                facturaEntidad.setPaymentmethod(factura.getPaymentmethod());
                 facturaEntidad.setCompanyaccountcode(factura.getCompanyaccountcode());
                 facturaEntidad.setContextrentas(factura.getContextrentas());
                 facturaEntidad.setContractnumber(factura.getContractnumber());
@@ -394,7 +397,7 @@ public class GestorLineaCapturaBean implements GestorLineaCaptura {
                 facturaEntidad.setGenerationtype(factura.getGenerationtype());
                 facturaEntidad.setGraceperiod(Short.valueOf("" + factura.getGraceperiod()));
                 facturaEntidad.setGrouptype(factura.getGrouptype());
-                facturaEntidad.setIdbatch(facturasIn.getIdBatch()); // ID general del llamado descartando el inteno en json por factura
+                facturaEntidad.setIdbatch(factura.getIdbatch()); // ID general del llamado descartando el inteno en json por factura
 //                facturaEntidad.setLandtaxaccount(factura.get());
 //                facturaEntidad.setLegalinvoiceuse(factura.get());
                 facturaEntidad.setLocalnumber(factura.getLocalnumber());
