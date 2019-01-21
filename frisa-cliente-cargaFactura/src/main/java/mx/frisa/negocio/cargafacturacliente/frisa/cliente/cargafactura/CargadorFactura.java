@@ -63,7 +63,8 @@ public class CargadorFactura {
     
     public static void main(String args[]) throws IOException{
         
-        String salida = CargadorFactura.encodeFileToBase64Binary("C:\\tmp\\frisa\\cargaFacturaCli\\FacturaCabeceraLinea_10005.zip");
+        String salida = CargadorFactura.encodeFileToBase64Binary
+        ("C:\\tmp\\frisa\\cargaFacturaCli\\FacturaCabeceraLinea_10009.zip");
         System.err.println("Resultado : "+ salida);
     }
 
