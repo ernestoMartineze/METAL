@@ -29,5 +29,4 @@ public class RespuestaAplicarPagoDTO {
         this.aplicarPago = aplicarPago;
     }
     
-    
 }
