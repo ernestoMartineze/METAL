@@ -33,6 +33,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "XxfrInvoiceLines.findAll", query = "SELECT x FROM XxfrInvoiceLines x"),
     @NamedQuery(name = "XxfrInvoiceLines.findByIdfacturaprimavera", query = "SELECT x FROM XxfrInvoiceLines x WHERE x.xxfrInvoiceLinesPK.idfacturaprimavera = :idfacturaprimavera"),
+    @NamedQuery(name = "XxfrInvoiceLines.findByIdfacturaprimavera2", query = "SELECT x FROM XxfrInvoiceLines x WHERE x.xxfrInvoiceLinesPK.idfacturaprimavera = :idfacturaprimavera AND x.xxfrInvoiceLinesPK.linenumber = :linenumber"),
     @NamedQuery(name = "XxfrInvoiceLines.findByLinenumber", query = "SELECT x FROM XxfrInvoiceLines x WHERE x.xxfrInvoiceLinesPK.linenumber = :linenumber"),
     @NamedQuery(name = "XxfrInvoiceLines.findByDescriptionOrigen", query = "SELECT x FROM XxfrInvoiceLines x WHERE x.descriptionOrigen = :descriptionOrigen"),
     @NamedQuery(name = "XxfrInvoiceLines.findByDescriptionmanual", query = "SELECT x FROM XxfrInvoiceLines x WHERE x.descriptionmanual = :descriptionmanual"),
@@ -67,15 +68,18 @@ public class XxfrInvoiceLines implements Serializable {
     @Column(name = "FLEX_NUMOFSEGMENTS")
     private String flexNumofsegments;
     @Column(name = "MONTOIVALINEA")
-    private BigInteger montoivalinea;
+    private BigDecimal montoivalinea;
     @Column(name = "TAXCLASSIFICATIONCODERETIVA")
     private BigInteger taxclassificationcoderetiva;
     @Column(name = "MONTOBRUTOLINEARETIVA")
-    private BigInteger montobrutolinearetiva;
+    private BigDecimal montobrutolinearetiva;
     @Column(name = "TAXCLASSIFICATIONCODEISR")
     private BigInteger taxclassificationcodeisr;
     @Column(name = "MONTOBRUTOLINEAISR")
-    private BigInteger montobrutolineaisr;
+    private BigDecimal montobrutolineaisr;
+    @Size(max = 30)
+    @Column(name = "TAXIVALINEA")
+    private String taxivalinea;
 
     @JoinColumn(name = "IDFACTURAPRIMAVERA", referencedColumnName = "IDFACTURAPRIMAVERA", insertable = false, updatable = false)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
@@ -363,11 +367,11 @@ public class XxfrInvoiceLines implements Serializable {
         this.flexNumofsegments = flexNumofsegments;
     }
 
-    public BigInteger getMontoivalinea() {
+    public BigDecimal getMontoivalinea() {
         return montoivalinea;
     }
 
-    public void setMontoivalinea(BigInteger montoivalinea) {
+    public void setMontoivalinea(BigDecimal montoivalinea) {
         this.montoivalinea = montoivalinea;
     }
 
@@ -379,11 +383,11 @@ public class XxfrInvoiceLines implements Serializable {
         this.taxclassificationcoderetiva = taxclassificationcoderetiva;
     }
 
-    public BigInteger getMontobrutolinearetiva() {
+    public BigDecimal getMontobrutolinearetiva() {
         return montobrutolinearetiva;
     }
 
-    public void setMontobrutolinearetiva(BigInteger montobrutolinearetiva) {
+    public void setMontobrutolinearetiva(BigDecimal montobrutolinearetiva) {
         this.montobrutolinearetiva = montobrutolinearetiva;
     }
 
@@ -395,12 +399,20 @@ public class XxfrInvoiceLines implements Serializable {
         this.taxclassificationcodeisr = taxclassificationcodeisr;
     }
 
-    public BigInteger getMontobrutolineaisr() {
+    public BigDecimal getMontobrutolineaisr() {
         return montobrutolineaisr;
     }
 
-    public void setMontobrutolineaisr(BigInteger montobrutolineaisr) {
+    public void setMontobrutolineaisr(BigDecimal montobrutolineaisr) {
         this.montobrutolineaisr = montobrutolineaisr;
     }
-    
+
+    public String getTaxivalinea() {
+        return taxivalinea;
+    }
+
+    public void setTaxivalinea(String taxivalinea) {
+        this.taxivalinea = taxivalinea;
+    }
+
 }

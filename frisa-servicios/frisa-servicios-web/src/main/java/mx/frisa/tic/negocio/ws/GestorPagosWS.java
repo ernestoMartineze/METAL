@@ -14,6 +14,7 @@ import mx.frisa.tic.datos.dto.ingresos.AplicarPagoDTO;
 import mx.frisa.tic.datos.dto.ingresos.FiltroPagoSinReferencia;
 import mx.frisa.tic.datos.dto.ingresos.PagoDTO;
 import mx.frisa.tic.datos.dto.ingresos.PeticionExistente;
+import mx.frisa.tic.datos.dto.ingresos.RespuestaAplicarPagoDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaClienteDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaPagoSinReferencia;
@@ -64,7 +65,7 @@ public class GestorPagosWS {
      * @return
      */
     @WebMethod(operationName = "aplicarPagoManual")
-    public RespuestaDTO aplicarPagoManual(@WebParam(name = "aplicarPago") AplicarPagoDTO aplicarPago) {
+    public RespuestaAplicarPagoDTO aplicarPagoManual(@WebParam(name = "aplicarPago") AplicarPagoDTO aplicarPago) {
         return ejbRefPagos.aplicarPagoManual(aplicarPago); //ejbRef.aplicarPagoManual(filtros);
     }
 

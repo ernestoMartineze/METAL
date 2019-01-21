@@ -5,17 +5,16 @@
  */
 package mx.frisa.tic.negocio.ws;
 
-import java.math.BigInteger;
+
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
-import mx.frisa.tic.datos.comun.DAO;
 import mx.frisa.tic.datos.dto.ingresos.DetalleLCPagosDTO;
 import mx.frisa.tic.datos.dto.ingresos.DetalleLineaCapturaDTO;
+import mx.frisa.tic.datos.dto.ingresos.FacturaActualizaIdERPDTO;
 
 import mx.frisa.tic.datos.dto.ingresos.LCFactDetDTO;
 import mx.frisa.tic.datos.dto.ingresos.LineaCapturaDTO;
@@ -23,6 +22,7 @@ import mx.frisa.tic.datos.dto.ingresos.LineaCaptutaFacturaDTO;
 import mx.frisa.tic.datos.dto.ingresos.PeticionCargaFacturaDTO;
 import mx.frisa.tic.datos.dto.ingresos.Proceso;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaCargaFacturaDTO;
+import mx.frisa.tic.datos.dto.ingresos.RespuestaDTO;
 
 
 import mx.frisa.tic.datos.dto.ingresos.RespuestaDetalleLCPagosDTO;
@@ -32,7 +32,6 @@ import mx.frisa.tic.datos.dto.ingresos.RespuestaLCFactDetDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaLineaCapturaDTO;
 import mx.frisa.tic.negocio.ingresos.GestorLineaCaptura;
 import mx.frisa.tic.negocio.utils.ManejadorLog;
-import mx.frisa.tic.utils.UUIDFrisa;
 
 /**
  *
@@ -274,8 +273,19 @@ public class GestorLineaCapturaWS {
         manejarLog.debug("Termina metodo : GestorLineaCapturaWS-consultaBatchFinalizado");
         return respuesta;
     }
-
-
-
-
+    
+    @WebMethod(operationName = "actualizarIdERP") 
+    public RespuestaDTO actualizarIdERP(List<FacturaActualizaIdERPDTO> facturas){
+        RespuestaDTO respuesta = new RespuestaDTO();
+        ManejadorLog manejarLog = new ManejadorLog();
+        manejarLog.debug("Entro a metodo : actualizarIdERP");
+        try {
+            respuesta = gestorLineaCapturaBean.actualizarIdERP(facturas);
+        } catch (Exception ex) {
+            System.err.println("ERROR: " + respuesta.getIdError() + " - " + respuesta.getDescripcionError());
+            ex.printStackTrace();
+        }
+        manejarLog.debug("Termina metodo : actualizarIdERP");
+        return respuesta;
+    }
 }
