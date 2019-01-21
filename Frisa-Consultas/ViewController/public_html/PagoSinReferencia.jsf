@@ -89,22 +89,23 @@
                         <af:table value="#{pageFlowScope.backing_PagoSinReferencia.pagosVO}" var="row"
                                   rowBandingInterval="0" id="t1"
                                   binding="#{pageFlowScope.backing_PagoSinReferencia.t1}">
-                            <af:column sortable="false" headerText="Cuenta Bancaria" align="start" id="c2">
+                            <af:column sortable="false" headerText="Cuenta Bancaria" align="start" id="c2"
+                                       inlineStyle="#{row.inlineStyle}">
                                 <af:outputText value="#{row.cuentaBancaria}" id="ot2"/>
                             </af:column>
-                            <af:column sortable="false" headerText="Fecha" align="start" id="c3">
+                            <af:column sortable="false" headerText="Fecha" align="start" id="c3" inlineStyle="#{row.inlineStyle}">
                                 <af:outputText value="#{row.fecha}" id="ot3"/>
                             </af:column>
-                            <af:column sortable="false" headerText="Moneda" align="start" id="c4">
+                            <af:column sortable="false" headerText="Moneda" align="start" id="c4" inlineStyle="#{row.inlineStyle}">
                                 <af:outputText value="#{row.moneda}" id="ot4"/>
                             </af:column>
-                            <af:column sortable="false" headerText="Monto" align="start" id="c1">
+                            <af:column sortable="false" headerText="Monto" align="start" id="c1" inlineStyle="#{row.inlineStyle}">
                                 <af:outputText value="#{row.monto}" id="ot1"/>
                             </af:column>
-                            <af:column sortable="false" headerText="Tipo Deposito" align="start" id="c5">
+                            <af:column sortable="false" headerText="Tipo Deposito" align="start" id="c5" inlineStyle="#{row.inlineStyle}">
                                 <af:outputText value="#{row.tipoDeposito}" id="ot5"/>
                             </af:column>
-                            <af:column sortable="false" headerText="Concepto Deposito" align="start" id="c6">
+                            <af:column sortable="false" headerText="Concepto Deposito" align="start" id="c6" inlineStyle="#{row.inlineStyle}">
                                 <af:outputText value="#{row.conceptoDeposito}" id="ot6"/>
                             </af:column>
                             <af:column sortable="false" headerText="Referencia" align="start" id="c7">
@@ -113,22 +114,31 @@
                             <af:column sortable="false" headerText="Linea De Captura" align="start" id="c8">
                                 <af:inputText id="it2" value="#{row.lineaDeCaptura}"/>
                             </af:column>
-                            <af:column sortable="false" headerText="Unidad De Negocio" align="start" id="c9">
+                            <af:column sortable="false" headerText="Unidad De Negocio" align="start" id="c9" inlineStyle="#{row.inlineStyle}">
                                 <af:outputText value="#{row.unidadDeNegocio}" id="ot9"/>
                             </af:column>
-                            <af:column sortable="false" headerText="Proyecto" align="start" id="c10">
+                            <af:column sortable="false" headerText="Proyecto" align="start" id="c10" inlineStyle="#{row.inlineStyle}">
                                 <af:outputText value="#{row.proyecto}" id="ot10"/>
                             </af:column>
-                            <af:column sortable="false" headerText="Cliente" align="start" id="c11">
+                            <af:column sortable="false" headerText="Cliente" align="start" id="c11" inlineStyle="#{row.inlineStyle}">
                                 <af:outputText value="#{row.cliente}" id="ot11"/>
                             </af:column>
-                            <af:column sortable="false" headerText="N° cobro" align="start" id="c12">
+                            <af:column sortable="false" headerText="N° cobro" align="start" id="c12" inlineStyle="#{row.inlineStyle}">
                                 <af:outputText value="#{row.NCuenta}" id="ot12"/>
                             </af:column>
                         </af:table>
                     </af:gridCell>
                 </af:gridRow>
             </af:panelGridLayout>
+            <af:popup childCreation="deferred" autoCancel="disabled" id="p1"
+                      binding="#{pageFlowScope.backing_PagoSinReferencia.p1}">
+                <af:dialog id="d2" binding="#{pageFlowScope.backing_PagoSinReferencia.d2}" type="ok">
+                    <f:facet name="buttonBar" />
+                    <af:outputText id="ot7"
+                                   binding="#{pageFlowScope.backing_PagoSinReferencia.ot7}"
+                                   value="#{pageFlowScope.backing_PagoSinReferencia.respuesta.descripcionError}"/>
+                </af:dialog>
+            </af:popup>
         </af:form>
     </af:document>
     <!--oracle-jdev-comment:auto-binding-backing-bean-name:backing_PagoSinReferencia-->

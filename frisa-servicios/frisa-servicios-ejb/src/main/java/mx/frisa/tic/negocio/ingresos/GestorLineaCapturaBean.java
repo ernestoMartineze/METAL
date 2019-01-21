@@ -5,6 +5,7 @@
 package mx.frisa.tic.negocio.ingresos;
 
 import com.github.fge.jsonschema.core.exceptions.ProcessingException;
+import java.io.File;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.math.BigDecimal;
@@ -41,6 +42,7 @@ import mx.frisa.tic.datos.entidades.XxfrvConsultaLc;
 import mx.frisa.tic.datos.entidades.XxfrvConsultaLcPagos;
 import mx.frisa.tic.datos.entidades.XxfrCabeceraFactura;
 import mx.frisa.tic.datos.entidades.XxfrInvoiceLines;
+import mx.frisa.tic.datos.validator.ValidationUtils;
 import mx.frisa.tic.negocio.remoto.AdaptadorWS;
 import mx.frisa.tic.negocio.utils.PropiedadesFRISA;
 import mx.frisa.tic.utils.ManejadorArchivo;
@@ -302,23 +304,30 @@ public class GestorLineaCapturaBean implements GestorLineaCaptura {
             cargaArchivo.setDatosrecibidos(peticion.getFacturas());
             cargaArchivo.setUuid(UUIDFrisa.regresaUUID());
 
-            List<Object> respuestaLanza = lanzarCargaFacturas(peticion.getFacturas(), cargaArchivo.getUuid());
-            String dtosJSON = (String) respuestaLanza.get(0);
-            String nombreArchivo = (String) respuestaLanza.get(1);
-
-            cargaArchivo.setDatosjson(dtosJSON);
             DAO<XxfrtCargaFactura> cargaFacturaDao = new DAO(XxfrtCargaFactura.class);
+            DAO<XxfrCabeceraFactura> cabeceraFacturaDao = new DAO(XxfrCabeceraFactura.class);
+            XxfrCabeceraFactura cabeceraFacExistente = (XxfrCabeceraFactura) cabeceraFacturaDao.consulta(BigDecimal.valueOf(Long.valueOf(peticion.getIdBatch())));
+            if (cabeceraFacExistente == null) {
+                List<Object> respuestaLanza = lanzarCargaFacturas(peticion.getFacturas(), cargaArchivo.getUuid());
+                String dtosJSON = (String) respuestaLanza.get(0);
+                String nombreArchivo = (String) respuestaLanza.get(1);
+
+                cargaArchivo.setDatosjson(dtosJSON);
+
+                dtosJSON = procesarJSONcomoFactura(dtosJSON, nombreArchivo);
+
+                if (!dtosJSON.equals("")) {
+                    respuesta.setProceso(new Proceso("0", "EXITOSO"));
+
+                } else {
+                    respuesta.setProceso(new Proceso("1", "ERROR"));
+                }
+            } else {
+                respuesta.setProceso(new Proceso("1100", "Ya existe el idBatch " + peticion.getIdBatch() + " en sistema intermedio con facturas a procesar"));
+            }
+
             cargaFacturaDao.registra(cargaArchivo);
             respuesta.setUuid(cargaArchivo.getUuid());
-
-            dtosJSON = procesarJSONcomoFactura(dtosJSON, nombreArchivo);
-
-            if (!dtosJSON.equals("")) {
-                respuesta.setProceso(new Proceso("0", "EXITOSO"));
-
-            } else {
-                respuesta.setProceso(new Proceso("1", "ERROR"));
-            }
         } catch (Exception ex) {
             ex.printStackTrace();
             respuesta.setProceso(new Proceso("ERROR", ex.getMessage()));
@@ -345,9 +354,9 @@ public class GestorLineaCapturaBean implements GestorLineaCaptura {
         System.err.println("Archivo Esquema JS :" + esquemaValidaFacturaPath);
         System.err.println("Archivo Json Datos :" + datosJsonPathArchivo);
 
-//        File esquema = new File (esquemaValidaFacturaPath);
-//        File datosJsonArchivo = new File (datosJsonPathArchivo);
-        //Validar datos en la factura
+//        File esquema = new File(esquemaValidaFacturaPath);
+//        File datosJsonArchivo = new File(datosJsonPathArchivo);
+//        Validar datos en la factura
 //        if (ValidationUtils.isJsonValid(esquema, datosJsonArchivo)) {
         if (true) {
 
@@ -385,7 +394,7 @@ public class GestorLineaCapturaBean implements GestorLineaCaptura {
                 facturaEntidad.setGenerationtype(factura.getGenerationtype());
                 facturaEntidad.setGraceperiod(Short.valueOf("" + factura.getGraceperiod()));
                 facturaEntidad.setGrouptype(factura.getGrouptype());
-                facturaEntidad.setIdbatch(factura.getIdbatch());
+                facturaEntidad.setIdbatch(facturasIn.getIdBatch()); // ID general del llamado descartando el inteno en json por factura
 //                facturaEntidad.setLandtaxaccount(factura.get());
 //                facturaEntidad.setLegalinvoiceuse(factura.get());
                 facturaEntidad.setLocalnumber(factura.getLocalnumber());
@@ -433,11 +442,11 @@ public class GestorLineaCapturaBean implements GestorLineaCaptura {
                     lineaFactura.setFlexContext(lineasFacturaSOA.getFlexContext());
                     lineaFactura.setFlexContextDisplayvalue(lineasFacturaSOA.getFlexContextDisplayvalue());
                     lineaFactura.setFlexNumofsegments(lineasFacturaSOA.getFlexNumofsegments());
-                    lineaFactura.setMontoivalinea(BigDecimal.valueOf(Long.valueOf("" + lineasFacturaSOA.getMontoivalinea())));
-                    lineaFactura.setTaxclassificationcode(lineasFacturaSOA.getTaxclassificationcode());
-                    lineaFactura.setMontobrutolinearetiva(BigDecimal.valueOf(Long.valueOf("" + lineasFacturaSOA.getMontobrutolinearetiva())));
-                    lineaFactura.setTaxclassificationcodeisr(lineasFacturaSOA.getTaxclassificationcodeisr());
-                    lineaFactura.setMontobrutolineaisr(BigDecimal.valueOf(Long.valueOf("" + lineasFacturaSOA.getMontobrutolineaisr())));
+//                    lineaFactura.setMontoivalinea(BigDecimal.valueOf(Long.valueOf("" + lineasFacturaSOA.getMontoivalinea())));
+//                    lineaFactura.setTaxclassificationcode(lineasFacturaSOA.getTaxclassificationcode());
+//                    lineaFactura.setMontobrutolinearetiva(BigDecimal.valueOf(Long.valueOf("" + lineasFacturaSOA.getMontobrutolinearetiva())));
+//                    lineaFactura.setTaxclassificationcodeisr(lineasFacturaSOA.getTaxclassificationcodeisr());
+//                    lineaFactura.setMontobrutolineaisr(BigDecimal.valueOf(Long.valueOf("" + lineasFacturaSOA.getMontobrutolineaisr())));
 
                     xxfrInvoiceLinesList.add(lineaFactura);
                 }
@@ -449,7 +458,8 @@ public class GestorLineaCapturaBean implements GestorLineaCaptura {
         }
         return respuesta;
     }
-        //public RespuestaDTO actualizarIdERP(BigDecimal IdPrimavera, String IdErp) {
+    //public RespuestaDTO actualizarIdERP(BigDecimal IdPrimavera, String IdErp) {
+
     @Override
     public RespuestaDTO actualizarIdERP(List<FacturaActualizaIdERPDTO> facturas) {
         RespuestaDTO respuesta = new RespuestaDTO();
