@@ -496,11 +496,18 @@ public class PagoSinReferencia {
             //AplicarPagoDTO aplicarPago = new AplicarPagoDTO();
             //aplicarPago.
             respuesta = gestorPagosWS.aplicarPagoManual(aplicarPago);
-            if (respuesta.getProceso().equals("ERROR")){
-                    RichPopup.PopupHints hints = new RichPopup.PopupHints();
-                    p1.show(hints);
+            
+            if (!respuesta.getProceso().equals("ERROR")){
+                respuesta.setDescripcionError("Se aplicaron correctamente los pagos");
+            }else{
+                
                 }
+        
+            RichPopup.PopupHints hints = new RichPopup.PopupHints();
+            p1.show(hints);
+            this.buscarP_Action();
             System.out.println(respuesta.getProceso());
+            
         return null;
     }
             
@@ -570,4 +577,6 @@ public class PagoSinReferencia {
     public RichDialog getD2() {
         return d2;
     }
+
+
 }
