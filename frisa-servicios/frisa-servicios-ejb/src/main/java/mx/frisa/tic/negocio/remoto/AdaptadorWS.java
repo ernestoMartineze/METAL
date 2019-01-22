@@ -250,6 +250,10 @@ public class AdaptadorWS {
 
         String xmlInput
                 = this.getCadenaDesdeB64(PropiedadesFRISA.recuperaPropiedadBackend("GetMetodosPagoPorIDServicePayload"));
+        
+        xmlInput = inyectaParametro(xmlInput, "ORG_ID", pORG_ID);
+        xmlInput = inyectaParametro(xmlInput, "BANK_ACCOUNT_NUMBER", pCuentaBancaria);
+        xmlInput = inyectaParametro(xmlInput, "BU_Name", "PORID");
 
         String SOAPAction
                 = PropiedadesFRISA.recuperaPropiedadBackend("GetMetodosPagoPorIDServiceSoapAction");
@@ -268,7 +272,7 @@ public class AdaptadorWS {
 
             //Write the SOAP message formatted to the console.
             respestaWS.setIdError("0");
-            respestaWS.setDescripcionError("");
+            respestaWS.setDescripcionError("300000007076478");
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -484,7 +488,7 @@ public class AdaptadorWS {
         ByteArrayOutputStream bout = new ByteArrayOutputStream();
         String xmlInput
                 = msg;
-//        System.out.println("msg : " + msg);
+        System.out.println("msg : " + msg);
         byte[] buffer = new byte[xmlInput.length()];
         buffer = xmlInput.getBytes();
         bout.write(buffer);

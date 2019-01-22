@@ -107,13 +107,17 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
                     manejaLog.debug("edoCtaDto.getSiteID() : " + edoCtaDto.getSiteID());
                     manejaLog.debug("edoCtaDto.getBillCustomerName() : " + edoCtaDto.getBillCustomerName());
                     manejaLog.debug("edoCtaDto.getReferencia() : " + edoCtaDto.getReferencia());
+                    manejaLog.debug("lineaPago.getDESCRIP_LOOKUP() : " + lineaPago.getDESCRIP_LOOKUP());
+                    manejaLog.debug("lineaPago.getPROYECTO_PROPIETARIO() : " + lineaPago.getPROYECTO_PROPIETARIO());
 
                     //Si no existe el metodo de pago en la BASE, vamos a buscarlo en el ERP
                     if (edoCtaDto.getIdMetodoPago() == null) {
-                        edoCuenta.setReceiptMethodId(recuperarMetodoPagoId(edoCtaDto.getOrgID() + "", lineaPago.getBANK_ACCOUNT_NUM()));
+                        edoCuenta.setReceiptMethodId(recuperarMetodoPagoId(edoCtaDto.getOrgID() + "", lineaPago.getBANK_ACCOUNT_NUM(), lineaPago.getPROYECTO_PROPIETARIO()+"_"+lineaPago.getDESCRIP_LOOKUP()));
+                        edoCtaDto.setIdMetodoPago(Long.valueOf(edoCuenta.getReceiptMethodId()));
                     } else {
                         edoCuenta.setReceiptMethodId(edoCtaDto.getIdMetodoPago() + "");
                     }
+                    manejaLog.debug("edoCtaDto.getIdMetodoPago() : " + edoCtaDto.getIdMetodoPago());
 
                     //Asignamos datos al pago por el cobro del estado de cuenta actual
                     String numeroReciboERP = "";
@@ -238,7 +242,7 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
                                         edoCuenta.setRmethodid(BigDecimal.valueOf(Long.valueOf("105")));
                                         respuesta.setProceso(ProcesoEnum.ERROR.toString());
                                         respuesta.setIdError("105");
-                                        respuesta.setDescripcionError("No hay líneas con referencia validas en el estado de cuenta para procesar pagos");
+                                        respuesta.setDescripcionError("Error al aplicar el pago. No hay líneas con referencia validas en el estado de cuenta para procesar pagos");
 
                                     }//***********************************************************************************
                                 }
@@ -310,13 +314,13 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
         }
     }
 
-    private String recuperarMetodoPagoId(String organizacion, String cuentaBanco) {
+    private String recuperarMetodoPagoId(String organizacion, String cuentaBanco, String projectLookup) {
 //        return "300000007076780";
         DAO<XxfrcOrganizacionMetodopago> metodoPagoDao = new DAO(XxfrcOrganizacionMetodopago.class);
         List<XxfrcOrganizacionMetodopago> metodos
-                = (List<XxfrcOrganizacionMetodopago>) metodoPagoDao.consultaQueryNativo("Select x from XxfrcOrganizacionMetodopago x where x.xxfrcOrganizacionMetodopagoPK.orgId = " + organizacion + " and x.xxfrcOrganizacionMetodopagoPK.bankAccountId = " + cuentaBanco);
+                = (List<XxfrcOrganizacionMetodopago>) metodoPagoDao.consultaQueryNativo("Select x from XxfrcOrganizacionMetodopago x where x.xxfrcOrganizacionMetodopagoPK.orgId = " + organizacion + " and x.receiptMethodName= '" + projectLookup + "'");
         String metodoEncontrado = "";
-        if (metodos != null) {
+        if (metodos.size() != 0) {
             metodoEncontrado = metodos.get(0).getXxfrcOrganizacionMetodopagoPK().getReceiptMethodId() + "";
         }
         if (metodoEncontrado.equals("")) {
