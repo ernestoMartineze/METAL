@@ -5,12 +5,14 @@
  */
 package mx.frisa.tic.negocio.ws;
 
+import java.util.List;
 import javax.ejb.EJB;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaDTO;
 import mx.frisa.tic.negocio.ingresos.GestorEstadoCuentaLocal;
+import mx.frisa.tic.negocio.ingresos.ReporteEstadoCuentaDTO;
 
 /**
  *
@@ -27,5 +29,10 @@ public class GestorEstadoDeCuentaWS {
     public RespuestaDTO procesarEstadosCuenta(@WebParam(name = "fechaInicio") String fechaInicio, @WebParam(name = "fechaFinal") String fechaFinal) {
         return ejbRefEdoCuenta.procesarEstadosCuenta(fechaInicio, fechaFinal, "");
     }
-    
+
+    @WebMethod(operationName = "reporteEstadosCuenta")
+    public List<ReporteEstadoCuentaDTO> reporteEstadosCuenta(@WebParam(name = "uuid") String uuid) {
+        return ejbRefEdoCuenta.consultaReporteEstadoCuenta(uuid);
+    }
+
 }

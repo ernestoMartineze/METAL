@@ -30,6 +30,7 @@ import mx.frisa.tic.datos.dto.ingresos.RespuestaProcesaFacturasDTO;
 import mx.frisa.tic.datos.entidades.XxfrCabeceraFactura;
 import mx.frisa.tic.datos.entidades.XxfrcOrganizacionMetodopago;
 import mx.frisa.tic.datos.entidades.XxfrtEstadoCuenta;
+import mx.frisa.tic.datos.entidades.xxfrv_reporte_estado_cuenta;
 import mx.frisa.tic.datos.enums.ProcesoEnum;
 import mx.frisa.tic.negocio.remoto.AdaptadorWS;
 import mx.frisa.tic.negocio.remoto.G_1;
@@ -372,6 +373,26 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
             lstFacturas = facturaDao.consultaQueryByParameters("XxfrCabeceraFactura.findByReferencenumberMonto", plistaParametros);
         }
         return lstFacturas;
+    }
+    @Override
+    public List<ReporteEstadoCuentaDTO> consultaReporteEstadoCuenta(String uuid){
+        List<ReporteEstadoCuentaDTO> respuesta = new ArrayList();
+        DAO<xxfrv_reporte_estado_cuenta> reporteDao = new DAO(xxfrv_reporte_estado_cuenta.class);
+        List<xxfrv_reporte_estado_cuenta> resultadoReporte = new ArrayList<>();
+        resultadoReporte = (List<xxfrv_reporte_estado_cuenta>) reporteDao.consultaQueryNamed("");
+        for(xxfrv_reporte_estado_cuenta edoCuenta :resultadoReporte){
+            ReporteEstadoCuentaDTO reporteEdoCta = new ReporteEstadoCuentaDTO();
+            reporteEdoCta.setCodigoError(edoCuenta.getCodigoError());
+            reporteEdoCta.setDescripcionError(edoCuenta.getDescripcionError());
+            reporteEdoCta.setFecha(edoCuenta.getFechaTxn());
+            reporteEdoCta.setIdCuenta(edoCuenta.getIdEdoCta());
+            reporteEdoCta.setNumeroCuenta(edoCuenta.getNumeroCuenta());
+            reporteEdoCta.setUuid(edoCuenta.getUuid());
+            respuesta.add(reporteEdoCta);
+        }
+        
+        
+        return respuesta;
     }
 
 }
