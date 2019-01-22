@@ -324,7 +324,7 @@ public class AdaptadorWS {
             System.out.println("resultado : " + resultado);
         } catch (Exception ex) {
             ex.printStackTrace();
-            respestaWS.setProceso(new Proceso("100", "ERROR"));
+            respestaWS.setProceso(new Proceso("100", "ERROR : " + ex.getLocalizedMessage()));
         }
 
 //        }

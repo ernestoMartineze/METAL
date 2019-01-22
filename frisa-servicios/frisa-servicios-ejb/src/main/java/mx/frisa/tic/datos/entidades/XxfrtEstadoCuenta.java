@@ -87,6 +87,10 @@ public class XxfrtEstadoCuenta implements Serializable {
     @Size(max = 30)
     @Column(name = "DESCRIP_LOOKUP")
     private String descripLookup;
+    
+    @Size(max = 80)
+    @Column(name = "UUID")
+    private String uuid;
 
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
@@ -343,6 +347,14 @@ public class XxfrtEstadoCuenta implements Serializable {
 
     public void setCashreceiptid(BigDecimal cashreceiptid) {
         this.cashreceiptid = cashreceiptid;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
     
     

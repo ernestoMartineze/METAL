@@ -38,6 +38,7 @@ import mx.frisa.tic.negocio.remoto.RespuestaERP_Edo_Cuenta;
 import mx.frisa.tic.negocio.remoto.RespuestaERP_EncabezadoRecibo;
 import mx.frisa.tic.negocio.utils.ManejadorLog;
 import mx.frisa.tic.utils.FechaUtils;
+import mx.frisa.tic.utils.UUIDFrisa;
 import org.xml.sax.SAXException;
 
 /**
@@ -163,6 +164,9 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
                         pago.setIdEdoCta(edoCuenta.getIdEdoCta());
                         //Registrar en BD el estatus final de la LINEA ACTUAL DEL estado de cuenta en PROCESO 
                         DAO<XxfrtEstadoCuenta> edoCtaEnt = new DAO(XxfrtEstadoCuenta.class);
+                        edoCuenta.setGlDate(new Date());
+                        edoCuenta.setUuid(UUIDFrisa.regresaUUID());
+                        
                         edoCtaEnt.actualiza(edoCuenta);
 
                         //Generar las facturas del cobro identificado
@@ -204,13 +208,15 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
                                 pago.setSiteId(edoCtaDto.getSiteID());
 
                                 RespuestaERP_EncabezadoRecibo respCreaRecibo = adpCabecera.getERP_generarEncabezadoRecibo(pago);
-                                numeroReciboERP = respCreaRecibo.getNumeroRecibo();
-                                edoCuenta.setCashreceiptid(BigDecimal.valueOf(Long.valueOf(numeroReciboERP)));
-                                edoCuenta.setFecharegistroreciboerp(new Date());
+
                                 //Hubo algun error al generar la cabecera del cobro
                                 if (!respCreaRecibo.getProceso().getTermino().equals("0")) {
+                                    //No se logró cargar las facturas al cobro en sistema ERP
                                     edoCuenta.setRmethodid(BigDecimal.valueOf(Long.valueOf("104")));
-                                } else {//No se logró cargar las facturas al cobro en sistema ERP
+                                } else {
+                                    numeroReciboERP = respCreaRecibo.getNumeroRecibo();
+                                    edoCuenta.setCashreceiptid(BigDecimal.valueOf(Long.valueOf(numeroReciboERP)));
+                                    edoCuenta.setFecharegistroreciboerp(new Date());
 
                                     //Aplicar pagos en ERP**************************************************************
                                     //Llamar al procesar pagos
@@ -237,12 +243,18 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
                                 }
 
                             } else {
-                                //No se logró cargar las facturas al cobro en sistema ERP
-                                edoCuenta.setRmethodid(BigDecimal.valueOf(Long.valueOf("102")));
+
+                                if (facturasCreadasExitosamenteERP) {
+                                    //No se logró conseguir el metodo de pago
+                                    edoCuenta.setRmethodid(BigDecimal.valueOf(Long.valueOf("110")));
+                                } else {
+                                    //No se logró cargar las facturas al cobro en sistema ERP
+                                    edoCuenta.setRmethodid(BigDecimal.valueOf(Long.valueOf("102")));
+                                }
                             }
                         } else {
                             //Hubo algun error al generar las facturas al cobro y no se continua con la cobranza de ella(s)
-                            edoCuenta.setRmethodid(BigDecimal.valueOf(Long.valueOf("0")));
+                            edoCuenta.setRmethodid(BigDecimal.valueOf(Long.valueOf("102")));
                             //METER ESTATUS A NIVEL BD BITACORA FACTURAS
                         }
 
@@ -266,7 +278,7 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
         } catch (Exception ex) {
             ex.printStackTrace();
             respuesta.setProceso(ProcesoEnum.ERROR.toString());
-            respuesta.setDescripcionError("No existen estados de cuenta validos de procesar");
+            respuesta.setDescripcionError("No existen estados de cuenta validos para procesar");
         }
 
         System.out.println("-------------------------------");
