@@ -9,8 +9,8 @@
       <url path="ObjectFactory.java"/>
       <url path="PeticionExistente.java"/>
       <url path="GestorPagosWS.java"/>
+      <url path="RespuestaAplicarPagoDTO.java"/>
       <url path="RespuestaProcesaFacturasDTO.java"/>
-      <url path="RespuestaDTO.java"/>
       <url path="GenerarPagoResponse.java"/>
       <url path="ConsultarReferenciaLCExistenteResponse.java"/>
       <url path="AplicarPagoManual.java"/>
@@ -113,7 +113,7 @@
                      <hash n="PROPERTY_GROUPS"/>
                   </hash>
                   <hash>
-                     <value n="BOUND_OPERATION" v="mx.frisa.tic.negocio.ws.RespuestaDTO.aplicarPagoManual.mx.frisa.tic.negocio.ws.AplicarPagoDTO"/>
+                     <value n="BOUND_OPERATION" v="mx.frisa.tic.negocio.ws.RespuestaAplicarPagoDTO.aplicarPagoManual.mx.frisa.tic.negocio.ws.AplicarPagoDTO"/>
                      <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.SOAPOperationBinding"/>
                      <hash n="PROPERTY_GROUPS"/>
                   </hash>
@@ -127,7 +127,7 @@
             </hash>
          </list>
          <list n="BINDING_FILES"/>
-         <value n="GUID" v="4e648d7a-0168-1000-8001-c0a8380180c5"/>
+         <value n="GUID" v="72f01f4e-0168-1000-8003-c0a83801a0fb"/>
          <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.proxy.WebServiceProxy$ProxyJavaWebService"/>
          <list n="PO_">
             <hash>
@@ -147,7 +147,7 @@
                      <hash n="PROPERTY_GROUPS"/>
                   </hash>
                   <hash>
-                     <value n="EXPOSED_BD_OPERATION" v="mx.frisa.tic.negocio.ws.RespuestaDTO.aplicarPagoManual.mx.frisa.tic.negocio.ws.AplicarPagoDTO"/>
+                     <value n="EXPOSED_BD_OPERATION" v="mx.frisa.tic.negocio.ws.RespuestaAplicarPagoDTO.aplicarPagoManual.mx.frisa.tic.negocio.ws.AplicarPagoDTO"/>
                      <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.PortOperation"/>
                      <hash n="PROPERTY_GROUPS"/>
                   </hash>

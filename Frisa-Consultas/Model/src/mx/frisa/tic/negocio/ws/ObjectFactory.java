@@ -128,11 +128,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link RespuestaDTO }
+     * Create an instance of {@link RespuestaAplicarPagoDTO }
      *
      */
-    public RespuestaDTO createRespuestaDTO() {
-        return new RespuestaDTO();
+    public RespuestaAplicarPagoDTO createRespuestaAplicarPagoDTO() {
+        return new RespuestaAplicarPagoDTO();
+    }
+
+    /**
+     * Create an instance of {@link Proceso }
+     *
+     */
+    public Proceso createProceso() {
+        return new Proceso();
     }
 
     /**
@@ -157,14 +165,6 @@ public class ObjectFactory {
      */
     public LineaEstadoCuentaDTO createLineaEstadoCuentaDTO() {
         return new LineaEstadoCuentaDTO();
-    }
-
-    /**
-     * Create an instance of {@link Proceso }
-     *
-     */
-    public Proceso createProceso() {
-        return new Proceso();
     }
 
     /**

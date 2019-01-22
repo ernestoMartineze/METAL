@@ -75,8 +75,8 @@ public interface GestorPagosWS {
                      className = "mx.frisa.tic.negocio.ws.AplicarPagoManualResponse")
     @Action(input = "http://ws.negocio.tic.frisa.mx/GestorPagosWS/aplicarPagoManualRequest",
             output = "http://ws.negocio.tic.frisa.mx/GestorPagosWS/aplicarPagoManualResponse")
-    public RespuestaDTO aplicarPagoManual(@WebParam(name = "aplicarPago", targetNamespace = "")
-                                          AplicarPagoDTO aplicarPago);
+    public RespuestaAplicarPagoDTO aplicarPagoManual(@WebParam(name = "aplicarPago", targetNamespace = "")
+                                                     AplicarPagoDTO aplicarPago);
 
     /**
      *
