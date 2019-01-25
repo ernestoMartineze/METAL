@@ -362,14 +362,14 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
         return pago;
     }
 
-    private List<XxfrCabeceraFactura> recuperarFacturasAPagar(Integer idLineaCaptura, String referencia) {
+    public List<XxfrCabeceraFactura> recuperarFacturasAPagar(Integer idLineaCaptura, String referencia) {
 
         List<XxfrCabeceraFactura> lstFacturas = new ArrayList();
         DAO<XxfrCabeceraFactura> facturaDao = new DAO(XxfrCabeceraFactura.class);
         List<CatalogoParametroDTO> plistaParametros = new ArrayList();
         if (idLineaCaptura != null) {
 
-            plistaParametros.add(new CatalogoParametroDTO("idlineacaptura", idLineaCaptura + "", CONSTANTE.NUMERO));
+            plistaParametros.add(new CatalogoParametroDTO("idlineacaptura", idLineaCaptura + "", CONSTANTE.CADENA));
             lstFacturas = facturaDao.consultaQueryByParameters("XxfrCabeceraFactura.findByIdlineacaptura", plistaParametros);
 
         } else {

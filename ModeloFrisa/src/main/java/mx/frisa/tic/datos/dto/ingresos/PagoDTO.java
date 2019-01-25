@@ -48,6 +48,11 @@ public class PagoDTO {
         this.SiteId = SiteId;
     }
 
+    @Override
+    public String toString() {
+        return "PagoDTO{" + "IdEdoCta=" + IdEdoCta + ", IdCabeceraRecibo=" + IdCabeceraRecibo + ", LineaCaptura=" + LineaCaptura + ", Referencia=" + Referencia + ", MetodoId=" + MetodoId + ", Moneda=" + Moneda + ", UnidadNegocio=" + UnidadNegocio + ", NroRecibo=" + NroRecibo + ", Monto=" + Monto + ", FechaCreacion=" + FechaCreacion + ", CustomerId=" + CustomerId + ", SiteId=" + SiteId + ", BillCustomerName=" + BillCustomerName + ", fechaAplicacion=" + fechaAplicacion + ", fechaContable=" + fechaContable + '}';
+    }
+
     public String getBillCustomerName() {
         return BillCustomerName;
     }

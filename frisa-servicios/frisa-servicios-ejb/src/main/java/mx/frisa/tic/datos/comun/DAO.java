@@ -179,6 +179,8 @@ public class DAO<T> extends ManejadorEntidad implements Serializable {
             }
 
             Object resultado = q.getResultList();
+            System.out.println("resultado : " + resultado);
+            System.out.println(resultado.getClass());
             manejadorLog.debug("resultado : " + resultado);
             listadoEntidad = (List<T>) resultado;
 
@@ -189,6 +191,7 @@ public class DAO<T> extends ManejadorEntidad implements Serializable {
 
         } catch (Exception ex) {
             manejadorLog.debug("Error en el método Entidad : " + ex.getMessage());
+            ex.printStackTrace();
         } finally {
             manejadorLog.debug("Cerrando conexión!");
             em.close();

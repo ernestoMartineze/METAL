@@ -38,7 +38,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "XxfrvConsultaLcFactura.findByIdlineacaptura", query = "SELECT x FROM XxfrvConsultaLcFactura x WHERE x.idlineacaptura = :idlineacaptura"),
     @NamedQuery(name = "XxfrvConsultaLcFactura.findByLinenumber", query = "SELECT x FROM XxfrvConsultaLcFactura x WHERE x.linenumber = :linenumber"),
     @NamedQuery(name = "XxfrvConsultaLcFactura.findByMontobrutolinea", query = "SELECT x FROM XxfrvConsultaLcFactura x WHERE x.montobrutolinea = :montobrutolinea"),
-    @NamedQuery(name = "XxfrvConsultaLcFactura.findByLineacaptura", query = "SELECT x FROM XxfrvConsultaLcFactura x WHERE x.lineacaptura = :lineacaptura"),
+    @NamedQuery(name = "XxfrvConsultaLcFactura.findByLineacaptura", query = "SELECT x FROM XxfrvConsultaLcFactura x WHERE x.lineacaptura LIKE CONCAT('%',:lineacaptura,'%')"),
     @NamedQuery(name = "XxfrvConsultaLcFactura.findByReferencia", query = "SELECT x FROM XxfrvConsultaLcFactura x WHERE x.referencenumber = :referencenumber"),
     @NamedQuery(name = "XxfrvConsultaLcFactura.findByTaxrate", query = "SELECT x FROM XxfrvConsultaLcFactura x WHERE x.taxrate = :taxrate")})
 public class XxfrvConsultaLcFactura implements Serializable {

@@ -427,7 +427,7 @@ public class AdaptadorWS {
                 xmlInput = inyectaParametro(xmlInput, "com:CustomerName", pagoDto.getBillCustomerName());
                 xmlInput = inyectaParametro(xmlInput, "com:ApplicationDate", pagoDto.getFechaAplicacion());
                 xmlInput = inyectaParametro(xmlInput, "com:AccountingDate", pagoDto.getFechaContable());
-
+                System.out.println("peticion "+xmlInput);
                 //Read the response.
                 outputString = enviarMsg(wsURL, SOAPAction, xmlInput, PropiedadesFRISA.recuperaPropiedadBackend("aplicaPagoFacturaServiceContentType"));
 
