@@ -381,7 +381,7 @@ public class GestorPagosBean implements GestorPagos {
             if (filtros.getMostrarAplicar().equals("NO")) {
                 queryArmado += " x.rmethodid = 0 ";
 
-            } else { // De lo contrario, se muestran los Manuales POR APLICAR, y LOS APLICADOS que cumplan el criterio
+            } else { // De lo contrario, se muestran los Manuales LOS APLICADOS que cumplan el criterio
                 queryArmado += " x.rmethodid = 1 ";
             }
 
