@@ -66,13 +66,14 @@ public class CargadorFactura {
         String path = "";
         if (args != null) {
             if (args.length != 0) {
+                path = args[0];
                 salida = CargadorFactura.encodeFileToBase64Binary(path);
                 System.out.println("Resultado : " + salida);
             } else {
                 System.err.println("No fue posible generar el resultado por falta de parametro  :  PathArchivo");
             }
         } else {
-            System.err.println("No fue posible generar el resultado por falta de parametro  :  PathArchivo");
+            System.err.println("No fue posible generar el resultado por falta de parametro  :  path nulo");
         }
         System.out.println("Termino ejecucion. ");
     }
