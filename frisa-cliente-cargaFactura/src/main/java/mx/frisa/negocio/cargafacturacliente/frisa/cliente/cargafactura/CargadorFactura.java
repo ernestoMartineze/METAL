@@ -61,21 +61,21 @@ public class CargadorFactura {
         return bytes;
     }
 
-    public static void main(String args[]) throws IOException {
+    public static void main(String args[]) /*throws IOException*/ {
         String salida = "";
         String path = "";
-        if (args != null) {
-            if (args.length != 0) {
-                path = args[0];
-                salida = CargadorFactura.encodeFileToBase64Binary(path);
-                System.out.println("Resultado : " + salida);
-            } else {
-                System.err.println("No fue posible generar el resultado por falta de parametro  :  PathArchivo");
-            }
-        } else {
-            System.err.println("No fue posible generar el resultado por falta de parametro  :  path nulo");
+        try {
+
+            path = args[0];
+            salida = CargadorFactura.encodeFileToBase64Binary(path);
+            System.out.println("Resultado : " + salida);
+
+        } catch (IOException e) {
+            System.err.println("Ocurrio un error en el metodo main");
+            e.printStackTrace();
+        } finally {
+            System.out.println("Termino ejecucion. ");
         }
-        System.out.println("Termino ejecucion. ");
     }
 
 }
