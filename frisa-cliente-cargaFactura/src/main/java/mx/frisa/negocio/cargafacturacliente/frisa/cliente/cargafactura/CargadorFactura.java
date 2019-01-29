@@ -64,10 +64,13 @@ public class CargadorFactura {
     public static void main(String args[]) throws IOException {
         String salida = "";
         String path = "";
-        if (args[0].isEmpty()) {
-//            salida = CargadorFactura.encodeFileToBase64Binary("C:\\tmp\\frisa\\cargaFacturaCli\\FacturaCabeceraLinea_10011.zip");
-            salida = CargadorFactura.encodeFileToBase64Binary(path);
-            System.out.println("Resultado : " + salida);
+        if (args != null) {
+            if (args.length != 0) {
+                salida = CargadorFactura.encodeFileToBase64Binary(path);
+                System.out.println("Resultado : " + salida);
+            } else {
+                System.err.println("No fue posible generar el resultado por falta de parametro  :  PathArchivo");
+            }
         } else {
             System.err.println("No fue posible generar el resultado por falta de parametro  :  PathArchivo");
         }
