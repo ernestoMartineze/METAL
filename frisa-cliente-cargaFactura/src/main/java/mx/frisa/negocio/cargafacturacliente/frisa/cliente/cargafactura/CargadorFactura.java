@@ -28,10 +28,10 @@ public class CargadorFactura {
 
         return encodedString;
     }
+
     public static byte[] decodeBase64ToFileBinary(String datos)
             throws IOException {
 
-        
         byte[] decoded = Base64.getDecoder().decode(datos);
 
         return decoded;
@@ -60,12 +60,18 @@ public class CargadorFactura {
         is.close();
         return bytes;
     }
-    
-    public static void main(String args[]) throws IOException{
-        
-        String salida = CargadorFactura.encodeFileToBase64Binary
-        ("C:\\tmp\\frisa\\cargaFacturaCli\\FacturaCabeceraLinea_10010.zip");
-        System.err.println("Resultado : "+ salida);
+
+    public static void main(String args[]) throws IOException {
+        String salida = "";
+        String path = "";
+        if (args[0].isEmpty()) {
+//            salida = CargadorFactura.encodeFileToBase64Binary("C:\\tmp\\frisa\\cargaFacturaCli\\FacturaCabeceraLinea_10011.zip");
+            salida = CargadorFactura.encodeFileToBase64Binary(path);
+            System.out.println("Resultado : " + salida);
+        } else {
+            System.err.println("No fue posible generar el resultado por falta de parametro  :  PathArchivo");
+        }
+        System.out.println("Termino ejecucion. ");
     }
 
 }
