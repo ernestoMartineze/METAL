@@ -383,7 +383,9 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
         List<ReporteEstadoCuentaDTO> respuesta = new ArrayList();
         DAO<xxfrv_reporte_estado_cuenta> reporteDao = new DAO(xxfrv_reporte_estado_cuenta.class);
         List<xxfrv_reporte_estado_cuenta> resultadoReporte = new ArrayList<>();
-        resultadoReporte = (List<xxfrv_reporte_estado_cuenta>) reporteDao.consultaQueryNamed("");
+        List<CatalogoParametroDTO> parametros = new ArrayList<>();
+        parametros.add(new CatalogoParametroDTO("uuid", uuid, CONSTANTE.CADENA));
+        resultadoReporte = (List<xxfrv_reporte_estado_cuenta>) reporteDao.consultaQueryByParameters("xxfrv_reporte_estado_cuenta.findByUUID", parametros);
         for(xxfrv_reporte_estado_cuenta edoCuenta :resultadoReporte){
             ReporteEstadoCuentaDTO reporteEdoCta = new ReporteEstadoCuentaDTO();
             reporteEdoCta.setCodigoError(edoCuenta.getCodigoError());

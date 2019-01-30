@@ -13,6 +13,8 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -23,6 +25,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "XXFRV_REPORTE_ESTADO_CUENTA")
 @XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "xxfrv_reporte_estado_cuenta.findAll", query = "SELECT x FROM xxfrv_reporte_estado_cuenta x"),
+    @NamedQuery(name = "xxfrv_reporte_estado_cuenta.findByUUID", query = "SELECT x FROM xxfrv_reporte_estado_cuenta x WHERE x.uuid = :uuid")})
+
 
 
 /**
