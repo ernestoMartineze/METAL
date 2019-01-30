@@ -323,7 +323,7 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
         return respuesta;
     }
 
-    private XxfrtEstadoCuenta procesarPago(XxfrtEstadoCuenta edoCuenta, PagoDTO pago, RespuestaEdoCuentaDTO edoCtaDto) throws IOException, MalformedURLException, ParserConfigurationException, SAXException {
+    public XxfrtEstadoCuenta procesarPago(XxfrtEstadoCuenta edoCuenta, PagoDTO pago, RespuestaEdoCuentaDTO edoCtaDto) throws IOException, MalformedURLException, ParserConfigurationException, SAXException {
         //Generar las facturas del cobro identificado
         /*
          */
