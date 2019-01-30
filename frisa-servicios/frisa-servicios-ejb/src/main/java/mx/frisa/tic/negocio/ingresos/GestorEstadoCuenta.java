@@ -112,7 +112,7 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
 
                     //Si no existe el metodo de pago en la BASE, vamos a buscarlo en el ERP
                     if (edoCtaDto.getIdMetodoPago() == null) {
-                        edoCuenta.setReceiptMethodId(recuperarMetodoPagoId(edoCtaDto.getOrgID() + "", lineaPago.getBANK_ACCOUNT_NUM(), lineaPago.getPROYECTO_PROPIETARIO()+"_"+lineaPago.getDESCRIP_LOOKUP()));
+                        edoCuenta.setReceiptMethodId(recuperarMetodoPagoId(edoCtaDto.getOrgID() + "", lineaPago.getBANK_ACCOUNT_NUM(), lineaPago.getPROYECTO_PROPIETARIO() + "_" + lineaPago.getDESCRIP_LOOKUP()));
                         edoCtaDto.setIdMetodoPago(Long.valueOf(edoCuenta.getReceiptMethodId()));
                     } else {
                         edoCuenta.setReceiptMethodId(edoCtaDto.getIdMetodoPago() + "");
@@ -171,96 +171,18 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
                         DAO<XxfrtEstadoCuenta> edoCtaEnt = new DAO(XxfrtEstadoCuenta.class);
                         edoCuenta.setGlDate(new Date());
                         edoCuenta.setUuid(UUIDFrisa.regresaUUID());
-                        
+
                         edoCtaEnt.actualiza(edoCuenta);
 
-                        //Generar las facturas del cobro identificado
-                        /*
-                         */
-                        GestorPagos pagosBean = new GestorPagosBean();
-                        RespuestaProcesaFacturasDTO respuestaPagos = pagosBean.recuperaFacturas(pago);
-
-                        if (respuestaPagos.getIdError().equals("0")) { //Cuando no hay error
-                            //Actualizar información en factura por medio del ID PRIMAVERA para aquellas que fueron al cobro
-                            List<FacturaPagoDTO> facAlCobro = respuestaPagos.getFacturas();
-                            DAO<XxfrCabeceraFactura> facturaDao = new DAO(XxfrCabeceraFactura.class);
-                            Boolean facturasCreadasExitosamenteERP = true;
-                            for (FacturaPagoDTO facturaPagoDto : facAlCobro) {
-
-                                XxfrCabeceraFactura facturaEntidad = new XxfrCabeceraFactura();
-                                facturaEntidad.setIdfacturaprimavera(BigDecimal.valueOf(Long.valueOf("" + facturaPagoDto.getIdfacturaprimavera())));
-                                facturaEntidad = (XxfrCabeceraFactura) facturaDao.consulta(facturaEntidad.getIdfacturaprimavera());
-                                facturaEntidad.setCustomerTrxID_erp(facturaPagoDto.getCustomerTrxID_ERP());
-                                facturaEntidad.setTransactioNumber_erp(facturaPagoDto.getTransactionID_ERP() + "");
-                                pago.setBillCustomerName(facturaPagoDto.getBilltoconsumername());
-                                Boolean actualizo = facturaDao.actualiza(facturaEntidad);
-                                System.err.println("actualizo : " + actualizo);
-                                System.err.println("getServiceStatus_ERP : " + facturaPagoDto.getServiceStatus_ERP());
-                                if (!facturaPagoDto.getServiceStatus_ERP().equals("S") || !actualizo) {
-                                    facturasCreadasExitosamenteERP = false; //Significa que la respuesta al crear la factura en ERP NO fue exitosa
-                                }
-                            }
-
-                            //Llamar a WS Genera cabecera recibo
-                            AdaptadorWS adpCabecera = new AdaptadorWS();
-                            //Solo si existe metodo de pago se genera la cabecera
-                            if (edoCtaDto.getIdMetodoPago() != null && edoCtaDto.getOrgID() != null
-                                    && facturasCreadasExitosamenteERP) {
-
-                                pago.setMetodoId(edoCtaDto.getIdMetodoPago() + "");
-                                pago.setUnidadNegocio(edoCtaDto.getOrgID());
-                                pago.setCustomerId(edoCtaDto.getCustomerID());
-                                pago.setSiteId(edoCtaDto.getSiteID());
-
-                                RespuestaERP_EncabezadoRecibo respCreaRecibo = adpCabecera.getERP_generarEncabezadoRecibo(pago);
-
-                                //Hubo algun error al generar la cabecera del cobro
-                                if (!respCreaRecibo.getProceso().getTermino().equals("0")) {
-                                    //No se logró cargar las facturas al cobro en sistema ERP
-                                    edoCuenta.setRmethodid(BigDecimal.valueOf(Long.valueOf("104")));
-                                } else {
-                                    numeroReciboERP = respCreaRecibo.getNumeroRecibo();
-                                    edoCuenta.setCashreceiptid(BigDecimal.valueOf(Long.valueOf(numeroReciboERP)));
-                                    edoCuenta.setFecharegistroreciboerp(new Date());
-
-                                    //Aplicar pagos en ERP**************************************************************
-                                    //Llamar al procesar pagos
-                                    pago.setFechaCreacion(FechaUtils.convierteHoyFecha());
-                                    pago.setNroRecibo(numeroReciboERP);
-
-                                    //Llamar facturas que serán cobradas
-                                    List<XxfrCabeceraFactura> lstFacturas = recuperarFacturasAPagar(edoCtaDto.getIdLineaCaptura(), edoCtaDto.getReferencia());
-                                    RespuestaERP_EncabezadoRecibo respAplicaPago = adpCabecera.getERP_AplicarPago(pago, lstFacturas);
-
-                                    respuesta.setProceso(respAplicaPago.getProceso().getTermino());
-                                    if (respAplicaPago.getProceso().getTermino().equals("0")) {
-                                        respuesta.setProceso(ProcesoEnum.EXITOSO.toString());
-                                        respuesta.setDescripcionError("");
-                                        respuesta.setIdError("0");
-                                    } else {
-                                        //Asignar proceso a ERROR-APLICARelPAGO
-                                        edoCuenta.setRmethodid(BigDecimal.valueOf(Long.valueOf("105")));
-                                        respuesta.setProceso(ProcesoEnum.ERROR.toString());
-                                        respuesta.setIdError("105");
-                                        respuesta.setDescripcionError("Error al aplicar el pago. No hay líneas con referencia validas en el estado de cuenta para procesar pagos");
-
-                                    }//***********************************************************************************
-                                }
-
-                            } else {
-
-                                if (facturasCreadasExitosamenteERP) {
-                                    //No se logró conseguir el metodo de pago
-                                    edoCuenta.setRmethodid(BigDecimal.valueOf(Long.valueOf("110")));
-                                } else {
-                                    //No se logró cargar las facturas al cobro en sistema ERP
-                                    edoCuenta.setRmethodid(BigDecimal.valueOf(Long.valueOf("102")));
-                                }
-                            }
-                        } else {
-                            //Hubo algun error al generar las facturas al cobro y no se continua con la cobranza de ella(s)
-                            edoCuenta.setRmethodid(BigDecimal.valueOf(Long.valueOf("102")));
-                            //METER ESTATUS A NIVEL BD BITACORA FACTURAS
+                        edoCuenta = procesarPago(edoCuenta, pago, edoCtaDto);
+                        if (edoCuenta.getRmethodid().equals("0")){
+                            //Exito en el procesamiento del pago
+                        }else{
+                            //Error al proccesar el pago
+                            respuesta.setProceso("ERROR");
+                            respuesta.setIdError(edoCuenta.getRmethodid()+"");
+                            respuesta.setDescripcionError("");
+                            
                         }
 
                         //Finalmente se actualiza en BD el estatus final de la LINEA ACTUAL DEL estado de cuenta 
@@ -378,15 +300,16 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
         }
         return lstFacturas;
     }
+
     @Override
-    public List<ReporteEstadoCuentaDTO> consultaReporteEstadoCuenta(String uuid){
+    public List<ReporteEstadoCuentaDTO> consultaReporteEstadoCuenta(String uuid) {
         List<ReporteEstadoCuentaDTO> respuesta = new ArrayList();
         DAO<xxfrv_reporte_estado_cuenta> reporteDao = new DAO(xxfrv_reporte_estado_cuenta.class);
         List<xxfrv_reporte_estado_cuenta> resultadoReporte = new ArrayList<>();
         List<CatalogoParametroDTO> parametros = new ArrayList<>();
         parametros.add(new CatalogoParametroDTO("uuid", uuid, CONSTANTE.CADENA));
         resultadoReporte = (List<xxfrv_reporte_estado_cuenta>) reporteDao.consultaQueryByParameters("xxfrv_reporte_estado_cuenta.findByUUID", parametros);
-        for(xxfrv_reporte_estado_cuenta edoCuenta :resultadoReporte){
+        for (xxfrv_reporte_estado_cuenta edoCuenta : resultadoReporte) {
             ReporteEstadoCuentaDTO reporteEdoCta = new ReporteEstadoCuentaDTO();
             reporteEdoCta.setCodigoError(edoCuenta.getCodigoError());
             reporteEdoCta.setDescripcionError(edoCuenta.getDescripcionError());
@@ -396,9 +319,93 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
             reporteEdoCta.setUuid(edoCuenta.getUuid());
             respuesta.add(reporteEdoCta);
         }
-        
-        
+
         return respuesta;
+    }
+
+    private XxfrtEstadoCuenta procesarPago(XxfrtEstadoCuenta edoCuenta, PagoDTO pago, RespuestaEdoCuentaDTO edoCtaDto) throws IOException, MalformedURLException, ParserConfigurationException, SAXException {
+        //Generar las facturas del cobro identificado
+        /*
+         */
+        GestorPagos pagosBean = new GestorPagosBean();
+        RespuestaProcesaFacturasDTO respuestaPagos = pagosBean.recuperaFacturas(pago);
+
+        if (respuestaPagos.getIdError().equals("0")) { //Cuando no hay error
+            //Actualizar información en factura por medio del ID PRIMAVERA para aquellas que fueron al cobro
+            List<FacturaPagoDTO> facAlCobro = respuestaPagos.getFacturas();
+            DAO<XxfrCabeceraFactura> facturaDao = new DAO(XxfrCabeceraFactura.class);
+            Boolean facturasCreadasExitosamenteERP = true;
+            for (FacturaPagoDTO facturaPagoDto : facAlCobro) {
+
+                XxfrCabeceraFactura facturaEntidad = new XxfrCabeceraFactura();
+                facturaEntidad.setIdfacturaprimavera(BigDecimal.valueOf(Long.valueOf("" + facturaPagoDto.getIdfacturaprimavera())));
+                facturaEntidad = (XxfrCabeceraFactura) facturaDao.consulta(facturaEntidad.getIdfacturaprimavera());
+                facturaEntidad.setCustomerTrxID_erp(facturaPagoDto.getCustomerTrxID_ERP());
+                facturaEntidad.setTransactioNumber_erp(facturaPagoDto.getTransactionID_ERP() + "");
+                pago.setBillCustomerName(facturaPagoDto.getBilltoconsumername());
+                Boolean actualizo = facturaDao.actualiza(facturaEntidad);
+                System.err.println("actualizo : " + actualizo);
+                System.err.println("getServiceStatus_ERP : " + facturaPagoDto.getServiceStatus_ERP());
+                if (!facturaPagoDto.getServiceStatus_ERP().equals("S") || !actualizo) {
+                    facturasCreadasExitosamenteERP = false; //Significa que la respuesta al crear la factura en ERP NO fue exitosa
+                }
+            }
+
+            //Llamar a WS Genera cabecera recibo
+            AdaptadorWS adpCabecera = new AdaptadorWS();
+            //Solo si existe metodo de pago se genera la cabecera
+            if (edoCtaDto.getIdMetodoPago() != null && edoCtaDto.getOrgID() != null
+                    && facturasCreadasExitosamenteERP) {
+
+                pago.setMetodoId(edoCtaDto.getIdMetodoPago() + "");
+                pago.setUnidadNegocio(edoCtaDto.getOrgID());
+                pago.setCustomerId(edoCtaDto.getCustomerID());
+                pago.setSiteId(edoCtaDto.getSiteID());
+
+                RespuestaERP_EncabezadoRecibo respCreaRecibo = adpCabecera.getERP_generarEncabezadoRecibo(pago);
+
+                //Hubo algun error al generar la cabecera del cobro
+                if (!respCreaRecibo.getProceso().getTermino().equals("0")) {
+                    //No se logró cargar las facturas al cobro en sistema ERP
+                    edoCuenta.setRmethodid(BigDecimal.valueOf(Long.valueOf("104")));
+                } else {
+                    edoCuenta.setCashreceiptid(BigDecimal.valueOf(Long.valueOf(respCreaRecibo.getNumeroRecibo())));
+                    edoCuenta.setFecharegistroreciboerp(new Date());
+
+                    //Aplicar pagos en ERP**************************************************************
+                    //Llamar al procesar pagos
+                    pago.setFechaCreacion(FechaUtils.convierteHoyFecha());
+                    pago.setNroRecibo(edoCuenta.getCashreceiptid()+"");
+
+                    //Llamar facturas que serán cobradas
+                    List<XxfrCabeceraFactura> lstFacturas = recuperarFacturasAPagar(edoCtaDto.getIdLineaCaptura(), edoCtaDto.getReferencia());
+                    RespuestaERP_EncabezadoRecibo respAplicaPago = adpCabecera.getERP_AplicarPago(pago, lstFacturas);
+
+                    if (respAplicaPago.getProceso().getTermino().equals("0")) {
+                        edoCuenta.setRmethodid(BigDecimal.valueOf(Long.valueOf("0")));
+                    } else {
+                        //Asignar proceso a ERROR-APLICARelPAGO
+                        edoCuenta.setRmethodid(BigDecimal.valueOf(Long.valueOf("105")));
+                        
+                    }//***********************************************************************************
+                }
+
+            } else {
+
+                if (facturasCreadasExitosamenteERP) {
+                    //No se logró conseguir el metodo de pago
+                    edoCuenta.setRmethodid(BigDecimal.valueOf(Long.valueOf("110")));
+                } else {
+                    //No se logró cargar las facturas al cobro en sistema ERP
+                    edoCuenta.setRmethodid(BigDecimal.valueOf(Long.valueOf("102")));
+                }
+            }
+        } else {
+            //Hubo algun error al generar las facturas al cobro y no se continua con la cobranza de ella(s)
+            edoCuenta.setRmethodid(BigDecimal.valueOf(Long.valueOf("102")));
+            //METER ESTATUS A NIVEL BD BITACORA FACTURAS
+        }
+        return edoCuenta;
     }
 
 }
