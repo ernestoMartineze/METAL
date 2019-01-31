@@ -22,6 +22,7 @@ import mx.frisa.tic.datos.comun.DAO;
 import mx.frisa.tic.datos.dto.CONSTANTE;
 import mx.frisa.tic.datos.dto.comun.CatalogoParametroDTO;
 import mx.frisa.tic.datos.dto.ingresos.AplicarPagoDTO;
+import mx.frisa.tic.datos.dto.ingresos.EstadoCuentaDTO;
 import mx.frisa.tic.datos.dto.ingresos.FacturaPagoDTO;
 import mx.frisa.tic.datos.dto.ingresos.FiltroPagoSinReferencia;
 import mx.frisa.tic.datos.dto.ingresos.LineaEstadoCuentaDTO;
@@ -32,8 +33,12 @@ import mx.frisa.tic.datos.dto.ingresos.Proceso;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaAplicarPagoDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaClienteDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaDTO;
+import mx.frisa.tic.datos.dto.ingresos.RespuestaEdoCuentaDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaPagoSinReferencia;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaProcesaFacturasDTO;
+import mx.frisa.tic.datos.entidades.XxfrCabeceraFactura;
+import mx.frisa.tic.datos.entidades.XxfrLineaCaptura;
+import mx.frisa.tic.datos.entidades.XxfrReciboLineaCaptura;
 import mx.frisa.tic.datos.entidades.XxfrtEstadoCuenta;
 import mx.frisa.tic.datos.entidades.XxfrvConsultaLcFactura;
 import mx.frisa.tic.datos.entidades.XxfrvFactparapagos;
@@ -370,34 +375,117 @@ public class GestorPagosBean implements GestorPagos {
         DAO<XxfrvConsultaLcFactura> lineasOreferenciasDao = new DAO(XxfrvConsultaLcFactura.class);
         List<XxfrvConsultaLcFactura> lineasReferencias;
         List<PagoDTO> pagos = new ArrayList();
+        AplicarPagoDTO aplicaPagoDTO= new AplicarPagoDTO();
+        List<PagoPorAplicarDTO> respuestaPagoPA=new ArrayList();
         try {
             for (PagoPorAplicarDTO pagoXAplicar : aplicarPagoDTO.getPagoPorAplicar()) {
+                
+                
                 String nombreConsulta = "";
                 List<CatalogoParametroDTO> parametros = new ArrayList<>();
 
-                if (!pagoXAplicar.getIdLineaCaputura().toString().equals("-1")) {
+                if (pagoXAplicar.getIdLineaCaputura()!=null && !pagoXAplicar.getIdLineaCaputura().equals("")) {
                     nombreConsulta = "XxfrvConsultaLcFactura.findByLineacaptura";
-                    parametros.add(new CatalogoParametroDTO("lineacaptura", "" + pagoXAplicar.getIdLineaCaputura(), CONSTANTE.CADENA));
+                    parametros.add(new CatalogoParametroDTO("lineacaptura", ""+pagoXAplicar.getIdLineaCaputura(), CONSTANTE.CADENA));
                 } else {
                     nombreConsulta = "XxfrvConsultaLcFactura.findByReferencia";
                     parametros.add(new CatalogoParametroDTO("referencenumber", pagoXAplicar.getReferencia(), CONSTANTE.CADENA));
                 }
-
-                PagoDTO pago = new PagoDTO();
                 //Consultamos datos de la linea de captura
                 lineasReferencias = (List<XxfrvConsultaLcFactura>) lineasOreferenciasDao.consultaQueryByParameters(nombreConsulta, parametros);
-                for (XxfrvConsultaLcFactura consultaFactura : lineasReferencias) {
-                    pago.setBillCustomerName(consultaFactura.getBilltoconsumername());
-                    pago.setLineaCaptura(consultaFactura.getIdlineacaptura() == null ? "0" : consultaFactura.getIdlineacaptura());
-                    pago.setIdCabeceraRecibo(new BigDecimal(consultaFactura.getLinenumber()));
+                for(XxfrvConsultaLcFactura consultaFactura: lineasReferencias){
+                    try{
+                        XxfrtEstadoCuenta edoCuenta= new XxfrtEstadoCuenta();
+                        PagoDTO pago=new PagoDTO();
+                        RespuestaEdoCuentaDTO edoCuentaDTO= new RespuestaEdoCuentaDTO();
+                        XxfrReciboLineaCaptura reciboLC = new XxfrReciboLineaCaptura();
+
+                        pago.setIdEdoCta(new BigDecimal(pagoXAplicar.getIdPago()));
+                        pago.setLineaCaptura(pagoXAplicar.getIdLineaCaputura()==null?"":pagoXAplicar.getIdLineaCaputura().toString());
+
+                        pago.setReferencia(consultaFactura.getReferencenumber());
+                        edoCuentaDTO.setIdEdoCuenta(pagoXAplicar.getIdPago().intValue());
+
+                        DAO<XxfrCabeceraFactura> cabeceraFactDao= new DAO(XxfrCabeceraFactura.class);
+                        List<XxfrCabeceraFactura> cabecerasFact;
+                        parametros = new ArrayList<>();
+                        parametros.add(new CatalogoParametroDTO("referencenumber", ""+pago.getReferencia(), CONSTANTE.CADENA));
+                        cabecerasFact = (List<XxfrCabeceraFactura>) cabeceraFactDao.consultaQueryByParameters("XxfrCabeceraFactura.findByReferencenumber", parametros);
+                        for(XxfrCabeceraFactura cabecera: cabecerasFact){
+                            pago.setSiteId(cabecera.getSiteid()==null?null:cabecera.getSiteid().toString());
+                            pago.setCustomerId(cabecera.getCustomerid()==null?"":cabecera.getCustomerid().toString());
+                            pago.setUnidadNegocio(cabecera.getOrgid());
+                            pago.setBillCustomerName(cabecera.getBilltoconsumername());
+
+                            edoCuentaDTO.setOrgID(cabecera.getOrgid());
+                            edoCuentaDTO.setSiteID(cabecera.getSiteid()==null?null:cabecera.getSiteid().toString());
+                            edoCuentaDTO.setCustomerID(cabecera.getCustomerid()==null?"":cabecera.getCustomerid().toString());
+                            edoCuentaDTO.setBillCustomerName(cabecera.getBilltoconsumername());
+                            edoCuentaDTO.setReferencia(cabecera.getReferencenumber());
+                            edoCuentaDTO.setIdLineaCaptura(cabecera.getIdlineacaptura()==null?null:Integer.parseInt(cabecera.getIdlineacaptura()));
+
+                            reciboLC.setReferencia(cabecera.getReferencenumber());
+                            reciboLC.setIdlineacaptura(cabecera.getIdlineacaptura()==null?null:new Long(cabecera.getIdlineacaptura()));
+                            break;
+                        }
+
+                        DAO<XxfrtEstadoCuenta> estadoCuentaDao = new DAO(XxfrtEstadoCuenta.class);
+                        List<XxfrtEstadoCuenta> estadosCuenta = new ArrayList<>();
+                        List<CatalogoParametroDTO> parametrosEdCta = new ArrayList();
+                        parametrosEdCta.add(new CatalogoParametroDTO("idEdoCta",pago.getIdEdoCta().toString(),CONSTANTE.NUMERO));
+                        estadosCuenta = estadoCuentaDao.consultaQueryByParameters("XxfrtEstadoCuenta.findByIdEdoCta", parametrosEdCta);
+                        for(XxfrtEstadoCuenta estadoCuenta :estadosCuenta){
+                            edoCuenta=estadoCuenta;
+                            pago.setIdCabeceraRecibo(estadoCuenta.getLineNumber());
+                            pago.setMetodoId(estadoCuenta.getReceiptMethodId());
+                            pago.setMoneda(estadoCuenta.getCurrencyCode());
+                            pago.setMonto(estadoCuenta.getAmount().toString());
+
+                            edoCuentaDTO.setIdMetodoPago(estadoCuenta.getReceiptMethodId()==null?null:new Long(estadoCuenta.getReceiptMethodId()));
+
+                            reciboLC.setMontopagado(estadoCuenta.getAmount());
+
+                        }
+    //                    reciboLC.setIdpago(BigDecimal.ZERO);
+                        DAO<XxfrReciboLineaCaptura> reciboLCDao = new DAO(XxfrReciboLineaCaptura.class);
+                        List<XxfrReciboLineaCaptura> recibo;
+                        reciboLCDao.registra(reciboLC);
+                        System.out.println(reciboLC.getReferencia());
+                        System.out.println(reciboLC.getMontopagado());
+                        StringBuilder queryReciboLC= new StringBuilder();
+                        queryReciboLC.append("SELECT x FROM XxfrReciboLineaCaptura x WHERE x.referencia = '")
+                                .append(reciboLC.getReferencia())
+                                .append("' AND x.montopagado = ")
+                                .append(reciboLC.getMontopagado())
+                                .append(" order by x.idpago DESC");
+                        recibo = reciboLCDao.consultaQuery(queryReciboLC.toString());
+                        edoCuentaDTO.setIdPago(recibo.get(0).getIdpago().intValue());
+    //                    System.out.println(recibo.get(0).getIdpago());
+
+                        GestorEstadoCuenta gestorEC= new GestorEstadoCuenta();
+                    
+//                    gestorEC.procesarPago(edoCuenta, pago, edoCuentaDTO);
+                    
+                        edoCuenta=gestorEC.procesarPago(edoCuenta, pago, edoCuentaDTO);
+                        if(edoCuenta.getRmethodid().toString().equals("0")){
+                            edoCuenta.setRmethodid(BigDecimal.ONE);
+                        }
+                        estadoCuentaDao.actualiza(edoCuenta);
+                        pagoXAplicar.setTermino(edoCuenta.getRmethodid().toBigInteger());
+                    }catch(Exception e){
+                        e.printStackTrace();
+                        pagoXAplicar.setTermino(BigInteger.valueOf(1));
+                    }
+                    
+                    respuestaPagoPA.add(pagoXAplicar);
+                    //pagos.add(pago);
                     break;
-                }
-                pago.setFechaCreacion(FechaUtils.convierteHoyFecha());
-                pago.setIdEdoCta(new BigDecimal(pagoXAplicar.getIdPago()));
-                pagos.add(pago);
+                }  
             }
-            RespuestaProcesaFacturasDTO respuestaPF = generarPago(pagos);
+//            RespuestaProcesaFacturasDTO respuestaPF = generarPago(pagos);
+            aplicaPagoDTO.setPagoPorAplicar(respuestaPagoPA);
             respuesta.setProceso(new Proceso("0", "EXITOSO"));
+            respuesta.setAplicarPago(aplicaPagoDTO);
         } catch (Exception e) {
             e.printStackTrace();
             respuesta.setProceso(new Proceso("901", "ERROR"));

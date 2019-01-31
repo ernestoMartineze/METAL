@@ -63,6 +63,13 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "XxfrvFactparapagos.findByLineacaptura", query = "SELECT x FROM XxfrvFactparapagos x WHERE x.lineacaptura = :lineacaptura")})
 public class XxfrvFactparapagos implements Serializable {
 
+    @Size(max = 30)
+    @Column(name = "REFERENCENUMBER")
+    private String referencenumber;
+    @Size(max = 20)
+    @Column(name = "ESTADOPROCESAMIENTO")
+    private String estadoprocesamiento;
+
     @Column(name = "BILLTOLOCATION")
     private BigInteger billtolocation;
     @Column(name = "LINENUMBER")
@@ -399,6 +406,22 @@ public class XxfrvFactparapagos implements Serializable {
 
     public void setProjectid(BigInteger projectid) {
         this.projectid = projectid;
+    }
+
+    public String getReferencenumber() {
+        return referencenumber;
+    }
+
+    public void setReferencenumber(String referencenumber) {
+        this.referencenumber = referencenumber;
+    }
+
+    public String getEstadoprocesamiento() {
+        return estadoprocesamiento;
+    }
+
+    public void setEstadoprocesamiento(String estadoprocesamiento) {
+        this.estadoprocesamiento = estadoprocesamiento;
     }
     
 }

@@ -36,7 +36,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "XxfrReciboLineaCaptura.findByIdpagoerp", query = "SELECT x FROM XxfrReciboLineaCaptura x WHERE x.idpagoerp = :idpagoerp")
     , @NamedQuery(name = "XxfrReciboLineaCaptura.findByMontopagado", query = "SELECT x FROM XxfrReciboLineaCaptura x WHERE x.montopagado = :montopagado")
     , @NamedQuery(name = "XxfrReciboLineaCaptura.findByFechaaplicacion", query = "SELECT x FROM XxfrReciboLineaCaptura x WHERE x.fechaaplicacion = :fechaaplicacion")
-    , @NamedQuery(name = "XxfrReciboLineaCaptura.findByFechapago", query = "SELECT x FROM XxfrReciboLineaCaptura x WHERE x.fechapago = :fechapago")
+//    , @NamedQuery(name = "XxfrReciboLineaCaptura.findByFechapago", query = "SELECT x FROM XxfrReciboLineaCaptura x WHERE x.fechapago = :fechapago")
     , @NamedQuery(name = "XxfrReciboLineaCaptura.findByReferencia", query = "SELECT x FROM XxfrReciboLineaCaptura x WHERE x.referencia = :referencia")})
 public class XxfrReciboLineaCaptura implements Serializable {
 
@@ -52,8 +52,8 @@ public class XxfrReciboLineaCaptura implements Serializable {
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
-    @Basic(optional = false)
-    @NotNull
+//    @Basic(optional = false)
+//    @NotNull
     @Column(name = "IDPAGO")
     private BigDecimal idpago;
     @Column(name = "IDLINEACAPTURA")
@@ -65,9 +65,9 @@ public class XxfrReciboLineaCaptura implements Serializable {
     @Column(name = "FECHAAPLICACION")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaaplicacion;
-    @Column(name = "FECHAPAGO")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date fechapago;
+//    @Column(name = "FECHAPAGO")
+//    @Temporal(TemporalType.TIMESTAMP)
+//    private Date fechapago;
     @Size(max = 20)
     @Column(name = "REFERENCIA")
     private String referencia;
@@ -119,13 +119,13 @@ public class XxfrReciboLineaCaptura implements Serializable {
         this.fechaaplicacion = fechaaplicacion;
     }
 
-    public Date getFechapago() {
-        return fechapago;
-    }
-
-    public void setFechapago(Date fechapago) {
-        this.fechapago = fechapago;
-    }
+//    public Date getFechapago() {
+//        return fechapago;
+//    }
+//
+//    public void setFechapago(Date fechapago) {
+//        this.fechapago = fechapago;
+//    }
 
     public String getReferencia() {
         return referencia;
