@@ -36,7 +36,7 @@ import javax.xml.bind.annotation.XmlType;
 public class PagoPorAplicarDTO {
 
     protected BigInteger idEdoCuenta;
-    protected BigInteger idLineaCaputura;
+    protected String idLineaCaputura;
     protected BigInteger idPago;
     protected String referencia;
     protected BigInteger termino;
@@ -73,7 +73,7 @@ public class PagoPorAplicarDTO {
      *     {@link BigInteger }
      *
      */
-    public BigInteger getIdLineaCaputura() {
+    public String getIdLineaCaputura() {
         return idLineaCaputura;
     }
 
@@ -85,7 +85,7 @@ public class PagoPorAplicarDTO {
      *     {@link BigInteger }
      *
      */
-    public void setIdLineaCaputura(BigInteger value) {
+    public void setIdLineaCaputura(String value) {
         this.idLineaCaputura = value;
     }
 

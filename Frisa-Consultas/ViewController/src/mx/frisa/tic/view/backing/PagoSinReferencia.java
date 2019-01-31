@@ -30,7 +30,7 @@ import java.math.BigInteger;
 import java.util.Collection;
 
 import mx.frisa.tic.negocio.ws.RespuestaAplicarPagoDTO;
-import mx.frisa.tic.negocio.ws.RespuestaDTO;
+//import mx.frisa.tic.negocio.ws.RespuestaDTO;
 
 import oracle.adf.view.rich.component.rich.RichDialog;
 import oracle.adf.view.rich.component.rich.RichPopup;
@@ -419,9 +419,9 @@ public class PagoSinReferencia {
         }
         //validamos checkbox para pagos aplicados
         if(aplicadosCB.isSelected()){
-            filtros.setMostrarAplicar("NO");
-        }else{
             filtros.setMostrarAplicar("");
+        }else{
+            filtros.setMostrarAplicar("NO");
         }
         
         RespuestaPagoSinReferencia respuestaPagos = gestorPagosWS.consultarPagosSinReferencia(filtros);
@@ -513,7 +513,7 @@ public class PagoSinReferencia {
             for(PagoSinReferenciaVO pago :pagosAplicarVO){
                 PagoPorAplicarDTO apago=new PagoPorAplicarDTO();
                 //apago.setIdEdoCuenta(pago.get);
-                apago.setIdLineaCaputura(pago.getLineaDeCaptura()==null?new BigInteger("0"):new BigInteger(pago.getLineaDeCaptura()));
+                apago.setIdLineaCaputura(pago.getLineaDeCaptura());
                 apago.setIdPago(pago.getIdPago()==null?new BigInteger("0"):new BigInteger(pago.getIdPago()));
                 apago.setReferencia(pago.getReferencia());
                 //apago.setTermino(pago.gett);
@@ -522,17 +522,21 @@ public class PagoSinReferencia {
             aplicarPago.setPagoPorAplicar(pagoList);
             respuesta = gestorPagosWS.aplicarPagoManual(aplicarPago);
             Collection<PagoSinReferenciaVO> toDelete = new ArrayList<PagoSinReferenciaVO>();
-            for(PagoPorAplicarDTO pago:respuesta.getAplicarPago().getPagoPorAplicar()){
-                System.out.println(pago.getTermino());
-                for(PagoSinReferenciaVO pagoVo :pagosVO){
-                    if(pagoVo.getIdPago().equals(pago.getIdPago().toString()) && pago.getTermino().toString().equals("0")){
-                        toDelete.add(pagoVo);
-                        System.out.println("se remueve pago");
-                    }else if(pagoVo.getIdPago().equals(pago.getIdPago().toString())){
-                            pagoVo.setInlineStyle("background-color:#f74c1e;");
+            if(respuesta.getAplicarPago()!=null){
+                    
+                    for(PagoPorAplicarDTO pago:respuesta.getAplicarPago().getPagoPorAplicar()){
+                        System.out.println(pago.getTermino());
+                        for(PagoSinReferenciaVO pagoVo :pagosVO){
+                            if(pagoVo.getIdPago().equals(pago.getIdPago().toString()) && pago.getTermino().toString().equals("0")){
+                                toDelete.add(pagoVo);
+                                System.out.println("se remueve pago");
+                            }else if(pagoVo.getIdPago().equals(pago.getIdPago().toString())){
+                                    pagoVo.setInlineStyle("background-color:#f74c1e;");
+                                }
                         }
+                    }
                 }
-            }
+            
         pagosVO.removeAll(toDelete);
         AdfFacesContext.getCurrentInstance().addPartialTarget(t1);
             //RichPopup.PopupHints hints = new RichPopup.PopupHints();
