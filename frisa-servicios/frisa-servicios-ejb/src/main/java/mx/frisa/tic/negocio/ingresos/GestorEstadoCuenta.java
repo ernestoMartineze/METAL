@@ -175,14 +175,14 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
                         edoCtaEnt.actualiza(edoCuenta);
 
                         edoCuenta = procesarPago(edoCuenta, pago, edoCtaDto);
-                        if (edoCuenta.getRmethodid().equals("0")){
+                        if (edoCuenta.getRmethodid().equals("0")) {
                             //Exito en el procesamiento del pago
-                        }else{
+                        } else {
                             //Error al proccesar el pago
                             respuesta.setProceso("ERROR");
-                            respuesta.setIdError(edoCuenta.getRmethodid()+"");
+                            respuesta.setIdError(edoCuenta.getRmethodid() + "");
                             respuesta.setDescripcionError("");
-                            
+
                         }
 
                         //Finalmente se actualiza en BD el estatus final de la LINEA ACTUAL DEL estado de cuenta 
@@ -320,6 +320,13 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
             respuesta.add(reporteEdoCta);
         }
 
+        if (respuesta.size() == 0) {
+            ReporteEstadoCuentaDTO reporteEdoCtaControlada = new ReporteEstadoCuentaDTO();
+            reporteEdoCtaControlada.setDescripcionError("No existe información con el uuid : " + uuid);
+            respuesta.add(reporteEdoCtaControlada); 
+        }
+        
+
         return respuesta;
     }
 
@@ -375,7 +382,7 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
                     //Aplicar pagos en ERP**************************************************************
                     //Llamar al procesar pagos
                     pago.setFechaCreacion(FechaUtils.convierteHoyFecha());
-                    pago.setNroRecibo(edoCuenta.getCashreceiptid()+"");
+                    pago.setNroRecibo(edoCuenta.getCashreceiptid() + "");
 
                     //Llamar facturas que serán cobradas
                     List<XxfrCabeceraFactura> lstFacturas = recuperarFacturasAPagar(edoCtaDto.getIdLineaCaptura(), edoCtaDto.getReferencia());
@@ -386,7 +393,7 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
                     } else {
                         //Asignar proceso a ERROR-APLICARelPAGO
                         edoCuenta.setRmethodid(BigDecimal.valueOf(Long.valueOf("105")));
-                        
+
                     }//***********************************************************************************
                 }
 
