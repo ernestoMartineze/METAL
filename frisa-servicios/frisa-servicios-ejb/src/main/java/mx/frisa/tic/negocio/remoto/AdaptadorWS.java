@@ -305,9 +305,10 @@ public class AdaptadorWS {
         xmlInput = inyectaParametro(xmlInput, "com:Comments", "");
         xmlInput = inyectaParametro(xmlInput, "currencyCode", pagos.getMoneda());
         xmlInput = inyectaParametro(xmlInput, "com:CurrencyCode", pagos.getMoneda());
-        xmlInput = inyectaParametro(xmlInput, "com:GlDate", "2018-12-17");
+        xmlInput = inyectaParametro(xmlInput, "com:GlDate", FechaUtils.convierteHoyFecha());
         xmlInput = inyectaParametro(xmlInput, "com:OrgId", pagos.getUnidadNegocio());
-        xmlInput = inyectaParametro(xmlInput, "com:ReceiptDate", "2018-12-17");
+        xmlInput = inyectaParametro(xmlInput, "com:CustomerId", pagos.getCustomerId());
+        xmlInput = inyectaParametro(xmlInput, "com:ReceiptDate", FechaUtils.convierteHoyFecha());
         xmlInput = inyectaParametro(xmlInput, "com:ReceiptMethodId", pagos.getMetodoId());
         xmlInput = inyectaParametro(xmlInput, "com:ReceiptNumber", pagos.getIdEdoCta() + "");
 
@@ -424,11 +425,12 @@ public class AdaptadorWS {
         //Ready with sending the request.
         try {
             //Inyectar parametros a la peticion
-            xmlInput = inyectaParametro(xmlInput, "com:AmountApplied", pagoDto.getMonto());
-            xmlInput = inyectaParametro(xmlInput, "com:ReceiptNumber", pagoDto.getNroRecibo());
-            xmlInput = inyectaParametro(xmlInput, "com:TransactionNumber", pagoDto.getIdCabeceraRecibo() + "");
-            xmlInput = inyectaParametro(xmlInput, "com:TransactionDate", pagoDto.getFechaCreacion());
-            xmlInput = inyectaParametro(xmlInput, "com:CustomerName", pagoDto.getBillCustomerName());
+            xmlInput = inyectaParametro(xmlInput, "com:ReceiptId", pagoDto.getNroRecibo()); //RECIBO ERP
+            xmlInput = inyectaParametro(xmlInput, "com:ReceiptNumber", pagoDto.getIdEdoCta()+""); //RECIBO NUESTRO SecuencialInterno
+            xmlInput = inyectaParametro(xmlInput, "com:CustomerTrxId", pLstFacturas.get(0).getCustomerTrxID_erp()+""); // FACTURA ERP
+            xmlInput = inyectaParametro(xmlInput, "com:TransactionNumber", pLstFacturas.get(0).getTransactioNumber_erp()+ ""); //FACTURA
+            xmlInput = inyectaParametro(xmlInput, "com:AmountApplied", pagoDto.getMonto());//Monto Factura
+            xmlInput = inyectaParametro(xmlInput, "com:CustomerName", pagoDto.getBillCustomerName()); //CLIENTE
             xmlInput = inyectaParametro(xmlInput, "com:ApplicationDate", pagoDto.getFechaAplicacion());
             xmlInput = inyectaParametro(xmlInput, "com:AccountingDate", pagoDto.getFechaContable());
             System.out.println("peticion " + xmlInput);
@@ -443,7 +445,7 @@ public class AdaptadorWS {
             System.out.println("outputString : " + outputString);
 
             Document document = parseXmlFile(outputString);
-            NodeList nodeLst = document.getElementsByTagName("ns3:CashReceiptId");
+            NodeList nodeLst = document.getElementsByTagName("wsa:MessageID");
             String resultado = nodeLst.item(0).getTextContent();
 
             //Write the SOAP message formatted to the console.
@@ -452,7 +454,7 @@ public class AdaptadorWS {
             System.out.println("resultado : " + resultado);
         } catch (Exception ex) {
             ex.printStackTrace();
-            respestaWS.setProceso(new Proceso("100", "ERROR"));
+            respestaWS.setProceso(new Proceso("107", "ERROR"));
         }
 
         return respestaWS;

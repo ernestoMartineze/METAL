@@ -71,9 +71,12 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
 
                 for (G_1 lineaPago : lineasPago) {
 
-//                    manejaLog.debug("Procesando el estado de cuenta : getBANK_ACCOUNT_NUM" + lineaPago.getBANK_ACCOUNT_NUM());
-//                    manejaLog.debug("getSTMT_TO_DATE : " + lineaPago.getSTMT_TO_DATE());
-//                    manejaLog.debug("getLINE_NUMBER : " + lineaPago.getLINE_NUMBER());
+                    manejaLog.debug("Procesando el estado de cuenta : getBANK_ACCOUNT_NUM" + lineaPago.getBANK_ACCOUNT_NUM());
+                    manejaLog.debug("getSTMT_TO_DATE : " + lineaPago.getSTMT_TO_DATE());
+                    manejaLog.debug("getLINE_NUMBER : " + lineaPago.getLINE_NUMBER());
+                    manejaLog.debug("getREFERENCIA : " + lineaPago.getREFERENCIA());
+                    manejaLog.debug("getLINEA_CAPTURA : " + lineaPago.getLINEA_CAPTURA());
+                    manejaLog.debug("getADDITIONAL_ENTRY_INFORMATION : " + lineaPago.getADDITIONAL_ENTRY_INFORMATION());
                     XxfrtEstadoCuenta edoCuenta = new XxfrtEstadoCuenta();
                     edoCuenta.setBankAccountNum(BigDecimal.valueOf(Long.valueOf(lineaPago.getBANK_ACCOUNT_NUM())));
                     edoCuenta.setAddiotionalEntryInformation(lineaPago.getAMOUNT());
@@ -109,6 +112,11 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
                     manejaLog.debug("edoCtaDto.getReferencia() : " + edoCtaDto.getReferencia());
                     manejaLog.debug("lineaPago.getDESCRIP_LOOKUP() : " + lineaPago.getDESCRIP_LOOKUP());
                     manejaLog.debug("lineaPago.getPROYECTO_PROPIETARIO() : " + lineaPago.getPROYECTO_PROPIETARIO());
+
+                    //Evitamos un posible error de manejo de la referencia cuando no se tiene en el proceso
+                    if (edoCtaDto.getReferencia() == null) {
+                        edoCtaDto.setReferencia("");
+                    }
 
                     //Si no existe el metodo de pago en la BASE, vamos a buscarlo en el ERP
                     if (edoCtaDto.getIdMetodoPago() == null) {
@@ -276,17 +284,18 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
                 edoCtaDto.getCustomerID(),
                 edoCtaDto.getSiteID());
 
-        pago.setFechaContable("2018-12-26");
-        pago.setFechaAplicacion("2018-12-26");
+        pago.setFechaContable(FechaUtils.convierteHoyFecha());
+        pago.setFechaAplicacion(FechaUtils.convierteHoyFecha());
 
         pago.setBillCustomerName(edoCtaDto.getBillCustomerName());
 
         return pago;
     }
 
-    public List<XxfrCabeceraFactura> recuperarFacturasAPagar(Integer idLineaCaptura, String referencia) {
+    public List<XxfrCabeceraFactura> recuperarFacturasAPagar(Integer idLineaCaptura, String referencia, Double montoCobrado) {
 
         List<XxfrCabeceraFactura> lstFacturas = new ArrayList();
+        List<XxfrCabeceraFactura> lstFacturasPorMontoMax = new ArrayList();
         DAO<XxfrCabeceraFactura> facturaDao = new DAO(XxfrCabeceraFactura.class);
         List<CatalogoParametroDTO> plistaParametros = new ArrayList();
         if (idLineaCaptura != null) {
@@ -297,6 +306,14 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
         } else {
             plistaParametros.add(new CatalogoParametroDTO("referencenumber", referencia + "", CONSTANTE.CADENA));
             lstFacturas = facturaDao.consultaQueryByParameters("XxfrCabeceraFactura.findByReferencenumberMonto", plistaParametros);
+            Double montoAcumulado = Double.valueOf("0");
+            for (XxfrCabeceraFactura facturaAPagar : lstFacturas) {
+                if (montoCobrado >= montoAcumulado) {
+                    lstFacturasPorMontoMax.add(facturaAPagar);
+                    montoAcumulado += Integer.valueOf(facturaAPagar.getTotalamount() + "");
+                }
+            }
+            lstFacturas = lstFacturasPorMontoMax;
         }
         return lstFacturas;
     }
@@ -323,9 +340,8 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
         if (respuesta.size() == 0) {
             ReporteEstadoCuentaDTO reporteEdoCtaControlada = new ReporteEstadoCuentaDTO();
             reporteEdoCtaControlada.setDescripcionError("No existe información con el uuid : " + uuid);
-            respuesta.add(reporteEdoCtaControlada); 
+            respuesta.add(reporteEdoCtaControlada);
         }
-        
 
         return respuesta;
     }
@@ -349,7 +365,10 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
                 facturaEntidad = (XxfrCabeceraFactura) facturaDao.consulta(facturaEntidad.getIdfacturaprimavera());
                 facturaEntidad.setCustomerTrxID_erp(facturaPagoDto.getCustomerTrxID_ERP());
                 facturaEntidad.setTransactioNumber_erp(facturaPagoDto.getTransactionID_ERP() + "");
-                pago.setBillCustomerName(facturaPagoDto.getBilltoconsumername());
+                pago.setBillCustomerName(facturaEntidad.getBilltoconsumername());
+                pago.setUnidadNegocio(facturaEntidad.getOrgid());
+                pago.setCustomerId(facturaEntidad.getCustomerid()+"");
+                pago.setSiteId(facturaEntidad.getSiteid()+"");
                 Boolean actualizo = facturaDao.actualiza(facturaEntidad);
                 System.err.println("actualizo : " + actualizo);
                 System.err.println("getServiceStatus_ERP : " + facturaPagoDto.getServiceStatus_ERP());
@@ -365,9 +384,6 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
                     && facturasCreadasExitosamenteERP) {
 
                 pago.setMetodoId(edoCtaDto.getIdMetodoPago() + "");
-                pago.setUnidadNegocio(edoCtaDto.getOrgID());
-                pago.setCustomerId(edoCtaDto.getCustomerID());
-                pago.setSiteId(edoCtaDto.getSiteID());
 
                 RespuestaERP_EncabezadoRecibo respCreaRecibo = adpCabecera.getERP_generarEncabezadoRecibo(pago);
 
@@ -384,8 +400,9 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
                     pago.setFechaCreacion(FechaUtils.convierteHoyFecha());
                     pago.setNroRecibo(edoCuenta.getCashreceiptid() + "");
 
-                    //Llamar facturas que serán cobradas
-                    List<XxfrCabeceraFactura> lstFacturas = recuperarFacturasAPagar(edoCtaDto.getIdLineaCaptura(), edoCtaDto.getReferencia());
+                    //Llamar facturas que serán cubiertas por el cobro
+                    List<XxfrCabeceraFactura> lstFacturas = recuperarFacturasAPagar(edoCtaDto.getIdLineaCaptura(), edoCtaDto.getReferencia(), Double.valueOf(pago.getMonto()));
+                    if (lstFacturas.size()>0){
                     RespuestaERP_EncabezadoRecibo respAplicaPago = adpCabecera.getERP_AplicarPago(pago, lstFacturas);
 
                     if (respAplicaPago.getProceso().getTermino().equals("0")) {
@@ -395,6 +412,11 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
                         edoCuenta.setRmethodid(BigDecimal.valueOf(Long.valueOf("105")));
 
                     }//***********************************************************************************
+                    }else{
+                        //No hay facturas asociadas al pago
+                        //Asignar proceso a ERROR-APLICARelPAGO
+                        edoCuenta.setRmethodid(BigDecimal.valueOf(Long.valueOf("106")));
+                    }
                 }
 
             } else {

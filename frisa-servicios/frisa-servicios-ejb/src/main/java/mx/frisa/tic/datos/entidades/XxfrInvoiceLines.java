@@ -127,6 +127,8 @@ public class XxfrInvoiceLines implements Serializable {
     private BigDecimal montobrutolinea;
     @Column(name = "MONTONETOLINEA")
     private BigDecimal montonetolinea;
+    @Column(name = "PORPAGAR")
+    private BigDecimal porPagar;
     @Column(name = "IDCONCEPTO")
     private Long idconcepto;
     @Column(name = "FECHADESDE")
@@ -414,5 +416,14 @@ public class XxfrInvoiceLines implements Serializable {
     public void setTaxivalinea(String taxivalinea) {
         this.taxivalinea = taxivalinea;
     }
+
+    public BigDecimal getPorPagar() {
+        return porPagar;
+    }
+
+    public void setPorPagar(BigDecimal porPagar) {
+        this.porPagar = porPagar;
+    }
+    
 
 }
