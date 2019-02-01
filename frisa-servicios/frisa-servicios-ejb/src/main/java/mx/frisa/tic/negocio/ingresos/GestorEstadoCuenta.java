@@ -185,6 +185,11 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
                         edoCuenta = procesarPago(edoCuenta, pago, edoCtaDto);
                         if (edoCuenta.getRmethodid().equals("0")) {
                             //Exito en el procesamiento del pago
+                            
+                            respuesta.setProceso("EXITOSO");
+                            respuesta.setIdError("0");
+                            respuesta.setDescripcionError("");
+                            
                         } else {
                             //Error al proccesar el pago
                             respuesta.setProceso("ERROR");
@@ -367,8 +372,8 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
                 facturaEntidad.setTransactioNumber_erp(facturaPagoDto.getTransactionID_ERP() + "");
                 pago.setBillCustomerName(facturaEntidad.getBilltoconsumername());
                 pago.setUnidadNegocio(facturaEntidad.getOrgid());
-                pago.setCustomerId(facturaEntidad.getCustomerid()+"");
-                pago.setSiteId(facturaEntidad.getSiteid()+"");
+                pago.setCustomerId(facturaEntidad.getCustomerid() + "");
+                pago.setSiteId(facturaEntidad.getSiteid() + "");
                 Boolean actualizo = facturaDao.actualiza(facturaEntidad);
                 System.err.println("actualizo : " + actualizo);
                 System.err.println("getServiceStatus_ERP : " + facturaPagoDto.getServiceStatus_ERP());
@@ -402,17 +407,17 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
 
                     //Llamar facturas que serán cubiertas por el cobro
                     List<XxfrCabeceraFactura> lstFacturas = recuperarFacturasAPagar(edoCtaDto.getIdLineaCaptura(), edoCtaDto.getReferencia(), Double.valueOf(pago.getMonto()));
-                    if (lstFacturas.size()>0){
-                    RespuestaERP_EncabezadoRecibo respAplicaPago = adpCabecera.getERP_AplicarPago(pago, lstFacturas);
+                    if (lstFacturas.size() > 0) {
+                        RespuestaERP_EncabezadoRecibo respAplicaPago = adpCabecera.getERP_AplicarPago(pago, lstFacturas);
 
-                    if (respAplicaPago.getProceso().getTermino().equals("0")) {
-                        edoCuenta.setRmethodid(BigDecimal.valueOf(Long.valueOf("0")));
+                        if (respAplicaPago.getProceso().getTermino().equals("0")) {
+                            edoCuenta.setRmethodid(BigDecimal.valueOf(Long.valueOf("0")));
+                        } else {
+                            //Asignar proceso a ERROR-APLICARelPAGO
+                            edoCuenta.setRmethodid(BigDecimal.valueOf(Long.valueOf("105")));
+
+                        }//***********************************************************************************
                     } else {
-                        //Asignar proceso a ERROR-APLICARelPAGO
-                        edoCuenta.setRmethodid(BigDecimal.valueOf(Long.valueOf("105")));
-
-                    }//***********************************************************************************
-                    }else{
                         //No hay facturas asociadas al pago
                         //Asignar proceso a ERROR-APLICARelPAGO
                         edoCuenta.setRmethodid(BigDecimal.valueOf(Long.valueOf("106")));

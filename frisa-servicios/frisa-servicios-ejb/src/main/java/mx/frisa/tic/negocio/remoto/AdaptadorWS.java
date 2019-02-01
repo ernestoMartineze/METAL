@@ -310,7 +310,7 @@ public class AdaptadorWS {
         xmlInput = inyectaParametro(xmlInput, "com:CustomerId", pagos.getCustomerId());
         xmlInput = inyectaParametro(xmlInput, "com:ReceiptDate", FechaUtils.convierteHoyFecha());
         xmlInput = inyectaParametro(xmlInput, "com:ReceiptMethodId", pagos.getMetodoId());
-        xmlInput = inyectaParametro(xmlInput, "com:ReceiptNumber", pagos.getIdEdoCta() + "");
+        xmlInput = inyectaParametro(xmlInput, "com:ReceiptNumber", "10" + pagos.getIdEdoCta());
 
         String SOAPAction
                 = PropiedadesFRISA.recuperaPropiedadBackend("encabezadoFacturaServiceSoapAction");
@@ -426,7 +426,7 @@ public class AdaptadorWS {
         try {
             //Inyectar parametros a la peticion
             xmlInput = inyectaParametro(xmlInput, "com:ReceiptId", pagoDto.getNroRecibo()); //RECIBO ERP
-            xmlInput = inyectaParametro(xmlInput, "com:ReceiptNumber", pagoDto.getIdEdoCta()+""); //RECIBO NUESTRO SecuencialInterno
+            xmlInput = inyectaParametro(xmlInput, "com:ReceiptNumber", "10" + pagoDto.getIdEdoCta()); //RECIBO NUESTRO SecuencialInterno
             xmlInput = inyectaParametro(xmlInput, "com:CustomerTrxId", pLstFacturas.get(0).getCustomerTrxID_erp()+""); // FACTURA ERP
             xmlInput = inyectaParametro(xmlInput, "com:TransactionNumber", pLstFacturas.get(0).getTransactioNumber_erp()+ ""); //FACTURA
             xmlInput = inyectaParametro(xmlInput, "com:AmountApplied", pagoDto.getMonto());//Monto Factura
