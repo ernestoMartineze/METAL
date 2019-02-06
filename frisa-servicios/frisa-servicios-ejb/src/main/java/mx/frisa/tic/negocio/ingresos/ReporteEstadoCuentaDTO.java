@@ -15,6 +15,8 @@ import java.util.Date;
  */
 public class ReporteEstadoCuentaDTO {
     
+    private String idEstadoCuenta;
+    private String idLineaEstadoCuenta;
     private String codigoError;
     private String descripcionError;
     private String uuid;
@@ -68,6 +70,22 @@ public class ReporteEstadoCuentaDTO {
 
     public void setIdCuenta(BigInteger idCuenta) {
         this.idCuenta = idCuenta;
+    }
+
+    public String getIdEstadoCuenta() {
+        return idEstadoCuenta;
+    }
+
+    public void setIdEstadoCuenta(String idEstadoCuenta) {
+        this.idEstadoCuenta = idEstadoCuenta;
+    }
+
+    public String getIdLineaEstadoCuenta() {
+        return idLineaEstadoCuenta;
+    }
+
+    public void setIdLineaEstadoCuenta(String idLineaEstadoCuenta) {
+        this.idLineaEstadoCuenta = idLineaEstadoCuenta;
     }
 
     

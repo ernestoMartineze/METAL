@@ -78,6 +78,12 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
                     manejaLog.debug("getLINEA_CAPTURA : " + lineaPago.getLINEA_CAPTURA());
                     manejaLog.debug("getADDITIONAL_ENTRY_INFORMATION : " + lineaPago.getADDITIONAL_ENTRY_INFORMATION());
                     XxfrtEstadoCuenta edoCuenta = new XxfrtEstadoCuenta();
+
+                    //Asignamos UUID de la transaccion
+                    edoCuenta.setUuid(UUIDFrisa.regresaUUID());
+                    respuesta.setUuid(edoCuenta.getUuid());
+                    edoCuenta.setGlDate(new Date());
+
                     edoCuenta.setBankAccountNum(BigDecimal.valueOf(Long.valueOf(lineaPago.getBANK_ACCOUNT_NUM())));
                     edoCuenta.setAddiotionalEntryInformation(lineaPago.getAMOUNT());
                     edoCuenta.setLineNumber(BigDecimal.valueOf(Long.valueOf(lineaPago.getLINE_NUMBER())));
@@ -177,31 +183,29 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
                         pago.setIdEdoCta(edoCuenta.getIdEdoCta());
                         //Registrar en BD el estatus final de la LINEA ACTUAL DEL estado de cuenta en PROCESO 
                         DAO<XxfrtEstadoCuenta> edoCtaEnt = new DAO(XxfrtEstadoCuenta.class);
-                        edoCuenta.setGlDate(new Date());
-                        edoCuenta.setUuid(UUIDFrisa.regresaUUID());
 
                         edoCtaEnt.actualiza(edoCuenta);
 
                         edoCuenta = procesarPago(edoCuenta, pago, edoCtaDto);
                         if (edoCuenta.getRmethodid().equals("0")) {
                             //Exito en el procesamiento del pago
-                            
+
                             respuesta.setProceso("EXITOSO");
                             respuesta.setIdError("0");
                             respuesta.setDescripcionError("");
-                            
+
                         } else {
                             //Error al proccesar el pago
                             respuesta.setProceso("ERROR");
                             respuesta.setIdError(edoCuenta.getRmethodid() + "");
-                            respuesta.setDescripcionError("");
+                            respuesta.setDescripcionError("Hubo un error al procesar el estado de cuenta revisar reporte por medio del UUID.");
 
                         }
 
-                        //Finalmente se actualiza en BD el estatus final de la LINEA ACTUAL DEL estado de cuenta 
-                        edoCtaEnt.actualiza(edoCuenta);
-
                     }
+
+                    //Finalmente se actualiza en BD el estatus final de la LINEA ACTUAL DEL estado de cuenta 
+                    estadoCuentaDao.actualiza(edoCuenta);
 
                     pago.setNroRecibo(numeroReciboERP);
                     pagosDto.add(pago);
@@ -212,7 +216,7 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
                 //Notificar error detectado
 
                 respuesta.setProceso(ProcesoEnum.ERROR.toString());
-                respuesta.setDescripcionError("No existen estados de cuenta pendientes de procesar");
+                respuesta.setDescripcionError("No existen estados de cuenta pendientes de procesar en el periodo.");
             }
 
         } catch (Exception ex) {
@@ -324,12 +328,12 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
     }
 
     @Override
-    public List<ReporteEstadoCuentaDTO> consultaReporteEstadoCuenta(String uuid) {
+    public List<ReporteEstadoCuentaDTO> consultaReporteEstadoCuenta(FiltroEstadoCuenta filtros) {
         List<ReporteEstadoCuentaDTO> respuesta = new ArrayList();
         DAO<xxfrv_reporte_estado_cuenta> reporteDao = new DAO(xxfrv_reporte_estado_cuenta.class);
         List<xxfrv_reporte_estado_cuenta> resultadoReporte = new ArrayList<>();
         List<CatalogoParametroDTO> parametros = new ArrayList<>();
-        parametros.add(new CatalogoParametroDTO("uuid", uuid, CONSTANTE.CADENA));
+        parametros.add(new CatalogoParametroDTO("uuid", filtros.getUuid(), CONSTANTE.CADENA));
         resultadoReporte = (List<xxfrv_reporte_estado_cuenta>) reporteDao.consultaQueryByParameters("xxfrv_reporte_estado_cuenta.findByUUID", parametros);
         for (xxfrv_reporte_estado_cuenta edoCuenta : resultadoReporte) {
             ReporteEstadoCuentaDTO reporteEdoCta = new ReporteEstadoCuentaDTO();
@@ -344,7 +348,7 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
 
         if (respuesta.size() == 0) {
             ReporteEstadoCuentaDTO reporteEdoCtaControlada = new ReporteEstadoCuentaDTO();
-            reporteEdoCtaControlada.setDescripcionError("No existe información con el uuid : " + uuid);
+            reporteEdoCtaControlada.setDescripcionError("No existe información con el uuid : " + filtros.getUuid());
             respuesta.add(reporteEdoCtaControlada);
         }
 
@@ -411,7 +415,14 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
                         RespuestaERP_EncabezadoRecibo respAplicaPago = adpCabecera.getERP_AplicarPago(pago, lstFacturas);
 
                         if (respAplicaPago.getProceso().getTermino().equals("0")) {
-                            edoCuenta.setRmethodid(BigDecimal.valueOf(Long.valueOf("0")));
+                            //Llamar al procedimiento almacenado procesar pago
+                            int respuestaAP = ejecutarProcedimientoAplicarPago(pago.getLineaCaptura(), pago.getReferencia(), pago.getIdEdoCta());
+                            if (respuestaAP == 0) {
+                                edoCuenta.setRmethodid(BigDecimal.valueOf(Long.valueOf("0")));
+                            } else {
+                                //Asignar proceso a ERROR-al aplicar el pago en proceso LOCAL_BD
+                                edoCuenta.setRmethodid(BigDecimal.valueOf(Long.valueOf("107")));
+                            }
                         } else {
                             //Asignar proceso a ERROR-APLICARelPAGO
                             edoCuenta.setRmethodid(BigDecimal.valueOf(Long.valueOf("105")));
@@ -440,6 +451,12 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
             //METER ESTATUS A NIVEL BD BITACORA FACTURAS
         }
         return edoCuenta;
+    }
+
+    private int ejecutarProcedimientoAplicarPago(String lineaCaptura, String referencia, BigDecimal idPago) {
+        ProcedimientoAlmacendo procedimiento = new ProcedimientoAlmacendo();
+        return procedimiento.ejecutaAplicarPago(lineaCaptura, referencia, idPago);
+
     }
 
 }

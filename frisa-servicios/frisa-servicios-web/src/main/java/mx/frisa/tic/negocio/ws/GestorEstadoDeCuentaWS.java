@@ -11,6 +11,7 @@ import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaDTO;
+import mx.frisa.tic.negocio.ingresos.FiltroEstadoCuenta;
 import mx.frisa.tic.negocio.ingresos.GestorEstadoCuentaLocal;
 import mx.frisa.tic.negocio.ingresos.ReporteEstadoCuentaDTO;
 
@@ -31,8 +32,8 @@ public class GestorEstadoDeCuentaWS {
     }
 
     @WebMethod(operationName = "reporteEstadosCuenta")
-    public List<ReporteEstadoCuentaDTO> reporteEstadosCuenta(@WebParam(name = "uuid") String uuid) {
-        return ejbRefEdoCuenta.consultaReporteEstadoCuenta(uuid);
+    public List<ReporteEstadoCuentaDTO> reporteEstadosCuenta(@WebParam(name = "filtros") FiltroEstadoCuenta filtros) {
+        return ejbRefEdoCuenta.consultaReporteEstadoCuenta(filtros);
     }
 
 }

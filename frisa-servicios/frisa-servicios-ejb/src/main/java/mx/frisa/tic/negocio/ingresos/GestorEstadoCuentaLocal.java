@@ -17,5 +17,5 @@ import mx.frisa.tic.datos.dto.ingresos.RespuestaDTO;
 public interface GestorEstadoCuentaLocal {
 
      RespuestaDTO procesarEstadosCuenta(final String fechaInicio, final String fechaFinal, final String numeroCuenta);
-     List<ReporteEstadoCuentaDTO> consultaReporteEstadoCuenta(String uuid);
+     List<ReporteEstadoCuentaDTO> consultaReporteEstadoCuenta(FiltroEstadoCuenta filtros);
 }
