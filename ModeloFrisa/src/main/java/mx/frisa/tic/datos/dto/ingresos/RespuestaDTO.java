@@ -8,6 +8,7 @@ public class RespuestaDTO {
     String proceso;
     String idError;
     String descripcionError;
+    String uuid;
 
     public RespuestaDTO() {
     }
@@ -42,6 +43,14 @@ public class RespuestaDTO {
 
     public void setDescripcionError(String descripcionError) {
         this.descripcionError = descripcionError;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
     
 }
