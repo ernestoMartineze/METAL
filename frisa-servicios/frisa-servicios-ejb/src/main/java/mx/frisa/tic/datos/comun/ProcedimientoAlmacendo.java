@@ -112,7 +112,7 @@ public class ProcedimientoAlmacendo extends ManejadorEntidad {
         return respuesta;
     }
 
-    public int ejecutaAplicarPago(String pLINEACAPTURA, String pREFERENCIA, BigDecimal pIDPAGO) {
+    public int ejecutaAplicarPago(String pLINEACAPTURA, String pREFERENCIA, String pIDPAGO) {
         ManejadorLog manejadorLog = new ManejadorLog();
         int respuesta = 0;
 

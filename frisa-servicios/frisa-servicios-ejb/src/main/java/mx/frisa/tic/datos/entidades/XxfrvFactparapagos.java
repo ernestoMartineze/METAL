@@ -63,6 +63,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "XxfrvFactparapagos.findByLineacaptura", query = "SELECT x FROM XxfrvFactparapagos x WHERE x.lineacaptura = :lineacaptura")})
 public class XxfrvFactparapagos implements Serializable {
 
+    @Column(name = "CUSTOMERTRXID_ERP")
+    private BigInteger customertrxidErp;
+
     @Size(max = 30)
     @Column(name = "REFERENCENUMBER")
     private String referencenumber;
@@ -83,8 +86,6 @@ public class XxfrvFactparapagos implements Serializable {
     @Column(name = "STATUS_ERP")
     private String statusERP;
 
-    @Column(name = "CUSTOMERTRXID_ERP")
-    private String CUSTOMERTRXID_ERP;
     @Column(name = "TRANSACTIONNUMBER_ERP")
     private String TRANSACTIONNUMBER_ERP;
     private static final long serialVersionUID = 1L;
@@ -434,13 +435,6 @@ public class XxfrvFactparapagos implements Serializable {
         this.statusERP = statusERP;
     }
 
-    public String getCUSTOMERTRXID_ERP() {
-        return CUSTOMERTRXID_ERP;
-    }
-
-    public void setCUSTOMERTRXID_ERP(String CUSTOMERTRXID_ERP) {
-        this.CUSTOMERTRXID_ERP = CUSTOMERTRXID_ERP;
-    }
 
     public String getTRANSACTIONNUMBER_ERP() {
         return TRANSACTIONNUMBER_ERP;
@@ -448,6 +442,14 @@ public class XxfrvFactparapagos implements Serializable {
 
     public void setTRANSACTIONNUMBER_ERP(String TRANSACTIONNUMBER_ERP) {
         this.TRANSACTIONNUMBER_ERP = TRANSACTIONNUMBER_ERP;
+    }
+
+    public BigInteger getCustomertrxidErp() {
+        return customertrxidErp;
+    }
+
+    public void setCustomertrxidErp(BigInteger customertrxidErp) {
+        this.customertrxidErp = customertrxidErp;
     }
 
 }

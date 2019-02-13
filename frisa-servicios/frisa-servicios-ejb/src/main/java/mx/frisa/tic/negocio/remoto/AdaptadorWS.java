@@ -58,8 +58,9 @@ public class AdaptadorWS {
 
     public RespuestaCreaFactura getOBI_generarFacturaAlCobro(List<FacturaPagoDTO> facturas) throws MalformedURLException, IOException {
 
+        System.err.println("Entró al método de factura al cobro");
         String xmlInput = this.getCadenaDesdeB64(PropiedadesFRISA.recuperaPropiedadBackend("generaFacturaServicePayload"));
-
+        System.err.println("XML-Factura a enviar: " + xmlInput);
 //Code to make a webservice HTTP request
         RespuestaCreaFactura respestaWS = new RespuestaCreaFactura();
         respestaWS.setProceso(new Proceso("0", "EXITOSO"));
@@ -108,6 +109,7 @@ public class AdaptadorWS {
                 xmlInput = inyectaParametro(xmlInput, "tran:proyecto", factura.getProjectid() + "");
                 xmlInput = inyectaParametro(xmlInput, "tran:folio", factura.getFolioavisocargo());
                 xmlInput = inyectaParametro(xmlInput, "tran:nUmeroDeLocal", factura.getLinenumber() + "");
+                System.err.println("XML-Factura a enviar: " + xmlInput);
 
                 outputString = enviarMsg(wsURL, SOAPAction, xmlInput, tipoContenido);
                 //Parse the String output to a org.w3c.dom.Document and be able to reach every node with the org.w3c.dom API.
@@ -314,6 +316,7 @@ public class AdaptadorWS {
 
         String SOAPAction
                 = PropiedadesFRISA.recuperaPropiedadBackend("encabezadoFacturaServiceSoapAction");
+        System.err.println("XML-Pagos a enviar: " + xmlInput);
 
         //Ready with sending the request.
         try {
@@ -427,8 +430,8 @@ public class AdaptadorWS {
             //Inyectar parametros a la peticion
             xmlInput = inyectaParametro(xmlInput, "com:ReceiptId", pagoDto.getNroRecibo()); //RECIBO ERP
             xmlInput = inyectaParametro(xmlInput, "com:ReceiptNumber", "10" + pagoDto.getIdEdoCta()); //RECIBO NUESTRO SecuencialInterno
-            xmlInput = inyectaParametro(xmlInput, "com:CustomerTrxId", pLstFacturas.get(0).getCustomerTrxID_erp()+""); // FACTURA ERP
-            xmlInput = inyectaParametro(xmlInput, "com:TransactionNumber", pLstFacturas.get(0).getTransactioNumber_erp()+ ""); //FACTURA
+            xmlInput = inyectaParametro(xmlInput, "com:CustomerTrxId", pLstFacturas.get(0).getErptransactionnumber()+""); // FACTURA ERP
+            xmlInput = inyectaParametro(xmlInput, "com:TransactionNumber", pLstFacturas.get(0).getRelatederpinvoice()+ ""); //FACTURA
             xmlInput = inyectaParametro(xmlInput, "com:AmountApplied", pagoDto.getMonto());//Monto Factura
             xmlInput = inyectaParametro(xmlInput, "com:CustomerName", pagoDto.getBillCustomerName()); //CLIENTE
             xmlInput = inyectaParametro(xmlInput, "com:ApplicationDate", pagoDto.getFechaAplicacion());

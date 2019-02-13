@@ -17,7 +17,7 @@ public class cabeceraActualizaIdERPDTO {
     protected Long codigoerror;
     protected String mensajeerror;
     protected String relatederpinvoice;
-    protected Long erptransactionnumber;
+    protected BigDecimal erptransactionnumber;
 
     public BigDecimal getIdfacturaprimavera() {
         return idfacturaprimavera;
@@ -51,11 +51,11 @@ public class cabeceraActualizaIdERPDTO {
         this.relatederpinvoice = relatederpinvoice;
     }
 
-    public Long getErptransactionnumber() {
+    public BigDecimal getErptransactionnumber() {
         return erptransactionnumber;
     }
 
-    public void setErptransactionnumber(Long erptransactionnumber) {
+    public void setErptransactionnumber(BigDecimal erptransactionnumber) {
         this.erptransactionnumber = erptransactionnumber;
     }
     

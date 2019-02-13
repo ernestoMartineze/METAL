@@ -90,7 +90,7 @@ public class XxfrCabeceraFactura implements Serializable {
     @Column(name = "MENSAJEERROR")
     private String mensajeerror;
     @Column(name = "ERPTRANSACTIONNUMBER")
-    private Long erptransactionnumber;
+    private BigDecimal erptransactionnumber;
 
     @Size(max = 20)
     @Column(name = "ORGID")
@@ -642,11 +642,11 @@ public class XxfrCabeceraFactura implements Serializable {
         this.mensajeerror = mensajeerror;
     }
 
-    public Long getErptransactionnumber() {
+    public BigDecimal getErptransactionnumber() {
         return erptransactionnumber;
     }
 
-    public void setErptransactionnumber(Long erptransactionnumber) {
+    public void setErptransactionnumber(BigDecimal erptransactionnumber) {
         this.erptransactionnumber = erptransactionnumber;
     }
 

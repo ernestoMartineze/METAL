@@ -416,7 +416,7 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
 
                         if (respAplicaPago.getProceso().getTermino().equals("0")) {
                             //Llamar al procedimiento almacenado procesar pago
-                            int respuestaAP = ejecutarProcedimientoAplicarPago(pago.getLineaCaptura(), pago.getReferencia(), pago.getIdEdoCta());
+                            int respuestaAP = ejecutarProcedimientoAplicarPago(pago.getLineaCaptura(), pago.getReferencia(), pago.getIdEdoCta().toString());
                             if (respuestaAP == 0) {
                                 edoCuenta.setRmethodid(BigDecimal.valueOf(Long.valueOf("0")));
                             } else {
@@ -453,7 +453,7 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
         return edoCuenta;
     }
 
-    private int ejecutarProcedimientoAplicarPago(String lineaCaptura, String referencia, BigDecimal idPago) {
+    private int ejecutarProcedimientoAplicarPago(String lineaCaptura, String referencia, String idPago) {
         ProcedimientoAlmacendo procedimiento = new ProcedimientoAlmacendo();
         return procedimiento.ejecutaAplicarPago(lineaCaptura, referencia, idPago);
 

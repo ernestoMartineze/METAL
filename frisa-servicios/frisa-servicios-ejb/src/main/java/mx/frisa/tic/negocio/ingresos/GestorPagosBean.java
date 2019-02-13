@@ -224,8 +224,9 @@ public class GestorPagosBean implements GestorPagos {
                 factura.setFolioavisocargo(facturaPago.getFolioavisocargo());
                 factura.setLocalnumber(facturaPago.getLocalnumber());
                 factura.setLineacaptura(facturaPago.getLineacaptura());
+                factura.setServiceStatus_ERP("S");
                 facturas.add(factura);
-                log.debug("Tipo de factura : " + factura.getGenerationtype().equals("INVOICE_TO_COLLECTION"));
+                log.debug("Tipo de factura : " + factura.getGenerationtype());
                 if (factura.getGenerationtype().equals("INVOICE_TO_COLLECTION")) {
                     facturasAlCobro.add(factura);
                 }
