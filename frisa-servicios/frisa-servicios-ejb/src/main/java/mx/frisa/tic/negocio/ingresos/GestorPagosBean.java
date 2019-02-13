@@ -282,7 +282,7 @@ public class GestorPagosBean implements GestorPagos {
                 queryArmado += " x.rmethodid = 0 ";
 
             } else { // De lo contrario, se muestran los Manuales POR APLICAR, y LOS APLICADOS que cumplan el criterio
-                queryArmado += " x.rmethodid in (0,1) ";
+                queryArmado += " x.rmethodid = 1 ";
             }
 
             if (!filtros.getCuentaBancaria().equals("")) {
