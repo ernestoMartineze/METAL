@@ -13,8 +13,8 @@ import java.math.BigDecimal;
  */
 public class LineaEstadoCuentaDTO {
 
-    private String  fecha, TipoDeposito, conceptoMovimiento, metodoPago;
-    private BigDecimal orgID, idPago, idEstadoCuenta, cuentaBancaria, monto;
+    private String  fecha, TipoDeposito, conceptoMovimiento, metodoPago, cliente;
+    private BigDecimal orgID, idPago, idEstadoCuenta, cuentaBancaria, monto, proyecto;
 
     public BigDecimal getMonto() {
         return monto;
@@ -89,6 +89,22 @@ public class LineaEstadoCuentaDTO {
 
     public void setMetodoPago(String metodoPago) {
         this.metodoPago = metodoPago;
+    }
+
+    public String getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(String cliente) {
+        this.cliente = cliente;
+    }
+
+    public BigDecimal getProyecto() {
+        return proyecto;
+    }
+
+    public void setProyecto(BigDecimal proyecto) {
+        this.proyecto = proyecto;
     }
 
   

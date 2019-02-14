@@ -315,6 +315,9 @@ public class GestorPagosBean implements GestorPagos {
                 lineaDto.setMonto(lineasEdoCuentaEnt.getAmount());
                 lineaDto.setMetodoPago(lineasEdoCuentaEnt.getReceiptMethodId());
                 lineaDto.setTipoDeposito(lineasEdoCuentaEnt.getDescripLookup());
+                lineaDto.setProyecto(BigDecimal.valueOf(Long.valueOf(lineasEdoCuentaEnt.getProyectoPropietario())));
+                lineaDto.setOrgID(lineasEdoCuentaEnt.getIdEdoCta());
+                lineaDto.setCliente("Nombre del cliente");
                 lineas.add(lineaDto);
             }
             respuesta.setProceso(new Proceso("0", "EXITOSO"));
