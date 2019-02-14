@@ -1,0 +1,164 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<jdevws:WebServiceProxy xmlns:jdevws="http://xmlns.oracle.com/jdeveloper/10130/webserviceproxy">
+   <list n="CHILD_NODES">
+      <url path="CatalogoWS_Service.xml"/>
+      <url path="CatalogoWS.wsdl"/>
+      <url path="CatalogoWS1.xsd"/>
+      <url path="ObjectFactory.java"/>
+      <url path="ConsultarCuentaBancariaResponse.java"/>
+      <url path="CatalogoWSPortClient.java"/>
+      <url path="CuentaBancariaDTO.java"/>
+      <url path="CatalogoWS_Service.java"/>
+      <url path="ConsultarTipoMoneda.java"/>
+      <url path="TipoMonedaDTO.java"/>
+      <url path="ConsultarTipoMonedaResponse.java"/>
+      <url path="CatalogoWS.java"/>
+      <url path="package-info.java"/>
+      <url path="ConsultarPais.java"/>
+      <url path="ConsultarPaisResponse.java"/>
+      <url path="ConsultarCuentaBancaria.java"/>
+   </list>
+   <hash n="DATA_MODEL">
+      <value n="ATTACHMENT_ENCODING" v="MIME"/>
+      <list n="LOCAL_FILES"/>
+      <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.proxy.WebServiceProxy"/>
+      <url n="ORACLE_WEBSERVICES_XML" path="CatalogoWS_Service.xml"/>
+      <hash n="PROPERTY_GROUPS">
+         <hash n="WSDL_TO_JAVA_PROPERTIES">
+            <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.java.WSDLToJavaProperties"/>
+         </hash>
+      </hash>
+      <value n="PROXY_ASYNC_METHODS" v="FOR_ENABLED"/>
+      <list n="PROXY_CLIENTS">
+         <url path="CatalogoWSPortClient.java"/>
+      </list>
+      <value n="PROXY_MAPPING_URL"/>
+      <url n="PROXY_ORIGINAL_WSDL_URL" protocol="http" host="10.0.75.1" port="7001" path="/frisa-servicios/CatalogoWS" query="WSDL"/>
+      <hash n="PROXY_PORTS">
+         <hash n="CatalogoWSPort">
+            <value n="ACCESSES_DOC_WRAPPPED" v="true"/>
+            <value n="ACCESSES_RPC_ENCODED" v="false"/>
+            <value n="CLASS_NAME" v="mx.frisa.tic.negocio.ws.CatalogoWS"/>
+            <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.proxy.ProxyPort"/>
+            <value n="NAME" v="CatalogoWSPort"/>
+            <hash n="OPERATIONS">
+               <hash n="consultarCuentaBancaria">
+                  <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.proxy.ProxyOperation"/>
+                  <hash n="PROPERTY_GROUPS"/>
+               </hash>
+               <hash n="consultarPais">
+                  <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.proxy.ProxyOperation"/>
+                  <hash n="PROPERTY_GROUPS"/>
+               </hash>
+               <hash n="consultarTipoMoneda">
+                  <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.proxy.ProxyOperation"/>
+                  <hash n="PROPERTY_GROUPS"/>
+               </hash>
+            </hash>
+            <hash n="PROPERTY_GROUPS">
+               <hash n="WS_POLICY">
+                  <value n="addressing"/>
+                  <hash n="GLOBAL_CONFIG_PROPERTIES"/>
+                  <list n="management"/>
+                  <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.policy.PolicyClientModel"/>
+                  <value n="mtom"/>
+                  <hash n="POLICY_OVERRIDE_PROPERTIES"/>
+                  <list n="security"/>
+                  <list n="wsconfig"/>
+                  <value n="wsrm"/>
+               </hash>
+            </hash>
+            <url n="PROXY_ORIGINAL_PORT_ENDPOINT" protocol="http" host="10.0.75.1" port="7001" path="/frisa-servicios/CatalogoWS"/>
+         </hash>
+      </hash>
+      <value n="PROXY_SERVICE_NAME" v="CatalogoWS"/>
+      <value n="PROXY_SERVICE_NAMESPACE" v="http://ws.negocio.tic.frisa.mx/"/>
+      <url n="PROXY_TARGET_PROJECT" path="../../../../../../Model.jpr"/>
+      <list n="PROXY_WSDL_IMPORT_LIST">
+         <url path="CatalogoWS1.xsd"/>
+      </list>
+      <url n="PROXY_WSDL_URL" path="CatalogoWS.wsdl"/>
+      <hash n="REFERENCED_WEBSERVICE">
+         <list n="BD_">
+            <hash>
+               <value n="BOUND_PORT_TYPE" v="{http://ws.negocio.tic.frisa.mx/}CatalogoWS"/>
+               <value n="DEFAULT_NAME" v="false"/>
+               <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.SOAPBinding"/>
+               <value n="NAME" v="{http://ws.negocio.tic.frisa.mx/}CatalogoWSPortBinding"/>
+               <list n="OP_BINDINGS">
+                  <hash>
+                     <value n="BOUND_OPERATION" v="java.lang.String.consultarPais.int.java.lang.String"/>
+                     <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.SOAPOperationBinding"/>
+                     <hash n="PROPERTY_GROUPS"/>
+                  </hash>
+                  <hash>
+                     <value n="BOUND_OPERATION" v="java.util.List&lt;mx.frisa.tic.negocio.ws.TipoMonedaDTO>.consultarTipoMoneda"/>
+                     <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.SOAPOperationBinding"/>
+                     <hash n="PROPERTY_GROUPS"/>
+                  </hash>
+                  <hash>
+                     <value n="BOUND_OPERATION" v="java.util.List&lt;mx.frisa.tic.negocio.ws.CuentaBancariaDTO>.consultarCuentaBancaria.java.lang.String"/>
+                     <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.SOAPOperationBinding"/>
+                     <hash n="PROPERTY_GROUPS"/>
+                  </hash>
+               </list>
+               <hash n="PROPERTY_GROUPS"/>
+            </hash>
+         </list>
+         <list n="BINDING_FILES"/>
+         <value n="GUID" v="e9b2b8da-0168-1000-8004-0a004b0106cb"/>
+         <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.proxy.WebServiceProxy$ProxyJavaWebService"/>
+         <list n="PO_">
+            <hash>
+               <value n="DEFAULT_NAME" v="false"/>
+               <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.SOAPPort"/>
+               <value n="NAME" v="CatalogoWSPort"/>
+               <value n="PORT_BINDING_NAME" v="{http://ws.negocio.tic.frisa.mx/}CatalogoWSPortBinding"/>
+               <list n="PORT_OPS">
+                  <hash>
+                     <value n="EXPOSED_BD_OPERATION" v="java.lang.String.consultarPais.int.java.lang.String"/>
+                     <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.PortOperation"/>
+                     <hash n="PROPERTY_GROUPS"/>
+                  </hash>
+                  <hash>
+                     <value n="EXPOSED_BD_OPERATION" v="java.util.List&lt;mx.frisa.tic.negocio.ws.TipoMonedaDTO>.consultarTipoMoneda"/>
+                     <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.PortOperation"/>
+                     <hash n="PROPERTY_GROUPS"/>
+                  </hash>
+                  <hash>
+                     <value n="EXPOSED_BD_OPERATION" v="java.util.List&lt;mx.frisa.tic.negocio.ws.CuentaBancariaDTO>.consultarCuentaBancaria.java.lang.String"/>
+                     <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.PortOperation"/>
+                     <hash n="PROPERTY_GROUPS"/>
+                  </hash>
+               </list>
+               <hash n="PROPERTY_GROUPS"/>
+               <url n="URL" protocol="http" host="10.0.75.1" port="7001" path="/frisa-servicios/CatalogoWS"/>
+            </hash>
+         </list>
+         <hash n="PROPERTY_GROUPS">
+            <hash n="WSDL_TO_JAVA_PROPERTIES">
+               <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.java.WSDLToJavaProperties"/>
+            </hash>
+         </hash>
+         <list n="PT_">
+            <hash>
+               <value n="AUTO_SERVICE_INTERFACE"/>
+               <value n="DEFAULT_NAME" v="false"/>
+               <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.java.JavaPortType"/>
+               <value n="NAME" v="{http://ws.negocio.tic.frisa.mx/}CatalogoWS"/>
+               <hash n="PROPERTY_GROUPS"/>
+               <value n="PT_CLASS" v="mx.frisa.tic.negocio.ws.CatalogoWSImpl"/>
+               <value n="PT_SERVICE_INTERFACE" v="mx.frisa.tic.negocio.ws.CatalogoWS"/>
+               <value n="PT_TOP_DOWN_GENERATED_SEI_NAME" v="mx.frisa.tic.negocio.ws.CatalogoWS"/>
+            </hash>
+         </list>
+         <url n="TARGET_PROJECT" path="../../../../../../Model.jpr"/>
+         <value n="WS_ORIG_GEN_DIRECTION" v="TOP_DOWN"/>
+         <value n="WS_TARGET_NAMESPACE" v="http://ws.negocio.tic.frisa.mx/"/>
+         <value n="WS_URI" v="CatalogoWS"/>
+         <url n="WS_WSDL_FILE" path="CatalogoWS.wsdl"/>
+      </hash>
+      <value n="SERVICE_ASYNC" v="false"/>
+      <value n="USE_WSDL_LOCATION" v="true"/>
+   </hash>
+</jdevws:WebServiceProxy>

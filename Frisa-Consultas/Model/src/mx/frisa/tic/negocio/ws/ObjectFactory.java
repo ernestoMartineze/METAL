@@ -24,21 +24,17 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _AplicarPagoManual_QNAME =
-        new QName("http://ws.negocio.tic.frisa.mx/", "aplicarPagoManual");
-    private final static QName _AplicarPagoManualResponse_QNAME =
-        new QName("http://ws.negocio.tic.frisa.mx/", "aplicarPagoManualResponse");
-    private final static QName _ConsultarPagosSinReferencia_QNAME =
-        new QName("http://ws.negocio.tic.frisa.mx/", "consultarPagosSinReferencia");
-    private final static QName _ConsultarPagosSinReferenciaResponse_QNAME =
-        new QName("http://ws.negocio.tic.frisa.mx/", "consultarPagosSinReferenciaResponse");
-    private final static QName _ConsultarReferenciaLCExistente_QNAME =
-        new QName("http://ws.negocio.tic.frisa.mx/", "consultarReferenciaLCExistente");
-    private final static QName _ConsultarReferenciaLCExistenteResponse_QNAME =
-        new QName("http://ws.negocio.tic.frisa.mx/", "consultarReferenciaLCExistenteResponse");
-    private final static QName _GenerarPago_QNAME = new QName("http://ws.negocio.tic.frisa.mx/", "generarPago");
-    private final static QName _GenerarPagoResponse_QNAME =
-        new QName("http://ws.negocio.tic.frisa.mx/", "generarPagoResponse");
+    private final static QName _ConsultarCuentaBancaria_QNAME =
+        new QName("http://ws.negocio.tic.frisa.mx/", "consultarCuentaBancaria");
+    private final static QName _ConsultarCuentaBancariaResponse_QNAME =
+        new QName("http://ws.negocio.tic.frisa.mx/", "consultarCuentaBancariaResponse");
+    private final static QName _ConsultarPais_QNAME = new QName("http://ws.negocio.tic.frisa.mx/", "consultarPais");
+    private final static QName _ConsultarPaisResponse_QNAME =
+        new QName("http://ws.negocio.tic.frisa.mx/", "consultarPaisResponse");
+    private final static QName _ConsultarTipoMoneda_QNAME =
+        new QName("http://ws.negocio.tic.frisa.mx/", "consultarTipoMoneda");
+    private final static QName _ConsultarTipoMonedaResponse_QNAME =
+        new QName("http://ws.negocio.tic.frisa.mx/", "consultarTipoMonedaResponse");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: mx.frisa.tic.negocio.ws
@@ -48,274 +44,149 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link AplicarPagoManual }
+     * Create an instance of {@link ConsultarCuentaBancaria }
      *
      */
-    public AplicarPagoManual createAplicarPagoManual() {
-        return new AplicarPagoManual();
+    public ConsultarCuentaBancaria createConsultarCuentaBancaria() {
+        return new ConsultarCuentaBancaria();
     }
 
     /**
-     * Create an instance of {@link AplicarPagoManualResponse }
+     * Create an instance of {@link ConsultarCuentaBancariaResponse }
      *
      */
-    public AplicarPagoManualResponse createAplicarPagoManualResponse() {
-        return new AplicarPagoManualResponse();
+    public ConsultarCuentaBancariaResponse createConsultarCuentaBancariaResponse() {
+        return new ConsultarCuentaBancariaResponse();
     }
 
     /**
-     * Create an instance of {@link ConsultarPagosSinReferencia }
+     * Create an instance of {@link ConsultarPais }
      *
      */
-    public ConsultarPagosSinReferencia createConsultarPagosSinReferencia() {
-        return new ConsultarPagosSinReferencia();
+    public ConsultarPais createConsultarPais() {
+        return new ConsultarPais();
     }
 
     /**
-     * Create an instance of {@link ConsultarPagosSinReferenciaResponse }
+     * Create an instance of {@link ConsultarPaisResponse }
      *
      */
-    public ConsultarPagosSinReferenciaResponse createConsultarPagosSinReferenciaResponse() {
-        return new ConsultarPagosSinReferenciaResponse();
+    public ConsultarPaisResponse createConsultarPaisResponse() {
+        return new ConsultarPaisResponse();
     }
 
     /**
-     * Create an instance of {@link ConsultarReferenciaLCExistente }
+     * Create an instance of {@link ConsultarTipoMoneda }
      *
      */
-    public ConsultarReferenciaLCExistente createConsultarReferenciaLCExistente() {
-        return new ConsultarReferenciaLCExistente();
+    public ConsultarTipoMoneda createConsultarTipoMoneda() {
+        return new ConsultarTipoMoneda();
     }
 
     /**
-     * Create an instance of {@link ConsultarReferenciaLCExistenteResponse }
+     * Create an instance of {@link ConsultarTipoMonedaResponse }
      *
      */
-    public ConsultarReferenciaLCExistenteResponse createConsultarReferenciaLCExistenteResponse() {
-        return new ConsultarReferenciaLCExistenteResponse();
+    public ConsultarTipoMonedaResponse createConsultarTipoMonedaResponse() {
+        return new ConsultarTipoMonedaResponse();
     }
 
     /**
-     * Create an instance of {@link GenerarPago }
+     * Create an instance of {@link CuentaBancariaDTO }
      *
      */
-    public GenerarPago createGenerarPago() {
-        return new GenerarPago();
+    public CuentaBancariaDTO createCuentaBancariaDTO() {
+        return new CuentaBancariaDTO();
     }
 
     /**
-     * Create an instance of {@link GenerarPagoResponse }
+     * Create an instance of {@link TipoMonedaDTO }
      *
      */
-    public GenerarPagoResponse createGenerarPagoResponse() {
-        return new GenerarPagoResponse();
+    public TipoMonedaDTO createTipoMonedaDTO() {
+        return new TipoMonedaDTO();
     }
 
     /**
-     * Create an instance of {@link AplicarPagoDTO }
-     *
-     */
-    public AplicarPagoDTO createAplicarPagoDTO() {
-        return new AplicarPagoDTO();
-    }
-
-    /**
-     * Create an instance of {@link PagoPorAplicarDTO }
-     *
-     */
-    public PagoPorAplicarDTO createPagoPorAplicarDTO() {
-        return new PagoPorAplicarDTO();
-    }
-
-    /**
-     * Create an instance of {@link RespuestaDTO }
-     *
-     */
-    public RespuestaDTO createRespuestaDTO() {
-        return new RespuestaDTO();
-    }
-
-    /**
-     * Create an instance of {@link FiltroPagoSinReferencia }
-     *
-     */
-    public FiltroPagoSinReferencia createFiltroPagoSinReferencia() {
-        return new FiltroPagoSinReferencia();
-    }
-
-    /**
-     * Create an instance of {@link RespuestaPagoSinReferencia }
-     *
-     */
-    public RespuestaPagoSinReferencia createRespuestaPagoSinReferencia() {
-        return new RespuestaPagoSinReferencia();
-    }
-
-    /**
-     * Create an instance of {@link LineaEstadoCuentaDTO }
-     *
-     */
-    public LineaEstadoCuentaDTO createLineaEstadoCuentaDTO() {
-        return new LineaEstadoCuentaDTO();
-    }
-
-    /**
-     * Create an instance of {@link Proceso }
-     *
-     */
-    public Proceso createProceso() {
-        return new Proceso();
-    }
-
-    /**
-     * Create an instance of {@link PeticionExistente }
-     *
-     */
-    public PeticionExistente createPeticionExistente() {
-        return new PeticionExistente();
-    }
-
-    /**
-     * Create an instance of {@link RespuestaClienteDTO }
-     *
-     */
-    public RespuestaClienteDTO createRespuestaClienteDTO() {
-        return new RespuestaClienteDTO();
-    }
-
-    /**
-     * Create an instance of {@link PagoDTO }
-     *
-     */
-    public PagoDTO createPagoDTO() {
-        return new PagoDTO();
-    }
-
-    /**
-     * Create an instance of {@link RespuestaProcesaFacturasDTO }
-     *
-     */
-    public RespuestaProcesaFacturasDTO createRespuestaProcesaFacturasDTO() {
-        return new RespuestaProcesaFacturasDTO();
-    }
-
-    /**
-     * Create an instance of {@link FacturaPagoDTO }
-     *
-     */
-    public FacturaPagoDTO createFacturaPagoDTO() {
-        return new FacturaPagoDTO();
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link AplicarPagoManual }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link ConsultarCuentaBancaria }{@code >}
      *
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link AplicarPagoManual }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link ConsultarCuentaBancaria }{@code >}
      */
-    @XmlElementDecl(namespace = "http://ws.negocio.tic.frisa.mx/", name = "aplicarPagoManual")
-    public JAXBElement<AplicarPagoManual> createAplicarPagoManual(AplicarPagoManual value) {
-        return new JAXBElement<AplicarPagoManual>(_AplicarPagoManual_QNAME, AplicarPagoManual.class, null, value);
+    @XmlElementDecl(namespace = "http://ws.negocio.tic.frisa.mx/", name = "consultarCuentaBancaria")
+    public JAXBElement<ConsultarCuentaBancaria> createConsultarCuentaBancaria(ConsultarCuentaBancaria value) {
+        return new JAXBElement<ConsultarCuentaBancaria>(_ConsultarCuentaBancaria_QNAME, ConsultarCuentaBancaria.class,
+                                                        null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link AplicarPagoManualResponse }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link ConsultarCuentaBancariaResponse }{@code >}
      *
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link AplicarPagoManualResponse }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link ConsultarCuentaBancariaResponse }{@code >}
      */
-    @XmlElementDecl(namespace = "http://ws.negocio.tic.frisa.mx/", name = "aplicarPagoManualResponse")
-    public JAXBElement<AplicarPagoManualResponse> createAplicarPagoManualResponse(AplicarPagoManualResponse value) {
-        return new JAXBElement<AplicarPagoManualResponse>(_AplicarPagoManualResponse_QNAME,
-                                                          AplicarPagoManualResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://ws.negocio.tic.frisa.mx/", name = "consultarCuentaBancariaResponse")
+    public JAXBElement<ConsultarCuentaBancariaResponse> createConsultarCuentaBancariaResponse(ConsultarCuentaBancariaResponse value) {
+        return new JAXBElement<ConsultarCuentaBancariaResponse>(_ConsultarCuentaBancariaResponse_QNAME,
+                                                                ConsultarCuentaBancariaResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ConsultarPagosSinReferencia }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link ConsultarPais }{@code >}
      *
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link ConsultarPagosSinReferencia }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link ConsultarPais }{@code >}
      */
-    @XmlElementDecl(namespace = "http://ws.negocio.tic.frisa.mx/", name = "consultarPagosSinReferencia")
-    public JAXBElement<ConsultarPagosSinReferencia> createConsultarPagosSinReferencia(ConsultarPagosSinReferencia value) {
-        return new JAXBElement<ConsultarPagosSinReferencia>(_ConsultarPagosSinReferencia_QNAME,
-                                                            ConsultarPagosSinReferencia.class, null, value);
+    @XmlElementDecl(namespace = "http://ws.negocio.tic.frisa.mx/", name = "consultarPais")
+    public JAXBElement<ConsultarPais> createConsultarPais(ConsultarPais value) {
+        return new JAXBElement<ConsultarPais>(_ConsultarPais_QNAME, ConsultarPais.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ConsultarPagosSinReferenciaResponse }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link ConsultarPaisResponse }{@code >}
      *
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link ConsultarPagosSinReferenciaResponse }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link ConsultarPaisResponse }{@code >}
      */
-    @XmlElementDecl(namespace = "http://ws.negocio.tic.frisa.mx/", name = "consultarPagosSinReferenciaResponse")
-    public JAXBElement<ConsultarPagosSinReferenciaResponse> createConsultarPagosSinReferenciaResponse(ConsultarPagosSinReferenciaResponse value) {
-        return new JAXBElement<ConsultarPagosSinReferenciaResponse>(_ConsultarPagosSinReferenciaResponse_QNAME,
-                                                                    ConsultarPagosSinReferenciaResponse.class, null,
-                                                                    value);
+    @XmlElementDecl(namespace = "http://ws.negocio.tic.frisa.mx/", name = "consultarPaisResponse")
+    public JAXBElement<ConsultarPaisResponse> createConsultarPaisResponse(ConsultarPaisResponse value) {
+        return new JAXBElement<ConsultarPaisResponse>(_ConsultarPaisResponse_QNAME, ConsultarPaisResponse.class, null,
+                                                      value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ConsultarReferenciaLCExistente }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link ConsultarTipoMoneda }{@code >}
      *
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link ConsultarReferenciaLCExistente }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link ConsultarTipoMoneda }{@code >}
      */
-    @XmlElementDecl(namespace = "http://ws.negocio.tic.frisa.mx/", name = "consultarReferenciaLCExistente")
-    public JAXBElement<ConsultarReferenciaLCExistente> createConsultarReferenciaLCExistente(ConsultarReferenciaLCExistente value) {
-        return new JAXBElement<ConsultarReferenciaLCExistente>(_ConsultarReferenciaLCExistente_QNAME,
-                                                               ConsultarReferenciaLCExistente.class, null, value);
+    @XmlElementDecl(namespace = "http://ws.negocio.tic.frisa.mx/", name = "consultarTipoMoneda")
+    public JAXBElement<ConsultarTipoMoneda> createConsultarTipoMoneda(ConsultarTipoMoneda value) {
+        return new JAXBElement<ConsultarTipoMoneda>(_ConsultarTipoMoneda_QNAME, ConsultarTipoMoneda.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ConsultarReferenciaLCExistenteResponse }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link ConsultarTipoMonedaResponse }{@code >}
      *
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link ConsultarReferenciaLCExistenteResponse }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link ConsultarTipoMonedaResponse }{@code >}
      */
-    @XmlElementDecl(namespace = "http://ws.negocio.tic.frisa.mx/", name = "consultarReferenciaLCExistenteResponse")
-    public JAXBElement<ConsultarReferenciaLCExistenteResponse> createConsultarReferenciaLCExistenteResponse(ConsultarReferenciaLCExistenteResponse value) {
-        return new JAXBElement<ConsultarReferenciaLCExistenteResponse>(_ConsultarReferenciaLCExistenteResponse_QNAME,
-                                                                       ConsultarReferenciaLCExistenteResponse.class,
-                                                                       null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GenerarPago }{@code >}
-     *
-     * @param value
-     *     Java instance representing xml element's value.
-     * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link GenerarPago }{@code >}
-     */
-    @XmlElementDecl(namespace = "http://ws.negocio.tic.frisa.mx/", name = "generarPago")
-    public JAXBElement<GenerarPago> createGenerarPago(GenerarPago value) {
-        return new JAXBElement<GenerarPago>(_GenerarPago_QNAME, GenerarPago.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GenerarPagoResponse }{@code >}
-     *
-     * @param value
-     *     Java instance representing xml element's value.
-     * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link GenerarPagoResponse }{@code >}
-     */
-    @XmlElementDecl(namespace = "http://ws.negocio.tic.frisa.mx/", name = "generarPagoResponse")
-    public JAXBElement<GenerarPagoResponse> createGenerarPagoResponse(GenerarPagoResponse value) {
-        return new JAXBElement<GenerarPagoResponse>(_GenerarPagoResponse_QNAME, GenerarPagoResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://ws.negocio.tic.frisa.mx/", name = "consultarTipoMonedaResponse")
+    public JAXBElement<ConsultarTipoMonedaResponse> createConsultarTipoMonedaResponse(ConsultarTipoMonedaResponse value) {
+        return new JAXBElement<ConsultarTipoMonedaResponse>(_ConsultarTipoMonedaResponse_QNAME,
+                                                            ConsultarTipoMonedaResponse.class, null, value);
     }
 
 }

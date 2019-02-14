@@ -11,6 +11,7 @@ import mx.frisa.tic.negocio.ws.RespuestaPagoSinReferencia;
 import mx.frisa.tic.negocio.ws.RespuestaClienteDTO;
 import mx.frisa.tic.negocio.ws.PagoPorAplicarDTO;
 import mx.frisa.tic.negocio.ws.AplicarPagoDTO;
+import mx.frisa.tic.negocio.ws.CuentaBancariaDTO;
 
 import oracle.adf.view.rich.component.rich.RichDocument;
 import oracle.adf.view.rich.component.rich.RichForm;
@@ -27,7 +28,10 @@ import java.util.ArrayList;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.math.BigInteger;
+import javax.faces.model.SelectItem;
 
+import mx.frisa.tic.negocio.ws.CatalogoWS;
+import mx.frisa.tic.negocio.ws.CatalogoWS_Service;
 import mx.frisa.tic.negocio.ws.RespuestaDTO;
 
 import oracle.adf.view.rich.component.rich.RichDialog;
@@ -35,6 +39,7 @@ import oracle.adf.view.rich.component.rich.RichPopup;
 import oracle.adf.view.rich.component.rich.data.RichTable;
 import oracle.adf.view.rich.component.rich.output.RichOutputText;
 import oracle.adf.view.rich.context.AdfFacesContext;
+import oracle.adf.view.rich.render.ClientEvent;
 
 public class PagoSinReferencia {
     
@@ -67,6 +72,8 @@ public class PagoSinReferencia {
     private RichGridRow gr4;
     private RichGridCell gc12;
     private RichGridCell gc13;
+
+
     private RichGridCell gc14;
     private RichGridCell gc15;
     private RichGridCell gc16;
@@ -84,6 +91,8 @@ public class PagoSinReferencia {
     private RichPopup p1;
     private RichOutputText ot7;
     private RichDialog d2;
+    private boolean activaITx;
+    
 
     public void setF1(RichForm f1) {
         this.f1 = f1;
@@ -416,9 +425,11 @@ public class PagoSinReferencia {
         }
         //validamos checkbox para pagos aplicados
         if(aplicadosCB.isSelected()){
-            filtros.setMostrarAplicar("NO");
-        }else{
             filtros.setMostrarAplicar("");
+            this.activaITx=true;
+        }else{
+            filtros.setMostrarAplicar("NO");
+            this.activaITx=false;
         }
         
         RespuestaPagoSinReferencia respuestaPagos = gestorPagosWS.consultarPagosSinReferencia(filtros);
@@ -456,6 +467,14 @@ public class PagoSinReferencia {
 
     public RespuestaDTO getRespuesta() {
         return respuesta;
+    }
+    
+    public void setActivaITx(boolean activaITx) {
+        this.activaITx = activaITx;
+    }
+
+    public boolean isActivaITx() {
+        return activaITx;
     }
 
     public String validarP_Action() {
@@ -579,4 +598,27 @@ public class PagoSinReferencia {
     }
 
 
+    public void cuentaBancariaT_value(ClientEvent clientEvent) {
+        // Add event code here...
+        if(cuentaBancariaIT.getValue() != null && cuentaBancariaIT.getValue().toString().length() >=3){
+                CatalogoWS_Service catalogoWS_Service = new CatalogoWS_Service();
+                CatalogoWS catalogoWS = catalogoWS_Service.getCatalogoWSPort();
+                
+                System.out.println("press1");    
+            }
+    }
+    
+    public List getSuggestions(String input) {
+
+         // create a new list to hold matching items
+         List<SelectItem> items = new ArrayList<SelectItem>();
+         CatalogoWS_Service catalogoWS_Service = new CatalogoWS_Service();
+         CatalogoWS catalogoWS = catalogoWS_Service.getCatalogoWSPort();
+         List<CuentaBancariaDTO> cuentas = catalogoWS.consultarCuentaBancaria(cuentaBancariaIT.getValue().toString());
+         for(CuentaBancariaDTO cuenta:cuentas){
+                 items.add(new SelectItem(cuenta.getNumeroCuenta()));
+             }
+         //items.add(new SelectItem("Sydney"));
+         return items;
+     }
 }

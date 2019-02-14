@@ -10,7 +10,17 @@
                     <af:gridCell marginStart="5px" width="100%" marginEnd="5px" id="gc1"
                                  binding="#{pageFlowScope.backing_PagoSinReferencia.gc1}">
                         <af:inputText label="Cuenta bancaria" id="cuentaBancariaT"
-                                      binding="#{pageFlowScope.backing_PagoSinReferencia.cuentaBancariaIT}"/>
+                                      binding="#{pageFlowScope.backing_PagoSinReferencia.cuentaBancariaIT}">
+                            <af:clientListener method="handleEnterEvent" type="keyUp"/>
+                            <af:serverListener type="EnterEvent" method="#{pageFlowScope.backing_PagoSinReferencia.cuentaBancariaT_value}"/>
+                            <af:autoSuggestBehavior suggestedItems="#{pageFlowScope.backing_PagoSinReferencia.getSuggestions}"/>
+                        </af:inputText>
+                        <af:resource type="javascript">
+                                function handleEnterEvent(evt) {
+                                  var comp = evt.getSource();
+                                  AdfCustomEvent.queue(comp, "EnterEvent", {fvalue:comp.getSubmittedValue()}, false);
+                               }
+                        </af:resource>
                     </af:gridCell>
                 </af:gridRow>
             </af:panelGridLayout>
@@ -109,10 +119,12 @@
                                 <af:outputText value="#{row.conceptoDeposito}" id="ot6"/>
                             </af:column>
                             <af:column sortable="false" headerText="Referencia" align="start" id="c7">
-                                <af:inputText id="it1" value="#{row.referencia}"/>
+                                <af:inputText id="it1" value="#{row.referencia}"
+                                              disabled="#{pageFlowScope.backing_PagoSinReferencia.activaITx}"/>
                             </af:column>
                             <af:column sortable="false" headerText="Linea De Captura" align="start" id="c8">
-                                <af:inputText id="it2" value="#{row.lineaDeCaptura}"/>
+                                <af:inputText id="it2" value="#{row.lineaDeCaptura}"
+                                            disabled="#{pageFlowScope.backing_PagoSinReferencia.activaITx}"/>
                             </af:column>
                             <af:column sortable="false" headerText="Unidad De Negocio" align="start" id="c9" inlineStyle="#{row.inlineStyle}">
                                 <af:outputText value="#{row.unidadDeNegocio}" id="ot9"/>
