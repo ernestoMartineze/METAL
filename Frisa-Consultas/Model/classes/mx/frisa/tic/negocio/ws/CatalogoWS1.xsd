@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<xsd:schema xmlns:ns0="http://ws.negocio.tic.frisa.mx/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://ws.negocio.tic.frisa.mx/">
+  <xsd:complexType name="consultarCuentaBancaria">
+    <xsd:sequence>
+      <xsd:element name="numeroCuenta" type="xsd:string" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="consultarCuentaBancariaResponse">
+    <xsd:sequence>
+      <xsd:element name="return" type="ns0:cuentaBancariaDTO" minOccurs="0" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="consultarPais">
+    <xsd:sequence>
+      <xsd:element name="id" type="xsd:int"/>
+      <xsd:element name="clave" type="xsd:string" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="consultarPaisResponse">
+    <xsd:sequence>
+      <xsd:element name="return" type="xsd:string" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="consultarTipoMoneda"/>
+  <xsd:complexType name="consultarTipoMonedaResponse">
+    <xsd:sequence>
+      <xsd:element name="return" type="ns0:tipoMonedaDTO" minOccurs="0" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="cuentaBancariaDTO">
+    <xsd:sequence>
+      <xsd:element name="estatus" type="xsd:int" minOccurs="0"/>
+      <xsd:element name="fecha" type="xsd:dateTime" minOccurs="0"/>
+      <xsd:element name="nombre" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="numeroCuenta" type="xsd:int" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="tipoMonedaDTO">
+    <xsd:sequence>
+      <xsd:element name="codigo" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="cveTipoMonedaFrisa" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="descripcion" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="ind_activo" type="xsd:string" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="consultarCuentaBancaria" type="ns0:consultarCuentaBancaria"/>
+  <xsd:element name="consultarCuentaBancariaResponse" type="ns0:consultarCuentaBancariaResponse"/>
+  <xsd:element name="consultarPais" type="ns0:consultarPais"/>
+  <xsd:element name="consultarPaisResponse" type="ns0:consultarPaisResponse"/>
+  <xsd:element name="consultarTipoMoneda" type="ns0:consultarTipoMoneda"/>
+  <xsd:element name="consultarTipoMonedaResponse" type="ns0:consultarTipoMonedaResponse"/>
+</xsd:schema>

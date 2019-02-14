@@ -148,7 +148,7 @@
                     <f:facet name="buttonBar" />
                     <af:outputText id="ot7"
                                    binding="#{pageFlowScope.backing_PagoSinReferencia.ot7}"
-                                   value="#{pageFlowScope.backing_PagoSinReferencia.respuesta.descripcionError}"/>
+                                   value="#{pageFlowScope.backing_PagoSinReferencia.respuesta.proceso.descripcion}"/>
                 </af:dialog>
             </af:popup>
         </af:form>

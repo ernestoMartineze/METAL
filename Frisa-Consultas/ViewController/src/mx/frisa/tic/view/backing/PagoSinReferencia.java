@@ -28,6 +28,9 @@ import java.util.ArrayList;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.math.BigInteger;
+
+import java.util.Collection;
+
 import javax.faces.model.SelectItem;
 
 import mx.frisa.tic.negocio.ws.CatalogoWS;
@@ -85,6 +88,7 @@ public class PagoSinReferencia {
     
     //variables y clases
     private List<PagoSinReferenciaVO> pagosVO;
+    private List<PagoSinReferenciaVO> pagosAplicarVO;
     private AplicarPagoDTO aplicarPago;
     private RespuestaAplicarPagoDTO respuesta; 
     private RichTable t1;
@@ -505,7 +509,8 @@ public class PagoSinReferencia {
                             pagos.setUnidadDeNegocio(respuesta.getUnidadNegocio());
                             pagos.setProyecto(respuesta.getProyectoID().toString());
                             pagos.setCliente(respuesta.getCliente());
-                            pagos.setNCuenta(respuesta.getIdPago().toString());
+                            //pagos.setNCuenta(a);
+                            //pagos.setInlineStyle(inlineStyle);
                             //pagosAplicar.add(pagos);
                         }          
                 }
@@ -516,31 +521,46 @@ public class PagoSinReferencia {
     }
 
     public String aplicarB_Action() {
-        // Add event code here...
-        //for(PagoPorAplicarDTO pago :pagoPorAplicar){
-            GestorPagosWS_Service gestorPagosWS_Service = new GestorPagosWS_Service();
-            GestorPagosWS gestorPagosWS = gestorPagosWS_Service.getGestorPagosWSPort();
-            //AplicarPagoDTO aplicarPago = new AplicarPagoDTO();
-            //aplicarPago.
-            respuesta = gestorPagosWS.aplicarPagoManual(aplicarPago);
-            
-            if (!respuesta.getProceso().getDescripcion().equals("ERROR")){
-                respuesta.getProceso().setDescripcion("Algunos pagos no se aplicaron correctamente");
-            }else{
-                    respuesta.getProceso().setDescripcion("Se aplicaron correctamente los pagos");
+        GestorPagosWS_Service gestorPagosWS_Service = new GestorPagosWS_Service();
+        GestorPagosWS gestorPagosWS = gestorPagosWS_Service.getGestorPagosWSPort();
+        AplicarPagoDTO aplicarPago = new AplicarPagoDTO();
+        List<PagoPorAplicarDTO> pagoList=new ArrayList();
+        //aplicarPago.
+        for(PagoSinReferenciaVO pago :pagosAplicarVO){
+            PagoPorAplicarDTO apago=new PagoPorAplicarDTO();
+            //apago.setIdEdoCuenta(pago.get);
+            apago.setIdLineaCaputura(new BigInteger(pago.getLineaDeCaptura()));
+            apago.setIdPago(pago.getIdPago()==null?new BigInteger("0"):new BigInteger(pago.getIdPago()));
+            apago.setReferencia(pago.getReferencia());
+            //apago.setTermino(pago.gett);
+            pagoList.add(apago);
+        }
+        aplicarPago.setPagoPorAplicar(pagoList);
+        respuesta = gestorPagosWS.aplicarPagoManual(aplicarPago);
+        Collection<PagoSinReferenciaVO> toDelete = new ArrayList<PagoSinReferenciaVO>();
+        if(respuesta.getAplicarPago()!=null){
+                
+                for(PagoPorAplicarDTO pago:respuesta.getAplicarPago().getPagoPorAplicar()){
+                    System.out.println(pago.getTermino());
+                    for(PagoSinReferenciaVO pagoVo :pagosVO){
+                        if(pagoVo.getIdPago().equals(pago.getIdPago().toString()) && pago.getTermino().toString().equals("0")){
+                            toDelete.add(pagoVo);
+                            System.out.println("se remueve pago");
+                        }else if(pagoVo.getIdPago().equals(pago.getIdPago().toString())){
+                                pagoVo.setInlineStyle("background-color:#f74c1e;");
+                            }
+                    }
                 }
-        
-            RichPopup.PopupHints hints = new RichPopup.PopupHints();
-            p1.show(hints);
-            this.buscarP_Action();
-            System.out.println(respuesta.getProceso());
-            
+            }
+        //RichPopup.PopupHints hints = new RichPopup.PopupHints();
+       // p1.show(hints);
+        pagosVO.removeAll(toDelete);
+        AdfFacesContext.getCurrentInstance().addPartialTarget(t1);
         return null;
     }
             
     public String b2_action() {
-        // Add event code here...
-        //this.pagosVO = new ArrayList();
+        pagosAplicarVO = new ArrayList();
         GestorPagosWS_Service gestorPagosWS_Service = new GestorPagosWS_Service();
         GestorPagosWS gestorPagosWS = gestorPagosWS_Service.getGestorPagosWSPort();
         
@@ -557,24 +577,25 @@ public class PagoSinReferencia {
                     filtros.setLineaCaptura(linea.getLineaDeCaptura()==null?"":linea.getLineaDeCaptura());
                     consulta = gestorPagosWS.consultarReferenciaLCExistente(filtros);
                     if(consulta.getIdPago()!=null){
+                        pagosAplicarVO.add(linea);
                         PagoPorAplicarDTO pagoDTO = new PagoPorAplicarDTO();
                         linea.setUnidadDeNegocio(consulta.getUnidadNegocio());
                         linea.setProyecto(consulta.getProyectoID()==null?"":""+consulta.getProyectoID());
                         linea.setCliente(consulta.getCliente());
-                        linea.setNCuenta(consulta.getNumeroCobro()==null?"":""+consulta.getNumeroCobro());
+                        linea.setNCuenta(linea.getIdPago());
                         //pagoDTO.setIdEdoCuenta(linea.get);
                         linea.setInlineStyle("background-color:#4bf50c;");
-                        pagoDTO.setIdLineaCaputura(new BigInteger(linea.getLineaDeCaptura()==null?"0":linea.getLineaDeCaptura()));
-                        pagoDTO.setIdPago(new BigInteger(linea.getIdPago()==null?"0":linea.getIdPago()));
-                        pagoDTO.setReferencia(linea.getReferencia());
-                        pagoPorAplicar.add(pagoDTO);
+                        //pagoDTO.setIdLineaCaputura(new BigInteger(linea.getLineaDeCaptura()==null?"0":linea.getLineaDeCaptura()));
+                        //pagoDTO.setIdPago(new BigInteger(linea.getIdPago()==null?"0":linea.getIdPago()));
+                        //pagoDTO.setReferencia(linea.getReferencia());
+                        //pagoPorAplicar.add(pagoDTO);
                     }else{
                         linea.setInlineStyle("background-color:#f74c1e;");
                     }
                 } 
-            aplicarPago.setPagoPorAplicar(pagoPorAplicar);
+            //aplicarPago.setPagoPorAplicar(pagoPorAplicar);
         }
-    }catch (Exception ex) {
+        }catch (Exception ex) {
             ex.printStackTrace();
         }
         AdfFacesContext.getCurrentInstance().addPartialTarget(t1);
@@ -622,10 +643,14 @@ public class PagoSinReferencia {
          List<SelectItem> items = new ArrayList<SelectItem>();
          CatalogoWS_Service catalogoWS_Service = new CatalogoWS_Service();
          CatalogoWS catalogoWS = catalogoWS_Service.getCatalogoWSPort();
-         List<CuentaBancariaDTO> cuentas = catalogoWS.consultarCuentaBancaria(cuentaBancariaIT.getValue().toString());
-         for(CuentaBancariaDTO cuenta:cuentas){
+         if(cuentaBancariaIT.getValue().toString().length()<3){
+             items.add(new SelectItem("","Type in three or more characters..","",true));
+         }else{
+             List<CuentaBancariaDTO> cuentas = catalogoWS.consultarCuentaBancaria(cuentaBancariaIT.getValue().toString());
+             for(CuentaBancariaDTO cuenta:cuentas){
                  items.add(new SelectItem(cuenta.getNumeroCuenta()));
-             }
+             }    
+         }
          //items.add(new SelectItem("Sydney"));
          return items;
      }

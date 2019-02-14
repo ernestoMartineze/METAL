@@ -23,4 +23,10 @@
     <managed-bean-scope>pageFlow</managed-bean-scope>
     <!--oracle-jdev-comment:managed-bean-jsp-link:1PagoSinReferencia.jsf-->
   </managed-bean>
+  <managed-bean id="__5">
+    <managed-bean-name>backing_untitled1</managed-bean-name>
+    <managed-bean-class>mx.frisa.tic.view.backing.Untitled1</managed-bean-class>
+    <managed-bean-scope>backingBean</managed-bean-scope>
+    <!--oracle-jdev-comment:managed-bean-jsp-link:1untitled1.jsf-->
+  </managed-bean>
 </adfc-config>

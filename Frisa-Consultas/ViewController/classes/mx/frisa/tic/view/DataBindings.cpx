@@ -5,11 +5,13 @@
     <page path="/LineaReferencia.jsf" usageId="mx_frisa_tic_view_LineaReferenciaPageDef"/>
     <page path="/ClienteDocumento.jsf" usageId="mx_frisa_tic_view_ClienteDocumentoPageDef"/>
     <page path="/PagoSinReferencia.jsf" usageId="mx_frisa_tic_view_PagoSinReferenciaPageDef"/>
+    <page path="/untitled1.jsf" usageId="mx_frisa_tic_view_untitled1PageDef"/>
   </pageMap>
   <pageDefinitionUsages>
     <page id="mx_frisa_tic_view_LineaReferenciaPageDef" path="mx.frisa.tic.view.pageDefs.LineaReferenciaPageDef"/>
     <page id="mx_frisa_tic_view_ClienteDocumentoPageDef" path="mx.frisa.tic.view.pageDefs.ClienteDocumentoPageDef"/>
     <page id="mx_frisa_tic_view_PagoSinReferenciaPageDef" path="mx.frisa.tic.view.pageDefs.PagoSinReferenciaPageDef"/>
+    <page id="mx_frisa_tic_view_untitled1PageDef" path="mx.frisa.tic.view.pageDefs.untitled1PageDef"/>
   </pageDefinitionUsages>
   <dataControlUsages>
     <dc id="GestorFacturasWS" path="mx.frisa.tic.consultas.model.GestorFacturasWS"/>

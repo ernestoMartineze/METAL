@@ -7,7 +7,7 @@
   </xsd:complexType>
   <xsd:complexType name="aplicarPagoManualResponse">
     <xsd:sequence>
-      <xsd:element name="return" type="ns0:respuestaDTO" minOccurs="0"/>
+      <xsd:element name="return" type="ns0:respuestaAplicarPagoDTO" minOccurs="0"/>
     </xsd:sequence>
   </xsd:complexType>
   <xsd:complexType name="consultarPagosSinReferencia">
@@ -51,13 +51,19 @@
       <xsd:element name="idLineaCaputura" type="xsd:integer" minOccurs="0"/>
       <xsd:element name="idPago" type="xsd:integer" minOccurs="0"/>
       <xsd:element name="referencia" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="termino" type="xsd:integer" minOccurs="0"/>
     </xsd:sequence>
   </xsd:complexType>
-  <xsd:complexType name="respuestaDTO">
+  <xsd:complexType name="respuestaAplicarPagoDTO">
     <xsd:sequence>
-      <xsd:element name="descripcionError" type="xsd:string" minOccurs="0"/>
-      <xsd:element name="idError" type="xsd:string" minOccurs="0"/>
-      <xsd:element name="proceso" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="aplicarPago" type="ns0:aplicarPagoDTO" minOccurs="0"/>
+      <xsd:element name="proceso" type="ns0:proceso" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="proceso">
+    <xsd:sequence>
+      <xsd:element name="descripcion" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="termino" type="xsd:string" minOccurs="0"/>
     </xsd:sequence>
   </xsd:complexType>
   <xsd:complexType name="filtroPagoSinReferencia">
@@ -76,6 +82,7 @@
   </xsd:complexType>
   <xsd:complexType name="lineaEstadoCuentaDTO">
     <xsd:sequence>
+      <xsd:element name="cliente" type="xsd:string" minOccurs="0"/>
       <xsd:element name="conceptoMovimiento" type="xsd:string" minOccurs="0"/>
       <xsd:element name="cuentaBancaria" type="xsd:decimal" minOccurs="0"/>
       <xsd:element name="fecha" type="xsd:string" minOccurs="0"/>
@@ -84,13 +91,8 @@
       <xsd:element name="metodoPago" type="xsd:string" minOccurs="0"/>
       <xsd:element name="monto" type="xsd:decimal" minOccurs="0"/>
       <xsd:element name="orgID" type="xsd:decimal" minOccurs="0"/>
+      <xsd:element name="proyecto" type="xsd:decimal" minOccurs="0"/>
       <xsd:element name="tipoDeposito" type="xsd:string" minOccurs="0"/>
-    </xsd:sequence>
-  </xsd:complexType>
-  <xsd:complexType name="proceso">
-    <xsd:sequence>
-      <xsd:element name="descripcion" type="xsd:string" minOccurs="0"/>
-      <xsd:element name="termino" type="xsd:string" minOccurs="0"/>
     </xsd:sequence>
   </xsd:complexType>
   <xsd:complexType name="peticionExistente">
@@ -150,6 +152,7 @@
       <xsd:element name="clasificadordescuento" type="xsd:string" minOccurs="0"/>
       <xsd:element name="creationdategl" type="xsd:string" minOccurs="0"/>
       <xsd:element name="creationdatetrx" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="customerTrxID_ERP" type="xsd:string" minOccurs="0"/>
       <xsd:element name="descadicional1" type="xsd:string" minOccurs="0"/>
       <xsd:element name="descadicional2" type="xsd:string" minOccurs="0"/>
       <xsd:element name="descadicional3" type="xsd:string" minOccurs="0"/>
@@ -172,6 +175,8 @@
       <xsd:element name="paymenttermdays" type="xsd:short" minOccurs="0"/>
       <xsd:element name="projectid" type="xsd:integer" minOccurs="0"/>
       <xsd:element name="quantity" type="xsd:integer" minOccurs="0"/>
+      <xsd:element name="serviceStatus_ERP" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="transactionID_ERP" type="xsd:int" minOccurs="0"/>
       <xsd:element name="transactionsource" type="xsd:string" minOccurs="0"/>
       <xsd:element name="transactiontype" type="xsd:string" minOccurs="0"/>
     </xsd:sequence>

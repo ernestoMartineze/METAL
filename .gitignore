@@ -45,3 +45,6 @@ ModeloFrisa/target/maven-archiver/pom.properties
 /ModeloFrisa/target/
 ModeloFrisa/target/maven-archiver/pom.properties
 *.jdb
+Frisa-Consultas/.data/00000000/00000008.jdb
+*.jdb
+*.jdb
