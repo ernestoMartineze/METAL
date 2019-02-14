@@ -10,9 +10,8 @@ import javax.ejb.EJB;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
-import mx.frisa.tic.datos.dto.ingresos.RespuestaDTO;
+import mx.frisa.tic.datos.dto.ingresos.CuentaBancariaDTO;
 import mx.frisa.tic.datos.dto.ingresos.TipoMonedaDTO;
-import mx.frisa.tic.negocio.ingresos.CatalogosBean;
 import mx.frisa.tic.negocio.ingresos.CatalogosBeanLocal;
 
 /**
@@ -33,6 +32,15 @@ public class CatalogoWS {
     @WebMethod(operationName = "consultarTipoMoneda")
     public List<TipoMonedaDTO> consultarTipoMoneda() {
         return ejbRef.consultarTipoMoneda("CODIGOQUE QUIERA");
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "consultarCuentaBancaria")
+    public List<CuentaBancariaDTO> consultarCuentaBancaria(@WebParam(name = "numeroCuenta") String numeroCuenta) {
+        
+        return ejbRef.consultarCuentaBancaria(numeroCuenta);
     }
     
 }

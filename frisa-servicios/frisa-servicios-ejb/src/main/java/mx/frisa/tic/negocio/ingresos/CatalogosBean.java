@@ -9,9 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Singleton;
 import mx.frisa.tic.datos.comun.DAO;
+import mx.frisa.tic.datos.dto.ingresos.CuentaBancariaDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaDTO;
 import mx.frisa.tic.datos.dto.ingresos.TipoMonedaDTO;
 import mx.frisa.tic.datos.entidades.XxfrcTipoMoneda;
+import mx.frisa.tic.datos.entidades.XxfrtCuentabancaria;
 
 /**
  *
@@ -29,6 +31,25 @@ public class CatalogosBean implements CatalogosBeanLocal {
     @Override
     public String consultarPais(int id, String clave) {
         return null;
+    }
+    
+    @Override
+    public List<CuentaBancariaDTO> consultarCuentaBancaria(String numeroCuenta) {
+        
+        DAO<XxfrtCuentabancaria> cuentaBancaroDao = new DAO(XxfrtCuentabancaria.class);
+        List<XxfrtCuentabancaria> cuentasBancariasEnt = new ArrayList<>();
+        cuentasBancariasEnt = (List<XxfrtCuentabancaria>) cuentaBancaroDao.consultaQueryNamed("XxfrtCuentabancaria.findAll");
+        List<CuentaBancariaDTO> cuentasBancariaDto = new ArrayList();
+        for(XxfrtCuentabancaria cuentaBancaria : cuentasBancariasEnt){
+            CuentaBancariaDTO cuentaBanDto = new CuentaBancariaDTO();
+            cuentaBanDto.setNumeroCuenta(cuentaBancaria.getNumerocuenta());
+            cuentaBanDto.setNombre(cuentaBancaria.getNombre());
+            cuentaBanDto.setFecha(cuentaBancaria.getFecharegistro());
+            cuentaBanDto.setEstatus(cuentaBancaria.getEstatus());
+            cuentasBancariaDto.add(cuentaBanDto);
+            
+        }
+        return cuentasBancariaDto;
     }
     @Override
     public RespuestaDTO consultarTipoMoneda(){
@@ -50,10 +71,6 @@ public class CatalogosBean implements CatalogosBeanLocal {
         respuesta.setIdError("0");
         respuesta.setDescripcionError("");
         return respuesta;
-    }
-    
-    private String regresaMiNombre(String nombreEnviado){
-        return "Tu nombre " + nombreEnviado;
     }
 
     //Metodo mio
