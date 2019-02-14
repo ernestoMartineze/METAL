@@ -32,7 +32,7 @@ import javax.faces.model.SelectItem;
 
 import mx.frisa.tic.negocio.ws.CatalogoWS;
 import mx.frisa.tic.negocio.ws.CatalogoWS_Service;
-import mx.frisa.tic.negocio.ws.RespuestaDTO;
+import mx.frisa.tic.negocio.ws.RespuestaAplicarPagoDTO;
 
 import oracle.adf.view.rich.component.rich.RichDialog;
 import oracle.adf.view.rich.component.rich.RichPopup;
@@ -86,7 +86,7 @@ public class PagoSinReferencia {
     //variables y clases
     private List<PagoSinReferenciaVO> pagosVO;
     private AplicarPagoDTO aplicarPago;
-    private RespuestaDTO respuesta; 
+    private RespuestaAplicarPagoDTO respuesta; 
     private RichTable t1;
     private RichPopup p1;
     private RichOutputText ot7;
@@ -443,6 +443,14 @@ public class PagoSinReferencia {
             pagos.setTipoDeposito(linea.getTipoDeposito());
             pagos.setConceptoDeposito(null);
             pagos.setIdPago(linea.getIdPago().toString());
+            //datos para pagos manual aplicados
+            if(aplicadosCB.isSelected()){
+                    pagos.setUnidadDeNegocio(linea.getOrgID()==null?null:linea.getOrgID().toString());
+                    pagos.setProyecto(linea.getProyecto()==null?null:linea.getProyecto().toString());
+                    pagos.setCliente(linea.getCliente());
+                    pagos.setNCuenta(linea.getIdPago().toString());    
+                }
+            
             //pagos.setNumeroRecibo(linea.get);
             this.pagosVO.add(pagos);
         }
@@ -461,11 +469,11 @@ public class PagoSinReferencia {
     }
 
 
-    public void setRespuesta(RespuestaDTO respuesta) {
+    public void setRespuesta(RespuestaAplicarPagoDTO respuesta) {
         this.respuesta = respuesta;
     }
 
-    public RespuestaDTO getRespuesta() {
+    public RespuestaAplicarPagoDTO getRespuesta() {
         return respuesta;
     }
     
@@ -516,10 +524,10 @@ public class PagoSinReferencia {
             //aplicarPago.
             respuesta = gestorPagosWS.aplicarPagoManual(aplicarPago);
             
-            if (!respuesta.getProceso().equals("ERROR")){
-                respuesta.setDescripcionError("Se aplicaron correctamente los pagos");
+            if (!respuesta.getProceso().getDescripcion().equals("ERROR")){
+                respuesta.getProceso().setDescripcion("Algunos pagos no se aplicaron correctamente");
             }else{
-                
+                    respuesta.getProceso().setDescripcion("Se aplicaron correctamente los pagos");
                 }
         
             RichPopup.PopupHints hints = new RichPopup.PopupHints();

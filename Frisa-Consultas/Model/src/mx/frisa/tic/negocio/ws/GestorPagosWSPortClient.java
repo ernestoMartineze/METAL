@@ -7,12 +7,6 @@ public class GestorPagosWSPortClient {
     public static void main(String[] args) {
         GestorPagosWS_Service gestorPagosWS_Service = new GestorPagosWS_Service();
         GestorPagosWS gestorPagosWS = gestorPagosWS_Service.getGestorPagosWSPort();
-        FiltroPagoSinReferencia filtros= new FiltroPagoSinReferencia();
-        
-        RespuestaPagoSinReferencia respuestaPagos = gestorPagosWS.consultarPagosSinReferencia(filtros);
-        for(LineaEstadoCuentaDTO linea: respuestaPagos.getLineas()){
-            System.out.println(linea.conceptoMovimiento);
-            }
         // Add your code to call the desired methods.
 
 

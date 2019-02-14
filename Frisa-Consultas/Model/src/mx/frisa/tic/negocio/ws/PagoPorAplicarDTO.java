@@ -31,13 +31,15 @@ import javax.xml.bind.annotation.XmlType;
  *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "pagoPorAplicarDTO", propOrder = { "idEdoCuenta", "idLineaCaputura", "idPago", "referencia" })
+@XmlType(name = "pagoPorAplicarDTO",
+         propOrder = { "idEdoCuenta", "idLineaCaputura", "idPago", "referencia", "termino" })
 public class PagoPorAplicarDTO {
 
     protected BigInteger idEdoCuenta;
     protected BigInteger idLineaCaputura;
     protected BigInteger idPago;
     protected String referencia;
+    protected BigInteger termino;
 
     /**
      * Gets the value of the idEdoCuenta property.
@@ -133,6 +135,30 @@ public class PagoPorAplicarDTO {
      */
     public void setReferencia(String value) {
         this.referencia = value;
+    }
+
+    /**
+     * Gets the value of the termino property.
+     *
+     * @return
+     * possible object is
+     * {@link BigInteger}
+     *
+     */
+    public BigInteger getTermino() {
+        return termino;
+    }
+
+    /**
+     * Sets the value of the termino property.
+     *
+     * @param value
+     * allowed object is
+     * {@link BigInteger}
+     *
+     */
+    public void setTermino(BigInteger value) {
+        this.termino = value;
     }
 
 }

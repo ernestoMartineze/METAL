@@ -1,40 +1,40 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <jdevws:WebServiceProxy xmlns:jdevws="http://xmlns.oracle.com/jdeveloper/10130/webserviceproxy">
    <list n="CHILD_NODES">
-      <url path="GestorPagosWS_Service.xml"/>
+      <url path="GestorPagosWS.xml"/>
       <url path="GestorPagosWS.wsdl"/>
       <url path="GestorPagosWS1.xsd"/>
-      <url path="AplicarPagoManualResponse.java"/>
-      <url path="GestorPagosWSPortClient.java"/>
       <url path="ObjectFactory.java"/>
-      <url path="PeticionExistente.java"/>
-      <url path="GestorPagosWS.java"/>
-      <url path="RespuestaProcesaFacturasDTO.java"/>
-      <url path="RespuestaDTO.java"/>
-      <url path="GenerarPagoResponse.java"/>
-      <url path="ConsultarReferenciaLCExistenteResponse.java"/>
-      <url path="AplicarPagoManual.java"/>
-      <url path="LineaEstadoCuentaDTO.java"/>
+      <url path="ConsultarReferenciaLCExistente.java"/>
       <url path="FacturaPagoDTO.java"/>
+      <url path="LineaEstadoCuentaDTO.java"/>
+      <url path="ConsultarPagosSinReferenciaResponse.java"/>
       <url path="PagoPorAplicarDTO.java"/>
+      <url path="Proceso.java"/>
+      <url path="PagoDTO.java"/>
+      <url path="AplicarPagoDTO.java"/>
+      <url path="AplicarPagoManualResponse.java"/>
       <url path="RespuestaClienteDTO.java"/>
+      <url path="ConsultarReferenciaLCExistenteResponse.java"/>
+      <url path="PeticionExistente.java"/>
+      <url path="GenerarPagoResponse.java"/>
+      <url path="AplicarPagoManual.java"/>
+      <url path="RespuestaAplicarPagoDTO.java"/>
+      <url path="FiltroPagoSinReferencia.java"/>
+      <url path="RespuestaPagoSinReferencia.java"/>
       <url path="ConsultarPagosSinReferencia.java"/>
+      <url path="GestorPagosWSPortClient.java"/>
+      <url path="GestorPagosWS.java"/>
       <url path="GenerarPago.java"/>
       <url path="GestorPagosWS_Service.java"/>
-      <url path="Proceso.java"/>
+      <url path="RespuestaProcesaFacturasDTO.java"/>
       <url path="package-info.java"/>
-      <url path="FiltroPagoSinReferencia.java"/>
-      <url path="PagoDTO.java"/>
-      <url path="ConsultarReferenciaLCExistente.java"/>
-      <url path="RespuestaPagoSinReferencia.java"/>
-      <url path="AplicarPagoDTO.java"/>
-      <url path="ConsultarPagosSinReferenciaResponse.java"/>
    </list>
    <hash n="DATA_MODEL">
       <value n="ATTACHMENT_ENCODING" v="MIME"/>
       <list n="LOCAL_FILES"/>
       <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.proxy.WebServiceProxy"/>
-      <url n="ORACLE_WEBSERVICES_XML" path="GestorPagosWS_Service.xml"/>
+      <url n="ORACLE_WEBSERVICES_XML" path="GestorPagosWS.xml"/>
       <hash n="PROPERTY_GROUPS">
          <hash n="WSDL_TO_JAVA_PROPERTIES">
             <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.java.WSDLToJavaProperties"/>
@@ -45,7 +45,7 @@
          <url path="GestorPagosWSPortClient.java"/>
       </list>
       <value n="PROXY_MAPPING_URL"/>
-      <url n="PROXY_ORIGINAL_WSDL_URL" protocol="http" host="192.168.56.1" port="7001" path="/frisa-servicios/GestorPagosWS" query="WSDL"/>
+      <url n="PROXY_ORIGINAL_WSDL_URL" protocol="http" host="10.0.75.1" port="7001" path="/frisa-servicios/GestorPagosWS" query="WSDL"/>
       <hash n="PROXY_PORTS">
          <hash n="GestorPagosWSPort">
             <value n="ACCESSES_DOC_WRAPPPED" v="true"/>
@@ -84,7 +84,7 @@
                   <value n="wsrm"/>
                </hash>
             </hash>
-            <url n="PROXY_ORIGINAL_PORT_ENDPOINT" protocol="http" host="192.168.56.1" port="7001" path="/frisa-servicios/GestorPagosWS"/>
+            <url n="PROXY_ORIGINAL_PORT_ENDPOINT" protocol="http" host="10.0.75.1" port="7001" path="/frisa-servicios/GestorPagosWS"/>
          </hash>
       </hash>
       <value n="PROXY_SERVICE_NAME" v="GestorPagosWS"/>
@@ -103,6 +103,16 @@
                <value n="NAME" v="{http://ws.negocio.tic.frisa.mx/}GestorPagosWSPortBinding"/>
                <list n="OP_BINDINGS">
                   <hash>
+                     <value n="BOUND_OPERATION" v="mx.frisa.tic.negocio.ws.RespuestaProcesaFacturasDTO.generarPago.java.util.List&lt;mx.frisa.tic.negocio.ws.PagoDTO>"/>
+                     <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.SOAPOperationBinding"/>
+                     <hash n="PROPERTY_GROUPS"/>
+                  </hash>
+                  <hash>
+                     <value n="BOUND_OPERATION" v="mx.frisa.tic.negocio.ws.RespuestaAplicarPagoDTO.aplicarPagoManual.mx.frisa.tic.negocio.ws.AplicarPagoDTO"/>
+                     <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.SOAPOperationBinding"/>
+                     <hash n="PROPERTY_GROUPS"/>
+                  </hash>
+                  <hash>
                      <value n="BOUND_OPERATION" v="mx.frisa.tic.negocio.ws.RespuestaPagoSinReferencia.consultarPagosSinReferencia.mx.frisa.tic.negocio.ws.FiltroPagoSinReferencia"/>
                      <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.SOAPOperationBinding"/>
                      <hash n="PROPERTY_GROUPS"/>
@@ -112,22 +122,12 @@
                      <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.SOAPOperationBinding"/>
                      <hash n="PROPERTY_GROUPS"/>
                   </hash>
-                  <hash>
-                     <value n="BOUND_OPERATION" v="mx.frisa.tic.negocio.ws.RespuestaDTO.aplicarPagoManual.mx.frisa.tic.negocio.ws.AplicarPagoDTO"/>
-                     <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.SOAPOperationBinding"/>
-                     <hash n="PROPERTY_GROUPS"/>
-                  </hash>
-                  <hash>
-                     <value n="BOUND_OPERATION" v="mx.frisa.tic.negocio.ws.RespuestaProcesaFacturasDTO.generarPago.java.util.List&lt;mx.frisa.tic.negocio.ws.PagoDTO>"/>
-                     <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.SOAPOperationBinding"/>
-                     <hash n="PROPERTY_GROUPS"/>
-                  </hash>
                </list>
                <hash n="PROPERTY_GROUPS"/>
             </hash>
          </list>
          <list n="BINDING_FILES"/>
-         <value n="GUID" v="4e648d7a-0168-1000-8001-c0a8380180c5"/>
+         <value n="GUID" v="ecf18947-0168-1000-8002-0a004b01998c"/>
          <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.proxy.WebServiceProxy$ProxyJavaWebService"/>
          <list n="PO_">
             <hash>
@@ -136,6 +136,16 @@
                <value n="NAME" v="GestorPagosWSPort"/>
                <value n="PORT_BINDING_NAME" v="{http://ws.negocio.tic.frisa.mx/}GestorPagosWSPortBinding"/>
                <list n="PORT_OPS">
+                  <hash>
+                     <value n="EXPOSED_BD_OPERATION" v="mx.frisa.tic.negocio.ws.RespuestaProcesaFacturasDTO.generarPago.java.util.List&lt;mx.frisa.tic.negocio.ws.PagoDTO>"/>
+                     <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.PortOperation"/>
+                     <hash n="PROPERTY_GROUPS"/>
+                  </hash>
+                  <hash>
+                     <value n="EXPOSED_BD_OPERATION" v="mx.frisa.tic.negocio.ws.RespuestaAplicarPagoDTO.aplicarPagoManual.mx.frisa.tic.negocio.ws.AplicarPagoDTO"/>
+                     <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.PortOperation"/>
+                     <hash n="PROPERTY_GROUPS"/>
+                  </hash>
                   <hash>
                      <value n="EXPOSED_BD_OPERATION" v="mx.frisa.tic.negocio.ws.RespuestaPagoSinReferencia.consultarPagosSinReferencia.mx.frisa.tic.negocio.ws.FiltroPagoSinReferencia"/>
                      <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.PortOperation"/>
@@ -146,19 +156,9 @@
                      <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.PortOperation"/>
                      <hash n="PROPERTY_GROUPS"/>
                   </hash>
-                  <hash>
-                     <value n="EXPOSED_BD_OPERATION" v="mx.frisa.tic.negocio.ws.RespuestaDTO.aplicarPagoManual.mx.frisa.tic.negocio.ws.AplicarPagoDTO"/>
-                     <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.PortOperation"/>
-                     <hash n="PROPERTY_GROUPS"/>
-                  </hash>
-                  <hash>
-                     <value n="EXPOSED_BD_OPERATION" v="mx.frisa.tic.negocio.ws.RespuestaProcesaFacturasDTO.generarPago.java.util.List&lt;mx.frisa.tic.negocio.ws.PagoDTO>"/>
-                     <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.PortOperation"/>
-                     <hash n="PROPERTY_GROUPS"/>
-                  </hash>
                </list>
                <hash n="PROPERTY_GROUPS"/>
-               <url n="URL" protocol="http" host="192.168.56.1" port="7001" path="/frisa-servicios/GestorPagosWS"/>
+               <url n="URL" protocol="http" host="10.0.75.1" port="7001" path="/frisa-servicios/GestorPagosWS"/>
             </hash>
          </list>
          <hash n="PROPERTY_GROUPS">

@@ -31,7 +31,7 @@ import javax.xml.bind.annotation.XmlType;
 public class AplicarPagoManualResponse {
 
     @XmlElement(name = "return")
-    protected RespuestaDTO _return;
+    protected RespuestaAplicarPagoDTO _return;
 
     /**
      * Gets the value of the return property.
@@ -41,7 +41,9 @@ public class AplicarPagoManualResponse {
      *     {@link RespuestaDTO }
      *
      */
-    public RespuestaDTO getReturn() {
+    public RespuestaAplicarPagoDTO getReturn() {
+        /*return _return;*/
+
         return _return;
     }
 
@@ -53,7 +55,7 @@ public class AplicarPagoManualResponse {
      *     {@link RespuestaDTO }
      *
      */
-    public void setReturn(RespuestaDTO value) {
+    public void setReturn(RespuestaAplicarPagoDTO value) {
         this._return = value;
     }
 

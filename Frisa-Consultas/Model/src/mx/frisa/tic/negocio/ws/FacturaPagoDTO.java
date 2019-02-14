@@ -61,11 +61,11 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "facturaPagoDTO",
          propOrder =
          { "billtoconsumername", "billtolocation", "businessunitname", "clasificadordescuento", "creationdategl",
-           "creationdatetrx", "descadicional1", "descadicional2", "descadicional3", "descadicional4", "descadicional5",
-           "descriptionOrigen", "dffheadercontext", "fechadesde", "fechaexigibilidad", "fechahasta", "folioavisocargo",
-           "generationtype", "idfacturaprimavera", "idlinea", "lineacaptura", "linenumber", "localnumber",
-           "memolinename", "montobrutolinea", "paymenttermdays", "projectid", "quantity", "transactionsource",
-           "transactiontype"
+           "creationdatetrx", "customerTrxIDERP", "descadicional1", "descadicional2", "descadicional3",
+           "descadicional4", "descadicional5", "descriptionOrigen", "dffheadercontext", "fechadesde",
+           "fechaexigibilidad", "fechahasta", "folioavisocargo", "generationtype", "idfacturaprimavera", "idlinea",
+           "lineacaptura", "linenumber", "localnumber", "memolinename", "montobrutolinea", "paymenttermdays",
+           "projectid", "quantity", "serviceStatusERP", "transactionIDERP", "transactionsource", "transactiontype"
     })
 public class FacturaPagoDTO {
 
@@ -100,6 +100,12 @@ public class FacturaPagoDTO {
     protected BigInteger quantity;
     protected String transactionsource;
     protected String transactiontype;
+    @XmlElement(name = "customerTrxID_ERP")
+    protected String customerTrxIDERP;
+    @XmlElement(name = "serviceStatus_ERP")
+    protected String serviceStatusERP;
+    @XmlElement(name = "transactionID_ERP")
+    protected Integer transactionIDERP;
 
     /**
      * Gets the value of the billtoconsumername property.
@@ -819,6 +825,78 @@ public class FacturaPagoDTO {
      */
     public void setTransactiontype(String value) {
         this.transactiontype = value;
+    }
+
+    /**
+     * Gets the value of the customerTrxIDERP property.
+     *
+     * @return
+     * possible object is
+     * {@link String}
+     *
+     */
+    public String getCustomerTrxIDERP() {
+        return customerTrxIDERP;
+    }
+
+    /**
+     * Gets the value of the serviceStatusERP property.
+     *
+     * @return
+     * possible object is
+     * {@link String}
+     *
+     */
+    public String getServiceStatusERP() {
+        return serviceStatusERP;
+    }
+
+    /**
+     * Gets the value of the transactionIDERP property.
+     *
+     * @return
+     * possible object is
+     * {@link Integer}
+     *
+     */
+    public Integer getTransactionIDERP() {
+        return transactionIDERP;
+    }
+
+    /**
+     * Sets the value of the customerTrxIDERP property.
+     *
+     * @param value
+     * allowed object is
+     * {@link String}
+     *
+     */
+    public void setCustomerTrxIDERP(String value) {
+        this.customerTrxIDERP = value;
+    }
+
+    /**
+     * Sets the value of the serviceStatusERP property.
+     *
+     * @param value
+     * allowed object is
+     * {@link String}
+     *
+     */
+    public void setServiceStatusERP(String value) {
+        this.serviceStatusERP = value;
+    }
+
+    /**
+     * Sets the value of the transactionIDERP property.
+     *
+     * @param value
+     * allowed object is
+     * {@link Integer}
+     *
+     */
+    public void setTransactionIDERP(Integer value) {
+        this.transactionIDERP = value;
     }
 
 }

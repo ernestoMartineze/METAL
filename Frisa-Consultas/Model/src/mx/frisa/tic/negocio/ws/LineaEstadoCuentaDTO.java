@@ -38,8 +38,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "lineaEstadoCuentaDTO",
          propOrder =
-         { "conceptoMovimiento", "cuentaBancaria", "fecha", "idEstadoCuenta", "idPago", "metodoPago", "monto", "orgID",
-           "tipoDeposito"
+         { "cliente", "conceptoMovimiento", "cuentaBancaria", "fecha", "idEstadoCuenta", "idPago", "metodoPago",
+           "monto", "orgID", "proyecto", "tipoDeposito"
     })
 public class LineaEstadoCuentaDTO {
 
@@ -52,6 +52,8 @@ public class LineaEstadoCuentaDTO {
     protected BigDecimal monto;
     protected BigDecimal orgID;
     protected String tipoDeposito;
+    protected String cliente;
+    protected BigDecimal proyecto;
 
     /**
      * Gets the value of the conceptoMovimiento property.
@@ -267,6 +269,54 @@ public class LineaEstadoCuentaDTO {
      */
     public void setTipoDeposito(String value) {
         this.tipoDeposito = value;
+    }
+
+    /**
+     * Gets the value of the cliente property.
+     *
+     * @return
+     * possible object is
+     * {@link String}
+     *
+     */
+    public String getCliente() {
+        return cliente;
+    }
+
+    /**
+     * Gets the value of the proyecto property.
+     *
+     * @return
+     * possible object is
+     * {@link BigDecimal}
+     *
+     */
+    public BigDecimal getProyecto() {
+        return proyecto;
+    }
+
+    /**
+     * Sets the value of the cliente property.
+     *
+     * @param value
+     * allowed object is
+     * {@link String}
+     *
+     */
+    public void setCliente(String value) {
+        this.cliente = value;
+    }
+
+    /**
+     * Sets the value of the proyecto property.
+     *
+     * @param value
+     * allowed object is
+     * {@link BigDecimal}
+     *
+     */
+    public void setProyecto(BigDecimal value) {
+        this.proyecto = value;
     }
 
 }
