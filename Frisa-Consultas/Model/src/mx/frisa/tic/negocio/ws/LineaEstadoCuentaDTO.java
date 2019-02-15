@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 
@@ -38,8 +39,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "lineaEstadoCuentaDTO",
          propOrder =
-         { "cliente", "conceptoMovimiento", "cuentaBancaria", "fecha", "idEstadoCuenta", "idPago", "metodoPago",
-           "monto", "orgID", "proyecto", "tipoDeposito"
+         { "businessunitname", "cliente", "conceptoMovimiento", "cuentaBancaria", "fecha", "idEstadoCuenta", "idPago",
+           "metodoPago", "monto", "orgID", "proyecto", "tipoDeposito"
     })
 public class LineaEstadoCuentaDTO {
 
@@ -50,10 +51,12 @@ public class LineaEstadoCuentaDTO {
     protected BigDecimal idPago;
     protected String metodoPago;
     protected BigDecimal monto;
-    protected BigDecimal orgID;
+    protected String orgID;
     protected String tipoDeposito;
     protected String cliente;
     protected BigDecimal proyecto;
+    @XmlElement(name = "BUSINESSUNITNAME")
+    protected String businessunitname;
 
     /**
      * Gets the value of the conceptoMovimiento property.
@@ -231,7 +234,9 @@ public class LineaEstadoCuentaDTO {
      *     {@link BigDecimal }
      *
      */
-    public BigDecimal getOrgID() {
+    public String getOrgID() {
+        /*return orgID;*/
+
         return orgID;
     }
 
@@ -243,7 +248,7 @@ public class LineaEstadoCuentaDTO {
      *     {@link BigDecimal }
      *
      */
-    public void setOrgID(BigDecimal value) {
+    public void setOrgID(String value) {
         this.orgID = value;
     }
 
@@ -317,6 +322,30 @@ public class LineaEstadoCuentaDTO {
      */
     public void setProyecto(BigDecimal value) {
         this.proyecto = value;
+    }
+
+    /**
+     * Gets the value of the businessunitname property.
+     *
+     * @return
+     * possible object is
+     * {@link String}
+     *
+     */
+    public String getBUSINESSUNITNAME() {
+        return businessunitname;
+    }
+
+    /**
+     * Sets the value of the businessunitname property.
+     *
+     * @param value
+     * allowed object is
+     * {@link String}
+     *
+     */
+    public void setBUSINESSUNITNAME(String value) {
+        this.businessunitname = value;
     }
 
 }

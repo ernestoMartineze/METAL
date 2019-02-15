@@ -402,6 +402,7 @@ public class PagoSinReferencia {
     public String buscarP_Action() {
         // Add event code here...
         this.pagosVO=new ArrayList();
+        pagosAplicarVO=null;
         GestorPagosWS_Service gestorPagosWS_Service = new GestorPagosWS_Service();
         GestorPagosWS gestorPagosWS = gestorPagosWS_Service.getGestorPagosWSPort();
         FiltroPagoSinReferencia filtros= new FiltroPagoSinReferencia();
@@ -449,7 +450,7 @@ public class PagoSinReferencia {
             pagos.setIdPago(linea.getIdPago().toString());
             //datos para pagos manual aplicados
             if(aplicadosCB.isSelected()){
-                    pagos.setUnidadDeNegocio(linea.getOrgID()==null?null:linea.getOrgID().toString());
+                    pagos.setUnidadDeNegocio(linea.getOrgID());
                     pagos.setProyecto(linea.getProyecto()==null?null:linea.getProyecto().toString());
                     pagos.setCliente(linea.getCliente());
                     pagos.setNCuenta(linea.getIdPago().toString());    
@@ -526,6 +527,9 @@ public class PagoSinReferencia {
         AplicarPagoDTO aplicarPago = new AplicarPagoDTO();
         List<PagoPorAplicarDTO> pagoList=new ArrayList();
         //aplicarPago.
+        if(pagosAplicarVO==null){
+            return null;
+            }
         for(PagoSinReferenciaVO pago :pagosAplicarVO){
             PagoPorAplicarDTO apago=new PagoPorAplicarDTO();
             //apago.setIdEdoCuenta(pago.get);

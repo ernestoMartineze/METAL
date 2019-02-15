@@ -83,6 +83,7 @@
   </xsd:complexType>
   <xsd:complexType name="lineaEstadoCuentaDTO">
     <xsd:sequence>
+      <xsd:element name="BUSINESSUNITNAME" type="xsd:string" minOccurs="0"/>
       <xsd:element name="cliente" type="xsd:string" minOccurs="0"/>
       <xsd:element name="conceptoMovimiento" type="xsd:string" minOccurs="0"/>
       <xsd:element name="cuentaBancaria" type="xsd:decimal" minOccurs="0"/>
@@ -91,7 +92,7 @@
       <xsd:element name="idPago" type="xsd:decimal" minOccurs="0"/>
       <xsd:element name="metodoPago" type="xsd:string" minOccurs="0"/>
       <xsd:element name="monto" type="xsd:decimal" minOccurs="0"/>
-      <xsd:element name="orgID" type="xsd:decimal" minOccurs="0"/>
+      <xsd:element name="orgID" type="xsd:string" minOccurs="0"/>
       <xsd:element name="proyecto" type="xsd:decimal" minOccurs="0"/>
       <xsd:element name="tipoDeposito" type="xsd:string" minOccurs="0"/>
     </xsd:sequence>
