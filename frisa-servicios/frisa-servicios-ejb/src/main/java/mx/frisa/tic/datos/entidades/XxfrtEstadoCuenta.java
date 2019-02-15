@@ -86,15 +86,19 @@ public class XxfrtEstadoCuenta implements Serializable {
     @Size(max = 30)
     @Column(name = "DESCRIP_LOOKUP")
     private String descripLookup;
-    
+
     @Size(max = 80)
     @Column(name = "UUID")
     private String uuid;
 
-    @Size(max = 80)
+    @Size(max = 120)
     @Column(name = "NOMBRECLIENTE")
     private String nombreCliente;
-    
+
+    @Size(max = 120)
+    @Column(name = "BUSINESSUNITNAME")
+    private String BUSINESSUNITNAME;
+
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
@@ -162,7 +166,6 @@ public class XxfrtEstadoCuenta implements Serializable {
     public void setIdLineaCaptura(BigDecimal idLineaCaptura) {
         this.idLineaCaptura = idLineaCaptura;
     }
-
 
     public Date getFecharegistroreciboerp() {
         return fecharegistroreciboerp;
@@ -308,9 +311,6 @@ public class XxfrtEstadoCuenta implements Serializable {
         this.lineCapture = lineCapture;
     }
 
-
-    
-    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -367,8 +367,13 @@ public class XxfrtEstadoCuenta implements Serializable {
     public void setNombreCliente(String nombreCliente) {
         this.nombreCliente = nombreCliente;
     }
-    
-    
 
-    
+    public String getBUSINESSUNITNAME() {
+        return BUSINESSUNITNAME;
+    }
+
+    public void setBUSINESSUNITNAME(String BUSINESSUNITNAME) {
+        this.BUSINESSUNITNAME = BUSINESSUNITNAME;
+    }
+
 }

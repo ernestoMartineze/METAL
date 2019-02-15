@@ -13,8 +13,8 @@ import java.math.BigDecimal;
  */
 public class LineaEstadoCuentaDTO {
 
-    private String  fecha, TipoDeposito, conceptoMovimiento, metodoPago, cliente;
-    private BigDecimal orgID, idPago, idEstadoCuenta, cuentaBancaria, monto, proyecto;
+    private String  fecha, TipoDeposito, conceptoMovimiento, metodoPago, cliente, orgID, BUSINESSUNITNAME;
+    private BigDecimal  idPago, idEstadoCuenta, cuentaBancaria, monto, proyecto;
 
     public BigDecimal getMonto() {
         return monto;
@@ -59,13 +59,7 @@ public class LineaEstadoCuentaDTO {
         this.conceptoMovimiento = conceptoMovimiento;
     }
 
-    public BigDecimal getOrgID() {
-        return orgID;
-    }
 
-    public void setOrgID(BigDecimal orgID) {
-        this.orgID = orgID;
-    }
 
     public BigDecimal getIdPago() {
         return idPago;
@@ -105,6 +99,22 @@ public class LineaEstadoCuentaDTO {
 
     public void setProyecto(BigDecimal proyecto) {
         this.proyecto = proyecto;
+    }
+
+    public String getBUSINESSUNITNAME() {
+        return BUSINESSUNITNAME;
+    }
+
+    public void setBUSINESSUNITNAME(String BUSINESSUNITNAME) {
+        this.BUSINESSUNITNAME = BUSINESSUNITNAME;
+    }
+
+    public String getOrgID() {
+        return orgID;
+    }
+
+    public void setOrgID(String orgID) {
+        this.orgID = orgID;
     }
 
   

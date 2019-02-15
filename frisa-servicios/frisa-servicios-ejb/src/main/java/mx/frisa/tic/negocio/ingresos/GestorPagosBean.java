@@ -320,7 +320,7 @@ public class GestorPagosBean implements GestorPagos {
                 lineaDto.setMetodoPago(lineasEdoCuentaEnt.getReceiptMethodId());
                 lineaDto.setTipoDeposito(lineasEdoCuentaEnt.getDescripLookup());
                 lineaDto.setProyecto(BigDecimal.valueOf(Long.valueOf(lineasEdoCuentaEnt.getProyectoPropietario())));
-                lineaDto.setOrgID(lineasEdoCuentaEnt.getIdEdoCta());
+                lineaDto.setOrgID(lineasEdoCuentaEnt.getBUSINESSUNITNAME());
                 lineaDto.setCliente(lineasEdoCuentaEnt.getNombreCliente());
                 lineas.add(lineaDto);
             }
@@ -363,14 +363,13 @@ public class GestorPagosBean implements GestorPagos {
                 for (XxfrvConsultaLcFactura lineasReferenRecuperada : lineasReferencias) {
                     respuesta.setCliente(lineasReferenRecuperada.getBilltoconsumername());
                     respuesta.setProyectoID(BigDecimal.valueOf(lineasReferenRecuperada.getProjectid()));
-                    //CONSULTAR POR 
+                    //CONSULTAR POR BI
                     respuesta.setEstadoCobro("Por Aplicar");
                     respuesta.setEstadoConciliacion("Conciliado");
                     respuesta.setIdPago(BigDecimal.ONE);
                     respuesta.setMontoPendienteDeAplicar(BigDecimal.TEN);
-                    respuesta.setNombrePago("1345");
-                    respuesta.setUnidadNegocio("LMF MUNDO E - RENTAS");
-                    break;
+                    respuesta.setNombrePago(lineasReferenRecuperada.getIdlinea());
+                    respuesta.setUnidadNegocio(lineasReferenRecuperada.getBusinessUnitName());
                 }
 
             } else {

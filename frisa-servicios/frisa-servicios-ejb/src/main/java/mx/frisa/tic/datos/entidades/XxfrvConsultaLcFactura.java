@@ -83,7 +83,15 @@ public class XxfrvConsultaLcFactura implements Serializable {
     private String lineacaptura;
     @Column(name = "REFERENCENUMBER")
     private String referencenumber;
-
+    @Column(name = "BUSINESSUNITNAME")
+    private String businessUnitName;
+    @Column(name = "pendientePorAplicar")
+    private String pendientePorAplicar;
+    @Column(name = "IDPAGO")
+    private String IDPAGO;
+    
+    
+    
     public XxfrvConsultaLcFactura() {
     }
 
@@ -197,6 +205,30 @@ public class XxfrvConsultaLcFactura implements Serializable {
 
     public void setReferencenumber(String referencenumber) {
         this.referencenumber = referencenumber;
+    }
+
+    public String getBusinessUnitName() {
+        return businessUnitName;
+    }
+
+    public void setBusinessUnitName(String businessUnitName) {
+        this.businessUnitName = businessUnitName;
+    }
+
+    public String getPendientePorAplicar() {
+        return pendientePorAplicar;
+    }
+
+    public void setPendientePorAplicar(String pendientePorAplicar) {
+        this.pendientePorAplicar = pendientePorAplicar;
+    }
+
+    public String getIDPAGO() {
+        return IDPAGO;
+    }
+
+    public void setIDPAGO(String IDPAGO) {
+        this.IDPAGO = IDPAGO;
     }
 
     
