@@ -7,7 +7,6 @@ package mx.frisa.tic.datos.entidades;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -92,6 +91,10 @@ public class XxfrtEstadoCuenta implements Serializable {
     @Column(name = "UUID")
     private String uuid;
 
+    @Size(max = 80)
+    @Column(name = "NOMBRECLIENTE")
+    private String nombreCliente;
+    
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
@@ -355,6 +358,14 @@ public class XxfrtEstadoCuenta implements Serializable {
 
     public void setUuid(String uuid) {
         this.uuid = uuid;
+    }
+
+    public String getNombreCliente() {
+        return nombreCliente;
+    }
+
+    public void setNombreCliente(String nombreCliente) {
+        this.nombreCliente = nombreCliente;
     }
     
     

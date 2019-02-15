@@ -14,6 +14,7 @@ import mx.frisa.tic.datos.dto.ingresos.PagoDTO;
 import mx.frisa.tic.datos.dto.ingresos.PeticionExistente;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaAplicarPagoDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaClienteDTO;
+import mx.frisa.tic.datos.dto.ingresos.RespuestaDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaPagoSinReferencia;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaProcesaFacturasDTO;
 
@@ -34,4 +35,6 @@ public interface GestorPagos {
     RespuestaClienteDTO  consultarReferenciaLCExistente ( PeticionExistente filtros);
     RespuestaAplicarPagoDTO aplicarPagoManual(AplicarPagoDTO aplicarPagoDTO);
     RespuestaProcesaFacturasDTO recuperaFacturas(PagoDTO pago) throws IOException;
+    
+
 }

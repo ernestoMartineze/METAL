@@ -289,6 +289,10 @@ public class GestorPagosBean implements GestorPagos {
                 queryArmado += " and x.bankAccountNum =".concat(filtros.getCuentaBancaria());
 
             }
+            if (!filtros.getUsuario().equals("")) {
+                queryArmado += " and 1 =1 ";
+
+            }
             if (!(filtros.getFechaFinal().equals("")
                     && filtros.getFechaFinal().equals(""))) {
                 queryArmado += " and x.glDate between "
@@ -317,7 +321,7 @@ public class GestorPagosBean implements GestorPagos {
                 lineaDto.setTipoDeposito(lineasEdoCuentaEnt.getDescripLookup());
                 lineaDto.setProyecto(BigDecimal.valueOf(Long.valueOf(lineasEdoCuentaEnt.getProyectoPropietario())));
                 lineaDto.setOrgID(lineasEdoCuentaEnt.getIdEdoCta());
-                lineaDto.setCliente("Nombre del cliente");
+                lineaDto.setCliente(lineasEdoCuentaEnt.getNombreCliente());
                 lineas.add(lineaDto);
             }
             respuesta.setProceso(new Proceso("0", "EXITOSO"));

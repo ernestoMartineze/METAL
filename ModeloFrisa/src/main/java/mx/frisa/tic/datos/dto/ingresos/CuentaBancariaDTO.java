@@ -13,18 +13,10 @@ import java.util.Date;
  */
 public class CuentaBancariaDTO {
     
-    private Integer numeroCuenta;
+    private String numeroCuenta;
     private String nombre;
     private Date fecha;
     private Integer estatus;
-
-    public Integer getNumeroCuenta() {
-        return numeroCuenta;
-    }
-
-    public void setNumeroCuenta(Integer numeroCuenta) {
-        this.numeroCuenta = numeroCuenta;
-    }
 
     public String getNombre() {
         return nombre;
@@ -50,8 +42,12 @@ public class CuentaBancariaDTO {
         this.estatus = estatus;
     }
 
+    public String getNumeroCuenta() {
+        return numeroCuenta;
+    }
 
-
-    
+    public void setNumeroCuenta(String numeroCuenta) {
+        this.numeroCuenta = numeroCuenta;
+    }    
     
 }

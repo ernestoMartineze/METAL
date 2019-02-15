@@ -25,9 +25,15 @@ public interface CatalogosBeanLocal {
      * @return
      */
     String consultarPais(int id, String clave);
+
     RespuestaDTO consultarTipoMoneda();
-    List<TipoMonedaDTO>  consultarTipoMoneda(String codigo);
+
+    List<TipoMonedaDTO> consultarTipoMoneda(String codigo);
+
     List<CuentaBancariaDTO> consultarCuentaBancaria(String numeroCuenta);
-    
-    
+
+    RespuestaDTO actualizarCuentasBancarias();
+
+    RespuestaDTO actualizarUsuarios();
+
 }

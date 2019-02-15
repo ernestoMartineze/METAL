@@ -10,6 +10,8 @@ public class FiltroPagoSinReferencia {
     private String fechaInicial;
     private String fechaFinal;
     private String mostrarAplicar;
+    private String usuario;
+    
 
     public String getCuentaBancaria() {
         return cuentaBancaria;
@@ -41,6 +43,14 @@ public class FiltroPagoSinReferencia {
 
     public void setMostrarAplicar(String mostrarAplicar) {
         this.mostrarAplicar = mostrarAplicar;
+    }
+
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
     }
     
     

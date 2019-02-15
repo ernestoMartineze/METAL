@@ -11,6 +11,7 @@ import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
 import mx.frisa.tic.datos.dto.ingresos.CuentaBancariaDTO;
+import mx.frisa.tic.datos.dto.ingresos.RespuestaDTO;
 import mx.frisa.tic.datos.dto.ingresos.TipoMonedaDTO;
 import mx.frisa.tic.negocio.ingresos.CatalogosBeanLocal;
 
@@ -41,6 +42,24 @@ public class CatalogoWS {
     public List<CuentaBancariaDTO> consultarCuentaBancaria(@WebParam(name = "numeroCuenta") String numeroCuenta) {
         
         return ejbRef.consultarCuentaBancaria(numeroCuenta);
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "actualizarUsuarios")
+    public RespuestaDTO actualizarUsuarios() {
+        //TODO write your implementation code here:
+        return ejbRef.actualizarUsuarios();
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "actualizarCuentasBancarias")
+    public RespuestaDTO actualizarCuentasBancarias() {
+        //TODO write your implementation code here:
+        return ejbRef.actualizarCuentasBancarias();
     }
     
 }

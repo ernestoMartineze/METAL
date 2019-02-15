@@ -30,7 +30,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "XxfrtCuentabancaria.findAll", query = "SELECT x FROM XxfrtCuentabancaria x"),
     @NamedQuery(name = "XxfrtCuentabancaria.findByNumerocuenta", query = "SELECT x FROM XxfrtCuentabancaria x WHERE x.numerocuenta = :numerocuenta"),
-    @NamedQuery(name = "XxfrtCuentabancaria.findByLikeNumerocuenta", query = "SELECT x FROM XxfrtCuentabancaria x WHERE x.numerocuenta like :numerocuenta "),
+    @NamedQuery(name = "XxfrtCuentabancaria.findByLikeNumerocuenta", query = "SELECT x FROM XxfrtCuentabancaria x WHERE x.numerocuenta LIKE :numerocuenta"),
     @NamedQuery(name = "XxfrtCuentabancaria.findByFecharegistro", query = "SELECT x FROM XxfrtCuentabancaria x WHERE x.fecharegistro = :fecharegistro"),
     @NamedQuery(name = "XxfrtCuentabancaria.findByEstatus", query = "SELECT x FROM XxfrtCuentabancaria x WHERE x.estatus = :estatus")})
 public class XxfrtCuentabancaria implements Serializable {
@@ -41,7 +41,7 @@ public class XxfrtCuentabancaria implements Serializable {
     @NotNull
     @Size(min = 1, max = 32)
     @Column(name = "NUMEROCUENTA")
-    private Integer numerocuenta;
+    private String numerocuenta;
     @Basic(optional = false)
     @NotNull
     @Column(name = "FECHAREGISTRO")
@@ -93,20 +93,20 @@ public class XxfrtCuentabancaria implements Serializable {
         this.nombre = nombre;
     }
 
-    public Integer getNumerocuenta() {
-        return numerocuenta;
-    }
-
-    public void setNumerocuenta(Integer numerocuenta) {
-        this.numerocuenta = numerocuenta;
-    }
-
     public Integer getEstatus() {
         return estatus;
     }
 
     public void setEstatus(Integer estatus) {
         this.estatus = estatus;
+    }
+
+    public String getNumerocuenta() {
+        return numerocuenta;
+    }
+
+    public void setNumerocuenta(String numerocuenta) {
+        this.numerocuenta = numerocuenta;
     }
     
     
