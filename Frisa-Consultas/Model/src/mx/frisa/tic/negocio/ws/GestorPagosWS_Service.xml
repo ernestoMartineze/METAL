@@ -7,9 +7,9 @@
          <runtime/>
          <operations>
             <operation name="generarPago"/>
-            <operation name="aplicarPagoManual"/>
-            <operation name="consultarPagosSinReferencia"/>
             <operation name="consultarReferenciaLCExistente"/>
+            <operation name="consultarPagosSinReferencia"/>
+            <operation name="aplicarPagoManual"/>
          </operations>
       </port-info>
    </webservice-client>

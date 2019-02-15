@@ -1,7 +1,7 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <jdevws:WebServiceProxy xmlns:jdevws="http://xmlns.oracle.com/jdeveloper/10130/webserviceproxy">
    <list n="CHILD_NODES">
-      <url path="GestorPagosWS.xml"/>
+      <url path="GestorPagosWS_Service.xml"/>
       <url path="GestorPagosWS.wsdl"/>
       <url path="GestorPagosWS1.xsd"/>
       <url path="ObjectFactory.java"/>
@@ -34,7 +34,7 @@
       <value n="ATTACHMENT_ENCODING" v="MIME"/>
       <list n="LOCAL_FILES"/>
       <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.proxy.WebServiceProxy"/>
-      <url n="ORACLE_WEBSERVICES_XML" path="GestorPagosWS.xml"/>
+      <url n="ORACLE_WEBSERVICES_XML" path="GestorPagosWS_Service.xml"/>
       <hash n="PROPERTY_GROUPS">
          <hash n="WSDL_TO_JAVA_PROPERTIES">
             <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.java.WSDLToJavaProperties"/>
@@ -45,7 +45,7 @@
          <url path="GestorPagosWSPortClient.java"/>
       </list>
       <value n="PROXY_MAPPING_URL"/>
-      <url n="PROXY_ORIGINAL_WSDL_URL" protocol="http" host="10.0.75.1" port="7001" path="/frisa-servicios/GestorPagosWS" query="WSDL"/>
+      <url n="PROXY_ORIGINAL_WSDL_URL" protocol="http" host="192.168.80.1" port="7001" path="/frisa-servicios/GestorPagosWS" query="WSDL"/>
       <hash n="PROXY_PORTS">
          <hash n="GestorPagosWSPort">
             <value n="ACCESSES_DOC_WRAPPPED" v="true"/>
@@ -84,7 +84,7 @@
                   <value n="wsrm"/>
                </hash>
             </hash>
-            <url n="PROXY_ORIGINAL_PORT_ENDPOINT" protocol="http" host="10.0.75.1" port="7001" path="/frisa-servicios/GestorPagosWS"/>
+            <url n="PROXY_ORIGINAL_PORT_ENDPOINT" protocol="http" host="192.168.80.1" port="7001" path="/frisa-servicios/GestorPagosWS"/>
          </hash>
       </hash>
       <value n="PROXY_SERVICE_NAME" v="GestorPagosWS"/>
@@ -108,7 +108,7 @@
                      <hash n="PROPERTY_GROUPS"/>
                   </hash>
                   <hash>
-                     <value n="BOUND_OPERATION" v="mx.frisa.tic.negocio.ws.RespuestaAplicarPagoDTO.aplicarPagoManual.mx.frisa.tic.negocio.ws.AplicarPagoDTO"/>
+                     <value n="BOUND_OPERATION" v="mx.frisa.tic.negocio.ws.RespuestaClienteDTO.consultarReferenciaLCExistente.mx.frisa.tic.negocio.ws.PeticionExistente"/>
                      <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.SOAPOperationBinding"/>
                      <hash n="PROPERTY_GROUPS"/>
                   </hash>
@@ -118,7 +118,7 @@
                      <hash n="PROPERTY_GROUPS"/>
                   </hash>
                   <hash>
-                     <value n="BOUND_OPERATION" v="mx.frisa.tic.negocio.ws.RespuestaClienteDTO.consultarReferenciaLCExistente.mx.frisa.tic.negocio.ws.PeticionExistente"/>
+                     <value n="BOUND_OPERATION" v="mx.frisa.tic.negocio.ws.RespuestaAplicarPagoDTO.aplicarPagoManual.mx.frisa.tic.negocio.ws.AplicarPagoDTO"/>
                      <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.SOAPOperationBinding"/>
                      <hash n="PROPERTY_GROUPS"/>
                   </hash>
@@ -127,7 +127,7 @@
             </hash>
          </list>
          <list n="BINDING_FILES"/>
-         <value n="GUID" v="ecf18947-0168-1000-8002-0a004b01998c"/>
+         <value n="GUID" v="f338e9a9-0168-1000-8010-c0a85001c388"/>
          <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.proxy.WebServiceProxy$ProxyJavaWebService"/>
          <list n="PO_">
             <hash>
@@ -142,7 +142,7 @@
                      <hash n="PROPERTY_GROUPS"/>
                   </hash>
                   <hash>
-                     <value n="EXPOSED_BD_OPERATION" v="mx.frisa.tic.negocio.ws.RespuestaAplicarPagoDTO.aplicarPagoManual.mx.frisa.tic.negocio.ws.AplicarPagoDTO"/>
+                     <value n="EXPOSED_BD_OPERATION" v="mx.frisa.tic.negocio.ws.RespuestaClienteDTO.consultarReferenciaLCExistente.mx.frisa.tic.negocio.ws.PeticionExistente"/>
                      <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.PortOperation"/>
                      <hash n="PROPERTY_GROUPS"/>
                   </hash>
@@ -152,13 +152,13 @@
                      <hash n="PROPERTY_GROUPS"/>
                   </hash>
                   <hash>
-                     <value n="EXPOSED_BD_OPERATION" v="mx.frisa.tic.negocio.ws.RespuestaClienteDTO.consultarReferenciaLCExistente.mx.frisa.tic.negocio.ws.PeticionExistente"/>
+                     <value n="EXPOSED_BD_OPERATION" v="mx.frisa.tic.negocio.ws.RespuestaAplicarPagoDTO.aplicarPagoManual.mx.frisa.tic.negocio.ws.AplicarPagoDTO"/>
                      <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.PortOperation"/>
                      <hash n="PROPERTY_GROUPS"/>
                   </hash>
                </list>
                <hash n="PROPERTY_GROUPS"/>
-               <url n="URL" protocol="http" host="10.0.75.1" port="7001" path="/frisa-servicios/GestorPagosWS"/>
+               <url n="URL" protocol="http" host="192.168.80.1" port="7001" path="/frisa-servicios/GestorPagosWS"/>
             </hash>
          </list>
          <hash n="PROPERTY_GROUPS">

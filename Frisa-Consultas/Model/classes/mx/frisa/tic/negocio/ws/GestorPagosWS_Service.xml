@@ -6,10 +6,10 @@
          <wsdl-port namespaceURI="http://ws.negocio.tic.frisa.mx/" localpart="GestorPagosWSPort"/>
          <runtime/>
          <operations>
-            <operation name="consultarPagosSinReferencia"/>
-            <operation name="consultarReferenciaLCExistente"/>
-            <operation name="aplicarPagoManual"/>
             <operation name="generarPago"/>
+            <operation name="consultarReferenciaLCExistente"/>
+            <operation name="consultarPagosSinReferencia"/>
+            <operation name="aplicarPagoManual"/>
          </operations>
       </port-info>
    </webservice-client>

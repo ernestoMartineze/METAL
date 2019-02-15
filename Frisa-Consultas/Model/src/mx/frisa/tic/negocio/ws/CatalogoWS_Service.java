@@ -20,7 +20,7 @@ import javax.xml.ws.WebServiceFeature;
  */
 @WebServiceClient(name = "CatalogoWS", targetNamespace = "http://ws.negocio.tic.frisa.mx/",
                   wsdlLocation =
-                  "http://10.0.75.1:7001/frisa-servicios/CatalogoWS?WSDL#%7Bhttp%3A%2F%2Fws.negocio.tic.frisa.mx%2F%7DCatalogoWS")
+                  "http://192.168.80.1:7001/frisa-servicios/CatalogoWS?WSDL#%7Bhttp%3A%2F%2Fws.negocio.tic.frisa.mx%2F%7DCatalogoWS")
 public class CatalogoWS_Service extends Service {
 
     private final static URL CATALOGOWS_WSDL_LOCATION;
@@ -32,7 +32,7 @@ public class CatalogoWS_Service extends Service {
         WebServiceException e = null;
         try {
             url =
-                new URL("http://10.0.75.1:7001/frisa-servicios/CatalogoWS?WSDL#%7Bhttp%3A%2F%2Fws.negocio.tic.frisa.mx%2F%7DCatalogoWS");
+                new URL("http://192.168.80.1:7001/frisa-servicios/CatalogoWS?WSDL#%7Bhttp%3A%2F%2Fws.negocio.tic.frisa.mx%2F%7DCatalogoWS");
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);
         }

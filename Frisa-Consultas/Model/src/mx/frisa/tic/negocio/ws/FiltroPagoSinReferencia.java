@@ -30,13 +30,15 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "filtroPagoSinReferencia",
-         propOrder = { "cuentaBancaria", "fechaFinal", "fechaInicial", "mostrarAplicar" })
+         propOrder = { "cuentaBancaria", "fechaFinal", "fechaInicial", "mostrarAplicar", "usuario"
+    })
 public class FiltroPagoSinReferencia {
 
     protected String cuentaBancaria;
     protected String fechaFinal;
     protected String fechaInicial;
     protected String mostrarAplicar;
+    protected String usuario;
 
     /**
      * Gets the value of the cuentaBancaria property.
@@ -132,6 +134,30 @@ public class FiltroPagoSinReferencia {
      */
     public void setMostrarAplicar(String value) {
         this.mostrarAplicar = value;
+    }
+
+    /**
+     * Gets the value of the usuario property.
+     *
+     * @return
+     * possible object is
+     * {@link String}
+     *
+     */
+    public String getUsuario() {
+        return usuario;
+    }
+
+    /**
+     * Sets the value of the usuario property.
+     *
+     * @param value
+     * allowed object is
+     * {@link String}
+     *
+     */
+    public void setUsuario(String value) {
+        this.usuario = value;
     }
 
 }

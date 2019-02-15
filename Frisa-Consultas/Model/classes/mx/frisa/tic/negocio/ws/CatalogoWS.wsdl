@@ -1,5 +1,11 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<definitions xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:wsp1_2="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://ws.negocio.tic.frisa.mx/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://ws.negocio.tic.frisa.mx/" name="CatalogoWS">
+<definitions name="CatalogoWS" targetNamespace="http://ws.negocio.tic.frisa.mx/"
+             xmlns="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+             xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:wsp1_2="http://schemas.xmlsoap.org/ws/2004/09/policy"
+             xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://ws.negocio.tic.frisa.mx/"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <types>
     <xsd:schema>
       <xsd:import namespace="http://ws.negocio.tic.frisa.mx/" schemaLocation="CatalogoWS1.xsd"/>
@@ -25,20 +31,25 @@
   </message>
   <portType name="CatalogoWS">
     <operation name="consultarPais">
-      <input wsam:Action="http://ws.negocio.tic.frisa.mx/CatalogoWS/consultarPaisRequest" message="tns:consultarPais"/>
-      <output wsam:Action="http://ws.negocio.tic.frisa.mx/CatalogoWS/consultarPaisResponse" message="tns:consultarPaisResponse"/>
+      <input message="tns:consultarPais" wsam:Action="http://ws.negocio.tic.frisa.mx/CatalogoWS/consultarPaisRequest"/>
+      <output message="tns:consultarPaisResponse"
+              wsam:Action="http://ws.negocio.tic.frisa.mx/CatalogoWS/consultarPaisResponse"/>
     </operation>
     <operation name="consultarTipoMoneda">
-      <input wsam:Action="http://ws.negocio.tic.frisa.mx/CatalogoWS/consultarTipoMonedaRequest" message="tns:consultarTipoMoneda"/>
-      <output wsam:Action="http://ws.negocio.tic.frisa.mx/CatalogoWS/consultarTipoMonedaResponse" message="tns:consultarTipoMonedaResponse"/>
+      <input message="tns:consultarTipoMoneda"
+             wsam:Action="http://ws.negocio.tic.frisa.mx/CatalogoWS/consultarTipoMonedaRequest"/>
+      <output message="tns:consultarTipoMonedaResponse"
+              wsam:Action="http://ws.negocio.tic.frisa.mx/CatalogoWS/consultarTipoMonedaResponse"/>
     </operation>
     <operation name="consultarCuentaBancaria">
-      <input wsam:Action="http://ws.negocio.tic.frisa.mx/CatalogoWS/consultarCuentaBancariaRequest" message="tns:consultarCuentaBancaria"/>
-      <output wsam:Action="http://ws.negocio.tic.frisa.mx/CatalogoWS/consultarCuentaBancariaResponse" message="tns:consultarCuentaBancariaResponse"/>
+      <input message="tns:consultarCuentaBancaria"
+             wsam:Action="http://ws.negocio.tic.frisa.mx/CatalogoWS/consultarCuentaBancariaRequest"/>
+      <output message="tns:consultarCuentaBancariaResponse"
+              wsam:Action="http://ws.negocio.tic.frisa.mx/CatalogoWS/consultarCuentaBancariaResponse"/>
     </operation>
   </portType>
   <binding name="CatalogoWSPortBinding" type="tns:CatalogoWS">
-    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
     <operation name="consultarPais">
       <soap:operation soapAction=""/>
       <input>
