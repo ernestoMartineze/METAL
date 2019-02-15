@@ -435,7 +435,7 @@ public class PagoSinReferencia {
             filtros.setMostrarAplicar("NO");
             this.activaITx=false;
         }
-        
+        filtros.setUsuario("usuario");
         RespuestaPagoSinReferencia respuestaPagos = gestorPagosWS.consultarPagosSinReferencia(filtros);
         System.out.println(respuestaPagos.getLineas().size());
         for(LineaEstadoCuentaDTO linea: respuestaPagos.getLineas()){
@@ -529,7 +529,7 @@ public class PagoSinReferencia {
         for(PagoSinReferenciaVO pago :pagosAplicarVO){
             PagoPorAplicarDTO apago=new PagoPorAplicarDTO();
             //apago.setIdEdoCuenta(pago.get);
-            apago.setIdLineaCaputura(new BigInteger(pago.getLineaDeCaptura()));
+            apago.setIdLineaCaputura(pago.getLineaDeCaptura()==null?null:new BigInteger(pago.getLineaDeCaptura()));
             apago.setIdPago(pago.getIdPago()==null?new BigInteger("0"):new BigInteger(pago.getIdPago()));
             apago.setReferencia(pago.getReferencia());
             //apago.setTermino(pago.gett);

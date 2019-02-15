@@ -20,7 +20,7 @@ import javax.xml.ws.WebServiceFeature;
  */
 @WebServiceClient(name = "GestorPagosWS", targetNamespace = "http://ws.negocio.tic.frisa.mx/",
                   wsdlLocation =
-                  "http://10.0.75.1:7001/frisa-servicios/GestorPagosWS?WSDL#%7Bhttp%3A%2F%2Fws.negocio.tic.frisa.mx%2F%7DGestorPagosWS")
+                  "http://192.168.80.1:7001/frisa-servicios/GestorPagosWS?WSDL#%7Bhttp%3A%2F%2Fws.negocio.tic.frisa.mx%2F%7DGestorPagosWS")
 public class GestorPagosWS_Service extends Service {
 
     private final static URL GESTORPAGOSWS_WSDL_LOCATION;

@@ -72,6 +72,7 @@
       <xsd:element name="fechaFinal" type="xsd:string" minOccurs="0"/>
       <xsd:element name="fechaInicial" type="xsd:string" minOccurs="0"/>
       <xsd:element name="mostrarAplicar" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="usuario" type="xsd:string" minOccurs="0"/>
     </xsd:sequence>
   </xsd:complexType>
   <xsd:complexType name="respuestaPagoSinReferencia">

@@ -36,9 +36,6 @@ public class AplicarPagoDTO {
     @XmlElement(nillable = true)
     protected List<PagoPorAplicarDTO> pagoPorAplicar;
 
-    public void setPagoPorAplicar(List<PagoPorAplicarDTO> pagoPorAplicar) {
-        this.pagoPorAplicar = pagoPorAplicar;
-    }
 
     /**
      * Gets the value of the pagoPorAplicar property.
@@ -70,4 +67,7 @@ public class AplicarPagoDTO {
     }
 
 
+    public void setPagoPorAplicar(List<PagoPorAplicarDTO> pagoPorAplicar) {
+        this.pagoPorAplicar = pagoPorAplicar;
+    }
 }

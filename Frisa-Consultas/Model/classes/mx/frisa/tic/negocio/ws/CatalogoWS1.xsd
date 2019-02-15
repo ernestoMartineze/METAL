@@ -1,5 +1,17 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <xsd:schema xmlns:ns0="http://ws.negocio.tic.frisa.mx/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://ws.negocio.tic.frisa.mx/">
+  <xsd:complexType name="actualizarCuentasBancarias"/>
+  <xsd:complexType name="actualizarCuentasBancariasResponse">
+    <xsd:sequence>
+      <xsd:element name="return" type="ns0:respuestaDTO" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="actualizarUsuarios"/>
+  <xsd:complexType name="actualizarUsuariosResponse">
+    <xsd:sequence>
+      <xsd:element name="return" type="ns0:respuestaDTO" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
   <xsd:complexType name="consultarCuentaBancaria">
     <xsd:sequence>
       <xsd:element name="numeroCuenta" type="xsd:string" minOccurs="0"/>
@@ -27,6 +39,14 @@
       <xsd:element name="return" type="ns0:tipoMonedaDTO" minOccurs="0" maxOccurs="unbounded"/>
     </xsd:sequence>
   </xsd:complexType>
+  <xsd:complexType name="respuestaDTO">
+    <xsd:sequence>
+      <xsd:element name="descripcionError" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="idError" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="proceso" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="uuid" type="xsd:string" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
   <xsd:complexType name="cuentaBancariaDTO">
     <xsd:sequence>
       <xsd:element name="estatus" type="xsd:int" minOccurs="0"/>
@@ -43,6 +63,10 @@
       <xsd:element name="ind_activo" type="xsd:string" minOccurs="0"/>
     </xsd:sequence>
   </xsd:complexType>
+  <xsd:element name="actualizarCuentasBancarias" type="ns0:actualizarCuentasBancarias"/>
+  <xsd:element name="actualizarCuentasBancariasResponse" type="ns0:actualizarCuentasBancariasResponse"/>
+  <xsd:element name="actualizarUsuarios" type="ns0:actualizarUsuarios"/>
+  <xsd:element name="actualizarUsuariosResponse" type="ns0:actualizarUsuariosResponse"/>
   <xsd:element name="consultarCuentaBancaria" type="ns0:consultarCuentaBancaria"/>
   <xsd:element name="consultarCuentaBancariaResponse" type="ns0:consultarCuentaBancariaResponse"/>
   <xsd:element name="consultarPais" type="ns0:consultarPais"/>
