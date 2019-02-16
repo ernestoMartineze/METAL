@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<xsd:schema xmlns:ns0="http://ws.negocio.tic.frisa.mx/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://ws.negocio.tic.frisa.mx/">
+  <xsd:complexType name="agregarUsuario">
+    <xsd:sequence>
+      <xsd:element name="usuarioAcceso" type="ns0:agregarUsuarioDTO" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="agregarUsuarioResponse">
+    <xsd:sequence>
+      <xsd:element name="return" type="ns0:respuestaDTO" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="consultarUsuario">
+    <xsd:sequence>
+      <xsd:element name="usuarioAcceso" type="ns0:consultarUsuarioDTO" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="consultarUsuarioResponse">
+    <xsd:sequence>
+      <xsd:element name="return" type="ns0:respuestaDTO" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="agregarUsuarioDTO">
+    <xsd:sequence>
+      <xsd:element name="centroCostos" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="unidadNegocio" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="usuario" type="xsd:string" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="respuestaDTO">
+    <xsd:sequence>
+      <xsd:element name="descripcionError" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="idError" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="proceso" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="uuid" type="xsd:string" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="consultarUsuarioDTO">
+    <xsd:sequence>
+      <xsd:element name="usuario" type="xsd:string" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="agregarUsuario" type="ns0:agregarUsuario"/>
+  <xsd:element name="agregarUsuarioResponse" type="ns0:agregarUsuarioResponse"/>
+  <xsd:element name="consultarUsuario" type="ns0:consultarUsuario"/>
+  <xsd:element name="consultarUsuarioResponse" type="ns0:consultarUsuarioResponse"/>
+</xsd:schema>

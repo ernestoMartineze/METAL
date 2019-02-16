@@ -203,6 +203,39 @@
             <value n="profileClass" v="oracle.adfdt.common.deploy.impl.AdfLibraryProfile"/>
             <value n="profileName" v="Frisa-Consultas_Project1_adflib"/>
          </hash>
+         <hash n="GestorAccesoWS-Client">
+            <hash n="archiveOptions">
+               <value n="hasManifest" v="true"/>
+            </hash>
+            <hash n="fileGroups">
+               <list n="groups">
+                  <hash>
+                     <list n="contributors">
+                        <hash>
+                           <value n="type" v="2"/>
+                        </hash>
+                        <hash>
+                           <value n="type" v="7"/>
+                        </hash>
+                     </list>
+                     <value n="displayName" v="Project Output"/>
+                     <hash n="filters">
+                        <list n="rules">
+                           <hash>
+                              <value n="pattern" v="**"/>
+                              <value n="type" v="0"/>
+                           </hash>
+                        </list>
+                     </hash>
+                     <value n="internalName" v="project-output"/>
+                     <value n="type" v="1"/>
+                  </hash>
+               </list>
+            </hash>
+            <url n="jarURL" path="deploy/GestorAccesoWS-Client.jar"/>
+            <value n="profileClass" v="oracle.jdeveloper.deploy.jar.ArchiveProfile"/>
+            <value n="profileName" v="GestorAccesoWS-Client"/>
+         </hash>
          <hash n="GestorPagosWS-Client">
             <hash n="archiveOptions">
                <value n="hasManifest" v="true"/>
@@ -241,6 +274,7 @@
          <string v="Frisa-Consultas_Project1_adflib"/>
          <string v="GestorPagosWS-Client"/>
          <string v="CatalogoWS-Client"/>
+         <string v="GestorAccesoWS-Client"/>
       </list>
    </hash>
    <hash n="oracle.jdeveloper.model.J2eeSettings">
