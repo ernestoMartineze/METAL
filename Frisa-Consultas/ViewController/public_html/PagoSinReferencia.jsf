@@ -152,6 +152,10 @@
                 </af:dialog>
             </af:popup>
         </af:form>
+        <f:metadata>
+            <f:viewParam id="usuario" name="usuario" value="#{pageFlowScope.backing_PagoSinReferencia.usuario}" />
+            
+        </f:metadata>
     </af:document>
     <!--oracle-jdev-comment:auto-binding-backing-bean-name:backing_PagoSinReferencia-->
 </f:view>

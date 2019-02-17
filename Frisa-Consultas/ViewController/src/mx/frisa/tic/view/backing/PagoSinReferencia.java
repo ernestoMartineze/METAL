@@ -31,6 +31,7 @@ import java.math.BigInteger;
 
 import java.util.Collection;
 
+import javax.faces.component.UIParameter;
 import javax.faces.model.SelectItem;
 
 import mx.frisa.tic.negocio.ws.CatalogoWS;
@@ -96,7 +97,18 @@ public class PagoSinReferencia {
     private RichOutputText ot7;
     private RichDialog d2;
     private boolean activaITx;
-    
+    private UIParameter vp1;
+
+    private String usuario;
+
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
+    public String getUsuario() {
+        return usuario;
+    }
 
     public void setF1(RichForm f1) {
         this.f1 = f1;
@@ -436,7 +448,8 @@ public class PagoSinReferencia {
             filtros.setMostrarAplicar("NO");
             this.activaITx=false;
         }
-        filtros.setUsuario("usuario");
+        System.out.println(usuario);
+        filtros.setUsuario(usuario);
         RespuestaPagoSinReferencia respuestaPagos = gestorPagosWS.consultarPagosSinReferencia(filtros);
         System.out.println(respuestaPagos.getLineas().size());
         for(LineaEstadoCuentaDTO linea: respuestaPagos.getLineas()){
@@ -658,4 +671,12 @@ public class PagoSinReferencia {
          //items.add(new SelectItem("Sydney"));
          return items;
      }
+
+    public void setVp1(UIParameter vp1) {
+        this.vp1 = vp1;
+    }
+
+    public UIParameter getVp1() {
+        return vp1;
+    }
 }

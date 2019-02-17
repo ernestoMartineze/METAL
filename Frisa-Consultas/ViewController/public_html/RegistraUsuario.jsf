@@ -1,48 +1,61 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE html>
 <f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
-    <af:document title="RegistraUsuario.jsf" id="d1" binding="#{backingBeanScope.backing_RegistraUsuario.d1}">
-        <af:form id="f1" binding="#{backingBeanScope.backing_RegistraUsuario.f1}">
-            <af:panelGridLayout id="pgl1" binding="#{backingBeanScope.backing_RegistraUsuario.pgl1}"
+    <af:document title="RegistraUsuario.jsf" id="d1" binding="#{pageFlowScope.backing_RegistraUsuario.d1}">
+        <af:form id="f1" binding="#{pageFlowScope.backing_RegistraUsuario.f1}">
+            <af:panelGridLayout id="pgl1" binding="#{pageFlowScope.backing_RegistraUsuario.pgl1}"
                                 inlineStyle="margin-bottom:15px; margin-left:15px; margin-right:15px; margin-top:15px;">
                 <af:gridRow marginTop="5px" height="auto" id="gr1"
-                            binding="#{backingBeanScope.backing_RegistraUsuario.gr1}">
+                            binding="#{pageFlowScope.backing_RegistraUsuario.gr1}">
                     <af:gridCell marginStart="5px" width="100%" marginEnd="5px" id="gc1"
-                                 binding="#{backingBeanScope.backing_RegistraUsuario.gc1}"
+                                 binding="#{pageFlowScope.backing_RegistraUsuario.gc1}"
                                  inlineStyle="margin-bottom:10px;">
                         <af:inputText label="Usuario : " id="uruarioTx"
-                                      binding="#{backingBeanScope.backing_RegistraUsuario.usuarioTx}"
+                                      binding="#{pageFlowScope.backing_RegistraUsuario.usuarioTx}"
                                       inlineStyle="margin-bottom:10px;"/>
                     </af:gridCell>
                 </af:gridRow>
                 <af:gridRow marginTop="5px" height="auto" id="gr2"
-                            binding="#{backingBeanScope.backing_RegistraUsuario.gr2}">
+                            binding="#{pageFlowScope.backing_RegistraUsuario.gr2}">
                     <af:gridCell marginStart="5px" width="100%" marginEnd="5px" id="gc2"
-                                 binding="#{backingBeanScope.backing_RegistraUsuario.gc2}"
+                                 binding="#{pageFlowScope.backing_RegistraUsuario.gc2}"
                                  inlineStyle="margin-bottom:10px;">
                         <af:inputText label="Centro de costos : " id="centroCostosTx"
-                                      binding="#{backingBeanScope.backing_RegistraUsuario.centroCostosTx}"
+                                      binding="#{pageFlowScope.backing_RegistraUsuario.centroCostosTx}"
                                       inlineStyle="margin-bottom:10px;"/>
                     </af:gridCell>
                 </af:gridRow>
                 <af:gridRow marginTop="5px" height="auto" id="gr3"
-                            binding="#{backingBeanScope.backing_RegistraUsuario.gr3}">
+                            binding="#{pageFlowScope.backing_RegistraUsuario.gr3}">
                     <af:gridCell marginStart="5px" width="100%" marginEnd="5px" id="gc3"
-                                 binding="#{backingBeanScope.backing_RegistraUsuario.gc3}">
+                                 binding="#{pageFlowScope.backing_RegistraUsuario.gc3}">
                         <af:inputText label="Unidad de Negocio" id="uNegocioTx"
-                                      binding="#{backingBeanScope.backing_RegistraUsuario.uniNegocioTx}"/>
+                                      binding="#{pageFlowScope.backing_RegistraUsuario.uniNegocioTx}"/>
                     </af:gridCell>
                 </af:gridRow>
                 <af:gridRow marginTop="5px" height="auto" marginBottom="5px" id="gr4"
-                            binding="#{backingBeanScope.backing_RegistraUsuario.gr4}">
+                            binding="#{pageFlowScope.backing_RegistraUsuario.gr4}">
                     <af:gridCell marginStart="5px" width="100%" marginEnd="5px" id="gc4"
-                                 binding="#{backingBeanScope.backing_RegistraUsuario.gc4}">
-                        <af:button text="Aceptar" id="b1" binding="#{backingBeanScope.backing_RegistraUsuario.b1}"
+                                 binding="#{pageFlowScope.backing_RegistraUsuario.gc4}">
+                        <af:button text="Aceptar" id="b1" binding="#{pageFlowScope.backing_RegistraUsuario.b1}"
                                    inlineStyle="margin-bottom:15px; margin-left:15px; margin-right:15px; margin-top:15px;"
-                                   action="#{backingBeanScope.backing_RegistraUsuario.registrar_action}"/>
+                                   action="#{pageFlowScope.backing_RegistraUsuario.registrar_action}"/>
                     </af:gridCell>
                 </af:gridRow>
+                <af:gridRow id="gr6" binding="#{pageFlowScope.backing_RegistraUsuario.gr6}" height="20px"/>
+                <af:gridRow id="gr5" binding="#{pageFlowScope.backing_RegistraUsuario.gr5}">
+                    <af:gridCell id="gc6" binding="#{pageFlowScope.backing_RegistraUsuario.gc6}"/>
+                </af:gridRow>
             </af:panelGridLayout>
+            <af:popup childCreation="deferred" autoCancel="disabled" id="p1"
+                      binding="#{pageFlowScope.backing_RegistraUsuario.p1}">
+                <af:dialog id="d2" binding="#{pageFlowScope.backing_RegistraUsuario.d2}" type="ok"
+                           closeIconVisible="false">
+                    <af:outputText value="#{pageFlowScope.backing_RegistraUsuario.errorMsg}" id="ot2"
+                                   binding="#{pageFlowScope.backing_RegistraUsuario.ot2}"/>
+                    <f:facet name="buttonBar"/>
+                </af:dialog>
+            </af:popup>
         </af:form>
     </af:document>
     <!--oracle-jdev-comment:auto-binding-backing-bean-name:backing_RegistraUsuario-->

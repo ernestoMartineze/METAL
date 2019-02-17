@@ -1,16 +1,23 @@
 package mx.frisa.tic.view.backing;
 
 import mx.frisa.tic.negocio.ws.AgregarUsuarioDTO;
+import mx.frisa.tic.negocio.ws.ConsultarUsuarioDTO;
 import mx.frisa.tic.negocio.ws.GestorAccesoWS;
 import mx.frisa.tic.negocio.ws.GestorAccesoWS_Service;
 
+import mx.frisa.tic.negocio.ws.RespuestaDTO;
+
+import oracle.adf.view.rich.component.rich.RichDialog;
 import oracle.adf.view.rich.component.rich.RichDocument;
 import oracle.adf.view.rich.component.rich.RichForm;
+import oracle.adf.view.rich.component.rich.RichPopup;
 import oracle.adf.view.rich.component.rich.input.RichInputText;
 import oracle.adf.view.rich.component.rich.layout.RichGridCell;
 import oracle.adf.view.rich.component.rich.layout.RichGridRow;
 import oracle.adf.view.rich.component.rich.layout.RichPanelGridLayout;
 import oracle.adf.view.rich.component.rich.nav.RichButton;
+import oracle.adf.view.rich.component.rich.output.RichOutputText;
+import oracle.adf.view.rich.context.AdfFacesContext;
 
 public class RegistraUsuario {
     private RichForm f1;
@@ -28,6 +35,24 @@ public class RegistraUsuario {
     private RichInputText centroCostosTx;
     private RichInputText uniNegocioTx;
     private RichButton b1;
+    private RichOutputText ot1;
+    private RichPopup p1;
+    private RichDialog d2;
+    private RichOutputText ot2;
+
+    private String errorMsg;
+    private RichGridRow gr6;
+    private RichGridRow gr5;
+    private RichGridCell gc6;
+
+
+    public void setErrorMsg(String errorMsg) {
+        this.errorMsg = errorMsg;
+    }
+
+    public String getErrorMsg() {
+        return errorMsg;
+    }
 
     public void setF1(RichForm f1) {
         this.f1 = f1;
@@ -152,13 +177,97 @@ public class RegistraUsuario {
 
     public String registrar_action() {
         // Add event code here...
+        GestorAccesoWS_Service gestorAccesoWS_Service = new GestorAccesoWS_Service();
+        GestorAccesoWS gestorAccesoWS = gestorAccesoWS_Service.getGestorAccesoWSPort();
+        ConsultarUsuarioDTO consultarUsuario=new ConsultarUsuarioDTO();
+        consultarUsuario.setUsuario(usuarioTx.getValue()==null?"":usuarioTx.getValue().toString());
+        RespuestaDTO respuesta = gestorAccesoWS.consultarUsuario(consultarUsuario);
+        if(respuesta.getIdError().equals("0")){
+                //ot3.setValue("el usuario ya existe en el sistema");
+            errorMsg="el usuario ya existe en el sistema";
+                RichPopup.PopupHints hints = new RichPopup.PopupHints();
+                p1.show(hints);
+            //AdfFacesContext.getCurrentInstance().addPartialTarget(ot3);
+            return null;
+            }
         AgregarUsuarioDTO usuarioAcceso= new AgregarUsuarioDTO();
         usuarioAcceso.setCentroCostos(centroCostosTx.getValue()==null?"":centroCostosTx.getValue().toString());
         usuarioAcceso.setUnidadNegocio(uniNegocioTx.getValue()==null?"":uniNegocioTx.getValue().toString());
         usuarioAcceso.setUsuario(usuarioTx.getValue()==null?"":usuarioTx.getValue().toString());
-        GestorAccesoWS_Service gestorAccesoWS_Service = new GestorAccesoWS_Service();
-        GestorAccesoWS gestorAccesoWS = gestorAccesoWS_Service.getGestorAccesoWSPort();
-        gestorAccesoWS.agregarUsuario(usuarioAcceso);
+        
+        respuesta=gestorAccesoWS.agregarUsuario(usuarioAcceso);
+        errorMsg=respuesta.getDescripcionError();
+        if(respuesta.getIdError().equals("0")){
+                usuarioTx.resetValue();
+                centroCostosTx.resetValue();
+                uniNegocioTx.resetValue();
+                AdfFacesContext.getCurrentInstance().addPartialTarget(usuarioTx);
+                AdfFacesContext.getCurrentInstance().addPartialTarget(centroCostosTx);
+                AdfFacesContext.getCurrentInstance().addPartialTarget(uniNegocioTx);
+                errorMsg="Usuario registrado correctamente";
+            }
+        RichPopup.PopupHints hints = new RichPopup.PopupHints();
+        p1.show(hints);
+        
         return null;
+    }
+
+    public void setOt1(RichOutputText ot1) {
+        this.ot1 = ot1;
+    }
+
+    public RichOutputText getOt1() {
+        return ot1;
+    }
+
+    public void setP1(RichPopup p1) {
+        this.p1 = p1;
+    }
+
+    public RichPopup getP1() {
+        return p1;
+    }
+
+
+    public void setD2(RichDialog d2) {
+        this.d2 = d2;
+    }
+
+    public RichDialog getD2() {
+        return d2;
+    }
+
+    public void setOt2(RichOutputText ot2) {
+        this.ot2 = ot2;
+    }
+
+    public RichOutputText getOt2() {
+        return ot2;
+    }
+
+
+    public void setGr6(RichGridRow gr6) {
+        this.gr6 = gr6;
+    }
+
+    public RichGridRow getGr6() {
+        return gr6;
+    }
+
+
+    public void setGr5(RichGridRow gr5) {
+        this.gr5 = gr5;
+    }
+
+    public RichGridRow getGr5() {
+        return gr5;
+    }
+
+    public void setGc6(RichGridCell gc6) {
+        this.gc6 = gc6;
+    }
+
+    public RichGridCell getGc6() {
+        return gc6;
     }
 }
