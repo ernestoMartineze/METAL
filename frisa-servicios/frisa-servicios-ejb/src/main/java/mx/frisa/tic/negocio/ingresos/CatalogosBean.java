@@ -6,16 +6,20 @@
 package mx.frisa.tic.negocio.ingresos;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Singleton;
 import mx.frisa.tic.datos.comun.DAO;
 import mx.frisa.tic.datos.dto.CONSTANTE;
 import mx.frisa.tic.datos.dto.comun.CatalogoParametroDTO;
 import mx.frisa.tic.datos.dto.ingresos.CuentaBancariaDTO;
+import mx.frisa.tic.datos.dto.ingresos.RespuestaCuentaBancariaDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaDTO;
 import mx.frisa.tic.datos.dto.ingresos.TipoMonedaDTO;
 import mx.frisa.tic.datos.entidades.XxfrcTipoMoneda;
 import mx.frisa.tic.datos.entidades.XxfrtCuentabancaria;
+import mx.frisa.tic.negocio.remoto.AdaptadorWS;
+import mx.frisa.tic.negocio.remoto.CuentaBancaria;
 import mx.frisa.tic.negocio.utils.ManejadorLog;
 
 /**
@@ -53,6 +57,7 @@ public class CatalogosBean implements CatalogosBeanLocal {
             cuentaBanDto.setNombre(cuentaBancaria.getNombre());
             cuentaBanDto.setFecha(cuentaBancaria.getFecharegistro());
             cuentaBanDto.setEstatus(cuentaBancaria.getEstatus());
+            cuentaBanDto.setMoneda(cuentaBancaria.getMoneda());
             cuentasBancariaDto.add(cuentaBanDto);
             
         }
@@ -112,6 +117,19 @@ public class CatalogosBean implements CatalogosBeanLocal {
         RespuestaDTO respuesta = new RespuestaDTO();
         try {
 
+            AdaptadorWS clienteWS = new AdaptadorWS();
+            RespuestaCuentaBancariaDTO respuestaWS = clienteWS.getERP_obtenerCuentaBancaria();
+            DAO<XxfrtCuentabancaria> cuentaBancariaDao = new DAO(XxfrtCuentabancaria.class);
+            for (CuentaBancaria cuentaBancaria : respuestaWS.getCuentaBancaria().getCuentaBancaria()){
+                XxfrtCuentabancaria cuantaEntidad = new XxfrtCuentabancaria();
+                cuantaEntidad.setEstatus(1);
+                cuantaEntidad.setNumerocuenta(cuentaBancaria.getNUMERO());
+                cuantaEntidad.setNombre(cuentaBancaria.getNOMBRE());
+                cuantaEntidad.setFecharegistro(new Date());
+                cuantaEntidad.setMoneda(cuentaBancaria.getMONEDA());
+                cuentaBancariaDao.actualiza(cuantaEntidad);
+            }
+            
             respuesta.setIdError("0");
             respuesta.setDescripcionError("");
             respuesta.setProceso("EXITOSO");

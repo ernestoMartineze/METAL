@@ -49,9 +49,11 @@ public class XxfrtCuentabancaria implements Serializable {
     private Date fecharegistro;
     @Column(name = "ESTATUS")
     private Integer estatus;
-    
-        @Column(name = "NOMBRE")
+
+    @Column(name = "NOMBRE")
     private String nombre;
+    @Column(name = "MONEDA")
+    private String moneda;
 
     public XxfrtCuentabancaria() {
     }
@@ -63,7 +65,6 @@ public class XxfrtCuentabancaria implements Serializable {
     public void setFecharegistro(Date fecharegistro) {
         this.fecharegistro = fecharegistro;
     }
-
 
     @Override
     public int hashCode() {
@@ -108,7 +109,13 @@ public class XxfrtCuentabancaria implements Serializable {
     public void setNumerocuenta(String numerocuenta) {
         this.numerocuenta = numerocuenta;
     }
-    
-    
-    
+
+    public String getMoneda() {
+        return moneda;
+    }
+
+    public void setMoneda(String moneda) {
+        this.moneda = moneda;
+    }
+
 }

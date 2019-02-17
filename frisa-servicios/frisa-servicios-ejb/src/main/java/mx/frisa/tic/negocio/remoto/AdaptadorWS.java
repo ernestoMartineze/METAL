@@ -35,10 +35,12 @@ import javax.xml.parsers.ParserConfigurationException;
 import mx.frisa.tic.datos.dto.CONSTANTE;
 import mx.frisa.tic.datos.dto.ingresos.CreditMemoDTO;
 import mx.frisa.tic.datos.dto.ingresos.CreditMemoFLEXDTO;
+import mx.frisa.tic.datos.dto.ingresos.CuentaBancariaDTO;
 import mx.frisa.tic.datos.dto.ingresos.FacturaPagoDTO;
 import mx.frisa.tic.datos.dto.ingresos.NotaCreditoListaDTO;
 import mx.frisa.tic.datos.dto.ingresos.PagoDTO;
 import mx.frisa.tic.datos.dto.ingresos.Proceso;
+import mx.frisa.tic.datos.dto.ingresos.RespuestaCuentaBancariaDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaMetodoPagoDTO;
 import mx.frisa.tic.datos.entidades.XxfrCabeceraFactura;
@@ -229,6 +231,50 @@ public class AdaptadorWS {
             metodos = (MetodoPagoOBI) respuestaXMLaPOJO(getCadenaDesdeB64(resultado), metodos);
             respestaWS.setProceso(new Proceso("0", "EXITOSO"));
             respestaWS.setMetodosPago(metodos);
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            respestaWS.setProceso(new Proceso("100", ex.getLocalizedMessage()));
+        }
+        return respestaWS;
+    }
+
+    public RespuestaCuentaBancariaDTO getERP_obtenerCuentaBancaria() throws MalformedURLException,
+            IOException,
+            ParserConfigurationException,
+            SAXException {
+
+        //Code to make a webservice HTTP request
+        RespuestaCuentaBancariaDTO respestaWS = new RespuestaCuentaBancariaDTO();
+        respestaWS.setProceso(new Proceso("0", "EXITOSO"));;
+
+        String outputString = "";
+        String wsURL = PropiedadesFRISA.recuperaPropiedadBackend("GetConsultaCuentaBancariaServiceEndPoint");
+
+        String xmlInput
+                = this.getCadenaDesdeB64(PropiedadesFRISA.recuperaPropiedadBackend("GetConsultaCuentaBancariaServicePayload"));
+
+        String SOAPAction
+                = PropiedadesFRISA.recuperaPropiedadBackend("GetConsultaCuentaBancariaServiceSoapAction");
+
+        //Ready with sending the request.
+        try {
+            xmlInput = inyectaParametro(xmlInput, "BU_Name", "CARGA INICIAL");
+            //Read the response.
+//            ConsumirBI consumir = new ConsumirBI();
+            outputString = enviarMsg(wsURL, SOAPAction, xmlInput, PropiedadesFRISA.recuperaPropiedadBackend("GetConsultaCuentaBancariaServiceContentType"));
+//            outputString = consumir.getMetodosPago("123", "", "");
+
+            //Parse the String output to a org.w3c.dom.Document and be able to reach every node with the org.w3c.dom API.
+            Document document = parseXmlFile(outputString);
+            NodeList nodeLst = document.getElementsByTagName("ns2:reportBytes");
+            String resultado = nodeLst.item(0).getTextContent();
+
+            //Write the SOAP message formatted to the console.
+            RespuestaERP_Cuenta respuestaERP_Cuenta = new RespuestaERP_Cuenta();
+            respuestaERP_Cuenta = (RespuestaERP_Cuenta) respuestaXMLaPOJO(getCadenaDesdeB64(resultado), new RespuestaERP_Cuenta());
+            respestaWS.setProceso(new Proceso("0", "EXITOSO"));
+            respestaWS.setCuentaBancaria(respuestaERP_Cuenta);
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -430,8 +476,8 @@ public class AdaptadorWS {
             //Inyectar parametros a la peticion
             xmlInput = inyectaParametro(xmlInput, "com:ReceiptId", pagoDto.getNroRecibo()); //RECIBO ERP
             xmlInput = inyectaParametro(xmlInput, "com:ReceiptNumber", "10" + pagoDto.getIdEdoCta()); //RECIBO NUESTRO SecuencialInterno
-            xmlInput = inyectaParametro(xmlInput, "com:CustomerTrxId", pLstFacturas.get(0).getErptransactionnumber()+""); // FACTURA ERP
-            xmlInput = inyectaParametro(xmlInput, "com:TransactionNumber", pLstFacturas.get(0).getRelatederpinvoice()+ ""); //FACTURA
+            xmlInput = inyectaParametro(xmlInput, "com:CustomerTrxId", pLstFacturas.get(0).getErptransactionnumber() + ""); // FACTURA ERP
+            xmlInput = inyectaParametro(xmlInput, "com:TransactionNumber", pLstFacturas.get(0).getRelatederpinvoice() + ""); //FACTURA
             xmlInput = inyectaParametro(xmlInput, "com:AmountApplied", pagoDto.getMonto());//Monto Factura
             xmlInput = inyectaParametro(xmlInput, "com:CustomerName", pagoDto.getBillCustomerName()); //CLIENTE
             xmlInput = inyectaParametro(xmlInput, "com:ApplicationDate", pagoDto.getFechaAplicacion());

@@ -15,6 +15,7 @@ public class CuentaBancariaDTO {
     
     private String numeroCuenta;
     private String nombre;
+    private String moneda;
     private Date fecha;
     private Integer estatus;
 
@@ -49,5 +50,13 @@ public class CuentaBancariaDTO {
     public void setNumeroCuenta(String numeroCuenta) {
         this.numeroCuenta = numeroCuenta;
     }    
+
+    public String getMoneda() {
+        return moneda;
+    }
+
+    public void setMoneda(String moneda) {
+        this.moneda = moneda;
+    }
     
 }
