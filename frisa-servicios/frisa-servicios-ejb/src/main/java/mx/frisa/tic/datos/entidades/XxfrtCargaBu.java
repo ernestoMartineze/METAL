@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -17,14 +18,14 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import mx.frisa.tic.datos.comun.XxfrcUnidadnegocio;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -41,14 +42,10 @@ import mx.frisa.tic.datos.comun.XxfrcUnidadnegocio;
     @NamedQuery(name = "XxfrtCargaBu.findByCsEstatus", query = "SELECT x FROM XxfrtCargaBu x WHERE x.csEstatus = :csEstatus")})
 public class XxfrtCargaBu implements Serializable {
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "xxfrtCargaBu", fetch = FetchType.LAZY)
-    private XxfrcUnidadnegocio xxfrcUnidadnegocio;
-
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @Basic(optional = false)
-    @NotNull
     @Column(name = "ID_CARGA")
     private BigDecimal idCarga;
     @Column(name = "FECHA_REGISTRO")
@@ -59,6 +56,8 @@ public class XxfrtCargaBu implements Serializable {
     private String uuid;
     @Column(name = "CS_ESTATUS")
     private BigInteger csEstatus;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCarga", fetch = FetchType.LAZY)
+    private List<XxfrcUnidadnegocio> xxfrcUnidadnegocioList;
 
     public XxfrtCargaBu() {
     }
@@ -99,6 +98,15 @@ public class XxfrtCargaBu implements Serializable {
         this.csEstatus = csEstatus;
     }
 
+    @XmlTransient
+    public List<XxfrcUnidadnegocio> getXxfrcUnidadnegocioList() {
+        return xxfrcUnidadnegocioList;
+    }
+
+    public void setXxfrcUnidadnegocioList(List<XxfrcUnidadnegocio> xxfrcUnidadnegocioList) {
+        this.xxfrcUnidadnegocioList = xxfrcUnidadnegocioList;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -122,14 +130,6 @@ public class XxfrtCargaBu implements Serializable {
     @Override
     public String toString() {
         return "mx.frisa.tic.datos.entidades.XxfrtCargaBu[ idCarga=" + idCarga + " ]";
-    }
-
-    public XxfrcUnidadnegocio getXxfrcUnidadnegocio() {
-        return xxfrcUnidadnegocio;
-    }
-
-    public void setXxfrcUnidadnegocio(XxfrcUnidadnegocio xxfrcUnidadnegocio) {
-        this.xxfrcUnidadnegocio = xxfrcUnidadnegocio;
     }
     
 }

@@ -5,13 +5,14 @@
  */
 package mx.frisa.tic.negocio.ingresos;
 
-import java.math.BigDecimal;
+
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Singleton;
 import mx.frisa.tic.datos.comun.DAO;
+import mx.frisa.tic.datos.entidades.XxfrcUnidadnegocio;
 import mx.frisa.tic.datos.dto.CONSTANTE;
 import mx.frisa.tic.datos.dto.comun.CatalogoParametroDTO;
 import mx.frisa.tic.datos.dto.ingresos.CuentaBancariaDTO;
@@ -193,6 +194,7 @@ public class CatalogosBean implements CatalogosBeanLocal {
             DAO<XxfrtCargaBu> xxfrtCargaBuDao = new DAO(XxfrtCargaBu.class);
             XxfrtCargaBu xxfrtCargaBuEnt = new XxfrtCargaBu();
             List<XxfrtCargaBu> xxfrtCargaBuEntList = new ArrayList();
+            List<XxfrcUnidadnegocio> xxfrcUnidadnegocioList = new ArrayList();
 //
 //            
 //            //Asignar datos de la transacción
@@ -204,28 +206,25 @@ public class CatalogosBean implements CatalogosBeanLocal {
             xxfrtCargaBuDao.create(xxfrtCargaBuEnt);
             
             if (xxfrtCargaBuDao.getProceso().getTermino().equals("0")) {
-                xxfrtCargaBuEntList = (List<XxfrtCargaBu>) xxfrtCargaBuDao.consultaQueryNativo("Select t from XxfrtCargaBu t where t.uudi = '" + xxfrtCargaBuEnt.getUuid()+ "' order by t.idCarga desc");
+                xxfrtCargaBuEntList = (List<XxfrtCargaBu>) xxfrtCargaBuDao.consultaQueryNativo("Select t from XxfrtCargaBu t where t.uuid = '" + xxfrtCargaBuEnt.getUuid()+ "' order by t.idCarga desc");
 
-//                for (UnidadNegocio unidadNegocio : respuestaWS.getUnidadesNegocio().getUnidadNegocio()) {
-//                    XxfrtCargaBu cuantaEntidad = new XxfrtCargaBu();
-//                    cuantaEntidad.setIdCarga(xxfrtCargaBuEntList.get(0).getIdCarga());
-//                    cuantaEntidad.setCsEstatus(1);
-//                    cuantaEntidad.set(cuentaBancaria.getNUMERO());
-//                    cuantaEntidad.setNombre(cuentaBancaria.getNOMBRE());
-//                    cuantaEntidad.setFecharegistro(new Date());
-//                    cuantaEntidad.setMoneda(cuentaBancaria.getMONEDA());
-//                    xxfrtCuentabancariaList.add(cuantaEntidad);
-//                }
-//                cargaCtaBancariaEnt.setXxfrtCuentabancariaList(xxfrtCuentabancariaList);
-//
-//                cargaCtaBancariaDao.actualiza(cargaCtaBancariaEnt);
+                for (UnidadNegocio unidadNegocio : respuestaWS.getUnidadesNegocio().getUnidadNegocio()) {
+                    XxfrcUnidadnegocio unidadnegocioEnt = new XxfrcUnidadnegocio();
+                    unidadnegocioEnt.setIdCarga(xxfrtCargaBuEntList.get(0));
+                    unidadnegocioEnt.setNombre(unidadNegocio.getBU_NAME());
+                    unidadnegocioEnt.setCveBu(unidadNegocio.getBU_ID());
+                    xxfrcUnidadnegocioList.add(unidadnegocioEnt);
+                }
+                xxfrtCargaBuEnt.setXxfrcUnidadnegocioList(xxfrcUnidadnegocioList);
+
+                xxfrtCargaBuDao.actualiza(xxfrtCargaBuEnt);
 
                 respuesta.setIdError("0");
                 respuesta.setDescripcionError("");
                 respuesta.setProceso("EXITOSO");
             } else {
-                respuesta.setIdError("1301");
-                respuesta.setDescripcionError("Existe un error al registrar la carga BI a Intermedio");
+                respuesta.setIdError("1401");
+                respuesta.setDescripcionError("Existe un error al registrar la carga BI BU a Intermedio");
                 respuesta.setProceso("ERROR");
 
             }
