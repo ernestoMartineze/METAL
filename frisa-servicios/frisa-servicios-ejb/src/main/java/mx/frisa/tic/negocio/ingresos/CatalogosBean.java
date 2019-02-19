@@ -5,7 +5,6 @@
  */
 package mx.frisa.tic.negocio.ingresos;
 
-
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
@@ -204,13 +203,17 @@ public class CatalogosBean implements CatalogosBeanLocal {
             xxfrtCargaBuEnt.setUuid(UUIDFrisa.regresaUUID());
 //            
             xxfrtCargaBuDao.create(xxfrtCargaBuEnt);
-            
-            if (xxfrtCargaBuDao.getProceso().getTermino().equals("0")) {
-                xxfrtCargaBuEntList = (List<XxfrtCargaBu>) xxfrtCargaBuDao.consultaQueryNativo("Select t from XxfrtCargaBu t where t.uuid = '" + xxfrtCargaBuEnt.getUuid()+ "' order by t.idCarga desc");
 
+            if (xxfrtCargaBuDao.getProceso().getTermino().equals("0")) {
+                xxfrtCargaBuEntList = (List<XxfrtCargaBu>) xxfrtCargaBuDao.consultaQueryNativo("Select t from XxfrtCargaBu t where t.uuid = '" + xxfrtCargaBuEnt.getUuid() + "' order by t.idCarga desc");
+                int contador = 0;
                 for (UnidadNegocio unidadNegocio : respuestaWS.getUnidadesNegocio().getUnidadNegocio()) {
+                    if (contador < 200) {
+                        break;
+                    }
                     XxfrcUnidadnegocio unidadnegocioEnt = new XxfrcUnidadnegocio();
                     unidadnegocioEnt.setIdCarga(xxfrtCargaBuEntList.get(0));
+                    unidadnegocioEnt.setEstatus("A");
                     unidadnegocioEnt.setNombre(unidadNegocio.getBU_NAME());
                     unidadnegocioEnt.setCveBu(unidadNegocio.getBU_ID());
                     xxfrcUnidadnegocioList.add(unidadnegocioEnt);
@@ -228,8 +231,6 @@ public class CatalogosBean implements CatalogosBeanLocal {
                 respuesta.setProceso("ERROR");
 
             }
-
-            
 
             respuesta.setIdError("0");
             respuesta.setDescripcionError("");
