@@ -41,6 +41,7 @@ import mx.frisa.tic.datos.entidades.XxfrLineaCaptura;
 import mx.frisa.tic.datos.entidades.XxfrReciboLineaCaptura;
 import mx.frisa.tic.datos.entidades.XxfrtEstadoCuenta;
 import mx.frisa.tic.datos.entidades.XxfrvConsultaLcFactura;
+import mx.frisa.tic.datos.entidades.XxfrvEstadoctaUsr;
 import mx.frisa.tic.datos.entidades.XxfrvFactparapagos;
 import mx.frisa.tic.negocio.remoto.AdaptadorWS;
 import mx.frisa.tic.negocio.remoto.RespuestaCreaFactura;
@@ -271,9 +272,9 @@ public class GestorPagosBean implements GestorPagos {
     public RespuestaPagoSinReferencia consultarPagosSinReferencia(FiltroPagoSinReferencia filtros) {
         RespuestaPagoSinReferencia respuesta = new RespuestaPagoSinReferencia();
         ManejadorLog log = new ManejadorLog();
-        DAO<XxfrtEstadoCuenta> lineasEstadoCuentaDAO = new DAO(XxfrtEstadoCuenta.class);
-        List<XxfrtEstadoCuenta> lineasEdoCtaEntidad = new ArrayList();
-        String queryArmado = "SELECT x FROM XxfrtEstadoCuenta x WHERE ";
+        DAO<XxfrvEstadoctaUsr> lineasEstadoCuentaDAO = new DAO(XxfrvEstadoctaUsr.class);
+        List<XxfrvEstadoctaUsr> lineasEdoCtaEntidad = new ArrayList();
+        String queryArmado = "SELECT x FROM XxfrvEstadoctaUsr x WHERE ";
 
         try {
 
@@ -290,7 +291,7 @@ public class GestorPagosBean implements GestorPagos {
 
             }
             if (!filtros.getUsuario().equals("")) {
-                queryArmado += " and 1 =1 ";
+                queryArmado += " and x.usuario =  '"+ filtros.getUsuario() + "'";
 
             }
             if (!(filtros.getFechaFinal().equals("")
@@ -303,9 +304,9 @@ public class GestorPagosBean implements GestorPagos {
             }
             //HAcer la consulta
             System.err.println("queryArmado : " + queryArmado);
-            lineasEdoCtaEntidad = (List<XxfrtEstadoCuenta>) lineasEstadoCuentaDAO.consultaQueryNativo(queryArmado);
+            lineasEdoCtaEntidad = (List<XxfrvEstadoctaUsr>) lineasEstadoCuentaDAO.consultaQueryNativo(queryArmado);
             List<LineaEstadoCuentaDTO> lineas = new ArrayList();
-            for (XxfrtEstadoCuenta lineasEdoCuentaEnt : lineasEdoCtaEntidad) {
+            for (XxfrvEstadoctaUsr lineasEdoCuentaEnt : lineasEdoCtaEntidad) {
                 LineaEstadoCuentaDTO lineaDto = new LineaEstadoCuentaDTO();
                 lineaDto.setIdEstadoCuenta(lineasEdoCuentaEnt.getIdEdoCta());
                 lineaDto.setCuentaBancaria(lineasEdoCuentaEnt.getBankAccountNum());
@@ -320,8 +321,8 @@ public class GestorPagosBean implements GestorPagos {
                 lineaDto.setMetodoPago(lineasEdoCuentaEnt.getReceiptMethodId());
                 lineaDto.setTipoDeposito(lineasEdoCuentaEnt.getDescripLookup());
                 lineaDto.setProyecto(BigDecimal.valueOf(Long.valueOf(lineasEdoCuentaEnt.getProyectoPropietario())));
-                lineaDto.setOrgID(lineasEdoCuentaEnt.getBUSINESSUNITNAME());
-                lineaDto.setCliente(lineasEdoCuentaEnt.getNombreCliente());
+                lineaDto.setOrgID(lineasEdoCuentaEnt.getBusinessunitname());
+                lineaDto.setCliente(lineasEdoCuentaEnt.getNombrecliente());
                 lineas.add(lineaDto);
             }
             respuesta.setProceso(new Proceso("0", "EXITOSO"));
