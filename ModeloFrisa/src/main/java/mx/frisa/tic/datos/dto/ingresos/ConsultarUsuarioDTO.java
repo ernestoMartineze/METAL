@@ -10,13 +10,15 @@ package mx.frisa.tic.datos.dto.ingresos;
  * @author Soultech
  */
 public class ConsultarUsuarioDTO {
-    String usuario;
+    String unidadNegocio;
 
-    public String getUsuario() {
-        return usuario;
+    public String getUnidadNegocio() {
+        return unidadNegocio;
     }
 
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
+    public void setUnidadNegocio(String unidadNegocio) {
+        this.unidadNegocio = unidadNegocio;
     }
+
+    
 }

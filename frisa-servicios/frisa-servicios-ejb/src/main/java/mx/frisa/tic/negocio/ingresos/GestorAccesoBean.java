@@ -50,8 +50,8 @@ public class GestorAccesoBean {
         DAO<XxfrtAccesoUsuarios> persist = new DAO(XxfrtAccesoUsuarios.class);
         List<XxfrtAccesoUsuarios> ds = null;
         List<CatalogoParametroDTO> parametros = new ArrayList<>();
-        parametros.add(new CatalogoParametroDTO("usuario", usuarioAcceso.getUsuario(), CONSTANTE.CADENA));
-        ds = persist.consultaQueryByParameters("XxfrtAccesoUsuarios.findByUsuario1", parametros);
+        parametros.add(new CatalogoParametroDTO("unidadnegocio", usuarioAcceso.getUnidadNegocio(), CONSTANTE.CADENA));
+        ds = persist.consultaQueryByParameters("XxfrtAccesoUsuarios.findByUnidadnegocio", parametros);
         if(!ds.isEmpty()){
             response.setIdError("0");
             response.setDescripcionError("EXISTE");
