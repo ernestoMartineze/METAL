@@ -80,7 +80,7 @@
   </binding>
   <service name="CatalogoWS">
     <port name="CatalogoWSPort" binding="tns:CatalogoWSPortBinding">
-      <soap:address location="http://localhost:7001/frisa-servicios/CatalogoWS"/>
+      <soap:address location="https://129.191.25.150:7002/frisa-servicios/CatalogoWS"/>
     </port>
   </service>
 </definitions>

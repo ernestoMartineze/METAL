@@ -26,33 +26,34 @@ import javax.xml.bind.annotation.XmlType;
  *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "consultarUsuarioDTO", propOrder = { "usuario" })
+@XmlType(name = "consultarUsuarioDTO", propOrder = { "unidadNegocio" })
 public class ConsultarUsuarioDTO {
 
-    protected String usuario;
+    protected String unidadNegocio;
+
 
     /**
-     * Gets the value of the usuario property.
+     * Gets the value of the unidadNegocio property.
      *
      * @return
-     *     possible object is
-     *     {@link String }
+     * possible object is
+     * {@link String}
      *
      */
-    public String getUsuario() {
-        return usuario;
+    public String getUnidadNegocio() {
+        return unidadNegocio;
     }
 
     /**
-     * Sets the value of the usuario property.
+     * Sets the value of the unidadNegocio property.
      *
      * @param value
-     *     allowed object is
-     *     {@link String }
+     * allowed object is
+     * {@link String}
      *
      */
-    public void setUsuario(String value) {
-        this.usuario = value;
+    public void setUnidadNegocio(String value) {
+        this.unidadNegocio = value;
     }
 
 }

@@ -7,8 +7,10 @@
          <runtime/>
          <operations>
             <operation name="consultarPais"/>
-            <operation name="consultarTipoMoneda"/>
+            <operation name="actualizarCuentasBancarias"/>
+            <operation name="actualizarUsuarios"/>
             <operation name="consultarCuentaBancaria"/>
+            <operation name="consultarTipoMoneda"/>
          </operations>
       </port-info>
    </webservice-client>

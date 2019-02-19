@@ -180,11 +180,11 @@ public class RegistraUsuario {
         GestorAccesoWS_Service gestorAccesoWS_Service = new GestorAccesoWS_Service();
         GestorAccesoWS gestorAccesoWS = gestorAccesoWS_Service.getGestorAccesoWSPort();
         ConsultarUsuarioDTO consultarUsuario=new ConsultarUsuarioDTO();
-        consultarUsuario.setUsuario(usuarioTx.getValue()==null?"":usuarioTx.getValue().toString());
+        consultarUsuario.setUnidadNegocio(uniNegocioTx.getValue()==null?"":uniNegocioTx.getValue().toString());
         RespuestaDTO respuesta = gestorAccesoWS.consultarUsuario(consultarUsuario);
         if(respuesta.getIdError().equals("0")){
                 //ot3.setValue("el usuario ya existe en el sistema");
-            errorMsg="el usuario ya existe en el sistema";
+            errorMsg="La unidad de negocio ya existe en el sistema";
                 RichPopup.PopupHints hints = new RichPopup.PopupHints();
                 p1.show(hints);
             //AdfFacesContext.getCurrentInstance().addPartialTarget(ot3);

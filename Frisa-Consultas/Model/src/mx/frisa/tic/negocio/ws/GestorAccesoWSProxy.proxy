@@ -4,18 +4,18 @@
       <url path="GestorAccesoWS_Service.xml"/>
       <url path="GestorAccesoWS.wsdl"/>
       <url path="GestorAccesoWS1.xsd"/>
-      <url path="AgregarUsuario.java"/>
-      <url path="ObjectFactory.java"/>
-      <url path="AgregarUsuarioResponse.java"/>
-      <url path="GestorAccesoWSPortClient.java"/>
       <url path="ConsultarUsuario.java"/>
+      <url path="AgregarUsuario.java"/>
+      <url path="GestorAccesoWSPortClient.java"/>
+      <url path="GestorAccesoWS.java"/>
+      <url path="package-info.java"/>
       <url path="RespuestaDTO.java"/>
+      <url path="AgregarUsuarioDTO.java"/>
+      <url path="AgregarUsuarioResponse.java"/>
+      <url path="ConsultarUsuarioDTO.java"/>
       <url path="ConsultarUsuarioResponse.java"/>
       <url path="GestorAccesoWS_Service.java"/>
-      <url path="package-info.java"/>
-      <url path="ConsultarUsuarioDTO.java"/>
-      <url path="GestorAccesoWS.java"/>
-      <url path="AgregarUsuarioDTO.java"/>
+      <url path="ObjectFactory.java"/>
    </list>
    <hash n="DATA_MODEL">
       <value n="ATTACHMENT_ENCODING" v="MIME"/>
@@ -96,7 +96,7 @@
             </hash>
          </list>
          <list n="BINDING_FILES"/>
-         <value n="GUID" v="f39f197a-0168-1000-8016-c0a85001c388"/>
+         <value n="GUID" v="036c5a3b-0169-1000-8005-c0a850016cc3"/>
          <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.proxy.WebServiceProxy$ProxyJavaWebService"/>
          <list n="PO_">
             <hash>

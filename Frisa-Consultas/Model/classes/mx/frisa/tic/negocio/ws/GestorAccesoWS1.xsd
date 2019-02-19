@@ -37,7 +37,7 @@
   </xsd:complexType>
   <xsd:complexType name="consultarUsuarioDTO">
     <xsd:sequence>
-      <xsd:element name="usuario" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="unidadNegocio" type="xsd:string" minOccurs="0"/>
     </xsd:sequence>
   </xsd:complexType>
   <xsd:element name="agregarUsuario" type="ns0:agregarUsuario"/>
