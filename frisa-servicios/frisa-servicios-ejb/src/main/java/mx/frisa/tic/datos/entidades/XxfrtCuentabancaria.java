@@ -10,7 +10,10 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -35,6 +38,12 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "XxfrtCuentabancaria.findByEstatus", query = "SELECT x FROM XxfrtCuentabancaria x WHERE x.estatus = :estatus")})
 public class XxfrtCuentabancaria implements Serializable {
 
+    @Column(name = "ESTATUS")
+    private Integer estatus;
+    @JoinColumn(name = "ID", referencedColumnName = "ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private XxfrcCargaCtabancaria id;
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -47,8 +56,6 @@ public class XxfrtCuentabancaria implements Serializable {
     @Column(name = "FECHAREGISTRO")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecharegistro;
-    @Column(name = "ESTATUS")
-    private Integer estatus;
 
     @Column(name = "NOMBRE")
     private String nombre;
@@ -94,13 +101,6 @@ public class XxfrtCuentabancaria implements Serializable {
         this.nombre = nombre;
     }
 
-    public Integer getEstatus() {
-        return estatus;
-    }
-
-    public void setEstatus(Integer estatus) {
-        this.estatus = estatus;
-    }
 
     public String getNumerocuenta() {
         return numerocuenta;
@@ -116,6 +116,22 @@ public class XxfrtCuentabancaria implements Serializable {
 
     public void setMoneda(String moneda) {
         this.moneda = moneda;
+    }
+
+    public Integer getEstatus() {
+        return estatus;
+    }
+
+    public void setEstatus(Integer estatus) {
+        this.estatus = estatus;
+    }
+
+    public XxfrcCargaCtabancaria getId() {
+        return id;
+    }
+
+    public void setId(XxfrcCargaCtabancaria id) {
+        this.id = id;
     }
 
 }

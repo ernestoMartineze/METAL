@@ -5,6 +5,8 @@
  */
 package mx.frisa.tic.negocio.ingresos;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -15,12 +17,17 @@ import mx.frisa.tic.datos.dto.comun.CatalogoParametroDTO;
 import mx.frisa.tic.datos.dto.ingresos.CuentaBancariaDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaCuentaBancariaDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaDTO;
+import mx.frisa.tic.datos.dto.ingresos.RespuestaUnidadNegocioDTO;
 import mx.frisa.tic.datos.dto.ingresos.TipoMonedaDTO;
+import mx.frisa.tic.datos.entidades.XxfrcCargaCtabancaria;
 import mx.frisa.tic.datos.entidades.XxfrcTipoMoneda;
+import mx.frisa.tic.datos.entidades.XxfrtCargaBu;
 import mx.frisa.tic.datos.entidades.XxfrtCuentabancaria;
 import mx.frisa.tic.negocio.remoto.AdaptadorWS;
 import mx.frisa.tic.negocio.remoto.CuentaBancaria;
+import mx.frisa.tic.negocio.remoto.UnidadNegocio;
 import mx.frisa.tic.negocio.utils.ManejadorLog;
+import mx.frisa.tic.utils.UUIDFrisa;
 
 /**
  *
@@ -118,24 +125,46 @@ public class CatalogosBean implements CatalogosBeanLocal {
 
             AdaptadorWS clienteWS = new AdaptadorWS();
             RespuestaCuentaBancariaDTO respuestaWS = clienteWS.getERP_obtenerCuentaBancaria();
-            DAO<XxfrtCuentabancaria> cuentaBancariaDao = new DAO(XxfrtCuentabancaria.class);
-            Integer contador = 0;
-            for (CuentaBancaria cuentaBancaria : respuestaWS.getCuentaBancaria().getCuentaBancaria()) {
-                if (contador < 190) {
-                    break;
+            DAO<XxfrcCargaCtabancaria> cargaCtaBancariaDao = new DAO(XxfrcCargaCtabancaria.class);
+            XxfrcCargaCtabancaria cargaCtaBancariaEnt = new XxfrcCargaCtabancaria();
+            List<XxfrtCuentabancaria> xxfrtCuentabancariaList = new ArrayList();
+            List<XxfrcCargaCtabancaria> xxfrcCargaCtabancaria = new ArrayList();
+
+            //Asignar datos de la transacción
+            cargaCtaBancariaEnt.setEstatus(BigInteger.ONE);
+            cargaCtaBancariaEnt.setId(null);
+            cargaCtaBancariaEnt.setFecha(new Date());
+            cargaCtaBancariaEnt.setUudi(UUIDFrisa.regresaUUID());
+
+            cargaCtaBancariaDao.create(cargaCtaBancariaEnt);
+            if (cargaCtaBancariaDao.getProceso().getTermino().equals("0")) {
+                xxfrcCargaCtabancaria = (List<XxfrcCargaCtabancaria>) cargaCtaBancariaDao.consultaQueryNativo("Select t from XxfrcCargaCtabancaria t where t.uudi = '" + cargaCtaBancariaEnt.getUudi() + "' order by t.id desc");
+
+                for (CuentaBancaria cuentaBancaria : respuestaWS.getCuentaBancaria().getCuentaBancaria()) {
+                    XxfrtCuentabancaria cuantaEntidad = new XxfrtCuentabancaria();
+                    cuantaEntidad.setId(xxfrcCargaCtabancaria.get(0));
+                    cuantaEntidad.setEstatus(1);
+                    cuantaEntidad.setNumerocuenta(cuentaBancaria.getNUMERO());
+                    cuantaEntidad.setNombre(cuentaBancaria.getNOMBRE());
+                    cuantaEntidad.setFecharegistro(new Date());
+                    cuantaEntidad.setMoneda(cuentaBancaria.getMONEDA());
+                    xxfrtCuentabancariaList.add(cuantaEntidad);
                 }
-                XxfrtCuentabancaria cuantaEntidad = new XxfrtCuentabancaria();
-                cuantaEntidad.setEstatus(1);
-                cuantaEntidad.setNumerocuenta(cuentaBancaria.getNUMERO());
-                cuantaEntidad.setNombre(cuentaBancaria.getNOMBRE());
-                cuantaEntidad.setFecharegistro(new Date());
-                cuantaEntidad.setMoneda(cuentaBancaria.getMONEDA());
-                cuentaBancariaDao.actualiza(cuantaEntidad);
+                cargaCtaBancariaEnt.setXxfrtCuentabancariaList(xxfrtCuentabancariaList);
+
+                cargaCtaBancariaDao.actualiza(cargaCtaBancariaEnt);
+
+                respuesta.setIdError("0");
+                respuesta.setDescripcionError("");
+                respuesta.setProceso("EXITOSO");
+            } else {
+                respuesta.setIdError("1301");
+                respuesta.setDescripcionError("Existe un error al registrar la carga BI a Intermedio");
+                respuesta.setProceso("ERROR");
+
             }
 
-            respuesta.setIdError("0");
-            respuesta.setDescripcionError("");
-            respuesta.setProceso("EXITOSO");
+            respuesta.setUuid(cargaCtaBancariaEnt.getUudi());
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -155,7 +184,53 @@ public class CatalogosBean implements CatalogosBeanLocal {
         log.debug("Inicio aplicarPagoManual");
 
         RespuestaDTO respuesta = new RespuestaDTO();
+        respuesta.setUuid(UUIDFrisa.regresaUUID());
         try {
+
+            AdaptadorWS clienteWS = new AdaptadorWS();
+            RespuestaUnidadNegocioDTO respuestaWS = clienteWS.getERP_obtenerUnidadesNegocio();
+
+            DAO<XxfrtCargaBu> xxfrtCargaBuDao = new DAO(XxfrtCargaBu.class);
+            XxfrtCargaBu xxfrtCargaBuEnt = new XxfrtCargaBu();
+            List<XxfrtCargaBu> xxfrtCargaBuEntList = new ArrayList();
+//
+//            
+//            //Asignar datos de la transacción
+            xxfrtCargaBuEnt.setCsEstatus(BigInteger.ONE);
+            xxfrtCargaBuEnt.setIdCarga(null);
+            xxfrtCargaBuEnt.setFechaRegistro(new Date());
+            xxfrtCargaBuEnt.setUuid(UUIDFrisa.regresaUUID());
+//            
+            xxfrtCargaBuDao.create(xxfrtCargaBuEnt);
+            
+            if (xxfrtCargaBuDao.getProceso().getTermino().equals("0")) {
+                xxfrtCargaBuEntList = (List<XxfrtCargaBu>) xxfrtCargaBuDao.consultaQueryNativo("Select t from XxfrtCargaBu t where t.uudi = '" + xxfrtCargaBuEnt.getUuid()+ "' order by t.idCarga desc");
+
+//                for (UnidadNegocio unidadNegocio : respuestaWS.getUnidadesNegocio().getUnidadNegocio()) {
+//                    XxfrtCargaBu cuantaEntidad = new XxfrtCargaBu();
+//                    cuantaEntidad.setIdCarga(xxfrtCargaBuEntList.get(0).getIdCarga());
+//                    cuantaEntidad.setCsEstatus(1);
+//                    cuantaEntidad.set(cuentaBancaria.getNUMERO());
+//                    cuantaEntidad.setNombre(cuentaBancaria.getNOMBRE());
+//                    cuantaEntidad.setFecharegistro(new Date());
+//                    cuantaEntidad.setMoneda(cuentaBancaria.getMONEDA());
+//                    xxfrtCuentabancariaList.add(cuantaEntidad);
+//                }
+//                cargaCtaBancariaEnt.setXxfrtCuentabancariaList(xxfrtCuentabancariaList);
+//
+//                cargaCtaBancariaDao.actualiza(cargaCtaBancariaEnt);
+
+                respuesta.setIdError("0");
+                respuesta.setDescripcionError("");
+                respuesta.setProceso("EXITOSO");
+            } else {
+                respuesta.setIdError("1301");
+                respuesta.setDescripcionError("Existe un error al registrar la carga BI a Intermedio");
+                respuesta.setProceso("ERROR");
+
+            }
+
+            
 
             respuesta.setIdError("0");
             respuesta.setDescripcionError("");
@@ -164,7 +239,7 @@ public class CatalogosBean implements CatalogosBeanLocal {
         } catch (Exception e) {
             e.printStackTrace();
             respuesta.setProceso("ERROR");
-            respuesta.setIdError("1300");
+            respuesta.setIdError("1400");
             respuesta.setDescripcionError("No se ha logrado actualizar usuarios");
         }
 

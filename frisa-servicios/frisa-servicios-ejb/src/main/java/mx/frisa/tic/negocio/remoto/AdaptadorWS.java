@@ -43,6 +43,7 @@ import mx.frisa.tic.datos.dto.ingresos.Proceso;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaCuentaBancariaDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaMetodoPagoDTO;
+import mx.frisa.tic.datos.dto.ingresos.RespuestaUnidadNegocioDTO;
 import mx.frisa.tic.datos.entidades.XxfrCabeceraFactura;
 import mx.frisa.tic.negocio.utils.ManejadorLog;
 import mx.frisa.tic.negocio.utils.PropiedadesFRISA;
@@ -790,5 +791,48 @@ public class AdaptadorWS {
         Document document = parseXmlFile(outputString);
         NodeList nodeLstServiceStatus = document.getElementsByTagName(nombreNodo);
         return nodeLstServiceStatus.item(0).getTextContent();
+    }
+
+    public RespuestaUnidadNegocioDTO getERP_obtenerUnidadesNegocio()  throws MalformedURLException,
+            IOException,
+            ParserConfigurationException,
+            SAXException {
+
+        //Code to make a webservice HTTP request
+        RespuestaUnidadNegocioDTO respestaWS = new RespuestaUnidadNegocioDTO();
+        respestaWS.setProceso(new Proceso("0", "EXITOSO"));;
+
+        String outputString = "";
+        String wsURL = PropiedadesFRISA.recuperaPropiedadBackend("GetUsuarioServiceEndPoint");
+
+        String xmlInput
+                = this.getCadenaDesdeB64(PropiedadesFRISA.recuperaPropiedadBackend("GetUsuarioServicePayload"));
+
+        String SOAPAction
+                = PropiedadesFRISA.recuperaPropiedadBackend("GetUsuarioServiceSoapAction");
+
+        //Ready with sending the request.
+        try {
+            //Read the response.
+//            ConsumirBI consumir = new ConsumirBI();
+            outputString = enviarMsg(wsURL, SOAPAction, xmlInput, PropiedadesFRISA.recuperaPropiedadBackend("GetUsuarioServiceContentType"));
+//            outputString = consumir.getMetodosPago("123", "", "");
+
+            //Parse the String output to a org.w3c.dom.Document and be able to reach every node with the org.w3c.dom API.
+            Document document = parseXmlFile(outputString);
+            NodeList nodeLst = document.getElementsByTagName("ns2:reportBytes");
+            String resultado = nodeLst.item(0).getTextContent();
+
+            //Write the SOAP message formatted to the console.
+            RespuestaERP_UnidadNegocio respuestaERP_Unidad = new RespuestaERP_UnidadNegocio();
+            respuestaERP_Unidad = (RespuestaERP_UnidadNegocio) respuestaXMLaPOJO(getCadenaDesdeB64(resultado), new RespuestaERP_UnidadNegocio());
+            respestaWS.setProceso(new Proceso("0", "EXITOSO"));
+            respestaWS.setUnidadesNegocio(respuestaERP_Unidad);
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            respestaWS.setProceso(new Proceso("100", ex.getLocalizedMessage()));
+        }
+        return respestaWS;
     }
 }

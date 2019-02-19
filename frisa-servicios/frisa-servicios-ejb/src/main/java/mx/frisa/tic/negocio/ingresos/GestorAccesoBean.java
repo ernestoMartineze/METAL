@@ -21,13 +21,11 @@ import mx.frisa.tic.datos.entidades.XxfrtAccesoUsuarios;
  *
  * @author Soultech
  */
-
 @Stateless(name = "GestorAccesoBean")
 @LocalBean
 public class GestorAccesoBean {
-    
-    
-    public RespuestaDTO agregarUsuario(AgregarUsuarioDTO usuarioAcceso){
+
+    public RespuestaDTO agregarUsuario(AgregarUsuarioDTO usuarioAcceso) {
         RespuestaDTO response = new RespuestaDTO();
         response.setProceso("agregarUsuario");
         DAO<XxfrtAccesoUsuarios> persist = new DAO(XxfrtAccesoUsuarios.class);
@@ -41,8 +39,8 @@ public class GestorAccesoBean {
         response.setIdError("0");
         return response;
     }
-    
-    public RespuestaDTO consultarUsuario(ConsultarUsuarioDTO usuarioAcceso){
+
+    public RespuestaDTO consultarUsuario(ConsultarUsuarioDTO usuarioAcceso) {
         RespuestaDTO response = new RespuestaDTO();
         response.setProceso("consultarUsuario");
         response.setIdError("1300");
@@ -52,11 +50,11 @@ public class GestorAccesoBean {
         List<CatalogoParametroDTO> parametros = new ArrayList<>();
         parametros.add(new CatalogoParametroDTO("usuario", usuarioAcceso.getUsuario(), CONSTANTE.CADENA));
         ds = persist.consultaQueryByParameters("XxfrtAccesoUsuarios.findByUsuario1", parametros);
-        if(!ds.isEmpty()){
+        if (!ds.isEmpty()) {
             response.setIdError("0");
             response.setDescripcionError("EXISTE");
         }
         return response;
     }
-    
+
 }
