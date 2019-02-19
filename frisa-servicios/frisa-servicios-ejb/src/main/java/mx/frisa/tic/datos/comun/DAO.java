@@ -20,7 +20,9 @@ package mx.frisa.tic.datos.comun;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -28,13 +30,17 @@ import javax.persistence.NonUniqueResultException;
 import javax.persistence.ParameterMode;
 import javax.persistence.Query;
 import javax.persistence.StoredProcedureQuery;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import mx.frisa.tic.datos.dto.CONSTANTE;
 import mx.frisa.tic.datos.dto.ingresos.Proceso;
 import mx.frisa.tic.datos.dto.comun.CatalogoParametroDTO;
 import mx.frisa.tic.negocio.utils.ManejadorLog;
 
-
 public class DAO<T> extends ManejadorEntidad implements Serializable {
+
     private static final long serialVersionUID = 70L;
 
     private final Class<T> entidad;//En esta variable se guarda una respuestaLineaCaptura generica
@@ -42,6 +48,7 @@ public class DAO<T> extends ManejadorEntidad implements Serializable {
 
     /**
      * Creates a new instance of DAO
+     *
      * @param claseEntidad
      */
     public DAO(Class<T> claseEntidad) {
@@ -57,7 +64,7 @@ public class DAO<T> extends ManejadorEntidad implements Serializable {
      * @return the List<T>
      * @param pQueryNamed
      */
-    public List<T> consultaQueryNamed(String pQueryNamed) throws NonUniqueResultException,NoResultException {
+    public List<T> consultaQueryNamed(String pQueryNamed) throws NonUniqueResultException, NoResultException {
         this.instanciarManager();
         EntityManager em = this.getEntityManager();
         List<T> listadoEntidad = new ArrayList<T>();
@@ -67,7 +74,7 @@ public class DAO<T> extends ManejadorEntidad implements Serializable {
             Query q = em.createNamedQuery(pQueryNamed);
             manejadorLog.debug("createNamedQuery : " + pQueryNamed);
             Object resultado = q.getResultList();
-            manejadorLog.debug("resultado : Recuperado OKS:"+listadoEntidad.size());
+            manejadorLog.debug("resultado : Recuperado OKS:" + listadoEntidad.size());
             listadoEntidad = (List<T>) resultado;
 
             //Validando el termino de consulta
@@ -85,8 +92,8 @@ public class DAO<T> extends ManejadorEntidad implements Serializable {
 
         return listadoEntidad;
     }
-    
-    public List<T> consultaQuery(String pQuery) throws NonUniqueResultException,NoResultException {
+
+    public List<T> consultaQuery(String pQuery) throws NonUniqueResultException, NoResultException {
         this.instanciarManager();
         EntityManager em = this.getEntityManager();
         List<T> listadoEntidad = new ArrayList<T>();
@@ -115,7 +122,7 @@ public class DAO<T> extends ManejadorEntidad implements Serializable {
         return listadoEntidad;
     }
 
-    public List<T> consultaQueryNativo(String pQuery) throws NonUniqueResultException,NoResultException {
+    public List<T> consultaQueryNativo(String pQuery) throws NonUniqueResultException, NoResultException {
         this.instanciarManager();
         EntityManager em = this.getEntityManager();
         List<T> listadoEntidad = new ArrayList<T>();
@@ -124,11 +131,11 @@ public class DAO<T> extends ManejadorEntidad implements Serializable {
             manejadorLog.debug("Consultado por : " + pQuery);
             Query q = em.createQuery(pQuery);
             manejadorLog.debug("createQuery : " + pQuery);
-            
+
             listadoEntidad = q.getResultList();
 
             manejadorLog.debug("listadoEntidad : " + listadoEntidad);
-           
+
             //Validando el termino de consulta
             if (!listadoEntidad.isEmpty()) {
                 validarConsulta(listadoEntidad.size());
@@ -145,8 +152,6 @@ public class DAO<T> extends ManejadorEntidad implements Serializable {
 
         return listadoEntidad;
     }
-    
-        
 
     /**
      * Método que regresa una Lista generico de la clase enviada utilizando el
@@ -157,16 +162,16 @@ public class DAO<T> extends ManejadorEntidad implements Serializable {
      * @param plistaParametros
      * @exception Exception
      */
-    public List<T> consultaQueryByParameters(String pQueryNamed, List<CatalogoParametroDTO> plistaParametros) throws NonUniqueResultException,NoResultException {
+    public List<T> consultaQueryByParameters(String pQueryNamed, List<CatalogoParametroDTO> plistaParametros) throws NonUniqueResultException, NoResultException {
         this.instanciarManager();
         EntityManager em = this.getEntityManager();
         List<T> listadoEntidad = new ArrayList<T>();
         ManejadorLog manejadorLog = new ManejadorLog();
         try {
             manejadorLog.debug("Consultado por : " + pQueryNamed);
-            
+
             Query q = em.createNamedQuery(pQueryNamed);
-            
+
             int tamanioListaParametros = plistaParametros.size();
             for (int i = 0; i < tamanioListaParametros; i++) {
                 manejadorLog.debug("Cargando parametro : " + plistaParametros.get(i).getDescripcion() + " = " + plistaParametros.get(i).getValor());
@@ -200,36 +205,36 @@ public class DAO<T> extends ManejadorEntidad implements Serializable {
 
         return listadoEntidad;
     }
-    
+
     public List<Object[]> consultaProcedimiento(
-                                                                String idSolicitud
-                                                                ){
+            String idSolicitud
+    ) {
         this.instanciarManager();
         EntityManager em = this.getEntityManager();
         ManejadorLog manejadorLog = new ManejadorLog();
-         List<Object[]> listaRespuestaProcedimiento = new ArrayList<>();
-            
+        List<Object[]> listaRespuestaProcedimiento = new ArrayList<>();
+
         try {
             String procedure = "PCK_BUSCAR_SOLICITUD.CONSULTAR_SOLICITUD";
             manejadorLog.debug("Procedimiento : " + procedure);
-           
+
             StoredProcedureQuery q = em.createStoredProcedureQuery(procedure);
             q.registerStoredProcedureParameter("P_ID_SOLICITUD", Integer.class, ParameterMode.IN);
-            
+
             q.registerStoredProcedureParameter("PMENS_ERROR", String.class, ParameterMode.OUT);
-           
-            if(idSolicitud != null && !idSolicitud.isEmpty()){
-                q.setParameter("P_ID_SOLICITUD",Integer.parseInt(idSolicitud));
+
+            if (idSolicitud != null && !idSolicitud.isEmpty()) {
+                q.setParameter("P_ID_SOLICITUD", Integer.parseInt(idSolicitud));
             }
             q.execute();
-            
-            listaRespuestaProcedimiento = q.getResultList(); 
-            
+
+            listaRespuestaProcedimiento = q.getResultList();
+
             //Validando el termino de consulta
             if (!listaRespuestaProcedimiento.isEmpty()) {
                 validarConsulta(listaRespuestaProcedimiento.size());
             }
-            
+
         } catch (Exception ex) {
             manejadorLog.debug("Error en el método Entidad : " + ex.getMessage());
         } finally {
@@ -240,7 +245,6 @@ public class DAO<T> extends ManejadorEntidad implements Serializable {
         return listaRespuestaProcedimiento;
     }
 
-   
     /**
      * Este método valida la consulta para conocer el termino de la consulta y
      * setear el proceso.
@@ -311,8 +315,42 @@ public class DAO<T> extends ManejadorEntidad implements Serializable {
         }
 
     }
-    
-    
+
+    public void create(T entity) {
+        this.instanciarManager();
+        EntityManager em = this.getEntityManager();
+        try {
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            Validator validator = factory.getValidator();
+            Set<ConstraintViolation<T>> constraintViolations = validator.validate(entity);
+            if (constraintViolations.size() > 0) {
+                Iterator<ConstraintViolation<T>> iterator = constraintViolations.iterator();
+                while (iterator.hasNext()) {
+                    ConstraintViolation<T> cv = iterator.next();
+                    System.err.println(cv.getRootBeanClass().getName() + "." + cv.getPropertyPath() + " " + cv.getMessage());
+
+                    System.err.println(cv.getRootBeanClass().getSimpleName() + "." + cv.getPropertyPath() + " " + cv.getMessage());
+                }
+            } else {
+                System.out.println("ENTIDAD: " + entity);
+                em.getTransaction().begin();
+                em.persist(entity);
+
+                em.getTransaction().commit();
+                validarErrorInsert(false);
+            }
+        } catch (Exception ex) {
+            em.getTransaction().rollback();
+            validarErrorInsert(true);
+            ex.printStackTrace();
+        } finally {
+            em.close();
+            this.cerrarManager();
+
+        }
+
+    }
+
     public void actualizar(T entity) {
         this.instanciarManager();
         EntityManager em = this.getEntityManager();
@@ -333,12 +371,13 @@ public class DAO<T> extends ManejadorEntidad implements Serializable {
         }
 
     }
+
     public T consultarPorID(T entity, Object valor) {
         this.instanciarManager();
         EntityManager em = this.getEntityManager();
         try {
             System.out.println("ENTIDAD: " + entity);
-            entity = (T) em.find(entity.getClass(),valor);
+            entity = (T) em.find(entity.getClass(), valor);
             em.merge(entity);
 
             validarErrorInsert(false);
@@ -351,12 +390,11 @@ public class DAO<T> extends ManejadorEntidad implements Serializable {
         }
         return entity;
     }
- 
 
     public Boolean actualizaQuery(String scriptQuery) {
         this.instanciarManager();
         EntityManager em = this.getEntityManager();
-        
+
         Boolean termina = false;
         ManejadorLog manejadorLog = new ManejadorLog();
         try {
