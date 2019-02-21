@@ -40,7 +40,7 @@ public class CatalogoWS {
      */
     @WebMethod(operationName = "consultarCuentaBancaria")
     public List<CuentaBancariaDTO> consultarCuentaBancaria(@WebParam(name = "numeroCuenta") String numeroCuenta) {
-        
+
         return ejbRef.consultarCuentaBancaria(numeroCuenta);
     }
 
@@ -61,5 +61,11 @@ public class CatalogoWS {
         //TODO write your implementation code here:
         return ejbRef.actualizarCuentasBancarias();
     }
-    
+
+    @WebMethod(operationName = "actualizarCentroCosto")
+    public RespuestaDTO actualizarCentroCosto() {
+        //TODO write your implementation code here:
+        return ejbRef.actualizarCentroCosto();
+    }
+
 }

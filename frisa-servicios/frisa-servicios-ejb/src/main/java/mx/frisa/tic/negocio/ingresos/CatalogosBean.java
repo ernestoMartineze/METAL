@@ -15,18 +15,23 @@ import mx.frisa.tic.datos.entidades.XxfrcUnidadnegocio;
 import mx.frisa.tic.datos.dto.CONSTANTE;
 import mx.frisa.tic.datos.dto.comun.CatalogoParametroDTO;
 import mx.frisa.tic.datos.dto.ingresos.CuentaBancariaDTO;
+import mx.frisa.tic.datos.dto.ingresos.RespuestaCentroCostoDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaCuentaBancariaDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaUnidadNegocioDTO;
 import mx.frisa.tic.datos.dto.ingresos.TipoMonedaDTO;
 import mx.frisa.tic.datos.entidades.XxfrcCargaCtabancaria;
 import mx.frisa.tic.datos.entidades.XxfrcTipoMoneda;
+import mx.frisa.tic.datos.entidades.XxfrcUsuario;
 import mx.frisa.tic.datos.entidades.XxfrtCargaBu;
+import mx.frisa.tic.datos.entidades.XxfrtCargaUsuario;
 import mx.frisa.tic.datos.entidades.XxfrtCuentabancaria;
 import mx.frisa.tic.negocio.remoto.AdaptadorWS;
+import mx.frisa.tic.negocio.remoto.CentroCostoBI;
 import mx.frisa.tic.negocio.remoto.CuentaBancaria;
 import mx.frisa.tic.negocio.remoto.UnidadNegocio;
 import mx.frisa.tic.negocio.utils.ManejadorLog;
+import mx.frisa.tic.utils.FechaUtils;
 import mx.frisa.tic.utils.UUIDFrisa;
 
 /**
@@ -244,6 +249,50 @@ public class CatalogosBean implements CatalogosBeanLocal {
         }
 
         log.debug("Termino actualizarUsuarios");
+
+        return respuesta;
+    }
+    @Override
+    public RespuestaDTO actualizarCentroCosto() {
+        ManejadorLog log = new ManejadorLog();
+        log.debug("Inicio actualizarCentroCosto");
+
+        RespuestaDTO respuesta = new RespuestaDTO();
+        respuesta.setUuid(UUIDFrisa.regresaUUID());
+        try {
+
+            AdaptadorWS clienteWS = new AdaptadorWS();
+            RespuestaCentroCostoDTO respuestaWS = clienteWS.getERP_obtenerCentroCosto();
+            
+            DAO<XxfrtCargaUsuario> cargaUsuarioDao = new DAO(XxfrtCargaUsuario.class);
+            XxfrtCargaUsuario cargaUsrEnt = new XxfrtCargaUsuario();
+            cargaUsrEnt.setFecha(FechaUtils.convierteHoyFecha());
+            cargaUsrEnt.setEstatus(BigInteger.ONE);
+            cargaUsuarioDao.registra(cargaUsrEnt);
+            
+//            List<XxfrcUsuario> xxfrcUsuarioList = new ArrayList();
+//            for (CentroCostoBI centroCosto : respuestaWS.getCentroCosto().getCentroCosto()){
+//                Xxfr centroBi = new XxfrcUsuario();
+//                centroBi.setFullname(centroCosto.getDESCRIPTION());
+//                centroBi.set(centroCosto.getDESCRIPTION());
+//                xxfrcUsuarioList.add(centroBi);
+//            }
+//            
+//            cargaUsrEnt.setXxfrcUsuarioList(xxfrcUsuarioList);
+//            cargaUsuarioDao.actualiza(cargaUsrEnt);
+            
+            respuesta.setIdError("0");
+            respuesta.setDescripcionError("");
+            respuesta.setProceso("EXITOSO");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            respuesta.setProceso("ERROR");
+            respuesta.setIdError("1500");
+            respuesta.setDescripcionError("No se ha logrado actualizar centro de costos");
+        }
+
+        log.debug("Termino actualizarCentroCosto");
 
         return respuesta;
     }
