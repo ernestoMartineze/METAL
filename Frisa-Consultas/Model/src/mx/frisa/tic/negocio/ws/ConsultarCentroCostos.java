@@ -7,16 +7,16 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for consultarUsuario complex type.
+ * <p>Java class for consultarCentroCostos complex type.
  *
  * <p>The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
- * &lt;complexType name="consultarUsuario"&gt;
+ * &lt;complexType name="consultarCentroCostos"&gt;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="usuarioAcceso" type="{http://ws.negocio.tic.frisa.mx/}consultarUsuarioDTO" minOccurs="0"/&gt;
+ *         &lt;element name="centroCostos" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -26,33 +26,33 @@ import javax.xml.bind.annotation.XmlType;
  *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "consultarUsuario", propOrder = { "usuarioAcceso" })
-public class ConsultarUsuario {
+@XmlType(name = "consultarCentroCostos", propOrder = { "centroCostos" })
+public class ConsultarCentroCostos {
 
-    protected ConsultarUsuarioDTO usuarioAcceso;
+    protected String centroCostos;
 
     /**
-     * Gets the value of the usuarioAcceso property.
+     * Gets the value of the centroCostos property.
      *
      * @return
      *     possible object is
-     *     {@link ConsultarUsuarioDTO }
+     *     {@link String }
      *
      */
-    public ConsultarUsuarioDTO getUsuarioAcceso() {
-        return usuarioAcceso;
+    public String getCentroCostos() {
+        return centroCostos;
     }
 
     /**
-     * Sets the value of the usuarioAcceso property.
+     * Sets the value of the centroCostos property.
      *
      * @param value
      *     allowed object is
-     *     {@link ConsultarUsuarioDTO }
+     *     {@link String }
      *
      */
-    public void setUsuarioAcceso(ConsultarUsuarioDTO value) {
-        this.usuarioAcceso = value;
+    public void setCentroCostos(String value) {
+        this.centroCostos = value;
     }
 
 }

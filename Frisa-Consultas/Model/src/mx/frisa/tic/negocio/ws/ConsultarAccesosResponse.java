@@ -8,16 +8,16 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for consultarUsuarioResponse complex type.
+ * <p>Java class for consultarAccesosResponse complex type.
  *
  * <p>The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
- * &lt;complexType name="consultarUsuarioResponse"&gt;
+ * &lt;complexType name="consultarAccesosResponse"&gt;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="return" type="{http://ws.negocio.tic.frisa.mx/}respuestaDTO" minOccurs="0"/&gt;
+ *         &lt;element name="return" type="{http://ws.negocio.tic.frisa.mx/}consultarAccesoUsuarioDTO" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -27,21 +27,21 @@ import javax.xml.bind.annotation.XmlType;
  *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "consultarUsuarioResponse", propOrder = { "_return" })
-public class ConsultarUsuarioResponse {
+@XmlType(name = "consultarAccesosResponse", propOrder = { "_return" })
+public class ConsultarAccesosResponse {
 
     @XmlElement(name = "return")
-    protected RespuestaDTO _return;
+    protected ConsultarAccesoUsuarioDTO _return;
 
     /**
      * Gets the value of the return property.
      *
      * @return
      *     possible object is
-     *     {@link RespuestaDTO }
+     *     {@link ConsultarAccesoUsuarioDTO }
      *
      */
-    public RespuestaDTO getReturn() {
+    public ConsultarAccesoUsuarioDTO getReturn() {
         return _return;
     }
 
@@ -50,10 +50,10 @@ public class ConsultarUsuarioResponse {
      *
      * @param value
      *     allowed object is
-     *     {@link RespuestaDTO }
+     *     {@link ConsultarAccesoUsuarioDTO }
      *
      */
-    public void setReturn(RespuestaDTO value) {
+    public void setReturn(ConsultarAccesoUsuarioDTO value) {
         this._return = value;
     }
 

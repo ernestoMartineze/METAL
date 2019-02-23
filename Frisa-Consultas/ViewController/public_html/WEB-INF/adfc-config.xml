@@ -24,4 +24,10 @@
     <managed-bean-scope>pageFlow</managed-bean-scope>
     <!--oracle-jdev-comment:managed-bean-jsp-link:1RegistraUsuario.jsf-->
   </managed-bean>
+  <managed-bean id="__3">
+    <managed-bean-name>backing_AsignacionUsuario</managed-bean-name>
+    <managed-bean-class>mx.frisa.tic.view.backing.AsignacionUsuario</managed-bean-class>
+    <managed-bean-scope>pageFlow</managed-bean-scope>
+    <!--oracle-jdev-comment:managed-bean-jsp-link:1AsignacionUsuario.jsf-->
+  </managed-bean>
 </adfc-config>

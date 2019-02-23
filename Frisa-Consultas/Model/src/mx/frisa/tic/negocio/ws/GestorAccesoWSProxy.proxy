@@ -1,27 +1,28 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <jdevws:WebServiceProxy xmlns:jdevws="http://xmlns.oracle.com/jdeveloper/10130/webserviceproxy">
    <list n="CHILD_NODES">
-      <url path="GestorAccesoWS_Service.xml"/>
+      <url path="GestorAccesoWS.xml"/>
       <url path="GestorAccesoWS.wsdl"/>
       <url path="GestorAccesoWS1.xsd"/>
-      <url path="ConsultarUsuario.java"/>
       <url path="AgregarUsuario.java"/>
-      <url path="GestorAccesoWSPortClient.java"/>
+      <url path="ConsultarAccesoUsuarioDTO.java"/>
+      <url path="AgregarUsuarioResponse.java"/>
+      <url path="ConsultarAccesos.java"/>
       <url path="GestorAccesoWS.java"/>
-      <url path="package-info.java"/>
+      <url path="ConsultarAccesosResponse.java"/>
       <url path="RespuestaDTO.java"/>
       <url path="AgregarUsuarioDTO.java"/>
-      <url path="AgregarUsuarioResponse.java"/>
-      <url path="ConsultarUsuarioDTO.java"/>
-      <url path="ConsultarUsuarioResponse.java"/>
-      <url path="GestorAccesoWS_Service.java"/>
       <url path="ObjectFactory.java"/>
+      <url path="GestorAccesoWSPortClient.java"/>
+      <url path="package-info.java"/>
+      <url path="AccesoUsuarioDTO.java"/>
+      <url path="GestorAccesoWS_Service.java"/>
    </list>
    <hash n="DATA_MODEL">
       <value n="ATTACHMENT_ENCODING" v="MIME"/>
       <list n="LOCAL_FILES"/>
       <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.proxy.WebServiceProxy"/>
-      <url n="ORACLE_WEBSERVICES_XML" path="GestorAccesoWS_Service.xml"/>
+      <url n="ORACLE_WEBSERVICES_XML" path="GestorAccesoWS.xml"/>
       <hash n="PROPERTY_GROUPS">
          <hash n="WSDL_TO_JAVA_PROPERTIES">
             <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.java.WSDLToJavaProperties"/>
@@ -45,7 +46,7 @@
                   <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.proxy.ProxyOperation"/>
                   <hash n="PROPERTY_GROUPS"/>
                </hash>
-               <hash n="consultarUsuario">
+               <hash n="consultarAccesos">
                   <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.proxy.ProxyOperation"/>
                   <hash n="PROPERTY_GROUPS"/>
                </hash>
@@ -82,12 +83,12 @@
                <value n="NAME" v="{http://ws.negocio.tic.frisa.mx/}GestorAccesoWSPortBinding"/>
                <list n="OP_BINDINGS">
                   <hash>
-                     <value n="BOUND_OPERATION" v="mx.frisa.tic.negocio.ws.RespuestaDTO.consultarUsuario.mx.frisa.tic.negocio.ws.ConsultarUsuarioDTO"/>
+                     <value n="BOUND_OPERATION" v="mx.frisa.tic.negocio.ws.RespuestaDTO.agregarUsuario.mx.frisa.tic.negocio.ws.AgregarUsuarioDTO"/>
                      <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.SOAPOperationBinding"/>
                      <hash n="PROPERTY_GROUPS"/>
                   </hash>
                   <hash>
-                     <value n="BOUND_OPERATION" v="mx.frisa.tic.negocio.ws.RespuestaDTO.agregarUsuario.mx.frisa.tic.negocio.ws.AgregarUsuarioDTO"/>
+                     <value n="BOUND_OPERATION" v="mx.frisa.tic.negocio.ws.ConsultarAccesoUsuarioDTO.consultarAccesos.java.lang.String"/>
                      <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.SOAPOperationBinding"/>
                      <hash n="PROPERTY_GROUPS"/>
                   </hash>
@@ -96,7 +97,7 @@
             </hash>
          </list>
          <list n="BINDING_FILES"/>
-         <value n="GUID" v="036c5a3b-0169-1000-8005-c0a850016cc3"/>
+         <value n="GUID" v="1641acd1-0169-1000-8014-c0a85001a89c"/>
          <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.proxy.WebServiceProxy$ProxyJavaWebService"/>
          <list n="PO_">
             <hash>
@@ -106,12 +107,12 @@
                <value n="PORT_BINDING_NAME" v="{http://ws.negocio.tic.frisa.mx/}GestorAccesoWSPortBinding"/>
                <list n="PORT_OPS">
                   <hash>
-                     <value n="EXPOSED_BD_OPERATION" v="mx.frisa.tic.negocio.ws.RespuestaDTO.consultarUsuario.mx.frisa.tic.negocio.ws.ConsultarUsuarioDTO"/>
+                     <value n="EXPOSED_BD_OPERATION" v="mx.frisa.tic.negocio.ws.RespuestaDTO.agregarUsuario.mx.frisa.tic.negocio.ws.AgregarUsuarioDTO"/>
                      <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.PortOperation"/>
                      <hash n="PROPERTY_GROUPS"/>
                   </hash>
                   <hash>
-                     <value n="EXPOSED_BD_OPERATION" v="mx.frisa.tic.negocio.ws.RespuestaDTO.agregarUsuario.mx.frisa.tic.negocio.ws.AgregarUsuarioDTO"/>
+                     <value n="EXPOSED_BD_OPERATION" v="mx.frisa.tic.negocio.ws.ConsultarAccesoUsuarioDTO.consultarAccesos.java.lang.String"/>
                      <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.PortOperation"/>
                      <hash n="PROPERTY_GROUPS"/>
                   </hash>

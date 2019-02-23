@@ -1,7 +1,7 @@
 package mx.frisa.tic.view.backing;
 
 import mx.frisa.tic.negocio.ws.AgregarUsuarioDTO;
-import mx.frisa.tic.negocio.ws.ConsultarUsuarioDTO;
+//import mx.frisa.tic.negocio.ws.ConsultarUsuarioDTO;
 import mx.frisa.tic.negocio.ws.GestorAccesoWS;
 import mx.frisa.tic.negocio.ws.GestorAccesoWS_Service;
 
@@ -177,7 +177,7 @@ public class RegistraUsuario {
 
     public String registrar_action() {
         // Add event code here...
-        GestorAccesoWS_Service gestorAccesoWS_Service = new GestorAccesoWS_Service();
+        /*GestorAccesoWS_Service gestorAccesoWS_Service = new GestorAccesoWS_Service();
         GestorAccesoWS gestorAccesoWS = gestorAccesoWS_Service.getGestorAccesoWSPort();
         ConsultarUsuarioDTO consultarUsuario=new ConsultarUsuarioDTO();
         consultarUsuario.setUnidadNegocio(uniNegocioTx.getValue()==null?"":uniNegocioTx.getValue().toString());
@@ -208,7 +208,7 @@ public class RegistraUsuario {
             }
         RichPopup.PopupHints hints = new RichPopup.PopupHints();
         p1.show(hints);
-        
+        */
         return null;
     }
 

@@ -1,27 +1,51 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<definitions name="CatalogoWS" targetNamespace="http://ws.negocio.tic.frisa.mx/"
-             xmlns="http://schemas.xmlsoap.org/wsdl/"
-             xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
-             xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:wsp1_2="http://schemas.xmlsoap.org/ws/2004/09/policy"
-             xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata"
-             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://ws.negocio.tic.frisa.mx/"
-             xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<definitions xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:wsp1_2="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://ws.negocio.tic.frisa.mx/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://ws.negocio.tic.frisa.mx/" name="CatalogoWS">
   <types>
     <xsd:schema>
       <xsd:import namespace="http://ws.negocio.tic.frisa.mx/" schemaLocation="CatalogoWS1.xsd"/>
     </xsd:schema>
   </types>
+  <message name="consultarUsuarios">
+    <part name="parameters" element="tns:consultarUsuarios"/>
+  </message>
+  <message name="consultarUsuariosResponse">
+    <part name="parameters" element="tns:consultarUsuariosResponse"/>
+  </message>
   <message name="consultarPais">
     <part name="parameters" element="tns:consultarPais"/>
   </message>
   <message name="consultarPaisResponse">
     <part name="parameters" element="tns:consultarPaisResponse"/>
   </message>
+  <message name="consultarUnidadNegocio">
+    <part name="parameters" element="tns:consultarUnidadNegocio"/>
+  </message>
+  <message name="consultarUnidadNegocioResponse">
+    <part name="parameters" element="tns:consultarUnidadNegocioResponse"/>
+  </message>
+  <message name="actualizarUsuarios">
+    <part name="parameters" element="tns:actualizarUsuarios"/>
+  </message>
+  <message name="actualizarUsuariosResponse">
+    <part name="parameters" element="tns:actualizarUsuariosResponse"/>
+  </message>
+  <message name="consultarCentroCostos">
+    <part name="parameters" element="tns:consultarCentroCostos"/>
+  </message>
+  <message name="consultarCentroCostosResponse">
+    <part name="parameters" element="tns:consultarCentroCostosResponse"/>
+  </message>
   <message name="consultarTipoMoneda">
     <part name="parameters" element="tns:consultarTipoMoneda"/>
   </message>
   <message name="consultarTipoMonedaResponse">
     <part name="parameters" element="tns:consultarTipoMonedaResponse"/>
+  </message>
+  <message name="actualizarCuentasBancarias">
+    <part name="parameters" element="tns:actualizarCuentasBancarias"/>
+  </message>
+  <message name="actualizarCuentasBancariasResponse">
+    <part name="parameters" element="tns:actualizarCuentasBancariasResponse"/>
   </message>
   <message name="consultarCuentaBancaria">
     <part name="parameters" element="tns:consultarCuentaBancaria"/>
@@ -30,26 +54,50 @@
     <part name="parameters" element="tns:consultarCuentaBancariaResponse"/>
   </message>
   <portType name="CatalogoWS">
+    <operation name="consultarUsuarios">
+      <input wsam:Action="http://ws.negocio.tic.frisa.mx/CatalogoWS/consultarUsuariosRequest" message="tns:consultarUsuarios"/>
+      <output wsam:Action="http://ws.negocio.tic.frisa.mx/CatalogoWS/consultarUsuariosResponse" message="tns:consultarUsuariosResponse"/>
+    </operation>
     <operation name="consultarPais">
-      <input message="tns:consultarPais" wsam:Action="http://ws.negocio.tic.frisa.mx/CatalogoWS/consultarPaisRequest"/>
-      <output message="tns:consultarPaisResponse"
-              wsam:Action="http://ws.negocio.tic.frisa.mx/CatalogoWS/consultarPaisResponse"/>
+      <input wsam:Action="http://ws.negocio.tic.frisa.mx/CatalogoWS/consultarPaisRequest" message="tns:consultarPais"/>
+      <output wsam:Action="http://ws.negocio.tic.frisa.mx/CatalogoWS/consultarPaisResponse" message="tns:consultarPaisResponse"/>
+    </operation>
+    <operation name="consultarUnidadNegocio">
+      <input wsam:Action="http://ws.negocio.tic.frisa.mx/CatalogoWS/consultarUnidadNegocioRequest" message="tns:consultarUnidadNegocio"/>
+      <output wsam:Action="http://ws.negocio.tic.frisa.mx/CatalogoWS/consultarUnidadNegocioResponse" message="tns:consultarUnidadNegocioResponse"/>
+    </operation>
+    <operation name="actualizarUsuarios">
+      <input wsam:Action="http://ws.negocio.tic.frisa.mx/CatalogoWS/actualizarUsuariosRequest" message="tns:actualizarUsuarios"/>
+      <output wsam:Action="http://ws.negocio.tic.frisa.mx/CatalogoWS/actualizarUsuariosResponse" message="tns:actualizarUsuariosResponse"/>
+    </operation>
+    <operation name="consultarCentroCostos">
+      <input wsam:Action="http://ws.negocio.tic.frisa.mx/CatalogoWS/consultarCentroCostosRequest" message="tns:consultarCentroCostos"/>
+      <output wsam:Action="http://ws.negocio.tic.frisa.mx/CatalogoWS/consultarCentroCostosResponse" message="tns:consultarCentroCostosResponse"/>
     </operation>
     <operation name="consultarTipoMoneda">
-      <input message="tns:consultarTipoMoneda"
-             wsam:Action="http://ws.negocio.tic.frisa.mx/CatalogoWS/consultarTipoMonedaRequest"/>
-      <output message="tns:consultarTipoMonedaResponse"
-              wsam:Action="http://ws.negocio.tic.frisa.mx/CatalogoWS/consultarTipoMonedaResponse"/>
+      <input wsam:Action="http://ws.negocio.tic.frisa.mx/CatalogoWS/consultarTipoMonedaRequest" message="tns:consultarTipoMoneda"/>
+      <output wsam:Action="http://ws.negocio.tic.frisa.mx/CatalogoWS/consultarTipoMonedaResponse" message="tns:consultarTipoMonedaResponse"/>
+    </operation>
+    <operation name="actualizarCuentasBancarias">
+      <input wsam:Action="http://ws.negocio.tic.frisa.mx/CatalogoWS/actualizarCuentasBancariasRequest" message="tns:actualizarCuentasBancarias"/>
+      <output wsam:Action="http://ws.negocio.tic.frisa.mx/CatalogoWS/actualizarCuentasBancariasResponse" message="tns:actualizarCuentasBancariasResponse"/>
     </operation>
     <operation name="consultarCuentaBancaria">
-      <input message="tns:consultarCuentaBancaria"
-             wsam:Action="http://ws.negocio.tic.frisa.mx/CatalogoWS/consultarCuentaBancariaRequest"/>
-      <output message="tns:consultarCuentaBancariaResponse"
-              wsam:Action="http://ws.negocio.tic.frisa.mx/CatalogoWS/consultarCuentaBancariaResponse"/>
+      <input wsam:Action="http://ws.negocio.tic.frisa.mx/CatalogoWS/consultarCuentaBancariaRequest" message="tns:consultarCuentaBancaria"/>
+      <output wsam:Action="http://ws.negocio.tic.frisa.mx/CatalogoWS/consultarCuentaBancariaResponse" message="tns:consultarCuentaBancariaResponse"/>
     </operation>
   </portType>
   <binding name="CatalogoWSPortBinding" type="tns:CatalogoWS">
-    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+    <operation name="consultarUsuarios">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
     <operation name="consultarPais">
       <soap:operation soapAction=""/>
       <input>
@@ -59,7 +107,43 @@
         <soap:body use="literal"/>
       </output>
     </operation>
+    <operation name="consultarUnidadNegocio">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="actualizarUsuarios">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="consultarCentroCostos">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
     <operation name="consultarTipoMoneda">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="actualizarCuentasBancarias">
       <soap:operation soapAction=""/>
       <input>
         <soap:body use="literal"/>
@@ -80,7 +164,7 @@
   </binding>
   <service name="CatalogoWS">
     <port name="CatalogoWSPort" binding="tns:CatalogoWSPortBinding">
-      <soap:address location="https://129.191.25.150:7002/frisa-servicios/CatalogoWS"/>
+      <soap:address location="http://192.168.80.1:7001/frisa-servicios/CatalogoWS"/>
     </port>
   </service>
 </definitions>
