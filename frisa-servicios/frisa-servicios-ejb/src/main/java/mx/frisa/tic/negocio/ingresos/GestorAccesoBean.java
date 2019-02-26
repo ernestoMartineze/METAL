@@ -6,6 +6,7 @@
 package mx.frisa.tic.negocio.ingresos;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.LocalBean;
@@ -19,7 +20,9 @@ import mx.frisa.tic.datos.dto.ingresos.ConsultarAccesoUsuarioDTO;
 import mx.frisa.tic.datos.dto.ingresos.ConsultarUsuarioDTO;
 import mx.frisa.tic.datos.dto.ingresos.ConsultarUniNegocioDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaDTO;
+import mx.frisa.tic.datos.entidades.XxfrcUnidadnegocio;
 import mx.frisa.tic.datos.entidades.XxfrtAccesoUsuarios;
+import mx.frisa.tic.datos.entidades.XxfrvAccesoUsuarios;
 
 /**
  *
@@ -34,10 +37,14 @@ public class GestorAccesoBean {
         response.setProceso("agregarUsuario");
         DAO<XxfrtAccesoUsuarios> persist = new DAO(XxfrtAccesoUsuarios.class);
         //validar combinacion existente
+        System.out.println("usuarioAcceso.getUnidadNegocio() :"+usuarioAcceso.getUnidadNegocio());
+        DAO<XxfrcUnidadnegocio> unidadesDao = new DAO(XxfrcUnidadnegocio.class);
+        List<XxfrcUnidadnegocio> unidades = (List<XxfrcUnidadnegocio>) unidadesDao.consultaQueryNativo("SELECT x FROM XxfrcUnidadnegocio x WHERE x.nombre = '"+usuarioAcceso.getUnidadNegocio()+"'");
         List<CatalogoParametroDTO> parametros = new ArrayList<>();
+        String cveBu = unidades.get(0).getCveBu();
         parametros.add(new CatalogoParametroDTO("usuario", usuarioAcceso.getUsuario(), CONSTANTE.CADENA));
         parametros.add(new CatalogoParametroDTO("centrocostos", usuarioAcceso.getCentroCostos(), CONSTANTE.CADENA));
-        parametros.add(new CatalogoParametroDTO("unidadnegocio", usuarioAcceso.getUnidadNegocio(), CONSTANTE.CADENA));
+        parametros.add(new CatalogoParametroDTO("unidadnegocio", cveBu, CONSTANTE.CADENA));
         List<XxfrtAccesoUsuarios> usuarios = persist.consultaQueryByParameters("XxfrtAccesoUsuarios.findByAll", parametros);
         if(usuarios.size()>0){
             response.setDescripcionError("La combinacion (unidad de negocio - centro de costos) ya existe para el usuario");
@@ -46,7 +53,7 @@ public class GestorAccesoBean {
             XxfrtAccesoUsuarios entidadUsuario = new XxfrtAccesoUsuarios();
             entidadUsuario.setUsuario(usuarioAcceso.getUsuario());
             entidadUsuario.setCentrocostos(usuarioAcceso.getCentroCostos());
-            entidadUsuario.setUnidadnegocio(usuarioAcceso.getUnidadNegocio());
+            entidadUsuario.setUnidadnegocio(cveBu);
             entidadUsuario.setHabilitado("H");
             persist.registra(entidadUsuario);
             response.setDescripcionError("Permisos otorgados a usuario");
@@ -100,20 +107,21 @@ public class GestorAccesoBean {
 
     public ConsultarAccesoUsuarioDTO consultarAcceso(String usuario) {
         ConsultarAccesoUsuarioDTO response= new ConsultarAccesoUsuarioDTO();
-        response.setUsuario(usuario);
-        DAO<XxfrtAccesoUsuarios> accesoDao = new DAO(XxfrtAccesoUsuarios.class);
-        List<XxfrtAccesoUsuarios> accesosDao = null;
+        
+        DAO<XxfrvAccesoUsuarios> accesoDao = new DAO(XxfrvAccesoUsuarios.class);
+        List<XxfrvAccesoUsuarios> accesosDao = null;
         List<AccesoUsuarioDTO> accesosDto=new ArrayList();
         List<CatalogoParametroDTO> parametros = new ArrayList<>();
         parametros.add(new CatalogoParametroDTO("usuario", usuario, CONSTANTE.CADENA));
-        accesosDao = (List<XxfrtAccesoUsuarios>) accesoDao.consultaQueryByParameters("XxfrtAccesoUsuarios.findByUsuarioHabilitado", parametros);
-        for(XxfrtAccesoUsuarios acceso : accesosDao){
+        accesosDao = (List<XxfrvAccesoUsuarios>) accesoDao.consultaQueryByParameters("XxfrvAccesoUsuarios.findByUsuario", parametros);
+        for(XxfrvAccesoUsuarios acceso : accesosDao){
             AccesoUsuarioDTO accesoDto = new AccesoUsuarioDTO();
             accesoDto.setCentrocostos(acceso.getCentrocostos());
-            accesoDto.setIdacceso(acceso.getIdacceso());
+            accesoDto.setIdacceso(new BigDecimal(acceso.getIdacceso()));
             accesoDto.setUnidadnegocio(acceso.getUnidadnegocio());
             accesosDto.add(accesoDto);
             response.setAccesos(accesosDto);
+            response.setUsuario(acceso.getFullname());
         }
         return response;
     }
