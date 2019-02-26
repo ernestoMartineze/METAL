@@ -172,13 +172,13 @@ public class GestorPagosBean implements GestorPagos {
 
             query.append("SELECT x ")
                     .append(" FROM XxfrvFactparapagos x ")
-                    .append("WHERE x.lineacaptura in (")
+                    .append("WHERE x.estadoprocesamiento = 'REGISTRADA' and x.lineacaptura in (")
                     .append("'" + pago.getLineaCaptura() + "'")
                     .append(")");
         } else {
             query.append("SELECT x ")
                     .append(" FROM XxfrvFactparapagos x ")
-                    .append("WHERE x.REFERENCENUMBER in (")
+                    .append("WHERE x.estadoprocesamiento = 'REGISTRADA' and x.REFERENCENUMBER in (")
                     .append("'" + pago.getReferencia() + "'")
                     .append(")");
         }

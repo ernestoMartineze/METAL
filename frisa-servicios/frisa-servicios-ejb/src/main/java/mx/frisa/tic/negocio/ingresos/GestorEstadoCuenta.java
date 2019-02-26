@@ -69,6 +69,9 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
                 List<G_1> lineasPago = respuestaWS.getDATA_DSObject().getG_1();
                 DAO<XxfrtEstadoCuenta> estadoCuentaDao = new DAO(XxfrtEstadoCuenta.class);
 
+                //Asignamos UUID de la transaccion
+                respuesta.setUuid(UUIDFrisa.regresaUUID());
+
                 for (G_1 lineaPago : lineasPago) {
 
                     manejaLog.debug("Procesando el estado de cuenta : getBANK_ACCOUNT_NUM" + lineaPago.getBANK_ACCOUNT_NUM());
@@ -80,8 +83,7 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
                     XxfrtEstadoCuenta edoCuenta = new XxfrtEstadoCuenta();
 
                     //Asignamos UUID de la transaccion
-                    edoCuenta.setUuid(UUIDFrisa.regresaUUID());
-                    respuesta.setUuid(edoCuenta.getUuid());
+                    edoCuenta.setUuid(respuesta.getUuid());
                     edoCuenta.setGlDate(new Date());
 
                     edoCuenta.setBankAccountNum(BigDecimal.valueOf(Long.valueOf(lineaPago.getBANK_ACCOUNT_NUM())));
@@ -187,19 +189,25 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
                         edoCtaEnt.actualiza(edoCuenta);
 
                         edoCuenta = procesarPago(edoCuenta, pago, edoCtaDto);
-                        if (edoCuenta.getRmethodid().equals("0")) {
+                        if ((edoCuenta.getRmethodid().toString()).equals("1")) {
                             //Exito en el procesamiento del pago
-
-                            respuesta.setProceso("EXITOSO");
-                            respuesta.setIdError("0");
-                            respuesta.setDescripcionError("");
+                            RespuestaDTO aplicarLocalmente = aplicarPagoInterno(edoCuenta, pago, edoCtaDto);
+                            if (aplicarLocalmente.getProceso().equals("EXITOSO")) {
+                                respuesta.setProceso("EXITOSO");
+                                respuesta.setIdError("0");
+                                respuesta.setDescripcionError("");
+                            } else {
+                                respuesta.setProceso("ERROR");
+                                respuesta.setIdError("114");
+                                respuesta.setDescripcionError("No fue posible aplicar el pago localmente");
+                            }
 
                         } else {
                             //Error al proccesar el pago
                             respuesta.setProceso("ERROR");
                             respuesta.setIdError(edoCuenta.getRmethodid() + "");
                             respuesta.setDescripcionError("Hubo un error al procesar el estado de cuenta revisar reporte por medio del UUID.");
-
+                            
                         }
 
                     }
@@ -337,18 +345,23 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
         resultadoReporte = (List<xxfrv_reporte_estado_cuenta>) reporteDao.consultaQueryByParameters("xxfrv_reporte_estado_cuenta.findByUUID", parametros);
         for (xxfrv_reporte_estado_cuenta edoCuenta : resultadoReporte) {
             ReporteEstadoCuentaDTO reporteEdoCta = new ReporteEstadoCuentaDTO();
-            reporteEdoCta.setCodigoError(edoCuenta.getCodigoError());
-            reporteEdoCta.setDescripcionError(edoCuenta.getDescripcionError());
+            reporteEdoCta.setCodigo(edoCuenta.getCodigoError());
+            reporteEdoCta.setDescripcion(edoCuenta.getDescripcionError());
             reporteEdoCta.setFecha(edoCuenta.getFechaTxn());
             reporteEdoCta.setIdCuenta(edoCuenta.getIdEdoCta());
             reporteEdoCta.setNumeroCuenta(edoCuenta.getNumeroCuenta());
+            reporteEdoCta.setAMOUNT(edoCuenta.getAMOUNT());
+            reporteEdoCta.setCUSTOMER_REFERENCE(edoCuenta.getCUSTOMER_REFERENCE());
+            reporteEdoCta.setLINE_CAPTURE(edoCuenta.getLINE_CAPTURE());
+            reporteEdoCta.setSTATEMENT_HEADER_ID(edoCuenta.getSTATEMENT_HEADER_ID());
+            reporteEdoCta.setSTATEMENT_LINE_ID(edoCuenta.getSTATEMENT_LINE_ID());
             reporteEdoCta.setUuid(edoCuenta.getUuid());
             respuesta.add(reporteEdoCta);
         }
 
         if (respuesta.size() == 0) {
             ReporteEstadoCuentaDTO reporteEdoCtaControlada = new ReporteEstadoCuentaDTO();
-            reporteEdoCtaControlada.setDescripcionError("No existe información con el uuid : " + filtros.getUuid());
+            reporteEdoCtaControlada.setDescripcion("No existe información con el uuid : " + filtros.getUuid());
             respuesta.add(reporteEdoCtaControlada);
         }
 
@@ -418,7 +431,7 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
                             //Llamar al procedimiento almacenado procesar pago
                             int respuestaAP = ejecutarProcedimientoAplicarPago(pago.getLineaCaptura(), pago.getReferencia(), pago.getIdEdoCta().toString());
                             if (respuestaAP == 0) {
-                                edoCuenta.setRmethodid(BigDecimal.valueOf(Long.valueOf("0")));
+                                edoCuenta.setRmethodid(BigDecimal.valueOf(Long.valueOf("1")));
                             } else {
                                 //Asignar proceso a ERROR-al aplicar el pago en proceso LOCAL_BD
                                 edoCuenta.setRmethodid(BigDecimal.valueOf(Long.valueOf("107")));
@@ -457,6 +470,18 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
         ProcedimientoAlmacendo procedimiento = new ProcedimientoAlmacendo();
         return procedimiento.ejecutaAplicarPago(lineaCaptura, referencia, idPago);
 
+    }
+
+    private RespuestaDTO aplicarPagoInterno(XxfrtEstadoCuenta edoCuenta, PagoDTO pago, RespuestaEdoCuentaDTO edoCtaDto) {
+        ProcedimientoAlmacendo proc = new ProcedimientoAlmacendo();
+        int resultado = proc.ejecutaAplicarPago(edoCuenta.getIdLineaCaptura()+"", edoCuenta.getCustomerReference(), edoCuenta.getIdEdoCta()+"");
+        RespuestaDTO respuesta = new RespuestaDTO();
+        if (resultado==0)
+            respuesta = new RespuestaDTO("EXITOSO", "0", "");
+        else
+            respuesta = new RespuestaDTO("ERROR", "115", "Al procesar el pago en base local falló");
+        
+        return respuesta;
     }
 
 }

@@ -382,8 +382,6 @@ public class GestorLineaCapturaBean implements GestorLineaCaptura {
                 facturaEntidad.setContractnumber(factura.getContractnumber());
 //                facturaEntidad.setConversionratetype(factura.get());
 //                facturaEntidad.setConversionratevalue(factura.get());
-//                facturaEntidad.setCreationdategl(factura.getCreationdategl());
-//                facturaEntidad.setCreationdatetrx(factura.getCreationdatetrx());
                 facturaEntidad.setCreationdategl(new Date());
                 facturaEntidad.setCreationdatetrx(new Date());
                 facturaEntidad.setCurrency(factura.getCurrency());
@@ -427,9 +425,6 @@ public class GestorLineaCapturaBean implements GestorLineaCaptura {
                     lineaFactura.setTaxrate(BigInteger.valueOf(lineasFacturaSOA.getTaxrate()));
                     lineaFactura.setMontobrutolinea(BigDecimal.valueOf(lineasFacturaSOA.getMontobrutolinea()));
                     lineaFactura.setMontonetolinea(BigDecimal.valueOf(lineasFacturaSOA.getMontonetolinea()));
-//                    lineaFactura.setFechadesde(String.lineasFacturaSOA.getFechadesde());
-//                    lineaFactura.setFechaexigibilidad(lineasFacturaSOA.getFechaexigibilidad());
-//                    lineaFactura.setFechahasta(lineasFacturaSOA.getFechahasta());
                     lineaFactura.setFechadesde(new Date()); //CORREGIR DE FUENTE
                     lineaFactura.setFechaexigibilidad(new Date()); //CORREGIR DE FUENTE
                     lineaFactura.setFechahasta(new Date()); //CORREGIR DE FUENTE
@@ -445,6 +440,8 @@ public class GestorLineaCapturaBean implements GestorLineaCaptura {
                     lineaFactura.setFlexContext(lineasFacturaSOA.getFlexContext());
                     lineaFactura.setFlexContextDisplayvalue(lineasFacturaSOA.getFlexContextDisplayvalue());
                     lineaFactura.setFlexNumofsegments(lineasFacturaSOA.getFlexNumofsegments());
+                    lineaFactura.setPorPagar(BigDecimal.valueOf(lineasFacturaSOA.getMontonetolinea()));
+                    
 //                    lineaFactura.setMontoivalinea(BigDecimal.valueOf(Long.valueOf("" + lineasFacturaSOA.getMontoivalinea())));
 //                    lineaFactura.setTaxclassificationcode(lineasFacturaSOA.getTaxclassificationcode());
 //                    lineaFactura.setMontobrutolinearetiva(BigDecimal.valueOf(Long.valueOf("" + lineasFacturaSOA.getMontobrutolinearetiva())));

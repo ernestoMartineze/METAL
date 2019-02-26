@@ -111,8 +111,8 @@ public class AdaptadorWS {
                 xmlInput = inyectaParametro(xmlInput, "tran4:periodoDeFacturacionHasta", factura.getFechahasta());
                 xmlInput = inyectaParametro(xmlInput, "tran4:siguienteFechaDeExigibilidad", factura.getFechaexigibilidad());
                 xmlInput = inyectaParametro(xmlInput, "tran:proyecto", factura.getProjectid() + "");
-                xmlInput = inyectaParametro(xmlInput, "tran:folio", factura.getFolioavisocargo());
-                xmlInput = inyectaParametro(xmlInput, "tran:nUmeroDeLocal", factura.getLinenumber() + "");
+                xmlInput = inyectaParametro(xmlInput, "tran:folio", "SI-"+factura.getLinenumber());
+                xmlInput = inyectaParametro(xmlInput, "tran:nUmeroDeLocal", factura.getLocalnumber()+ "");
                 System.err.println("XML-Factura a enviar: " + xmlInput);
 
                 outputString = enviarMsg(wsURL, SOAPAction, xmlInput, tipoContenido);
@@ -478,9 +478,17 @@ public class AdaptadorWS {
             //Inyectar parametros a la peticion
             xmlInput = inyectaParametro(xmlInput, "com:ReceiptId", pagoDto.getNroRecibo()); //RECIBO ERP
             xmlInput = inyectaParametro(xmlInput, "com:ReceiptNumber", "10" + pagoDto.getIdEdoCta()); //RECIBO NUESTRO SecuencialInterno
-            xmlInput = inyectaParametro(xmlInput, "com:CustomerTrxId", pLstFacturas.get(0).getErptransactionnumber() + ""); // FACTURA ERP
-            xmlInput = inyectaParametro(xmlInput, "com:TransactionNumber", pLstFacturas.get(0).getRelatederpinvoice() + ""); //FACTURA
+
+            for (XxfrCabeceraFactura facturasEnt : pLstFacturas) {
+                xmlInput = inyectaParametro(xmlInput, "com:CustomerTrxId", facturasEnt.getCustomerTrxID_erp() + ""); // FACTURA ERP
+                xmlInput = inyectaParametro(xmlInput, "com:TransactionNumber", facturasEnt.getTransactioNumber_erp() + ""); //FACTURA
+
+            }
+            xmlInput = inyectaParametro(xmlInput, "com:CustomerTrxId", pLstFacturas.get(0).getCustomerTrxID_erp() + ""); // FACTURA ERP
+            xmlInput = inyectaParametro(xmlInput, "com:TransactionNumber", pLstFacturas.get(0).getTransactioNumber_erp() + ""); //FACTURA
             xmlInput = inyectaParametro(xmlInput, "com:AmountApplied", pagoDto.getMonto());//Monto Factura
+            
+//            xmlInput = inyectaParametro(xmlInput, "com:AmountApplied", "7000");//Monto Factura
             xmlInput = inyectaParametro(xmlInput, "com:CustomerName", pagoDto.getBillCustomerName()); //CLIENTE
             xmlInput = inyectaParametro(xmlInput, "com:ApplicationDate", pagoDto.getFechaAplicacion());
             xmlInput = inyectaParametro(xmlInput, "com:AccountingDate", pagoDto.getFechaContable());
@@ -794,7 +802,7 @@ public class AdaptadorWS {
         return nodeLstServiceStatus.item(0).getTextContent();
     }
 
-    public RespuestaUnidadNegocioDTO getERP_obtenerUnidadesNegocio()  throws MalformedURLException,
+    public RespuestaUnidadNegocioDTO getERP_obtenerUnidadesNegocio() throws MalformedURLException,
             IOException,
             ParserConfigurationException,
             SAXException {
@@ -836,7 +844,8 @@ public class AdaptadorWS {
         }
         return respestaWS;
     }
-    public RespuestaCentroCostoDTO getERP_obtenerCentroCosto()  throws MalformedURLException,
+
+    public RespuestaCentroCostoDTO getERP_obtenerCentroCosto() throws MalformedURLException,
             IOException,
             ParserConfigurationException,
             SAXException {
@@ -879,7 +888,7 @@ public class AdaptadorWS {
         return respestaWS;
     }
 
-    public RespuestaUnidadNegocioDTO getERP_obtenerUsuarios()  throws MalformedURLException,
+    public RespuestaUnidadNegocioDTO getERP_obtenerUsuarios() throws MalformedURLException,
             IOException,
             ParserConfigurationException,
             SAXException {
