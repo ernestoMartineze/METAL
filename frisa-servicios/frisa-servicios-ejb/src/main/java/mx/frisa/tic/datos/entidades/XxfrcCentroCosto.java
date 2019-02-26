@@ -30,6 +30,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "XxfrcCentroCosto.findByIdcarga", query = "SELECT x FROM XxfrcCentroCosto x WHERE x.idcarga = :idcarga")
     , @NamedQuery(name = "XxfrcCentroCosto.findByFlexValue", query = "SELECT x FROM XxfrcCentroCosto x WHERE x.flexValue = :flexValue")
     , @NamedQuery(name = "XxfrcCentroCosto.findByDescription", query = "SELECT x FROM XxfrcCentroCosto x WHERE x.description = :description")})
+
 public class XxfrcCentroCosto implements Serializable {
 
     private static final long serialVersionUID = 1L;

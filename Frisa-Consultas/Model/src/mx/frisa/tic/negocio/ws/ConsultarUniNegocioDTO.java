@@ -7,17 +7,17 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for consultarUsuarioDTO complex type.
+ * <p>Java class for consultarUniNegocioDTO complex type.
  *
  * <p>The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
- * &lt;complexType name="consultarUsuarioDTO"&gt;
+ * &lt;complexType name="consultarUniNegocioDTO"&gt;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="fullname" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
- *         &lt;element name="username" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="cveBu" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="nombre" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -27,58 +27,58 @@ import javax.xml.bind.annotation.XmlType;
  *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "consultarUsuarioDTO", propOrder = { "fullname", "username" })
-public class ConsultarUsuarioDTO {
+@XmlType(name = "consultarUniNegocioDTO", propOrder = { "cveBu", "nombre" })
+public class ConsultarUniNegocioDTO {
 
-    protected String fullname;
-    protected String username;
+    protected String cveBu;
+    protected String nombre;
 
     /**
-     * Gets the value of the fullname property.
+     * Gets the value of the cveBu property.
      *
      * @return
      *     possible object is
      *     {@link String }
      *
      */
-    public String getFullname() {
-        return fullname;
+    public String getCveBu() {
+        return cveBu;
     }
 
     /**
-     * Sets the value of the fullname property.
+     * Sets the value of the cveBu property.
      *
      * @param value
      *     allowed object is
      *     {@link String }
      *
      */
-    public void setFullname(String value) {
-        this.fullname = value;
+    public void setCveBu(String value) {
+        this.cveBu = value;
     }
 
     /**
-     * Gets the value of the username property.
+     * Gets the value of the nombre property.
      *
      * @return
      *     possible object is
      *     {@link String }
      *
      */
-    public String getUsername() {
-        return username;
+    public String getNombre() {
+        return nombre;
     }
 
     /**
-     * Sets the value of the username property.
+     * Sets the value of the nombre property.
      *
      * @param value
      *     allowed object is
      *     {@link String }
      *
      */
-    public void setUsername(String value) {
-        this.username = value;
+    public void setNombre(String value) {
+        this.nombre = value;
     }
 
 }

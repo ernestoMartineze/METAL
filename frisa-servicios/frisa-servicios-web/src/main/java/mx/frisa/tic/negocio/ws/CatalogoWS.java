@@ -44,7 +44,7 @@ public class CatalogoWS {
      */
     @WebMethod(operationName = "consultarCuentaBancaria")
     public List<CuentaBancariaDTO> consultarCuentaBancaria(@WebParam(name = "numeroCuenta") String numeroCuenta) {
-        
+
         return ejbRef.consultarCuentaBancaria(numeroCuenta);
     }
 
@@ -77,18 +77,6 @@ public class CatalogoWS {
     @WebMethod(operationName = "consultarCentroCostos")
     public List<ConsultarCentroCostosDTO> consultarCentroCostos(@WebParam(name = "centroCostos") String centroCostos) {
         return ejbRef.consultarCentroCostos(centroCostos);
-//        List<ConsultarCentroCostosDTO> lista= new ArrayList();
-//        ConsultarCentroCostosDTO cc= new ConsultarCentroCostosDTO();
-//        cc.setDescription("desc");
-//        cc.setFlexValue("fvalue");
-//        lista.add(cc);
-//        cc.setDescription("desc2");
-//        cc.setFlexValue("fvalue2");
-//        lista.add(cc);
-//        cc.setDescription("desc3");
-//        cc.setFlexValue("fvalue3");
-//        lista.add(cc);
-//        return lista;
     }
     
     /**
@@ -97,18 +85,12 @@ public class CatalogoWS {
     @WebMethod(operationName = "consultarUnidadNegocio")
     public List<ConsultarUniNegocioDTO> consultarUnidadNegocio(@WebParam(name = "unidadNegocio") String unidadNegocio) {
         return ejbRef.consultarUnidadNegocio(unidadNegocio);
-//        List<ConsultarUniNegocioDTO> lista = new ArrayList();
-//        ConsultarUniNegocioDTO un = new ConsultarUniNegocioDTO();
-//        un.setCveBu("cve1");
-//        un.setNombre("nombre");
-//        lista.add(un);
-//        un.setCveBu("cve2");
-//        un.setNombre("nombre2");
-//        lista.add(un);
-//        un.setCveBu("cve3");
-//        un.setNombre("nombre3");
-//        lista.add(un);
-//        return lista;
     }
     
+    @WebMethod(operationName = "actualizarCentroCosto")
+    public RespuestaDTO actualizarCentroCosto() {
+        //TODO write your implementation code here:
+        return ejbRef.actualizarCentroCosto();
+    }
+
 }

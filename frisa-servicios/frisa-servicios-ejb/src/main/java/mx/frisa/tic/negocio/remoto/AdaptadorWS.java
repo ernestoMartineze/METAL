@@ -40,6 +40,7 @@ import mx.frisa.tic.datos.dto.ingresos.FacturaPagoDTO;
 import mx.frisa.tic.datos.dto.ingresos.NotaCreditoListaDTO;
 import mx.frisa.tic.datos.dto.ingresos.PagoDTO;
 import mx.frisa.tic.datos.dto.ingresos.Proceso;
+import mx.frisa.tic.datos.dto.ingresos.RespuestaCentroCostoDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaCuentaBancariaDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaMetodoPagoDTO;
@@ -794,6 +795,91 @@ public class AdaptadorWS {
     }
 
     public RespuestaUnidadNegocioDTO getERP_obtenerUnidadesNegocio()  throws MalformedURLException,
+            IOException,
+            ParserConfigurationException,
+            SAXException {
+
+        //Code to make a webservice HTTP request
+        RespuestaUnidadNegocioDTO respestaWS = new RespuestaUnidadNegocioDTO();
+        respestaWS.setProceso(new Proceso("0", "EXITOSO"));;
+
+        String outputString = "";
+        String wsURL = PropiedadesFRISA.recuperaPropiedadBackend("GetBUServiceEndPoint");
+
+        String xmlInput
+                = this.getCadenaDesdeB64(PropiedadesFRISA.recuperaPropiedadBackend("GetBUServicePayload"));
+
+        String SOAPAction
+                = PropiedadesFRISA.recuperaPropiedadBackend("GetBUServiceSoapAction");
+
+        //Ready with sending the request.
+        try {
+            //Read the response.
+//            ConsumirBI consumir = new ConsumirBI();
+            outputString = enviarMsg(wsURL, SOAPAction, xmlInput, PropiedadesFRISA.recuperaPropiedadBackend("GetBUServiceContentType"));
+//            outputString = consumir.getMetodosPago("123", "", "");
+
+            //Parse the String output to a org.w3c.dom.Document and be able to reach every node with the org.w3c.dom API.
+            Document document = parseXmlFile(outputString);
+            NodeList nodeLst = document.getElementsByTagName("ns2:reportBytes");
+            String resultado = nodeLst.item(0).getTextContent();
+
+            //Write the SOAP message formatted to the console.
+            RespuestaERP_UnidadNegocio respuestaERP_Unidad = new RespuestaERP_UnidadNegocio();
+            respuestaERP_Unidad = (RespuestaERP_UnidadNegocio) respuestaXMLaPOJO(getCadenaDesdeB64(resultado), new RespuestaERP_UnidadNegocio());
+            respestaWS.setProceso(new Proceso("0", "EXITOSO"));
+            respestaWS.setUnidadesNegocio(respuestaERP_Unidad);
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            respestaWS.setProceso(new Proceso("100", ex.getLocalizedMessage()));
+        }
+        return respestaWS;
+    }
+    public RespuestaCentroCostoDTO getERP_obtenerCentroCosto()  throws MalformedURLException,
+            IOException,
+            ParserConfigurationException,
+            SAXException {
+
+        //Code to make a webservice HTTP request
+        RespuestaCentroCostoDTO respestaWS = new RespuestaCentroCostoDTO();
+        respestaWS.setProceso(new Proceso("0", "EXITOSO"));;
+
+        String outputString = "";
+        String wsURL = PropiedadesFRISA.recuperaPropiedadBackend("GetCCServiceEndPoint");
+
+        String xmlInput
+                = this.getCadenaDesdeB64(PropiedadesFRISA.recuperaPropiedadBackend("GetCCServicePayload"));
+
+        String SOAPAction
+                = PropiedadesFRISA.recuperaPropiedadBackend("GetCCServiceSoapAction");
+
+        //Ready with sending the request.
+        try {
+            //Read the response.
+//            ConsumirBI consumir = new ConsumirBI();
+            outputString = enviarMsg(wsURL, SOAPAction, xmlInput, PropiedadesFRISA.recuperaPropiedadBackend("GetCCServiceContentType"));
+//            outputString = consumir.getMetodosPago("123", "", "");
+
+            //Parse the String output to a org.w3c.dom.Document and be able to reach every node with the org.w3c.dom API.
+            Document document = parseXmlFile(outputString);
+            NodeList nodeLst = document.getElementsByTagName("ns2:reportBytes");
+            String resultado = nodeLst.item(0).getTextContent();
+
+            //Write the SOAP message formatted to the console.
+            RespuestaERP_CentroCosto respuestaERP_CC = new RespuestaERP_CentroCosto();
+            respuestaERP_CC = (RespuestaERP_CentroCosto) respuestaXMLaPOJO(getCadenaDesdeB64(resultado), new RespuestaERP_CentroCosto());
+            respestaWS.setProceso(new Proceso("0", "EXITOSO"));
+            respestaWS.setCentroCosto(respuestaERP_CC);
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            respestaWS.setProceso(new Proceso("100", ex.getLocalizedMessage()));
+        }
+        return respestaWS;
+    }
+
+    public RespuestaUnidadNegocioDTO getERP_obtenerUsuarios()  throws MalformedURLException,
             IOException,
             ParserConfigurationException,
             SAXException {

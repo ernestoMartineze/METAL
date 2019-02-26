@@ -5,31 +5,31 @@
       <xsd:import namespace="http://ws.negocio.tic.frisa.mx/" schemaLocation="GestorAccesoWS1.xsd"/>
     </xsd:schema>
   </types>
-  <message name="consultarUsuario">
-    <part name="parameters" element="tns:consultarUsuario"/>
-  </message>
-  <message name="consultarUsuarioResponse">
-    <part name="parameters" element="tns:consultarUsuarioResponse"/>
-  </message>
   <message name="agregarUsuario">
     <part name="parameters" element="tns:agregarUsuario"/>
   </message>
   <message name="agregarUsuarioResponse">
     <part name="parameters" element="tns:agregarUsuarioResponse"/>
   </message>
+  <message name="consultarAccesos">
+    <part name="parameters" element="tns:consultarAccesos"/>
+  </message>
+  <message name="consultarAccesosResponse">
+    <part name="parameters" element="tns:consultarAccesosResponse"/>
+  </message>
   <portType name="GestorAccesoWS">
-    <operation name="consultarUsuario">
-      <input wsam:Action="http://ws.negocio.tic.frisa.mx/GestorAccesoWS/consultarUsuarioRequest" message="tns:consultarUsuario"/>
-      <output wsam:Action="http://ws.negocio.tic.frisa.mx/GestorAccesoWS/consultarUsuarioResponse" message="tns:consultarUsuarioResponse"/>
-    </operation>
     <operation name="agregarUsuario">
       <input wsam:Action="http://ws.negocio.tic.frisa.mx/GestorAccesoWS/agregarUsuarioRequest" message="tns:agregarUsuario"/>
       <output wsam:Action="http://ws.negocio.tic.frisa.mx/GestorAccesoWS/agregarUsuarioResponse" message="tns:agregarUsuarioResponse"/>
     </operation>
+    <operation name="consultarAccesos">
+      <input wsam:Action="http://ws.negocio.tic.frisa.mx/GestorAccesoWS/consultarAccesosRequest" message="tns:consultarAccesos"/>
+      <output wsam:Action="http://ws.negocio.tic.frisa.mx/GestorAccesoWS/consultarAccesosResponse" message="tns:consultarAccesosResponse"/>
+    </operation>
   </portType>
   <binding name="GestorAccesoWSPortBinding" type="tns:GestorAccesoWS">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-    <operation name="consultarUsuario">
+    <operation name="agregarUsuario">
       <soap:operation soapAction=""/>
       <input>
         <soap:body use="literal"/>
@@ -38,7 +38,7 @@
         <soap:body use="literal"/>
       </output>
     </operation>
-    <operation name="agregarUsuario">
+    <operation name="consultarAccesos">
       <soap:operation soapAction=""/>
       <input>
         <soap:body use="literal"/>
@@ -50,7 +50,7 @@
   </binding>
   <service name="GestorAccesoWS">
     <port name="GestorAccesoWSPort" binding="tns:GestorAccesoWSPortBinding">
-      <soap:address location="https://129.191.25.150:7002/frisa-servicios/GestorAccesoWS"/>
+      <soap:address location="http://192.168.80.1:7001/frisa-servicios/GestorAccesoWS"/>
     </port>
   </service>
 </definitions>

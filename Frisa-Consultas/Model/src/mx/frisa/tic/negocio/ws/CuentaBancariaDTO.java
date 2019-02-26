@@ -31,14 +31,15 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "cuentaBancariaDTO", propOrder = { "estatus", "fecha", "nombre", "numeroCuenta" })
+@XmlType(name = "cuentaBancariaDTO", propOrder = { "estatus", "fecha", "moneda", "nombre", "numeroCuenta" })
 public class CuentaBancariaDTO {
 
     protected Integer estatus;
     @XmlSchemaType(name = "dateTime")
     protected XMLGregorianCalendar fecha;
     protected String nombre;
-    protected Integer numeroCuenta;
+    protected String numeroCuenta;
+    protected String moneda;
 
     /**
      * Gets the value of the estatus property.
@@ -120,7 +121,9 @@ public class CuentaBancariaDTO {
      *     {@link Integer }
      *
      */
-    public Integer getNumeroCuenta() {
+    public String getNumeroCuenta() {
+        /*return numeroCuenta;*/
+
         return numeroCuenta;
     }
 
@@ -132,8 +135,32 @@ public class CuentaBancariaDTO {
      *     {@link Integer }
      *
      */
-    public void setNumeroCuenta(Integer value) {
+    public void setNumeroCuenta(String value) {
         this.numeroCuenta = value;
+    }
+
+    /**
+     * Gets the value of the moneda property.
+     *
+     * @return
+     * possible object is
+     * {@link String}
+     *
+     */
+    public String getMoneda() {
+        return moneda;
+    }
+
+    /**
+     * Sets the value of the moneda property.
+     *
+     * @param value
+     * allowed object is
+     * {@link String}
+     *
+     */
+    public void setMoneda(String value) {
+        this.moneda = value;
     }
 
 }

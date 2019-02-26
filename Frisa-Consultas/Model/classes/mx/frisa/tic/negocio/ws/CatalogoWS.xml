@@ -1,16 +1,19 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<oracle-webservice-clients xmlns:ns0="http://java.sun.com/xml/ns/javaee">
+<oracle-webservice-clients xmlns:ns1="http://java.sun.com/xml/ns/javaee">
    <webservice-client>
       <service-qname namespaceURI="http://ws.negocio.tic.frisa.mx/" localpart="CatalogoWS"/>
       <port-info>
          <wsdl-port namespaceURI="http://ws.negocio.tic.frisa.mx/" localpart="CatalogoWSPort"/>
          <runtime/>
          <operations>
+            <operation name="consultarUsuarios"/>
             <operation name="consultarPais"/>
-            <operation name="actualizarCuentasBancarias"/>
+            <operation name="consultarUnidadNegocio"/>
             <operation name="actualizarUsuarios"/>
-            <operation name="consultarCuentaBancaria"/>
+            <operation name="consultarCentroCostos"/>
             <operation name="consultarTipoMoneda"/>
+            <operation name="actualizarCuentasBancarias"/>
+            <operation name="consultarCuentaBancaria"/>
          </operations>
       </port-info>
    </webservice-client>

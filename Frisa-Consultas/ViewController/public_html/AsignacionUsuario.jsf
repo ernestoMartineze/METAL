@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html>
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+        xmlns:h="http://java.sun.com/jsf/html">
+    <af:document title="AsisgnacionUsuario.jsf" id="d1" binding="#{pageFlowScope.backing_AsignacionUsuario.d1}">
+        <af:form id="f1" binding="#{pageFlowScope.backing_AsignacionUsuario.f1}">
+            <af:panelGridLayout id="pgl1" binding="#{pageFlowScope.backing_AsignacionUsuario.pgl1}">
+                <af:gridRow marginTop="15px" height="auto" id="gr1"
+                            binding="#{pageFlowScope.backing_AsignacionUsuario.gr1}" marginBottom="15px">
+                    <af:gridCell marginStart="5px" width="100%" marginEnd="5px" id="gc1"
+                                 binding="#{pageFlowScope.backing_AsignacionUsuario.gc1}" halign="center"
+                                 inlineStyle="margin-bottom:15px; margin-top:15px; margin:15px 15px 15px 15px;">
+                        <af:outputText value="Asignación de centro de costos y unidades de negocio" id="ot1"
+                                       binding="#{pageFlowScope.backing_AsignacionUsuario.ot1}"
+                                       inlineStyle="font-size:large;"/>
+                    </af:gridCell>
+                </af:gridRow>
+                <af:gridRow marginTop="5px" height="auto" id="gr2"
+                            binding="#{pageFlowScope.backing_AsignacionUsuario.gr2}">
+                    <af:gridCell marginStart="5px" width="100%" marginEnd="15px" id="gc2"
+                                 binding="#{pageFlowScope.backing_AsignacionUsuario.gc2}" halign="center">
+                        <af:selectOneChoice label="* Nombre de usuario" id="soc1"
+                                            binding="#{pageFlowScope.backing_AsignacionUsuario.selectUsuarios}"
+                                            attributeChangeListener="#{pageFlowScope.backing_AsignacionUsuario.soc1_attributeChangeListener}"
+                                            autoSubmit="true"
+                                            valueChangeListener="#{pageFlowScope.backing_AsignacionUsuario.soc1_valueChangeListener}"
+                                            inlineStyle="font-size:x-large; font:normal normal normal large/normal;">
+                            <f:selectItems value="#{pageFlowScope.backing_AsignacionUsuario.itemsUsuarios}" id="si1"
+                                           binding="#{pageFlowScope.backing_AsignacionUsuario.si1}"/>
+                        </af:selectOneChoice>
+                    </af:gridCell>
+                </af:gridRow>
+                <af:gridRow marginTop="5px" height="20px" id="gr3"
+                            binding="#{pageFlowScope.backing_AsignacionUsuario.gr3}">
+                    <af:gridCell marginStart="5px" width="100%" marginEnd="15px" id="gc3"
+                                 binding="#{pageFlowScope.backing_AsignacionUsuario.gc3}" halign="center"
+                                 inlineStyle="height:20px; width:20px; font-size:large;">
+                        <af:activeOutputText value="#{pageFlowScope.backing_AsignacionUsuario.fullname}" id="aot1"
+                                             binding="#{pageFlowScope.backing_AsignacionUsuario.aot1}"/>
+                    </af:gridCell>
+                </af:gridRow>
+                <af:gridRow marginTop="5px" height="auto" id="gr4"
+                            binding="#{pageFlowScope.backing_AsignacionUsuario.gr4}">
+                    <af:gridCell marginStart="5px" width="100%" marginEnd="5px" id="gc4"
+                                 binding="#{pageFlowScope.backing_AsignacionUsuario.gc4}" halign="center">
+                        <af:panelGroupLayout id="pgl3" binding="#{pageFlowScope.backing_AsignacionUsuario.pgl3}"
+                                             layout="horizontal">
+                            <af:selectOneChoice label="Centro de costos" id="soc2"
+                                                binding="#{pageFlowScope.backing_AsignacionUsuario.soc2}">
+                                <f:selectItems value="#{pageFlowScope.backing_AsignacionUsuario.itemsCentrosC}" id="si2"
+                                               binding="#{pageFlowScope.backing_AsignacionUsuario.si2}"/>
+                            </af:selectOneChoice>
+                            <af:selectOneChoice label="Unidad de negocio" id="soc3"
+                                                binding="#{pageFlowScope.backing_AsignacionUsuario.soc3}"
+                                                inlineStyle="font-size:x-large;">
+                                <f:selectItems value="#{pageFlowScope.backing_AsignacionUsuario.itemsUnidadN}" id="si3"
+                                               binding="#{pageFlowScope.backing_AsignacionUsuario.si3}"/>
+                            </af:selectOneChoice>
+                            <af:button text="button 1" id="b1" binding="#{pageFlowScope.backing_AsignacionUsuario.b1}"
+                                       action="#{pageFlowScope.backing_AsignacionUsuario.guardaAcceso_action}"/>
+                        </af:panelGroupLayout>
+                    </af:gridCell>
+                </af:gridRow>
+                <af:gridRow marginTop="5px" height="auto" marginBottom="5px" id="gr5"
+                            binding="#{pageFlowScope.backing_AsignacionUsuario.gr5}">
+                    <af:gridCell marginStart="5px" width="100%" marginEnd="5px" id="gc5"
+                                 binding="#{pageFlowScope.backing_AsignacionUsuario.gc5}" halign="center">
+                        <af:panelGroupLayout id="pgl2" binding="#{pageFlowScope.backing_AsignacionUsuario.pgl2}">
+                            <af:table value="#{pageFlowScope.backing_AsignacionUsuario.listaAccesos}" var="row"
+                                      rowBandingInterval="0" id="t1"
+                                      binding="#{pageFlowScope.backing_AsignacionUsuario.t1}">
+                                <af:column sortable="false" headerText="Idacceso" align="start" id="c1">
+                                    <af:outputText value="#{row.idacceso}" id="ot3"/>
+                                </af:column>
+                                <af:column sortable="false" headerText="Centrocostos" align="start" id="c2">
+                                    <af:outputText value="#{row.centrocostos}" id="ot4"/>
+                                </af:column>
+                                <af:column sortable="false" headerText="Unidadnegocio" align="start" id="c3">
+                                    <af:outputText value="#{row.unidadnegocio}" id="ot5"/>
+                                </af:column>
+                                <af:column sortable="false" headerText="" id="c4">
+                                    <af:button id="cb1" text="Ver pagos"
+                                               action="#{pageFlowScope.backing_AsignacionUsuario.eliminar_action}"
+                                               partialSubmit="true">
+                                        <af:setPropertyListener type="action"
+                                                                to="#{pageFlowScope.backing_AsignacionUsuario.idAcceso}"
+                                                                from="#{row.idacceso}"/>
+                                    </af:button>
+                                </af:column>
+                            </af:table>
+                        </af:panelGroupLayout>
+                    </af:gridCell>
+                </af:gridRow>
+            </af:panelGridLayout>
+        </af:form>
+    </af:document>
+    <!--oracle-jdev-comment:auto-binding-backing-bean-name:backing_AsignacionUsuario-->
+</f:view>

@@ -45,4 +45,6 @@ public interface CatalogosBeanLocal {
 
     RespuestaDTO actualizarUsuarios();
 
+    RespuestaDTO actualizarCentroCosto();
+
 }

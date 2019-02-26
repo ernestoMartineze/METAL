@@ -75,4 +75,86 @@ public interface CatalogoWS {
     public List<CuentaBancariaDTO> consultarCuentaBancaria(@WebParam(name = "numeroCuenta", targetNamespace = "")
                                                            String numeroCuenta);
 
+    /**
+     *
+     * @return
+     * returns mx.frisa.tic.negocio.ws.RespuestaDTO
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "actualizarCuentasBancarias", targetNamespace = "http://ws.negocio.tic.frisa.mx/",
+                    className = "mx.frisa.tic.negocio.ws.ActualizarCuentasBancarias")
+    @ResponseWrapper(localName = "actualizarCuentasBancariasResponse",
+                     targetNamespace = "http://ws.negocio.tic.frisa.mx/",
+                     className = "mx.frisa.tic.negocio.ws.ActualizarCuentasBancariasResponse")
+    @Action(input = "http://ws.negocio.tic.frisa.mx/CatalogoWS/actualizarCuentasBancariasRequest",
+            output = "http://ws.negocio.tic.frisa.mx/CatalogoWS/actualizarCuentasBancariasResponse")
+    public RespuestaDTO actualizarCuentasBancarias();
+
+    /**
+     *
+     * @return
+     * returns mx.frisa.tic.negocio.ws.RespuestaDTO
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "actualizarUsuarios", targetNamespace = "http://ws.negocio.tic.frisa.mx/",
+                    className = "mx.frisa.tic.negocio.ws.ActualizarUsuarios")
+    @ResponseWrapper(localName = "actualizarUsuariosResponse", targetNamespace = "http://ws.negocio.tic.frisa.mx/",
+                     className = "mx.frisa.tic.negocio.ws.ActualizarUsuariosResponse")
+    @Action(input = "http://ws.negocio.tic.frisa.mx/CatalogoWS/actualizarUsuariosRequest",
+            output = "http://ws.negocio.tic.frisa.mx/CatalogoWS/actualizarUsuariosResponse")
+    public RespuestaDTO actualizarUsuarios();
+
+    /**
+     *
+     * @param centroCostos
+     * @return
+     * returns java.util.List<mx.frisa.tic.negocio.ws.ConsultarCentroCostosDTO>
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "consultarCentroCostos", targetNamespace = "http://ws.negocio.tic.frisa.mx/",
+                    className = "mx.frisa.tic.negocio.ws.ConsultarCentroCostos")
+    @ResponseWrapper(localName = "consultarCentroCostosResponse", targetNamespace = "http://ws.negocio.tic.frisa.mx/",
+                     className = "mx.frisa.tic.negocio.ws.ConsultarCentroCostosResponse")
+    @Action(input = "http://ws.negocio.tic.frisa.mx/CatalogoWS/consultarCentroCostosRequest",
+            output = "http://ws.negocio.tic.frisa.mx/CatalogoWS/consultarCentroCostosResponse")
+    public List<ConsultarCentroCostosDTO> consultarCentroCostos(@WebParam(name = "centroCostos", targetNamespace = "")
+                                                                String centroCostos);
+
+    /**
+     *
+     * @param unidadNegocio
+     * @return
+     * returns java.util.List<mx.frisa.tic.negocio.ws.ConsultarUniNegocioDTO>
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "consultarUnidadNegocio", targetNamespace = "http://ws.negocio.tic.frisa.mx/",
+                    className = "mx.frisa.tic.negocio.ws.ConsultarUnidadNegocio")
+    @ResponseWrapper(localName = "consultarUnidadNegocioResponse", targetNamespace = "http://ws.negocio.tic.frisa.mx/",
+                     className = "mx.frisa.tic.negocio.ws.ConsultarUnidadNegocioResponse")
+    @Action(input = "http://ws.negocio.tic.frisa.mx/CatalogoWS/consultarUnidadNegocioRequest",
+            output = "http://ws.negocio.tic.frisa.mx/CatalogoWS/consultarUnidadNegocioResponse")
+    public List<ConsultarUniNegocioDTO> consultarUnidadNegocio(@WebParam(name = "unidadNegocio", targetNamespace = "")
+                                                               String unidadNegocio);
+
+    /**
+     *
+     * @param usuario
+     * @return
+     * returns java.util.List<mx.frisa.tic.negocio.ws.ConsultarUsuarioDTO>
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "consultarUsuarios", targetNamespace = "http://ws.negocio.tic.frisa.mx/",
+                    className = "mx.frisa.tic.negocio.ws.ConsultarUsuarios")
+    @ResponseWrapper(localName = "consultarUsuariosResponse", targetNamespace = "http://ws.negocio.tic.frisa.mx/",
+                     className = "mx.frisa.tic.negocio.ws.ConsultarUsuariosResponse")
+    @Action(input = "http://ws.negocio.tic.frisa.mx/CatalogoWS/consultarUsuariosRequest",
+            output = "http://ws.negocio.tic.frisa.mx/CatalogoWS/consultarUsuariosResponse")
+    public List<ConsultarUsuarioDTO> consultarUsuarios(@WebParam(name = "usuario", targetNamespace = "")
+                                                       String usuario);
+
 }

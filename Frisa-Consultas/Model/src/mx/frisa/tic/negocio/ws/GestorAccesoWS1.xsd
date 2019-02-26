@@ -10,14 +10,14 @@
       <xsd:element name="return" type="ns0:respuestaDTO" minOccurs="0"/>
     </xsd:sequence>
   </xsd:complexType>
-  <xsd:complexType name="consultarUsuario">
+  <xsd:complexType name="consultarAccesos">
     <xsd:sequence>
-      <xsd:element name="usuarioAcceso" type="ns0:consultarUsuarioDTO" minOccurs="0"/>
+      <xsd:element name="usuario" type="xsd:string" minOccurs="0"/>
     </xsd:sequence>
   </xsd:complexType>
-  <xsd:complexType name="consultarUsuarioResponse">
+  <xsd:complexType name="consultarAccesosResponse">
     <xsd:sequence>
-      <xsd:element name="return" type="ns0:respuestaDTO" minOccurs="0"/>
+      <xsd:element name="return" type="ns0:consultarAccesoUsuarioDTO" minOccurs="0"/>
     </xsd:sequence>
   </xsd:complexType>
   <xsd:complexType name="agregarUsuarioDTO">
@@ -35,13 +35,21 @@
       <xsd:element name="uuid" type="xsd:string" minOccurs="0"/>
     </xsd:sequence>
   </xsd:complexType>
-  <xsd:complexType name="consultarUsuarioDTO">
+  <xsd:complexType name="consultarAccesoUsuarioDTO">
     <xsd:sequence>
-      <xsd:element name="unidadNegocio" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="accesos" type="ns0:accesoUsuarioDTO" minOccurs="0" maxOccurs="unbounded" nillable="true"/>
+      <xsd:element name="usuario" type="xsd:string" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="accesoUsuarioDTO">
+    <xsd:sequence>
+      <xsd:element name="centrocostos" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="idacceso" type="xsd:decimal" minOccurs="0"/>
+      <xsd:element name="unidadnegocio" type="xsd:string" minOccurs="0"/>
     </xsd:sequence>
   </xsd:complexType>
   <xsd:element name="agregarUsuario" type="ns0:agregarUsuario"/>
   <xsd:element name="agregarUsuarioResponse" type="ns0:agregarUsuarioResponse"/>
-  <xsd:element name="consultarUsuario" type="ns0:consultarUsuario"/>
-  <xsd:element name="consultarUsuarioResponse" type="ns0:consultarUsuarioResponse"/>
+  <xsd:element name="consultarAccesos" type="ns0:consultarAccesos"/>
+  <xsd:element name="consultarAccesosResponse" type="ns0:consultarAccesosResponse"/>
 </xsd:schema>

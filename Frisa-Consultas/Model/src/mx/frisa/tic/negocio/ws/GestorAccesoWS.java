@@ -31,23 +31,6 @@ public interface GestorAccesoWS {
      */
     @WebMethod
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "consultarUsuario", targetNamespace = "http://ws.negocio.tic.frisa.mx/",
-                    className = "mx.frisa.tic.negocio.ws.ConsultarUsuario")
-    @ResponseWrapper(localName = "consultarUsuarioResponse", targetNamespace = "http://ws.negocio.tic.frisa.mx/",
-                     className = "mx.frisa.tic.negocio.ws.ConsultarUsuarioResponse")
-    @Action(input = "http://ws.negocio.tic.frisa.mx/GestorAccesoWS/consultarUsuarioRequest",
-            output = "http://ws.negocio.tic.frisa.mx/GestorAccesoWS/consultarUsuarioResponse")
-    public RespuestaDTO consultarUsuario(@WebParam(name = "usuarioAcceso", targetNamespace = "")
-                                         ConsultarUsuarioDTO usuarioAcceso);
-
-    /**
-     *
-     * @param usuarioAcceso
-     * @return
-     *     returns mx.frisa.tic.negocio.ws.RespuestaDTO
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
     @RequestWrapper(localName = "agregarUsuario", targetNamespace = "http://ws.negocio.tic.frisa.mx/",
                     className = "mx.frisa.tic.negocio.ws.AgregarUsuario")
     @ResponseWrapper(localName = "agregarUsuarioResponse", targetNamespace = "http://ws.negocio.tic.frisa.mx/",
@@ -56,5 +39,22 @@ public interface GestorAccesoWS {
             output = "http://ws.negocio.tic.frisa.mx/GestorAccesoWS/agregarUsuarioResponse")
     public RespuestaDTO agregarUsuario(@WebParam(name = "usuarioAcceso", targetNamespace = "")
                                        AgregarUsuarioDTO usuarioAcceso);
+
+    /**
+     *
+     * @param usuario
+     * @return
+     * returns mx.frisa.tic.negocio.ws.ConsultarAccesoUsuarioDTO
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "consultarAccesos", targetNamespace = "http://ws.negocio.tic.frisa.mx/",
+                    className = "mx.frisa.tic.negocio.ws.ConsultarAccesos")
+    @ResponseWrapper(localName = "consultarAccesosResponse", targetNamespace = "http://ws.negocio.tic.frisa.mx/",
+                     className = "mx.frisa.tic.negocio.ws.ConsultarAccesosResponse")
+    @Action(input = "http://ws.negocio.tic.frisa.mx/GestorAccesoWS/consultarAccesosRequest",
+            output = "http://ws.negocio.tic.frisa.mx/GestorAccesoWS/consultarAccesosResponse")
+    public ConsultarAccesoUsuarioDTO consultarAccesos(@WebParam(name = "usuario", targetNamespace = "") String usuario);
+
 
 }
