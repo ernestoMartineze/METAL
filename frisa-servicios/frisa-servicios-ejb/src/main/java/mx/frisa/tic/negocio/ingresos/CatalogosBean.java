@@ -14,15 +14,21 @@ import mx.frisa.tic.datos.comun.DAO;
 import mx.frisa.tic.datos.entidades.XxfrcUnidadnegocio;
 import mx.frisa.tic.datos.dto.CONSTANTE;
 import mx.frisa.tic.datos.dto.comun.CatalogoParametroDTO;
+import mx.frisa.tic.datos.dto.ingresos.ConsultarCentroCostosDTO;
+import mx.frisa.tic.datos.dto.ingresos.ConsultarUniNegocioDTO;
+import mx.frisa.tic.datos.dto.ingresos.ConsultarUsuarioDTO;
 import mx.frisa.tic.datos.dto.ingresos.CuentaBancariaDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaCuentaBancariaDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaUnidadNegocioDTO;
 import mx.frisa.tic.datos.dto.ingresos.TipoMonedaDTO;
 import mx.frisa.tic.datos.entidades.XxfrcCargaCtabancaria;
+import mx.frisa.tic.datos.entidades.XxfrcCentroCosto;
 import mx.frisa.tic.datos.entidades.XxfrcTipoMoneda;
+import mx.frisa.tic.datos.entidades.XxfrcUsuario;
 import mx.frisa.tic.datos.entidades.XxfrtCargaBu;
 import mx.frisa.tic.datos.entidades.XxfrtCuentabancaria;
+import mx.frisa.tic.datos.entidades.XxfrvCentroCosto;
 import mx.frisa.tic.negocio.remoto.AdaptadorWS;
 import mx.frisa.tic.negocio.remoto.CuentaBancaria;
 import mx.frisa.tic.negocio.remoto.UnidadNegocio;
@@ -246,6 +252,55 @@ public class CatalogosBean implements CatalogosBeanLocal {
         log.debug("Termino actualizarUsuarios");
 
         return respuesta;
+    }
+
+    @Override
+    public List<ConsultarUsuarioDTO> consultarUsuario(String usuarioName) {
+        
+        DAO<XxfrcUsuario> usuarioDao = new DAO(XxfrcUsuario.class);
+        List<CatalogoParametroDTO> parametros = new ArrayList();
+        parametros.add(new CatalogoParametroDTO("username", "%" + usuarioName +"%", CONSTANTE.CADENA));
+        List<XxfrcUsuario> usuarios = (List<XxfrcUsuario>) usuarioDao.consultaQueryByParameters("XxfrcUsuario.findByLikeUsername", parametros);
+        List<ConsultarUsuarioDTO> usuariosDto = new ArrayList();
+        for (XxfrcUsuario usuario : usuarios) {
+            ConsultarUsuarioDTO usuarioDto= new ConsultarUsuarioDTO();
+            usuarioDto.setFullname(usuario.getFullname());
+            usuarioDto.setUsername(usuario.getUsername());
+            
+            usuariosDto.add(usuarioDto);
+        }
+        return usuariosDto;
+    }
+
+    @Override
+    public List<ConsultarUniNegocioDTO> consultarUnidadNegocio(String unidadNegocio) {
+       DAO<XxfrcUnidadnegocio> unidadesDao = new DAO(XxfrcUnidadnegocio.class);
+        List<XxfrcUnidadnegocio> unidades = (List<XxfrcUnidadnegocio>) unidadesDao.consultaQueryNamed("XxfrcUnidadnegocio.findAll");
+        List<ConsultarUniNegocioDTO> unidadesDto = new ArrayList();
+        for (XxfrcUnidadnegocio unidad : unidades) {
+            ConsultarUniNegocioDTO unidadeDto= new ConsultarUniNegocioDTO();
+            unidadeDto.setCveBu(unidad.getCveBu());
+            unidadeDto.setNombre(unidad.getNombre());
+            
+            unidadesDto.add(unidadeDto);
+        }
+        return unidadesDto;
+    }
+
+    @Override
+    public List<ConsultarCentroCostosDTO> consultarCentroCostos(String centroCostos) {
+        DAO<XxfrvCentroCosto> centroC = new DAO(XxfrvCentroCosto.class);
+        List<CatalogoParametroDTO> parametros = new ArrayList();
+        List<XxfrvCentroCosto> centros = (List<XxfrvCentroCosto>) centroC.consultaQueryNamed("XxfrvCentroCosto.findAll");
+        System.out.println("centros "+centros.size());
+        List<ConsultarCentroCostosDTO> centrosdto = new ArrayList();
+        for (XxfrvCentroCosto centro : centros) {
+            ConsultarCentroCostosDTO centrodto= new ConsultarCentroCostosDTO();
+            centrodto.setDescription(centro.getDescription());
+            centrodto.setFlexValue(""+centro.getFlexValue());
+            centrosdto.add(centrodto);
+        }
+        return centrosdto;
     }
 
 }

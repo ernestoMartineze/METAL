@@ -5,16 +5,27 @@
  */
 package mx.frisa.tic.datos.dto.ingresos;
 
+import java.math.BigDecimal;
+
 /**
  *
  * @author Soultech
  */
 public class AgregarUsuarioDTO {
     
+    private BigDecimal idacceso;
     String usuario;
     String centroCostos;
     String unidadNegocio;
 
+    public BigDecimal getIdacceso() {
+        return idacceso;
+    }
+
+    public void setIdacceso(BigDecimal idacceso) {
+        this.idacceso = idacceso;
+    }
+    
     public String getUsuario() {
         return usuario;
     }

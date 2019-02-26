@@ -7,6 +7,9 @@ package mx.frisa.tic.negocio.ingresos;
 
 import java.util.List;
 import javax.ejb.Local;
+import mx.frisa.tic.datos.dto.ingresos.ConsultarCentroCostosDTO;
+import mx.frisa.tic.datos.dto.ingresos.ConsultarUniNegocioDTO;
+import mx.frisa.tic.datos.dto.ingresos.ConsultarUsuarioDTO;
 import mx.frisa.tic.datos.dto.ingresos.CuentaBancariaDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaDTO;
 import mx.frisa.tic.datos.dto.ingresos.TipoMonedaDTO;
@@ -31,6 +34,12 @@ public interface CatalogosBeanLocal {
     List<TipoMonedaDTO> consultarTipoMoneda(String codigo);
 
     List<CuentaBancariaDTO> consultarCuentaBancaria(String numeroCuenta);
+    
+    List<ConsultarUsuarioDTO> consultarUsuario(String usuario);
+    
+    List<ConsultarUniNegocioDTO> consultarUnidadNegocio(String unidadNegocio);
+    
+    List<ConsultarCentroCostosDTO> consultarCentroCostos(String centroCostos);
 
     RespuestaDTO actualizarCuentasBancarias();
 

@@ -29,10 +29,15 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "XxfrtAccesoUsuarios.findAll", query = "SELECT x FROM XxfrtAccesoUsuarios x")
     , @NamedQuery(name = "XxfrtAccesoUsuarios.findByIdacceso", query = "SELECT x FROM XxfrtAccesoUsuarios x WHERE x.idacceso = :idacceso")
     , @NamedQuery(name = "XxfrtAccesoUsuarios.findByUsuario", query = "SELECT x FROM XxfrtAccesoUsuarios x WHERE x.usuario = :usuario")
+        , @NamedQuery(name = "XxfrtAccesoUsuarios.findByUsuarioHabilitado", query = "SELECT x FROM XxfrtAccesoUsuarios x WHERE x.usuario = :usuario and x.habilitado = 'H'")
     , @NamedQuery(name = "XxfrtAccesoUsuarios.findByUsuario1", query = "SELECT x FROM XxfrtAccesoUsuarios x WHERE x.usuario like :usuario")
     , @NamedQuery(name = "XxfrtAccesoUsuarios.findByCentrocostos", query = "SELECT x FROM XxfrtAccesoUsuarios x WHERE x.centrocostos = :centrocostos")
     , @NamedQuery(name = "XxfrtAccesoUsuarios.findByUnidadnegocio", query = "SELECT x FROM XxfrtAccesoUsuarios x WHERE x.unidadnegocio = :unidadnegocio")
-    , @NamedQuery(name = "XxfrtAccesoUsuarios.findByHabilitado", query = "SELECT x FROM XxfrtAccesoUsuarios x WHERE x.habilitado = :habilitado")})
+    , @NamedQuery(name = "XxfrtAccesoUsuarios.findByHabilitado", query = "SELECT x FROM XxfrtAccesoUsuarios x WHERE x.habilitado = :habilitado")
+    , @NamedQuery(name = "XxfrtAccesoUsuarios.findByAll", query = "SELECT x FROM XxfrtAccesoUsuarios x WHERE "
+            + "x.habilitado ='H' and x.centrocostos = :centrocostos and x.usuario = :usuario and x.unidadnegocio = :unidadnegocio")
+    , @NamedQuery(name = "XxfrtAccesoUsuarios.disable", query = "UPDATE XxfrtAccesoUsuarios x SET x.habilitado ='N' WHERE "
+            + "x.idacceso = :idacceso")})
 public class XxfrtAccesoUsuarios implements Serializable {
 
     private static final long serialVersionUID = 1L;

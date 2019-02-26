@@ -30,7 +30,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "XxfrcUsuario.findAll", query = "SELECT x FROM XxfrcUsuario x"),
     @NamedQuery(name = "XxfrcUsuario.findByUsername", query = "SELECT x FROM XxfrcUsuario x WHERE x.username = :username"),
-    @NamedQuery(name = "XxfrcUsuario.findByFullname", query = "SELECT x FROM XxfrcUsuario x WHERE x.fullname = :fullname")})
+    @NamedQuery(name = "XxfrcUsuario.findByFullname", query = "SELECT x FROM XxfrcUsuario x WHERE x.fullname = :fullname"),
+    @NamedQuery(name = "XxfrcUsuario.findByLikeUsername", query = "SELECT x FROM XxfrcUsuario x WHERE x.username LIKE :username")})
 public class XxfrcUsuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
