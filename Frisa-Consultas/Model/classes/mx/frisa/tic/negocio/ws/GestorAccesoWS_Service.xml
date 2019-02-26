@@ -1,5 +1,5 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<oracle-webservice-clients xmlns:ns1="http://java.sun.com/xml/ns/javaee">
+<oracle-webservice-clients xmlns:ns0="http://java.sun.com/xml/ns/javaee">
    <webservice-client>
       <service-qname namespaceURI="http://ws.negocio.tic.frisa.mx/" localpart="GestorAccesoWS"/>
       <port-info>
@@ -8,6 +8,7 @@
          <operations>
             <operation name="agregarUsuario"/>
             <operation name="consultarAccesos"/>
+            <operation name="actualizarAcceso"/>
          </operations>
       </port-info>
    </webservice-client>

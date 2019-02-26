@@ -1,5 +1,7 @@
 package mx.frisa.tic.view.backing;
 
+import java.math.BigDecimal;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,8 +20,12 @@ import mx.frisa.tic.negocio.ws.ConsultarUsuarioDTO;
 import mx.frisa.tic.negocio.ws.GestorAccesoWS;
 import mx.frisa.tic.negocio.ws.GestorAccesoWS_Service;
 
+import mx.frisa.tic.negocio.ws.RespuestaDTO;
+
+import oracle.adf.view.rich.component.rich.RichDialog;
 import oracle.adf.view.rich.component.rich.RichDocument;
 import oracle.adf.view.rich.component.rich.RichForm;
+import oracle.adf.view.rich.component.rich.RichPopup;
 import oracle.adf.view.rich.component.rich.data.RichTable;
 import oracle.adf.view.rich.component.rich.input.RichSelectOneChoice;
 import oracle.adf.view.rich.component.rich.layout.RichGridCell;
@@ -30,6 +36,10 @@ import oracle.adf.view.rich.component.rich.nav.RichButton;
 import oracle.adf.view.rich.component.rich.output.RichActiveOutputText;
 import oracle.adf.view.rich.component.rich.output.RichOutputText;
 import oracle.adf.view.rich.context.AdfFacesContext;
+
+import oracle.adf.view.rich.event.DialogEvent;
+
+import oracle.adf.view.rich.event.PopupFetchEvent;
 
 import org.apache.myfaces.trinidad.event.AttributeChangeEvent;
 
@@ -47,6 +57,7 @@ public class AsignacionUsuario {
     private List<AccesoUsuarioDTO> listaAccesos;
     private String idAcceso;
     private String fullname;
+    private String msgRegistro;
     
     private RichPanelGridLayout pgl1;
     private RichGridRow gr1;
@@ -71,13 +82,28 @@ public class AsignacionUsuario {
     private RichPanelGroupLayout pgl3;
     private RichButton b1;
     private RichActiveOutputText aot1;
+    private RichPopup p1;
+    private RichDialog d2;
+    private RichOutputText ot2;
+    private RichPopup p2;
+    private RichDialog d3;
+    private RichOutputText ot6;
+    private RichActiveOutputText aot2;
+    private RichPanelGroupLayout pgl4;
+    private RichPanelGroupLayout pgl5;
+    private RichActiveOutputText aot3;
 
     public AsignacionUsuario(){
+        try{
             catalogoWS_Service = new CatalogoWS_Service();
             catalogoWS = catalogoWS_Service.getCatalogoWSPort();
             gestorAccesoWS_Service = new GestorAccesoWS_Service();
             gestorAccesoWS = gestorAccesoWS_Service.getGestorAccesoWSPort();
+            listaAccesos=null;
             getUsernamesWS();
+        }catch(Exception e){
+                e.printStackTrace();
+            }
             // Add your code to call the desired methods.
         }
 
@@ -248,7 +274,7 @@ public class AsignacionUsuario {
                 }
             List<ConsultarUniNegocioDTO> unidadesN = catalogoWS.consultarUnidadNegocio("");
             for( ConsultarUniNegocioDTO unidad :unidadesN){
-                    itemsUnidadN.add(new SelectItem(unidad.getCveBu()));
+                    itemsUnidadN.add(new SelectItem(unidad.getNombre()));
                 }
         }
 
@@ -319,6 +345,8 @@ public class AsignacionUsuario {
 
     public void soc1_valueChangeListener(ValueChangeEvent valueChangeEvent) {
         // Add event code here...
+        b1.setDisabled(false);
+        AdfFacesContext.getCurrentInstance().addPartialTarget(b1);
       updateAcceso();
         
     }
@@ -327,14 +355,16 @@ public class AsignacionUsuario {
             ConsultarAccesoUsuarioDTO consultaAcceso = gestorAccesoWS.consultarAccesos(selectUsuarios.getValue().toString());
             listaAccesos = consultaAcceso.getAccesos();
             fullname = consultaAcceso.getUsuario();
-            System.out.println(fullname);
+            //System.out.println(fullname);
             AdfFacesContext.getCurrentInstance().addPartialTarget(t1);
             AdfFacesContext.getCurrentInstance().addPartialTarget(aot1);
         }
 
     public Object eliminar_action() {
         // Add event code here...
-        System.out.println(idAcceso);
+        ///System.out.println(idAcceso);
+        RichPopup.PopupHints hints = new RichPopup.PopupHints();
+        p2.show(hints);
         return null;
     }
 
@@ -381,13 +411,133 @@ public class AsignacionUsuario {
 
     public String guardaAcceso_action() {
         // Add event code here...
-        AgregarUsuarioDTO usuarioAcceso = new AgregarUsuarioDTO();
-        usuarioAcceso.setCentroCostos(soc2.getValue().toString());
-        usuarioAcceso.setUnidadNegocio(soc3.getValue().toString());
-        usuarioAcceso.setUsuario(selectUsuarios.getValue().toString());
-        gestorAccesoWS.agregarUsuario(usuarioAcceso);
-        
-        updateAcceso();
+        boolean continuar=true;
+        if(soc2.getValue()==null){
+                aot2.setVisible(true);
+                AdfFacesContext.getCurrentInstance().addPartialTarget(aot2);
+                continuar = false;
+            }
+        if(soc3.getValue()==null){
+                aot3.setVisible(true);
+                AdfFacesContext.getCurrentInstance().addPartialTarget(aot3);
+                continuar = false;
+            }
+        if(continuar){
+            AgregarUsuarioDTO usuarioAcceso = new AgregarUsuarioDTO();
+            usuarioAcceso.setCentroCostos(soc2.getValue().toString());
+            usuarioAcceso.setUnidadNegocio(soc3.getValue().toString());
+            usuarioAcceso.setUsuario(selectUsuarios.getValue().toString());
+            RespuestaDTO respuesta = gestorAccesoWS.agregarUsuario(usuarioAcceso);
+            msgRegistro=respuesta.getDescripcionError();
+            RichPopup.PopupHints hints = new RichPopup.PopupHints();
+            p1.show(hints);
+            aot2.setVisible(false);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(aot2);
+            aot3.setVisible(false);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(aot3);
+            updateAcceso();
+        }
         return null;
     }
+
+    public void setP1(RichPopup p1) {
+        this.p1 = p1;
+    }
+
+    public RichPopup getP1() {
+        return p1;
+    }
+
+    public void setD2(RichDialog d2) {
+        this.d2 = d2;
+    }
+
+    public RichDialog getD2() {
+        return d2;
+    }
+
+    public void setOt2(RichOutputText ot2) {
+        this.ot2 = ot2;
+    }
+
+    public RichOutputText getOt2() {
+        return ot2;
+    }
+
+    public void setMsgRegistro(String msgRegistro) {
+        this.msgRegistro = msgRegistro;
+    }
+
+    public String getMsgRegistro() {
+        return msgRegistro;
+    }
+
+    public void setP2(RichPopup p2) {
+        this.p2 = p2;
+    }
+
+    public RichPopup getP2() {
+        return p2;
+    }
+
+    public void setD3(RichDialog d3) {
+        this.d3 = d3;
+    }
+
+    public RichDialog getD3() {
+        return d3;
+    }
+
+    public void d3_dialogListener(DialogEvent dialogEvent) {
+        // Add event code here...
+        if (dialogEvent.getOutcome() == DialogEvent.Outcome.ok)
+            {
+                //AgregarUsuarioDTO usuarioAcceso = new AgregarUsuarioDTO();
+                //usuarioAcceso.setIdacceso(new BigDecimal(idAcceso));
+                gestorAccesoWS.actualizarAcceso(idAcceso);
+                updateAcceso();
+            } 
+    }
+
+    public void setOt6(RichOutputText ot6) {
+        this.ot6 = ot6;
+    }
+
+    public RichOutputText getOt6() {
+        return ot6;
+    }
+
+    public void setAot2(RichActiveOutputText aot2) {
+        this.aot2 = aot2;
+    }
+
+    public RichActiveOutputText getAot2() {
+        return aot2;
+    }
+
+    public void setPgl4(RichPanelGroupLayout pgl4) {
+        this.pgl4 = pgl4;
+    }
+
+    public RichPanelGroupLayout getPgl4() {
+        return pgl4;
+    }
+
+    public void setPgl5(RichPanelGroupLayout pgl5) {
+        this.pgl5 = pgl5;
+    }
+
+    public RichPanelGroupLayout getPgl5() {
+        return pgl5;
+    }
+
+    public void setAot3(RichActiveOutputText aot3) {
+        this.aot3 = aot3;
+    }
+
+    public RichActiveOutputText getAot3() {
+        return aot3;
+    }
+
+
 }

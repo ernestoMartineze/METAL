@@ -1,6 +1,8 @@
 
 package mx.frisa.tic.negocio.ws;
 
+import java.math.BigDecimal;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
@@ -28,12 +30,13 @@ import javax.xml.bind.annotation.XmlType;
  *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "agregarUsuarioDTO", propOrder = { "centroCostos", "unidadNegocio", "usuario" })
+@XmlType(name = "agregarUsuarioDTO", propOrder = { "centroCostos", "idacceso", "unidadNegocio", "usuario" })
 public class AgregarUsuarioDTO {
 
     protected String centroCostos;
     protected String unidadNegocio;
     protected String usuario;
+    protected BigDecimal idacceso;
 
     /**
      * Gets the value of the centroCostos property.
@@ -105,6 +108,30 @@ public class AgregarUsuarioDTO {
      */
     public void setUsuario(String value) {
         this.usuario = value;
+    }
+
+    /**
+     * Gets the value of the idacceso property.
+     *
+     * @return
+     * possible object is
+     * {@link BigDecimal}
+     *
+     */
+    public BigDecimal getIdacceso() {
+        return idacceso;
+    }
+
+    /**
+     * Sets the value of the idacceso property.
+     *
+     * @param value
+     * allowed object is
+     * {@link BigDecimal}
+     *
+     */
+    public void setIdacceso(BigDecimal value) {
+        this.idacceso = value;
     }
 
 }

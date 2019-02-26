@@ -56,5 +56,21 @@ public interface GestorAccesoWS {
             output = "http://ws.negocio.tic.frisa.mx/GestorAccesoWS/consultarAccesosResponse")
     public ConsultarAccesoUsuarioDTO consultarAccesos(@WebParam(name = "usuario", targetNamespace = "") String usuario);
 
+    /**
+     *
+     * @param idAcceso
+     * @return
+     * returns java.lang.String
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "actualizarAcceso", targetNamespace = "http://ws.negocio.tic.frisa.mx/",
+                    className = "mx.frisa.tic.negocio.ws.ActualizarAcceso")
+    @ResponseWrapper(localName = "actualizarAccesoResponse", targetNamespace = "http://ws.negocio.tic.frisa.mx/",
+                     className = "mx.frisa.tic.negocio.ws.ActualizarAccesoResponse")
+    @Action(input = "http://ws.negocio.tic.frisa.mx/GestorAccesoWS/actualizarAccesoRequest",
+            output = "http://ws.negocio.tic.frisa.mx/GestorAccesoWS/actualizarAccesoResponse")
+    public RespuestaDTO actualizarAcceso(@WebParam(name = "idAcceso", targetNamespace = "") String idAcceso);
+
 
 }

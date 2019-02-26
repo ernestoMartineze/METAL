@@ -24,6 +24,10 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
+    private final static QName _ActualizarAcceso_QNAME =
+        new QName("http://ws.negocio.tic.frisa.mx/", "actualizarAcceso");
+    private final static QName _ActualizarAccesoResponse_QNAME =
+        new QName("http://ws.negocio.tic.frisa.mx/", "actualizarAccesoResponse");
     private final static QName _AgregarUsuario_QNAME = new QName("http://ws.negocio.tic.frisa.mx/", "agregarUsuario");
     private final static QName _AgregarUsuarioResponse_QNAME =
         new QName("http://ws.negocio.tic.frisa.mx/", "agregarUsuarioResponse");
@@ -37,6 +41,22 @@ public class ObjectFactory {
      *
      */
     public ObjectFactory() {
+    }
+
+    /**
+     * Create an instance of {@link ActualizarAcceso }
+     *
+     */
+    public ActualizarAcceso createActualizarAcceso() {
+        return new ActualizarAcceso();
+    }
+
+    /**
+     * Create an instance of {@link ActualizarAccesoResponse }
+     *
+     */
+    public ActualizarAccesoResponse createActualizarAccesoResponse() {
+        return new ActualizarAccesoResponse();
     }
 
     /**
@@ -72,19 +92,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link AgregarUsuarioDTO }
-     *
-     */
-    public AgregarUsuarioDTO createAgregarUsuarioDTO() {
-        return new AgregarUsuarioDTO();
-    }
-
-    /**
      * Create an instance of {@link RespuestaDTO }
      *
      */
     public RespuestaDTO createRespuestaDTO() {
         return new RespuestaDTO();
+    }
+
+    /**
+     * Create an instance of {@link AgregarUsuarioDTO }
+     *
+     */
+    public AgregarUsuarioDTO createAgregarUsuarioDTO() {
+        return new AgregarUsuarioDTO();
     }
 
     /**
@@ -101,6 +121,33 @@ public class ObjectFactory {
      */
     public AccesoUsuarioDTO createAccesoUsuarioDTO() {
         return new AccesoUsuarioDTO();
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ActualizarAcceso }{@code >}
+     *
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link ActualizarAcceso }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://ws.negocio.tic.frisa.mx/", name = "actualizarAcceso")
+    public JAXBElement<ActualizarAcceso> createActualizarAcceso(ActualizarAcceso value) {
+        return new JAXBElement<ActualizarAcceso>(_ActualizarAcceso_QNAME, ActualizarAcceso.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ActualizarAccesoResponse }{@code >}
+     *
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link ActualizarAccesoResponse }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://ws.negocio.tic.frisa.mx/", name = "actualizarAccesoResponse")
+    public JAXBElement<ActualizarAccesoResponse> createActualizarAccesoResponse(ActualizarAccesoResponse value) {
+        return new JAXBElement<ActualizarAccesoResponse>(_ActualizarAccesoResponse_QNAME,
+                                                         ActualizarAccesoResponse.class, null, value);
     }
 
     /**

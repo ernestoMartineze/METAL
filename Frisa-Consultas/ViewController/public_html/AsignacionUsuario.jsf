@@ -30,34 +30,51 @@
                         </af:selectOneChoice>
                     </af:gridCell>
                 </af:gridRow>
-                <af:gridRow marginTop="5px" height="20px" id="gr3"
+                <af:gridRow marginTop="5px" height="30px" id="gr3"
                             binding="#{pageFlowScope.backing_AsignacionUsuario.gr3}">
                     <af:gridCell marginStart="5px" width="100%" marginEnd="15px" id="gc3"
                                  binding="#{pageFlowScope.backing_AsignacionUsuario.gc3}" halign="center"
                                  inlineStyle="height:20px; width:20px; font-size:large;">
                         <af:activeOutputText value="#{pageFlowScope.backing_AsignacionUsuario.fullname}" id="aot1"
-                                             binding="#{pageFlowScope.backing_AsignacionUsuario.aot1}"/>
+                                             binding="#{pageFlowScope.backing_AsignacionUsuario.aot1}"
+                                             inlineStyle="font-size:large;"/>
                     </af:gridCell>
                 </af:gridRow>
                 <af:gridRow marginTop="5px" height="auto" id="gr4"
-                            binding="#{pageFlowScope.backing_AsignacionUsuario.gr4}">
-                    <af:gridCell marginStart="5px" width="100%" marginEnd="5px" id="gc4"
+                            binding="#{pageFlowScope.backing_AsignacionUsuario.gr4}" marginBottom="20px">
+                    <af:gridCell marginStart="5px" width="100%" marginEnd="15px" id="gc4"
                                  binding="#{pageFlowScope.backing_AsignacionUsuario.gc4}" halign="center">
                         <af:panelGroupLayout id="pgl3" binding="#{pageFlowScope.backing_AsignacionUsuario.pgl3}"
                                              layout="horizontal">
-                            <af:selectOneChoice label="Centro de costos" id="soc2"
-                                                binding="#{pageFlowScope.backing_AsignacionUsuario.soc2}">
-                                <f:selectItems value="#{pageFlowScope.backing_AsignacionUsuario.itemsCentrosC}" id="si2"
-                                               binding="#{pageFlowScope.backing_AsignacionUsuario.si2}"/>
-                            </af:selectOneChoice>
-                            <af:selectOneChoice label="Unidad de negocio" id="soc3"
-                                                binding="#{pageFlowScope.backing_AsignacionUsuario.soc3}"
-                                                inlineStyle="font-size:x-large;">
-                                <f:selectItems value="#{pageFlowScope.backing_AsignacionUsuario.itemsUnidadN}" id="si3"
-                                               binding="#{pageFlowScope.backing_AsignacionUsuario.si3}"/>
-                            </af:selectOneChoice>
-                            <af:button text="button 1" id="b1" binding="#{pageFlowScope.backing_AsignacionUsuario.b1}"
-                                       action="#{pageFlowScope.backing_AsignacionUsuario.guardaAcceso_action}"/>
+                            <af:panelGroupLayout id="pgl4" binding="#{pageFlowScope.backing_AsignacionUsuario.pgl4}"
+                                                 layout="vertical">
+                                <af:selectOneChoice label="Centro de costos" id="soc2"
+                                                    binding="#{pageFlowScope.backing_AsignacionUsuario.soc2}"
+                                                    inlineStyle="margin-right:10px;">
+                                    <f:selectItems value="#{pageFlowScope.backing_AsignacionUsuario.itemsCentrosC}"
+                                                   id="si2" binding="#{pageFlowScope.backing_AsignacionUsuario.si2}"/>
+                                </af:selectOneChoice>
+                                <af:activeOutputText value=" * Campo obligatorio" id="aot2"
+                                                     binding="#{pageFlowScope.backing_AsignacionUsuario.aot2}"
+                                                     inlineStyle="color:red;" visible="false"/>
+                            </af:panelGroupLayout>
+                            <af:panelGroupLayout id="pgl5" binding="#{pageFlowScope.backing_AsignacionUsuario.pgl5}"
+                                                 layout="vertical">
+                                <af:selectOneChoice label="Unidad de negocio" id="soc3"
+                                                    binding="#{pageFlowScope.backing_AsignacionUsuario.soc3}"
+                                                    inlineStyle="font-size:medium; margin-left:0px; margin-right:10px;">
+                                    <f:selectItems value="#{pageFlowScope.backing_AsignacionUsuario.itemsUnidadN}"
+                                                   id="si3" binding="#{pageFlowScope.backing_AsignacionUsuario.si3}"/>
+                                </af:selectOneChoice>
+                                <af:activeOutputText value=" * Campo obligatorio" id="aot3"
+                                                     binding="#{pageFlowScope.backing_AsignacionUsuario.aot3}"
+                                                     inlineStyle="color:red;" visible="false"/>
+                            </af:panelGroupLayout>
+                            <af:button id="b1" binding="#{pageFlowScope.backing_AsignacionUsuario.b1}"
+                                       action="#{pageFlowScope.backing_AsignacionUsuario.guardaAcceso_action}"
+                                       icon="/resources/img/add.png"
+                                       inlineStyle="background :  rgb(255,255,255) ; height: 25px;width: 40px;text-align: center;background-position: center center;  background-repeat: no-repeat;border:0;"
+                                       disabled="true"/>
                         </af:panelGroupLayout>
                     </af:gridCell>
                 </af:gridRow>
@@ -78,10 +95,12 @@
                                 <af:column sortable="false" headerText="Unidadnegocio" align="start" id="c3">
                                     <af:outputText value="#{row.unidadnegocio}" id="ot5"/>
                                 </af:column>
-                                <af:column sortable="false" headerText="" id="c4">
-                                    <af:button id="cb1" text="Ver pagos"
+                                <af:column sortable="false" headerText="" id="c4" align="center">
+                                    <af:button id="cb1"
                                                action="#{pageFlowScope.backing_AsignacionUsuario.eliminar_action}"
-                                               partialSubmit="true">
+                                               partialSubmit="true" icon="/resources/img/delete.png"
+                                               styleClass="background-color: maroon;     border: skyblue 2.0px solid;     color: White;"
+                                               inlineStyle="background :  rgb(255,255,255) ; height: 25px;width: 40px;text-align: center;border:0; ">
                                         <af:setPropertyListener type="action"
                                                                 to="#{pageFlowScope.backing_AsignacionUsuario.idAcceso}"
                                                                 from="#{row.idacceso}"/>
@@ -89,6 +108,24 @@
                                 </af:column>
                             </af:table>
                         </af:panelGroupLayout>
+                        <af:popup childCreation="deferred" autoCancel="disabled" id="p2"
+                                  binding="#{pageFlowScope.backing_AsignacionUsuario.p2}">
+                            <af:dialog id="d3" binding="#{pageFlowScope.backing_AsignacionUsuario.d3}"
+                                       dialogListener="#{pageFlowScope.backing_AsignacionUsuario.d3_dialogListener}">
+                                <af:outputText value="Esta seguro de eliminar la asignacion?" id="ot6"
+                                               binding="#{pageFlowScope.backing_AsignacionUsuario.ot6}"/>
+                                <f:facet name="buttonBar"/>
+                            </af:dialog>
+                        </af:popup>
+                        <af:popup childCreation="deferred" autoCancel="disabled" id="p1"
+                                  binding="#{pageFlowScope.backing_AsignacionUsuario.p1}">
+                            <af:dialog id="d2" binding="#{pageFlowScope.backing_AsignacionUsuario.d2}" type="ok"
+                                       closeIconVisible="false">
+                                <af:outputText value="#{pageFlowScope.backing_AsignacionUsuario.msgRegistro}" id="ot2"
+                                               binding="#{pageFlowScope.backing_AsignacionUsuario.ot2}"/>
+                                <f:facet name="buttonBar"/>
+                            </af:dialog>
+                        </af:popup>
                     </af:gridCell>
                 </af:gridRow>
             </af:panelGridLayout>
