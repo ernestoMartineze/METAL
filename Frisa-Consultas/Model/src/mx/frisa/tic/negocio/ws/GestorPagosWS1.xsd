@@ -91,16 +91,19 @@
       <xsd:element name="idEstadoCuenta" type="xsd:decimal" minOccurs="0"/>
       <xsd:element name="idPago" type="xsd:decimal" minOccurs="0"/>
       <xsd:element name="metodoPago" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="moneda" type="xsd:string" minOccurs="0"/>
       <xsd:element name="monto" type="xsd:decimal" minOccurs="0"/>
       <xsd:element name="orgID" type="xsd:string" minOccurs="0"/>
       <xsd:element name="proyecto" type="xsd:decimal" minOccurs="0"/>
       <xsd:element name="tipoDeposito" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="usuario" type="xsd:string" minOccurs="0"/>
     </xsd:sequence>
   </xsd:complexType>
   <xsd:complexType name="peticionExistente">
     <xsd:sequence>
       <xsd:element name="idPago" type="xsd:integer" minOccurs="0"/>
       <xsd:element name="lineaCaptura" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="montoPago" type="xsd:decimal" minOccurs="0"/>
       <xsd:element name="numeroRecibo" type="xsd:integer" minOccurs="0"/>
       <xsd:element name="referencia" type="xsd:string" minOccurs="0"/>
     </xsd:sequence>
@@ -116,6 +119,7 @@
       <xsd:element name="numeroCobro" type="xsd:decimal" minOccurs="0"/>
       <xsd:element name="proceso" type="ns0:proceso" minOccurs="0"/>
       <xsd:element name="proyectoID" type="xsd:decimal" minOccurs="0"/>
+      <xsd:element name="totalLC" type="xsd:decimal" minOccurs="0"/>
       <xsd:element name="unidadNegocio" type="xsd:string" minOccurs="0"/>
     </xsd:sequence>
   </xsd:complexType>

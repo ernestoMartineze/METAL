@@ -5,11 +5,11 @@
       <xsd:import namespace="http://ws.negocio.tic.frisa.mx/" schemaLocation="GestorPagosWS1.xsd"/>
     </xsd:schema>
   </types>
-  <message name="generarPago">
-    <part name="parameters" element="tns:generarPago"/>
+  <message name="consultarPagosSinReferencia">
+    <part name="parameters" element="tns:consultarPagosSinReferencia"/>
   </message>
-  <message name="generarPagoResponse">
-    <part name="parameters" element="tns:generarPagoResponse"/>
+  <message name="consultarPagosSinReferenciaResponse">
+    <part name="parameters" element="tns:consultarPagosSinReferenciaResponse"/>
   </message>
   <message name="consultarReferenciaLCExistente">
     <part name="parameters" element="tns:consultarReferenciaLCExistente"/>
@@ -17,39 +17,39 @@
   <message name="consultarReferenciaLCExistenteResponse">
     <part name="parameters" element="tns:consultarReferenciaLCExistenteResponse"/>
   </message>
-  <message name="consultarPagosSinReferencia">
-    <part name="parameters" element="tns:consultarPagosSinReferencia"/>
-  </message>
-  <message name="consultarPagosSinReferenciaResponse">
-    <part name="parameters" element="tns:consultarPagosSinReferenciaResponse"/>
-  </message>
   <message name="aplicarPagoManual">
     <part name="parameters" element="tns:aplicarPagoManual"/>
   </message>
   <message name="aplicarPagoManualResponse">
     <part name="parameters" element="tns:aplicarPagoManualResponse"/>
   </message>
+  <message name="generarPago">
+    <part name="parameters" element="tns:generarPago"/>
+  </message>
+  <message name="generarPagoResponse">
+    <part name="parameters" element="tns:generarPagoResponse"/>
+  </message>
   <portType name="GestorPagosWS">
-    <operation name="generarPago">
-      <input wsam:Action="http://ws.negocio.tic.frisa.mx/GestorPagosWS/generarPagoRequest" message="tns:generarPago"/>
-      <output wsam:Action="http://ws.negocio.tic.frisa.mx/GestorPagosWS/generarPagoResponse" message="tns:generarPagoResponse"/>
+    <operation name="consultarPagosSinReferencia">
+      <input wsam:Action="http://ws.negocio.tic.frisa.mx/GestorPagosWS/consultarPagosSinReferenciaRequest" message="tns:consultarPagosSinReferencia"/>
+      <output wsam:Action="http://ws.negocio.tic.frisa.mx/GestorPagosWS/consultarPagosSinReferenciaResponse" message="tns:consultarPagosSinReferenciaResponse"/>
     </operation>
     <operation name="consultarReferenciaLCExistente">
       <input wsam:Action="http://ws.negocio.tic.frisa.mx/GestorPagosWS/consultarReferenciaLCExistenteRequest" message="tns:consultarReferenciaLCExistente"/>
       <output wsam:Action="http://ws.negocio.tic.frisa.mx/GestorPagosWS/consultarReferenciaLCExistenteResponse" message="tns:consultarReferenciaLCExistenteResponse"/>
     </operation>
-    <operation name="consultarPagosSinReferencia">
-      <input wsam:Action="http://ws.negocio.tic.frisa.mx/GestorPagosWS/consultarPagosSinReferenciaRequest" message="tns:consultarPagosSinReferencia"/>
-      <output wsam:Action="http://ws.negocio.tic.frisa.mx/GestorPagosWS/consultarPagosSinReferenciaResponse" message="tns:consultarPagosSinReferenciaResponse"/>
-    </operation>
     <operation name="aplicarPagoManual">
       <input wsam:Action="http://ws.negocio.tic.frisa.mx/GestorPagosWS/aplicarPagoManualRequest" message="tns:aplicarPagoManual"/>
       <output wsam:Action="http://ws.negocio.tic.frisa.mx/GestorPagosWS/aplicarPagoManualResponse" message="tns:aplicarPagoManualResponse"/>
     </operation>
+    <operation name="generarPago">
+      <input wsam:Action="http://ws.negocio.tic.frisa.mx/GestorPagosWS/generarPagoRequest" message="tns:generarPago"/>
+      <output wsam:Action="http://ws.negocio.tic.frisa.mx/GestorPagosWS/generarPagoResponse" message="tns:generarPagoResponse"/>
+    </operation>
   </portType>
   <binding name="GestorPagosWSPortBinding" type="tns:GestorPagosWS">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-    <operation name="generarPago">
+    <operation name="consultarPagosSinReferencia">
       <soap:operation soapAction=""/>
       <input>
         <soap:body use="literal"/>
@@ -67,7 +67,7 @@
         <soap:body use="literal"/>
       </output>
     </operation>
-    <operation name="consultarPagosSinReferencia">
+    <operation name="aplicarPagoManual">
       <soap:operation soapAction=""/>
       <input>
         <soap:body use="literal"/>
@@ -76,7 +76,7 @@
         <soap:body use="literal"/>
       </output>
     </operation>
-    <operation name="aplicarPagoManual">
+    <operation name="generarPago">
       <soap:operation soapAction=""/>
       <input>
         <soap:body use="literal"/>

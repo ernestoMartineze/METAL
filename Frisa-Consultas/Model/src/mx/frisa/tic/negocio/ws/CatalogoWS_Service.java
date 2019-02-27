@@ -20,7 +20,7 @@ import javax.xml.ws.WebServiceFeature;
  */
 @WebServiceClient(name = "CatalogoWS", targetNamespace = "http://ws.negocio.tic.frisa.mx/",
                   wsdlLocation =
-                  "http://192.168.80.1:7001/frisa-servicios/CatalogoWS?WSDL#%7Bhttp%3A%2F%2Fws.negocio.tic.frisa.mx%2F%7DCatalogoWS")
+                  "https://129.191.25.150:7002/frisa-servicios/CatalogoWS?WSDL#%7Bhttp%3A%2F%2Fws.negocio.tic.frisa.mx%2F%7DCatalogoWS")
 public class CatalogoWS_Service extends Service {
 
     private final static URL CATALOGOWS_WSDL_LOCATION;

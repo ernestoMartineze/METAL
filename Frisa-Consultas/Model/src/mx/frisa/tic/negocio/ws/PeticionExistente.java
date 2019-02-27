@@ -1,6 +1,7 @@
 
 package mx.frisa.tic.negocio.ws;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -31,13 +32,15 @@ import javax.xml.bind.annotation.XmlType;
  *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "peticionExistente", propOrder = { "idPago", "lineaCaptura", "numeroRecibo", "referencia" })
+@XmlType(name = "peticionExistente",
+         propOrder = { "idPago", "lineaCaptura", "montoPago", "numeroRecibo", "referencia" })
 public class PeticionExistente {
 
     protected BigInteger idPago;
     protected String lineaCaptura;
     protected BigInteger numeroRecibo;
     protected String referencia;
+    protected BigDecimal montoPago;
 
     /**
      * Gets the value of the idPago property.
@@ -133,6 +136,30 @@ public class PeticionExistente {
      */
     public void setReferencia(String value) {
         this.referencia = value;
+    }
+
+    /**
+     * Gets the value of the montoPago property.
+     *
+     * @return
+     * possible object is
+     * {@link BigDecimal}
+     *
+     */
+    public BigDecimal getMontoPago() {
+        return montoPago;
+    }
+
+    /**
+     * Sets the value of the montoPago property.
+     *
+     * @param value
+     * allowed object is
+     * {@link BigDecimal}
+     *
+     */
+    public void setMontoPago(BigDecimal value) {
+        this.montoPago = value;
     }
 
 }

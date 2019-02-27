@@ -40,7 +40,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "lineaEstadoCuentaDTO",
          propOrder =
          { "businessunitname", "cliente", "conceptoMovimiento", "cuentaBancaria", "fecha", "idEstadoCuenta", "idPago",
-           "metodoPago", "monto", "orgID", "proyecto", "tipoDeposito"
+           "metodoPago", "moneda", "monto", "orgID", "proyecto", "tipoDeposito", "usuario"
     })
 public class LineaEstadoCuentaDTO {
 
@@ -57,6 +57,8 @@ public class LineaEstadoCuentaDTO {
     protected BigDecimal proyecto;
     @XmlElement(name = "BUSINESSUNITNAME")
     protected String businessunitname;
+    protected String moneda;
+    protected String usuario;
 
     /**
      * Gets the value of the conceptoMovimiento property.
@@ -346,6 +348,54 @@ public class LineaEstadoCuentaDTO {
      */
     public void setBUSINESSUNITNAME(String value) {
         this.businessunitname = value;
+    }
+
+    /**
+     * Gets the value of the moneda property.
+     *
+     * @return
+     * possible object is
+     * {@link String}
+     *
+     */
+    public String getMoneda() {
+        return moneda;
+    }
+
+    /**
+     * Gets the value of the usuario property.
+     *
+     * @return
+     * possible object is
+     * {@link String}
+     *
+     */
+    public String getUsuario() {
+        return usuario;
+    }
+
+    /**
+     * Sets the value of the moneda property.
+     *
+     * @param value
+     * allowed object is
+     * {@link String}
+     *
+     */
+    public void setMoneda(String value) {
+        this.moneda = value;
+    }
+
+    /**
+     * Sets the value of the usuario property.
+     *
+     * @param value
+     * allowed object is
+     * {@link String}
+     *
+     */
+    public void setUsuario(String value) {
+        this.usuario = value;
     }
 
 }

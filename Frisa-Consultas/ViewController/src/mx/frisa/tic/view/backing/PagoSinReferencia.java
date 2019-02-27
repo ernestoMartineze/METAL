@@ -1,6 +1,8 @@
 package mx.frisa.tic.view.backing;
 
 
+import java.math.BigDecimal;
+
 import mx.frisa.tic.negocio.ws.FiltroPagoSinReferencia;
 import mx.frisa.tic.negocio.ws.PeticionExistente;
 import mx.frisa.tic.negocio.ws.GestorPagosWS;
@@ -456,10 +458,10 @@ public class PagoSinReferencia {
             PagoSinReferenciaVO pagos= new PagoSinReferenciaVO();
             pagos.setCuentaBancaria(""+linea.getCuentaBancaria());
             pagos.setFecha(linea.getFecha());                
-            pagos.setMoneda(null);
+            pagos.setMoneda(linea.getMoneda());
             pagos.setMonto(""+linea.getMonto());
             pagos.setTipoDeposito(linea.getTipoDeposito());
-            pagos.setConceptoDeposito(null);
+            pagos.setConceptoDeposito(linea.getConceptoMovimiento());
             pagos.setIdPago(linea.getIdPago().toString());
             //datos para pagos manual aplicados
             if(aplicadosCB.isSelected()){
@@ -514,6 +516,7 @@ public class PagoSinReferencia {
                 PeticionExistente peticion = new PeticionExistente();
                 peticion.setIdPago(new BigInteger(pagos.getIdPago()));
                 peticion.setLineaCaptura(pagos.getLineaDeCaptura()==null?"":pagos.getLineaDeCaptura());
+                peticion.setMontoPago(new BigDecimal(pagos.getMonto()));
                 //peticion.setNumeroRecibo(new BigInteger(pagos.getNumeroRecibo()));
                 peticion.setReferencia(pagos.getReferencia()==null?"":pagos.getReferencia());
                 RespuestaClienteDTO respuesta= gestorPagosWS.consultarReferenciaLCExistente(peticion);

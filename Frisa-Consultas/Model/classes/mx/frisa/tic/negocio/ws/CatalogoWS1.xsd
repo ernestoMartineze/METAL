@@ -1,5 +1,11 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <xsd:schema xmlns:ns0="http://ws.negocio.tic.frisa.mx/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://ws.negocio.tic.frisa.mx/">
+  <xsd:complexType name="actualizarCentroCosto"/>
+  <xsd:complexType name="actualizarCentroCostoResponse">
+    <xsd:sequence>
+      <xsd:element name="return" type="ns0:respuestaDTO" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
   <xsd:complexType name="actualizarCuentasBancarias"/>
   <xsd:complexType name="actualizarCuentasBancariasResponse">
     <xsd:sequence>
@@ -112,6 +118,8 @@
       <xsd:element name="username" type="xsd:string" minOccurs="0"/>
     </xsd:sequence>
   </xsd:complexType>
+  <xsd:element name="actualizarCentroCosto" type="ns0:actualizarCentroCosto"/>
+  <xsd:element name="actualizarCentroCostoResponse" type="ns0:actualizarCentroCostoResponse"/>
   <xsd:element name="actualizarCuentasBancarias" type="ns0:actualizarCuentasBancarias"/>
   <xsd:element name="actualizarCuentasBancariasResponse" type="ns0:actualizarCuentasBancariasResponse"/>
   <xsd:element name="actualizarUsuarios" type="ns0:actualizarUsuarios"/>

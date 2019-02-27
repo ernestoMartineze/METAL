@@ -6,9 +6,9 @@
          <wsdl-port namespaceURI="http://ws.negocio.tic.frisa.mx/" localpart="GestorAccesoWSPort"/>
          <runtime/>
          <operations>
-            <operation name="agregarUsuario"/>
             <operation name="consultarAccesos"/>
             <operation name="actualizarAcceso"/>
+            <operation name="agregarUsuario"/>
          </operations>
       </port-info>
    </webservice-client>

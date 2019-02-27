@@ -157,4 +157,19 @@ public interface CatalogoWS {
     public List<ConsultarUsuarioDTO> consultarUsuarios(@WebParam(name = "usuario", targetNamespace = "")
                                                        String usuario);
 
+    /**
+     *
+     * @return
+     * returns mx.frisa.tic.negocio.ws.RespuestaDTO
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "actualizarCentroCosto", targetNamespace = "http://ws.negocio.tic.frisa.mx/",
+                    className = "mx.frisa.tic.negocio.ws.ActualizarCentroCosto")
+    @ResponseWrapper(localName = "actualizarCentroCostoResponse", targetNamespace = "http://ws.negocio.tic.frisa.mx/",
+                     className = "mx.frisa.tic.negocio.ws.ActualizarCentroCostoResponse")
+    @Action(input = "http://ws.negocio.tic.frisa.mx/CatalogoWS/actualizarCentroCostoRequest",
+            output = "http://ws.negocio.tic.frisa.mx/CatalogoWS/actualizarCentroCostoResponse")
+    public RespuestaDTO actualizarCentroCosto();
+
 }

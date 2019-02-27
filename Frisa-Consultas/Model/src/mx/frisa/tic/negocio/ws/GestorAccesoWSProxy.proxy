@@ -35,7 +35,7 @@
          <url path="GestorAccesoWSPortClient.java"/>
       </list>
       <value n="PROXY_MAPPING_URL"/>
-      <url n="PROXY_ORIGINAL_WSDL_URL" protocol="http" host="192.168.80.1" port="7001" path="/frisa-servicios/GestorAccesoWS" query="WSDL"/>
+      <url n="PROXY_ORIGINAL_WSDL_URL" protocol="https" host="129.191.25.150" port="7002" path="/frisa-servicios/GestorAccesoWS" query="WSDL"/>
       <hash n="PROXY_PORTS">
          <hash n="GestorAccesoWSPort">
             <value n="ACCESSES_DOC_WRAPPPED" v="true"/>
@@ -108,7 +108,7 @@
             </hash>
          </list>
          <list n="BINDING_FILES"/>
-         <value n="GUID" v="2ac58d26-0169-1000-801f-c0a85001114e"/>
+         <value n="GUID" v="30b34192-0169-1000-800b-c0a8500122c5"/>
          <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.proxy.WebServiceProxy$ProxyJavaWebService"/>
          <list n="PO_">
             <hash>

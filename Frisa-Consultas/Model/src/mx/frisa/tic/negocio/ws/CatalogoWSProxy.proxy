@@ -1,19 +1,21 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <jdevws:WebServiceProxy xmlns:jdevws="http://xmlns.oracle.com/jdeveloper/10130/webserviceproxy">
    <list n="CHILD_NODES">
-      <url path="CatalogoWS.xml"/>
+      <url path="CatalogoWS_Service.xml"/>
       <url path="CatalogoWS.wsdl"/>
       <url path="CatalogoWS1.xsd"/>
       <url path="ConsultarUsuarioDTO.java"/>
       <url path="CatalogoWS.java"/>
       <url path="ConsultarCuentaBancariaResponse.java"/>
       <url path="ConsultarCentroCostosResponse.java"/>
+      <url path="ActualizarCentroCosto.java"/>
       <url path="CatalogoWS_Service.java"/>
       <url path="ConsultarUniNegocioDTO.java"/>
       <url path="RespuestaDTO.java"/>
       <url path="ActualizarCuentasBancariasResponse.java"/>
       <url path="ConsultarUnidadNegocio.java"/>
       <url path="CatalogoWSPortClient.java"/>
+      <url path="ActualizarCentroCostoResponse.java"/>
       <url path="ConsultarUsuariosResponse.java"/>
       <url path="TipoMonedaDTO.java"/>
       <url path="package-info.java"/>
@@ -36,7 +38,7 @@
       <value n="ATTACHMENT_ENCODING" v="MIME"/>
       <list n="LOCAL_FILES"/>
       <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.proxy.WebServiceProxy"/>
-      <url n="ORACLE_WEBSERVICES_XML" path="CatalogoWS.xml"/>
+      <url n="ORACLE_WEBSERVICES_XML" path="CatalogoWS_Service.xml"/>
       <hash n="PROPERTY_GROUPS">
          <hash n="WSDL_TO_JAVA_PROPERTIES">
             <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.java.WSDLToJavaProperties"/>
@@ -47,7 +49,7 @@
          <url path="CatalogoWSPortClient.java"/>
       </list>
       <value n="PROXY_MAPPING_URL"/>
-      <url n="PROXY_ORIGINAL_WSDL_URL" protocol="http" host="192.168.80.1" port="7001" path="/frisa-servicios/CatalogoWS" query="WSDL"/>
+      <url n="PROXY_ORIGINAL_WSDL_URL" protocol="https" host="129.191.25.150" port="7002" path="/frisa-servicios/CatalogoWS" query="WSDL"/>
       <hash n="PROXY_PORTS">
          <hash n="CatalogoWSPort">
             <value n="ACCESSES_DOC_WRAPPPED" v="true"/>
@@ -56,6 +58,10 @@
             <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.proxy.ProxyPort"/>
             <value n="NAME" v="CatalogoWSPort"/>
             <hash n="OPERATIONS">
+               <hash n="actualizarCentroCosto">
+                  <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.proxy.ProxyOperation"/>
+                  <hash n="PROPERTY_GROUPS"/>
+               </hash>
                <hash n="actualizarCuentasBancarias">
                   <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.proxy.ProxyOperation"/>
                   <hash n="PROPERTY_GROUPS"/>
@@ -102,7 +108,7 @@
                   <value n="wsrm"/>
                </hash>
             </hash>
-            <url n="PROXY_ORIGINAL_PORT_ENDPOINT" protocol="http" host="192.168.80.1" port="7001" path="/frisa-servicios/CatalogoWS"/>
+            <url n="PROXY_ORIGINAL_PORT_ENDPOINT" protocol="https" host="129.191.25.150" port="7002" path="/frisa-servicios/CatalogoWS"/>
          </hash>
       </hash>
       <value n="PROXY_SERVICE_NAME" v="CatalogoWS"/>
@@ -121,7 +127,17 @@
                <value n="NAME" v="{http://ws.negocio.tic.frisa.mx/}CatalogoWSPortBinding"/>
                <list n="OP_BINDINGS">
                   <hash>
+                     <value n="BOUND_OPERATION" v="java.util.List&lt;mx.frisa.tic.negocio.ws.ConsultarUniNegocioDTO>.consultarUnidadNegocio.java.lang.String"/>
+                     <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.SOAPOperationBinding"/>
+                     <hash n="PROPERTY_GROUPS"/>
+                  </hash>
+                  <hash>
                      <value n="BOUND_OPERATION" v="java.util.List&lt;mx.frisa.tic.negocio.ws.ConsultarUsuarioDTO>.consultarUsuarios.java.lang.String"/>
+                     <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.SOAPOperationBinding"/>
+                     <hash n="PROPERTY_GROUPS"/>
+                  </hash>
+                  <hash>
+                     <value n="BOUND_OPERATION" v="java.util.List&lt;mx.frisa.tic.negocio.ws.ConsultarCentroCostosDTO>.consultarCentroCostos.java.lang.String"/>
                      <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.SOAPOperationBinding"/>
                      <hash n="PROPERTY_GROUPS"/>
                   </hash>
@@ -131,17 +147,7 @@
                      <hash n="PROPERTY_GROUPS"/>
                   </hash>
                   <hash>
-                     <value n="BOUND_OPERATION" v="java.util.List&lt;mx.frisa.tic.negocio.ws.ConsultarUniNegocioDTO>.consultarUnidadNegocio.java.lang.String"/>
-                     <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.SOAPOperationBinding"/>
-                     <hash n="PROPERTY_GROUPS"/>
-                  </hash>
-                  <hash>
-                     <value n="BOUND_OPERATION" v="mx.frisa.tic.negocio.ws.RespuestaDTO.actualizarUsuarios"/>
-                     <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.SOAPOperationBinding"/>
-                     <hash n="PROPERTY_GROUPS"/>
-                  </hash>
-                  <hash>
-                     <value n="BOUND_OPERATION" v="java.util.List&lt;mx.frisa.tic.negocio.ws.ConsultarCentroCostosDTO>.consultarCentroCostos.java.lang.String"/>
+                     <value n="BOUND_OPERATION" v="java.util.List&lt;mx.frisa.tic.negocio.ws.CuentaBancariaDTO>.consultarCuentaBancaria.java.lang.String"/>
                      <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.SOAPOperationBinding"/>
                      <hash n="PROPERTY_GROUPS"/>
                   </hash>
@@ -156,7 +162,12 @@
                      <hash n="PROPERTY_GROUPS"/>
                   </hash>
                   <hash>
-                     <value n="BOUND_OPERATION" v="java.util.List&lt;mx.frisa.tic.negocio.ws.CuentaBancariaDTO>.consultarCuentaBancaria.java.lang.String"/>
+                     <value n="BOUND_OPERATION" v="mx.frisa.tic.negocio.ws.RespuestaDTO.actualizarUsuarios"/>
+                     <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.SOAPOperationBinding"/>
+                     <hash n="PROPERTY_GROUPS"/>
+                  </hash>
+                  <hash>
+                     <value n="BOUND_OPERATION" v="mx.frisa.tic.negocio.ws.RespuestaDTO.actualizarCentroCosto"/>
                      <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.SOAPOperationBinding"/>
                      <hash n="PROPERTY_GROUPS"/>
                   </hash>
@@ -165,7 +176,7 @@
             </hash>
          </list>
          <list n="BINDING_FILES"/>
-         <value n="GUID" v="162489dc-0169-1000-8012-c0a85001a89c"/>
+         <value n="GUID" v="30b14d48-0169-1000-8005-c0a8500122c5"/>
          <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.proxy.WebServiceProxy$ProxyJavaWebService"/>
          <list n="PO_">
             <hash>
@@ -175,7 +186,17 @@
                <value n="PORT_BINDING_NAME" v="{http://ws.negocio.tic.frisa.mx/}CatalogoWSPortBinding"/>
                <list n="PORT_OPS">
                   <hash>
+                     <value n="EXPOSED_BD_OPERATION" v="java.util.List&lt;mx.frisa.tic.negocio.ws.ConsultarUniNegocioDTO>.consultarUnidadNegocio.java.lang.String"/>
+                     <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.PortOperation"/>
+                     <hash n="PROPERTY_GROUPS"/>
+                  </hash>
+                  <hash>
                      <value n="EXPOSED_BD_OPERATION" v="java.util.List&lt;mx.frisa.tic.negocio.ws.ConsultarUsuarioDTO>.consultarUsuarios.java.lang.String"/>
+                     <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.PortOperation"/>
+                     <hash n="PROPERTY_GROUPS"/>
+                  </hash>
+                  <hash>
+                     <value n="EXPOSED_BD_OPERATION" v="java.util.List&lt;mx.frisa.tic.negocio.ws.ConsultarCentroCostosDTO>.consultarCentroCostos.java.lang.String"/>
                      <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.PortOperation"/>
                      <hash n="PROPERTY_GROUPS"/>
                   </hash>
@@ -185,17 +206,7 @@
                      <hash n="PROPERTY_GROUPS"/>
                   </hash>
                   <hash>
-                     <value n="EXPOSED_BD_OPERATION" v="java.util.List&lt;mx.frisa.tic.negocio.ws.ConsultarUniNegocioDTO>.consultarUnidadNegocio.java.lang.String"/>
-                     <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.PortOperation"/>
-                     <hash n="PROPERTY_GROUPS"/>
-                  </hash>
-                  <hash>
-                     <value n="EXPOSED_BD_OPERATION" v="mx.frisa.tic.negocio.ws.RespuestaDTO.actualizarUsuarios"/>
-                     <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.PortOperation"/>
-                     <hash n="PROPERTY_GROUPS"/>
-                  </hash>
-                  <hash>
-                     <value n="EXPOSED_BD_OPERATION" v="java.util.List&lt;mx.frisa.tic.negocio.ws.ConsultarCentroCostosDTO>.consultarCentroCostos.java.lang.String"/>
+                     <value n="EXPOSED_BD_OPERATION" v="java.util.List&lt;mx.frisa.tic.negocio.ws.CuentaBancariaDTO>.consultarCuentaBancaria.java.lang.String"/>
                      <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.PortOperation"/>
                      <hash n="PROPERTY_GROUPS"/>
                   </hash>
@@ -210,13 +221,18 @@
                      <hash n="PROPERTY_GROUPS"/>
                   </hash>
                   <hash>
-                     <value n="EXPOSED_BD_OPERATION" v="java.util.List&lt;mx.frisa.tic.negocio.ws.CuentaBancariaDTO>.consultarCuentaBancaria.java.lang.String"/>
+                     <value n="EXPOSED_BD_OPERATION" v="mx.frisa.tic.negocio.ws.RespuestaDTO.actualizarUsuarios"/>
+                     <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.PortOperation"/>
+                     <hash n="PROPERTY_GROUPS"/>
+                  </hash>
+                  <hash>
+                     <value n="EXPOSED_BD_OPERATION" v="mx.frisa.tic.negocio.ws.RespuestaDTO.actualizarCentroCosto"/>
                      <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.PortOperation"/>
                      <hash n="PROPERTY_GROUPS"/>
                   </hash>
                </list>
                <hash n="PROPERTY_GROUPS"/>
-               <url n="URL" protocol="http" host="192.168.80.1" port="7001" path="/frisa-servicios/CatalogoWS"/>
+               <url n="URL" protocol="https" host="129.191.25.150" port="7002" path="/frisa-servicios/CatalogoWS"/>
             </hash>
          </list>
          <hash n="PROPERTY_GROUPS">

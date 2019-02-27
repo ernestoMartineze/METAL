@@ -40,7 +40,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "respuestaClienteDTO",
          propOrder =
          { "cliente", "estadoCobro", "estadoConciliacion", "idPago", "montoPendienteDeAplicar", "nombrePago",
-           "numeroCobro", "proceso", "proyectoID", "unidadNegocio"
+           "numeroCobro", "proceso", "proyectoID", "totalLC", "unidadNegocio"
     })
 public class RespuestaClienteDTO {
 
@@ -54,6 +54,7 @@ public class RespuestaClienteDTO {
     protected Proceso proceso;
     protected BigDecimal proyectoID;
     protected String unidadNegocio;
+    protected BigDecimal totalLC;
 
     /**
      * Gets the value of the cliente property.
@@ -293,6 +294,30 @@ public class RespuestaClienteDTO {
      */
     public void setUnidadNegocio(String value) {
         this.unidadNegocio = value;
+    }
+
+    /**
+     * Gets the value of the totalLC property.
+     *
+     * @return
+     * possible object is
+     * {@link BigDecimal}
+     *
+     */
+    public BigDecimal getTotalLC() {
+        return totalLC;
+    }
+
+    /**
+     * Sets the value of the totalLC property.
+     *
+     * @param value
+     * allowed object is
+     * {@link BigDecimal}
+     *
+     */
+    public void setTotalLC(BigDecimal value) {
+        this.totalLC = value;
     }
 
 }

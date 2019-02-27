@@ -70,4 +70,5 @@ public class AplicarPagoDTO {
     public void setPagoPorAplicar(List<PagoPorAplicarDTO> pagoPorAplicar) {
         this.pagoPorAplicar = pagoPorAplicar;
     }
+
 }
