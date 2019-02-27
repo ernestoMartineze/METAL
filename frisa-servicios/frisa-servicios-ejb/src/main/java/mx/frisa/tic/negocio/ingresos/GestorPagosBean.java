@@ -370,7 +370,12 @@ public class GestorPagosBean implements GestorPagos {
                     respuesta.setEstadoCobro("Por Aplicar");
                     respuesta.setEstadoConciliacion("Conciliado");
                     respuesta.setIdPago(BigDecimal.ONE);
-                    respuesta.setMontoPendienteDeAplicar(BigDecimal.TEN);
+                    try {
+                        respuesta.setMontoPendienteDeAplicar(BigDecimal.valueOf(Long.valueOf(lineasReferenRecuperada.getPendientePorAplicar())));
+                    } catch (Exception ex) {
+                        respuesta.setMontoPendienteDeAplicar(BigDecimal.ZERO);
+                        ex.printStackTrace();
+                    }
                     respuesta.setNombrePago(lineasReferenRecuperada.getIdlinea());
                     respuesta.setUnidadNegocio(lineasReferenRecuperada.getBusinessUnitName());
                     respuesta.setTotalLC(lineasReferenRecuperada.getTotalamount()); //Total de la linea de captura / referencia
