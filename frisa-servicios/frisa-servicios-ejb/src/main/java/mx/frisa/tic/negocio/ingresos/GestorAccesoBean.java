@@ -47,7 +47,7 @@ public class GestorAccesoBean {
         parametros.add(new CatalogoParametroDTO("unidadnegocio", cveBu, CONSTANTE.CADENA));
         List<XxfrtAccesoUsuarios> usuarios = persist.consultaQueryByParameters("XxfrtAccesoUsuarios.findByAll", parametros);
         if(usuarios.size()>0){
-            response.setDescripcionError("La combinacion (unidad de negocio - centro de costos) ya existe para el usuario");
+            response.setDescripcionError("La combinación (unidad de negocio - centro de costos) ya existe para el usuario");
             response.setIdError("1");
         }else{
             XxfrtAccesoUsuarios entidadUsuario = new XxfrtAccesoUsuarios();
