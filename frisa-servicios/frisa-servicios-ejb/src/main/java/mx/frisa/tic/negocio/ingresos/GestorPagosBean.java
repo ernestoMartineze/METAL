@@ -363,6 +363,7 @@ public class GestorPagosBean implements GestorPagos {
                 lineasReferencias = (List<XxfrvConsultaLcFactura>) lineasOreferenciasDao.consultaQueryByParameters(nombreConsulta, parametros);
 
                 respuesta.setProceso(new Proceso("0", "EXITOSO"));
+                Boolean montoPagoCubreTotalDeuda = true; 
                 for (XxfrvConsultaLcFactura lineasReferenRecuperada : lineasReferencias) {
                     respuesta.setCliente(lineasReferenRecuperada.getBilltoconsumername());
                     respuesta.setProyectoID(BigDecimal.valueOf(lineasReferenRecuperada.getProjectid()));
@@ -373,12 +374,19 @@ public class GestorPagosBean implements GestorPagos {
                     try {
                         respuesta.setMontoPendienteDeAplicar(BigDecimal.valueOf(Long.valueOf(lineasReferenRecuperada.getPendientePorAplicar())));
                     } catch (Exception ex) {
-                        respuesta.setMontoPendienteDeAplicar(BigDecimal.ZERO);
+                        respuesta.setMontoPendienteDeAplicar(BigDecimal.valueOf(Long.valueOf("99999999999")));
                         ex.printStackTrace();
+                    }
+                    if (filtros.getMontoPago().compareTo(respuesta.getMontoPendienteDeAplicar())<0){ //Si el monto de pago es menor al monto pendiente de cobro
+                        montoPagoCubreTotalDeuda=false;
                     }
                     respuesta.setNombrePago(lineasReferenRecuperada.getIdlinea());
                     respuesta.setUnidadNegocio(lineasReferenRecuperada.getBusinessUnitName());
                     respuesta.setTotalLC(lineasReferenRecuperada.getTotalamount()); //Total de la linea de captura / referencia
+                }
+                
+                if (montoPagoCubreTotalDeuda==false){
+                    respuesta.setProceso(new Proceso("1202", "Error no cubre el monto de la línea de captura"));
                 }
 
             } else {
