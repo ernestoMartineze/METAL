@@ -291,7 +291,7 @@ public class GestorPagosBean implements GestorPagos {
 
             }
             if (!filtros.getUsuario().equals("")) {
-                queryArmado += " and x.usuario =  '"+ filtros.getUsuario() + "'";
+                queryArmado += " and x.usuario =  '" + filtros.getUsuario() + "'";
 
             }
             if (!(filtros.getFechaFinal().equals("")
@@ -324,6 +324,7 @@ public class GestorPagosBean implements GestorPagos {
                 lineaDto.setOrgID(lineasEdoCuentaEnt.getBusinessunitname());
                 lineaDto.setCliente(lineasEdoCuentaEnt.getNombrecliente());
                 lineaDto.setUsuario(lineasEdoCuentaEnt.getUsuario());
+                lineaDto.setMoneda(lineasEdoCuentaEnt.getCurrencyCode());
                 lineas.add(lineaDto);
             }
             respuesta.setProceso(new Proceso("0", "EXITOSO"));
@@ -372,6 +373,7 @@ public class GestorPagosBean implements GestorPagos {
                     respuesta.setMontoPendienteDeAplicar(BigDecimal.TEN);
                     respuesta.setNombrePago(lineasReferenRecuperada.getIdlinea());
                     respuesta.setUnidadNegocio(lineasReferenRecuperada.getBusinessUnitName());
+                    respuesta.setTotalLC(lineasReferenRecuperada.getTotalamount()); //Total de la linea de captura / referencia
                 }
 
             } else {

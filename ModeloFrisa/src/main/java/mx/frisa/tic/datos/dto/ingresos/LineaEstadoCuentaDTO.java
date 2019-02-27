@@ -13,7 +13,7 @@ import java.math.BigDecimal;
  */
 public class LineaEstadoCuentaDTO {
 
-    private String  fecha, TipoDeposito, conceptoMovimiento, metodoPago, cliente, orgID, BUSINESSUNITNAME, usuario;
+    private String  fecha, TipoDeposito, conceptoMovimiento, metodoPago, cliente, orgID, BUSINESSUNITNAME, usuario, moneda;
     private BigDecimal  idPago, idEstadoCuenta, cuentaBancaria, monto, proyecto;
 
     public BigDecimal getMonto() {
@@ -123,6 +123,14 @@ public class LineaEstadoCuentaDTO {
 
     public void setUsuario(String usuario) {
         this.usuario = usuario;
+    }
+
+    public String getMoneda() {
+        return moneda;
+    }
+
+    public void setMoneda(String moneda) {
+        this.moneda = moneda;
     }
 
   

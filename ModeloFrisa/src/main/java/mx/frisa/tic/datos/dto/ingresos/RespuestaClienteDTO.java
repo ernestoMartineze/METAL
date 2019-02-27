@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 public class RespuestaClienteDTO {
     
     private Proceso proceso;
-    private BigDecimal idPago, proyectoID, numeroCobro, montoPendienteDeAplicar ;
+    private BigDecimal idPago, proyectoID, numeroCobro, montoPendienteDeAplicar, totalLC ;
     private String nombrePago, unidadNegocio, cliente, estadoCobro, estadoConciliacion;
 
     public BigDecimal getIdPago() {
@@ -95,6 +95,14 @@ public class RespuestaClienteDTO {
 
     public void setProceso(Proceso proceso) {
         this.proceso = proceso;
+    }
+
+    public BigDecimal getTotalLC() {
+        return totalLC;
+    }
+
+    public void setTotalLC(BigDecimal totalLC) {
+        this.totalLC = totalLC;
     }
     
     

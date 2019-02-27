@@ -5,6 +5,7 @@
  */
 package mx.frisa.tic.datos.dto.ingresos;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 
 /**
@@ -16,6 +17,7 @@ public class PeticionExistente {
     private String lineaCaptura;
     private String referencia;
     private BigInteger idPago, numeroRecibo;
+    private BigDecimal montoPago;
 
     public String getLineaCaptura() {
         return lineaCaptura;
@@ -47,6 +49,14 @@ public class PeticionExistente {
 
     public void setNumeroRecibo(BigInteger numeroRecibo) {
         this.numeroRecibo = numeroRecibo;
+    }
+
+    public BigDecimal getMontoPago() {
+        return montoPago;
+    }
+
+    public void setMontoPago(BigDecimal montoPago) {
+        this.montoPago = montoPago;
     }
     
     
