@@ -161,6 +161,7 @@ public class AdaptadorWS {
         //Code to make a webservice HTTP request
         RespuestaERP_Edo_Cuenta respestaWS = new RespuestaERP_Edo_Cuenta();
         respestaWS.setProceso(new Proceso("0", "EXITOSO"));
+        ManejadorLog log = new ManejadorLog();
 
         String outputString = "";
         String wsURL = PropiedadesFRISA.recuperaPropiedadBackend("edoCuentaServiceEndPoint");
@@ -191,6 +192,7 @@ public class AdaptadorWS {
 
 //            respestaWS.setDATA_DSObject((DATA_DS) respuestaXMLaPOJO(getCadenaDesdeB64(outputString), new DATA_DS()));
         } catch (Exception ex) {
+            log.error(ex, this.getClass());
             ex.printStackTrace();
             respestaWS.setProceso(new Proceso("100", "ERROR"));
         }
@@ -542,17 +544,20 @@ public class AdaptadorWS {
         String outputString = "";
         RespuestaERP_Edo_Cuenta respestaWS = new RespuestaERP_Edo_Cuenta();
         respestaWS.setProceso(new Proceso("0", "EXITOSO"));
+        
+        ManejadorLog log = new ManejadorLog();
         String responseString = "";
         String wsURL = endPoint;
 //        URL url = new URL(wsURL);
 
+        log.debug("wsURL : " + wsURL);
         URL url = new URL(null, wsURL, new sun.net.www.protocol.https.Handler());
         URLConnection connection = url.openConnection();
         HttpsURLConnection httpConn = (HttpsURLConnection) connection;
         ByteArrayOutputStream bout = new ByteArrayOutputStream();
         String xmlInput
                 = msg;
-        System.out.println("msg : " + msg);
+        log.debug("msg : " + msg);
         byte[] buffer = new byte[xmlInput.length()];
         buffer = xmlInput.getBytes();
         bout.write(buffer);
@@ -578,8 +583,8 @@ public class AdaptadorWS {
         //Ready with sending the request.
         InputStreamReader isr = null;
         if (httpConn.getResponseCode() == 200) {
-            System.out.println(httpConn.getResponseMessage());
-            System.out.println(httpConn.toString());
+            log.debug(httpConn.getResponseMessage());
+            log.debug(httpConn.toString());
             if (httpConn.getContentEncoding().equals("gzip")) {
                 isr = new InputStreamReader(new GZIPInputStream(httpConn.getInputStream()));
             } else {
@@ -599,8 +604,8 @@ public class AdaptadorWS {
         while ((responseString = in.readLine()) != null) {
             outputString = outputString + responseString;
         }
-        System.out.println("Respuesta :");
-        System.out.println(outputString);
+        log.debug("Respuesta :");
+        log.debug(outputString);
         return outputString;
     }
 
