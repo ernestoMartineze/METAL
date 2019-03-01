@@ -1,0 +1,309 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<jdevws:WebServiceProxy xmlns:jdevws="http://xmlns.oracle.com/jdeveloper/10130/webserviceproxy">
+   <list n="CHILD_NODES">
+      <url path="GestorLineaCapturaWS_Service.xml"/>
+      <url path="GestorLineaCapturaWS.wsdl"/>
+      <url path="GestorLineaCapturaWS1.xsd"/>
+      <url path="DetalleLCPagosDTO.java"/>
+      <url path="ConsultaLCFactDet.java"/>
+      <url path="ConsultarLineaCaptura.java"/>
+      <url path="EjecutaBatchLC.java"/>
+      <url path="LineasFacturaDTO.java"/>
+      <url path="DetalleLineaCapturaDTO.java"/>
+      <url path="Proceso.java"/>
+      <url path="RespuestaLCFactDetDTO.java"/>
+      <url path="CabeceraActualizaIdERPDTO.java"/>
+      <url path="CargarFactura.java"/>
+      <url path="ConsultaLCFactDetResponse.java"/>
+      <url path="RespuestaDTO.java"/>
+      <url path="ConsultaNumeroFacturas.java"/>
+      <url path="RespuestaDetalleLineaCapturaDTO.java"/>
+      <url path="ConsultarEstadoCarga.java"/>
+      <url path="ConsultaLCGeneradas.java"/>
+      <url path="LineaActualizaIdERPDTO.java"/>
+      <url path="CargarFacturaResponse.java"/>
+      <url path="ConsultaBatchFinalizadoResponse.java"/>
+      <url path="package-info.java"/>
+      <url path="GestorLineaCapturaWSPortClient.java"/>
+      <url path="ConsultarLineaCapturaResponse.java"/>
+      <url path="ConsultaNumeroFacturasResponse.java"/>
+      <url path="ActualizarIdERPResponse.java"/>
+      <url path="ListaLineaActualizaIdERPDTO.java"/>
+      <url path="RespuestaLineaCapturaDTO.java"/>
+      <url path="LineaCapturaDTO.java"/>
+      <url path="LineaCaptutaFacturaDTO.java"/>
+      <url path="ConsultaLCGeneradasResponse.java"/>
+      <url path="GestorLineaCapturaWS_Service.java"/>
+      <url path="PeticionCargaFacturaDTO.java"/>
+      <url path="FacturaDTO.java"/>
+      <url path="ConsultaDetalleLineaCapturaResponse.java"/>
+      <url path="ConsultaDetalleLCPagos.java"/>
+      <url path="ConsultaDetalleLCPagosResponse.java"/>
+      <url path="RespuestaCargaFacturaDTO.java"/>
+      <url path="ConsultaDetalleLineaCaptura.java"/>
+      <url path="ConsultarEstadoCargaResponse.java"/>
+      <url path="ActualizarIdERP.java"/>
+      <url path="EjecutaBatchLCResponse.java"/>
+      <url path="LcFactDetDTO.java"/>
+      <url path="ObjectFactory.java"/>
+      <url path="ConsultaBatchFinalizado.java"/>
+      <url path="GestorLineaCapturaWS.java"/>
+      <url path="FacturaActualizaIdERPDTO.java"/>
+      <url path="RespuestaDetalleLCPagosDTO.java"/>
+   </list>
+   <hash n="DATA_MODEL">
+      <value n="ATTACHMENT_ENCODING" v="MIME"/>
+      <list n="LOCAL_FILES"/>
+      <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.proxy.WebServiceProxy"/>
+      <url n="ORACLE_WEBSERVICES_XML" path="GestorLineaCapturaWS_Service.xml"/>
+      <hash n="PROPERTY_GROUPS">
+         <hash n="WSDL_TO_JAVA_PROPERTIES">
+            <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.java.WSDLToJavaProperties"/>
+         </hash>
+      </hash>
+      <value n="PROXY_ASYNC_METHODS" v="FOR_ENABLED"/>
+      <list n="PROXY_CLIENTS">
+         <url path="GestorLineaCapturaWSPortClient.java"/>
+      </list>
+      <value n="PROXY_MAPPING_URL"/>
+      <url n="PROXY_ORIGINAL_WSDL_URL" protocol="https" host="129.191.25.150" port="7002" path="/frisa-servicios/GestorLineaCapturaWS" query="WSDL"/>
+      <hash n="PROXY_PORTS">
+         <hash n="GestorLineaCapturaWSPort">
+            <value n="ACCESSES_DOC_WRAPPPED" v="true"/>
+            <value n="ACCESSES_RPC_ENCODED" v="false"/>
+            <value n="CLASS_NAME" v="mx.frisa.tic.negocio.ws.GestorLineaCapturaWS"/>
+            <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.proxy.ProxyPort"/>
+            <value n="NAME" v="GestorLineaCapturaWSPort"/>
+            <hash n="OPERATIONS">
+               <hash n="actualizarIdERP">
+                  <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.proxy.ProxyOperation"/>
+                  <hash n="PROPERTY_GROUPS"/>
+               </hash>
+               <hash n="cargarFactura">
+                  <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.proxy.ProxyOperation"/>
+                  <hash n="PROPERTY_GROUPS"/>
+               </hash>
+               <hash n="consultaBatchFinalizado">
+                  <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.proxy.ProxyOperation"/>
+                  <hash n="PROPERTY_GROUPS"/>
+               </hash>
+               <hash n="consultaDetalleLCPagos">
+                  <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.proxy.ProxyOperation"/>
+                  <hash n="PROPERTY_GROUPS"/>
+               </hash>
+               <hash n="consultaDetalleLineaCaptura">
+                  <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.proxy.ProxyOperation"/>
+                  <hash n="PROPERTY_GROUPS"/>
+               </hash>
+               <hash n="consultaLCFactDet">
+                  <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.proxy.ProxyOperation"/>
+                  <hash n="PROPERTY_GROUPS"/>
+               </hash>
+               <hash n="consultaLCGeneradas">
+                  <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.proxy.ProxyOperation"/>
+                  <hash n="PROPERTY_GROUPS"/>
+               </hash>
+               <hash n="consultaNumeroFacturas">
+                  <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.proxy.ProxyOperation"/>
+                  <hash n="PROPERTY_GROUPS"/>
+               </hash>
+               <hash n="consultarEstadoCarga">
+                  <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.proxy.ProxyOperation"/>
+                  <hash n="PROPERTY_GROUPS"/>
+               </hash>
+               <hash n="consultarLineaCaptura">
+                  <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.proxy.ProxyOperation"/>
+                  <hash n="PROPERTY_GROUPS"/>
+               </hash>
+               <hash n="ejecutaBatchLC">
+                  <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.proxy.ProxyOperation"/>
+                  <hash n="PROPERTY_GROUPS"/>
+               </hash>
+            </hash>
+            <hash n="PROPERTY_GROUPS">
+               <hash n="WS_POLICY">
+                  <value n="addressing"/>
+                  <hash n="GLOBAL_CONFIG_PROPERTIES"/>
+                  <list n="management"/>
+                  <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.policy.PolicyClientModel"/>
+                  <value n="mtom"/>
+                  <hash n="POLICY_OVERRIDE_PROPERTIES"/>
+                  <list n="security"/>
+                  <list n="wsconfig"/>
+                  <value n="wsrm"/>
+               </hash>
+            </hash>
+            <url n="PROXY_ORIGINAL_PORT_ENDPOINT" protocol="https" host="129.191.25.150" port="7002" path="/frisa-servicios/GestorLineaCapturaWS"/>
+         </hash>
+      </hash>
+      <value n="PROXY_SERVICE_NAME" v="GestorLineaCapturaWS"/>
+      <value n="PROXY_SERVICE_NAMESPACE" v="http://ws.negocio.tic.frisa.mx/"/>
+      <url n="PROXY_TARGET_PROJECT" path="../../../../../../Model.jpr"/>
+      <list n="PROXY_WSDL_IMPORT_LIST">
+         <url path="GestorLineaCapturaWS1.xsd"/>
+      </list>
+      <url n="PROXY_WSDL_URL" path="GestorLineaCapturaWS.wsdl"/>
+      <hash n="REFERENCED_WEBSERVICE">
+         <list n="BD_">
+            <hash>
+               <value n="BOUND_PORT_TYPE" v="{http://ws.negocio.tic.frisa.mx/}GestorLineaCapturaWS"/>
+               <value n="DEFAULT_NAME" v="false"/>
+               <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.SOAPBinding"/>
+               <value n="NAME" v="{http://ws.negocio.tic.frisa.mx/}GestorLineaCapturaWSPortBinding"/>
+               <list n="OP_BINDINGS">
+                  <hash>
+                     <value n="BOUND_OPERATION" v="mx.frisa.tic.negocio.ws.RespuestaLineaCapturaDTO.consultarLineaCaptura.mx.frisa.tic.negocio.ws.LineaCapturaDTO"/>
+                     <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.SOAPOperationBinding"/>
+                     <hash n="PROPERTY_GROUPS"/>
+                  </hash>
+                  <hash>
+                     <value n="BOUND_OPERATION" v="int.ejecutaBatchLC.java.lang.String"/>
+                     <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.SOAPOperationBinding"/>
+                     <hash n="PROPERTY_GROUPS"/>
+                  </hash>
+                  <hash>
+                     <value n="BOUND_OPERATION" v="java.util.List&lt;mx.frisa.tic.negocio.ws.LineaCaptutaFacturaDTO>.consultaLCGeneradas.java.lang.String"/>
+                     <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.SOAPOperationBinding"/>
+                     <hash n="PROPERTY_GROUPS"/>
+                  </hash>
+                  <hash>
+                     <value n="BOUND_OPERATION" v="mx.frisa.tic.negocio.ws.RespuestaDTO.actualizarIdERP.java.util.List&lt;mx.frisa.tic.negocio.ws.FacturaActualizaIdERPDTO>"/>
+                     <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.SOAPOperationBinding"/>
+                     <hash n="PROPERTY_GROUPS"/>
+                  </hash>
+                  <hash>
+                     <value n="BOUND_OPERATION" v="mx.frisa.tic.negocio.ws.RespuestaCargaFacturaDTO.cargarFactura.mx.frisa.tic.negocio.ws.PeticionCargaFacturaDTO"/>
+                     <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.SOAPOperationBinding"/>
+                     <hash n="PROPERTY_GROUPS"/>
+                  </hash>
+                  <hash>
+                     <value n="BOUND_OPERATION" v="mx.frisa.tic.negocio.ws.RespuestaCargaFacturaDTO.consultarEstadoCarga.java.lang.String"/>
+                     <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.SOAPOperationBinding"/>
+                     <hash n="PROPERTY_GROUPS"/>
+                  </hash>
+                  <hash>
+                     <value n="BOUND_OPERATION" v="java.lang.String.consultaBatchFinalizado.java.lang.String"/>
+                     <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.SOAPOperationBinding"/>
+                     <hash n="PROPERTY_GROUPS"/>
+                  </hash>
+                  <hash>
+                     <value n="BOUND_OPERATION" v="mx.frisa.tic.negocio.ws.RespuestaDetalleLineaCapturaDTO.consultaDetalleLineaCaptura.java.lang.String.java.lang.String.java.lang.String.java.lang.String.java.lang.String"/>
+                     <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.SOAPOperationBinding"/>
+                     <hash n="PROPERTY_GROUPS"/>
+                  </hash>
+                  <hash>
+                     <value n="BOUND_OPERATION" v="mx.frisa.tic.negocio.ws.RespuestaDetalleLCPagosDTO.consultaDetalleLCPagos.java.lang.String"/>
+                     <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.SOAPOperationBinding"/>
+                     <hash n="PROPERTY_GROUPS"/>
+                  </hash>
+                  <hash>
+                     <value n="BOUND_OPERATION" v="mx.frisa.tic.negocio.ws.RespuestaLCFactDetDTO.consultaLCFactDet.java.lang.String.java.lang.String.java.lang.String.java.lang.String.java.lang.String"/>
+                     <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.SOAPOperationBinding"/>
+                     <hash n="PROPERTY_GROUPS"/>
+                  </hash>
+                  <hash>
+                     <value n="BOUND_OPERATION" v="int.consultaNumeroFacturas.java.lang.String"/>
+                     <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.SOAPOperationBinding"/>
+                     <hash n="PROPERTY_GROUPS"/>
+                  </hash>
+               </list>
+               <hash n="PROPERTY_GROUPS"/>
+            </hash>
+         </list>
+         <list n="BINDING_FILES"/>
+         <value n="GUID" v="34d90aa5-0169-1000-8012-c0a8500122c5"/>
+         <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.proxy.WebServiceProxy$ProxyJavaWebService"/>
+         <list n="PO_">
+            <hash>
+               <value n="DEFAULT_NAME" v="false"/>
+               <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.SOAPPort"/>
+               <value n="NAME" v="GestorLineaCapturaWSPort"/>
+               <value n="PORT_BINDING_NAME" v="{http://ws.negocio.tic.frisa.mx/}GestorLineaCapturaWSPortBinding"/>
+               <list n="PORT_OPS">
+                  <hash>
+                     <value n="EXPOSED_BD_OPERATION" v="mx.frisa.tic.negocio.ws.RespuestaLineaCapturaDTO.consultarLineaCaptura.mx.frisa.tic.negocio.ws.LineaCapturaDTO"/>
+                     <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.PortOperation"/>
+                     <hash n="PROPERTY_GROUPS"/>
+                  </hash>
+                  <hash>
+                     <value n="EXPOSED_BD_OPERATION" v="int.ejecutaBatchLC.java.lang.String"/>
+                     <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.PortOperation"/>
+                     <hash n="PROPERTY_GROUPS"/>
+                  </hash>
+                  <hash>
+                     <value n="EXPOSED_BD_OPERATION" v="java.util.List&lt;mx.frisa.tic.negocio.ws.LineaCaptutaFacturaDTO>.consultaLCGeneradas.java.lang.String"/>
+                     <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.PortOperation"/>
+                     <hash n="PROPERTY_GROUPS"/>
+                  </hash>
+                  <hash>
+                     <value n="EXPOSED_BD_OPERATION" v="mx.frisa.tic.negocio.ws.RespuestaDTO.actualizarIdERP.java.util.List&lt;mx.frisa.tic.negocio.ws.FacturaActualizaIdERPDTO>"/>
+                     <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.PortOperation"/>
+                     <hash n="PROPERTY_GROUPS"/>
+                  </hash>
+                  <hash>
+                     <value n="EXPOSED_BD_OPERATION" v="mx.frisa.tic.negocio.ws.RespuestaCargaFacturaDTO.cargarFactura.mx.frisa.tic.negocio.ws.PeticionCargaFacturaDTO"/>
+                     <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.PortOperation"/>
+                     <hash n="PROPERTY_GROUPS"/>
+                  </hash>
+                  <hash>
+                     <value n="EXPOSED_BD_OPERATION" v="mx.frisa.tic.negocio.ws.RespuestaCargaFacturaDTO.consultarEstadoCarga.java.lang.String"/>
+                     <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.PortOperation"/>
+                     <hash n="PROPERTY_GROUPS"/>
+                  </hash>
+                  <hash>
+                     <value n="EXPOSED_BD_OPERATION" v="java.lang.String.consultaBatchFinalizado.java.lang.String"/>
+                     <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.PortOperation"/>
+                     <hash n="PROPERTY_GROUPS"/>
+                  </hash>
+                  <hash>
+                     <value n="EXPOSED_BD_OPERATION" v="mx.frisa.tic.negocio.ws.RespuestaDetalleLineaCapturaDTO.consultaDetalleLineaCaptura.java.lang.String.java.lang.String.java.lang.String.java.lang.String.java.lang.String"/>
+                     <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.PortOperation"/>
+                     <hash n="PROPERTY_GROUPS"/>
+                  </hash>
+                  <hash>
+                     <value n="EXPOSED_BD_OPERATION" v="mx.frisa.tic.negocio.ws.RespuestaDetalleLCPagosDTO.consultaDetalleLCPagos.java.lang.String"/>
+                     <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.PortOperation"/>
+                     <hash n="PROPERTY_GROUPS"/>
+                  </hash>
+                  <hash>
+                     <value n="EXPOSED_BD_OPERATION" v="mx.frisa.tic.negocio.ws.RespuestaLCFactDetDTO.consultaLCFactDet.java.lang.String.java.lang.String.java.lang.String.java.lang.String.java.lang.String"/>
+                     <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.PortOperation"/>
+                     <hash n="PROPERTY_GROUPS"/>
+                  </hash>
+                  <hash>
+                     <value n="EXPOSED_BD_OPERATION" v="int.consultaNumeroFacturas.java.lang.String"/>
+                     <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.PortOperation"/>
+                     <hash n="PROPERTY_GROUPS"/>
+                  </hash>
+               </list>
+               <hash n="PROPERTY_GROUPS"/>
+               <url n="URL" protocol="https" host="129.191.25.150" port="7002" path="/frisa-servicios/GestorLineaCapturaWS"/>
+            </hash>
+         </list>
+         <hash n="PROPERTY_GROUPS">
+            <hash n="WSDL_TO_JAVA_PROPERTIES">
+               <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.java.WSDLToJavaProperties"/>
+            </hash>
+         </hash>
+         <list n="PT_">
+            <hash>
+               <value n="AUTO_SERVICE_INTERFACE"/>
+               <value n="DEFAULT_NAME" v="false"/>
+               <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.java.JavaPortType"/>
+               <value n="NAME" v="{http://ws.negocio.tic.frisa.mx/}GestorLineaCapturaWS"/>
+               <hash n="PROPERTY_GROUPS"/>
+               <value n="PT_CLASS" v="mx.frisa.tic.negocio.ws.GestorLineaCapturaWSImpl"/>
+               <value n="PT_SERVICE_INTERFACE" v="mx.frisa.tic.negocio.ws.GestorLineaCapturaWS"/>
+               <value n="PT_TOP_DOWN_GENERATED_SEI_NAME" v="mx.frisa.tic.negocio.ws.GestorLineaCapturaWS"/>
+            </hash>
+         </list>
+         <url n="TARGET_PROJECT" path="../../../../../../Model.jpr"/>
+         <value n="WS_ORIG_GEN_DIRECTION" v="TOP_DOWN"/>
+         <value n="WS_TARGET_NAMESPACE" v="http://ws.negocio.tic.frisa.mx/"/>
+         <value n="WS_URI" v="GestorLineaCapturaWS"/>
+         <url n="WS_WSDL_FILE" path="GestorLineaCapturaWS.wsdl"/>
+      </hash>
+      <value n="SERVICE_ASYNC" v="false"/>
+      <value n="USE_WSDL_LOCATION" v="true"/>
+   </hash>
+</jdevws:WebServiceProxy>

@@ -1,0 +1,23 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<oracle-webservice-clients xmlns:ns0="http://java.sun.com/xml/ns/javaee">
+   <webservice-client>
+      <service-qname namespaceURI="http://ws.negocio.tic.frisa.mx/" localpart="GestorLineaCapturaWS"/>
+      <port-info>
+         <wsdl-port namespaceURI="http://ws.negocio.tic.frisa.mx/" localpart="GestorLineaCapturaWSPort"/>
+         <runtime/>
+         <operations>
+            <operation name="consultarLineaCaptura"/>
+            <operation name="ejecutaBatchLC"/>
+            <operation name="consultaLCGeneradas"/>
+            <operation name="actualizarIdERP"/>
+            <operation name="cargarFactura"/>
+            <operation name="consultarEstadoCarga"/>
+            <operation name="consultaBatchFinalizado"/>
+            <operation name="consultaDetalleLineaCaptura"/>
+            <operation name="consultaDetalleLCPagos"/>
+            <operation name="consultaLCFactDet"/>
+            <operation name="consultaNumeroFacturas"/>
+         </operations>
+      </port-info>
+   </webservice-client>
+</oracle-webservice-clients>

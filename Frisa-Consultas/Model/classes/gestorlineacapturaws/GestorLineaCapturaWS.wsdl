@@ -1,0 +1,249 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<definitions xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:wsp1_2="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://ws.negocio.tic.frisa.mx/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://ws.negocio.tic.frisa.mx/" name="GestorLineaCapturaWS">
+  <types>
+    <xsd:schema>
+      <xsd:import namespace="http://ws.negocio.tic.frisa.mx/" schemaLocation="GestorLineaCapturaWS1.xsd"/>
+    </xsd:schema>
+  </types>
+  <message name="consultarLineaCaptura">
+    <part name="parameters" element="tns:consultarLineaCaptura"/>
+  </message>
+  <message name="consultarLineaCapturaResponse">
+    <part name="parameters" element="tns:consultarLineaCapturaResponse"/>
+  </message>
+  <message name="ejecutaBatchLC">
+    <part name="parameters" element="tns:ejecutaBatchLC"/>
+  </message>
+  <message name="ejecutaBatchLCResponse">
+    <part name="parameters" element="tns:ejecutaBatchLCResponse"/>
+  </message>
+  <message name="consultaLCGeneradas">
+    <part name="parameters" element="tns:consultaLCGeneradas"/>
+  </message>
+  <message name="consultaLCGeneradasResponse">
+    <part name="parameters" element="tns:consultaLCGeneradasResponse"/>
+  </message>
+  <message name="actualizarIdERP">
+    <part name="parameters" element="tns:actualizarIdERP"/>
+  </message>
+  <message name="actualizarIdERPResponse">
+    <part name="parameters" element="tns:actualizarIdERPResponse"/>
+  </message>
+  <message name="cargarFactura">
+    <part name="parameters" element="tns:cargarFactura"/>
+  </message>
+  <message name="cargarFacturaResponse">
+    <part name="parameters" element="tns:cargarFacturaResponse"/>
+  </message>
+  <message name="consultarEstadoCarga">
+    <part name="parameters" element="tns:consultarEstadoCarga"/>
+  </message>
+  <message name="consultarEstadoCargaResponse">
+    <part name="parameters" element="tns:consultarEstadoCargaResponse"/>
+  </message>
+  <message name="consultaBatchFinalizado">
+    <part name="parameters" element="tns:consultaBatchFinalizado"/>
+  </message>
+  <message name="consultaBatchFinalizadoResponse">
+    <part name="parameters" element="tns:consultaBatchFinalizadoResponse"/>
+  </message>
+  <message name="consultaDetalleLineaCaptura">
+    <part name="parameters" element="tns:consultaDetalleLineaCaptura"/>
+  </message>
+  <message name="consultaDetalleLineaCapturaResponse">
+    <part name="parameters" element="tns:consultaDetalleLineaCapturaResponse"/>
+  </message>
+  <message name="consultaDetalleLCPagos">
+    <part name="parameters" element="tns:consultaDetalleLCPagos"/>
+  </message>
+  <message name="consultaDetalleLCPagosResponse">
+    <part name="parameters" element="tns:consultaDetalleLCPagosResponse"/>
+  </message>
+  <message name="consultaLCFactDet">
+    <part name="parameters" element="tns:consultaLCFactDet"/>
+  </message>
+  <message name="consultaLCFactDetResponse">
+    <part name="parameters" element="tns:consultaLCFactDetResponse"/>
+  </message>
+  <message name="consultaNumeroFacturas">
+    <part name="parameters" element="tns:consultaNumeroFacturas"/>
+  </message>
+  <message name="consultaNumeroFacturasResponse">
+    <part name="parameters" element="tns:consultaNumeroFacturasResponse"/>
+  </message>
+  <portType name="GestorLineaCapturaWS">
+    <operation name="consultarLineaCaptura">
+      <input message="tns:consultarLineaCaptura"
+             wsam:Action="http://ws.negocio.tic.frisa.mx/GestorLineaCapturaWS/consultarLineaCapturaRequest"/>
+      <output message="tns:consultarLineaCapturaResponse"
+              wsam:Action="http://ws.negocio.tic.frisa.mx/GestorLineaCapturaWS/consultarLineaCapturaResponse"/>
+    </operation>
+    <operation name="ejecutaBatchLC">
+      <input message="tns:ejecutaBatchLC"
+             wsam:Action="http://ws.negocio.tic.frisa.mx/GestorLineaCapturaWS/ejecutaBatchLCRequest"/>
+      <output message="tns:ejecutaBatchLCResponse"
+              wsam:Action="http://ws.negocio.tic.frisa.mx/GestorLineaCapturaWS/ejecutaBatchLCResponse"/>
+    </operation>
+    <operation name="consultaLCGeneradas">
+      <input message="tns:consultaLCGeneradas"
+             wsam:Action="http://ws.negocio.tic.frisa.mx/GestorLineaCapturaWS/consultaLCGeneradasRequest"/>
+      <output message="tns:consultaLCGeneradasResponse"
+              wsam:Action="http://ws.negocio.tic.frisa.mx/GestorLineaCapturaWS/consultaLCGeneradasResponse"/>
+    </operation>
+    <operation name="actualizarIdERP">
+      <input message="tns:actualizarIdERP"
+             wsam:Action="http://ws.negocio.tic.frisa.mx/GestorLineaCapturaWS/actualizarIdERPRequest"/>
+      <output message="tns:actualizarIdERPResponse"
+              wsam:Action="http://ws.negocio.tic.frisa.mx/GestorLineaCapturaWS/actualizarIdERPResponse"/>
+    </operation>
+    <operation name="cargarFactura">
+      <input message="tns:cargarFactura"
+             wsam:Action="http://ws.negocio.tic.frisa.mx/GestorLineaCapturaWS/cargarFacturaRequest"/>
+      <output message="tns:cargarFacturaResponse"
+              wsam:Action="http://ws.negocio.tic.frisa.mx/GestorLineaCapturaWS/cargarFacturaResponse"/>
+    </operation>
+    <operation name="consultarEstadoCarga">
+      <input message="tns:consultarEstadoCarga"
+             wsam:Action="http://ws.negocio.tic.frisa.mx/GestorLineaCapturaWS/consultarEstadoCargaRequest"/>
+      <output message="tns:consultarEstadoCargaResponse"
+              wsam:Action="http://ws.negocio.tic.frisa.mx/GestorLineaCapturaWS/consultarEstadoCargaResponse"/>
+    </operation>
+    <operation name="consultaBatchFinalizado">
+      <input message="tns:consultaBatchFinalizado"
+             wsam:Action="http://ws.negocio.tic.frisa.mx/GestorLineaCapturaWS/consultaBatchFinalizadoRequest"/>
+      <output message="tns:consultaBatchFinalizadoResponse"
+              wsam:Action="http://ws.negocio.tic.frisa.mx/GestorLineaCapturaWS/consultaBatchFinalizadoResponse"/>
+    </operation>
+    <operation name="consultaDetalleLineaCaptura">
+      <input message="tns:consultaDetalleLineaCaptura"
+             wsam:Action="http://ws.negocio.tic.frisa.mx/GestorLineaCapturaWS/consultaDetalleLineaCapturaRequest"/>
+      <output message="tns:consultaDetalleLineaCapturaResponse"
+              wsam:Action="http://ws.negocio.tic.frisa.mx/GestorLineaCapturaWS/consultaDetalleLineaCapturaResponse"/>
+    </operation>
+    <operation name="consultaDetalleLCPagos">
+      <input message="tns:consultaDetalleLCPagos"
+             wsam:Action="http://ws.negocio.tic.frisa.mx/GestorLineaCapturaWS/consultaDetalleLCPagosRequest"/>
+      <output message="tns:consultaDetalleLCPagosResponse"
+              wsam:Action="http://ws.negocio.tic.frisa.mx/GestorLineaCapturaWS/consultaDetalleLCPagosResponse"/>
+    </operation>
+    <operation name="consultaLCFactDet">
+      <input message="tns:consultaLCFactDet"
+             wsam:Action="http://ws.negocio.tic.frisa.mx/GestorLineaCapturaWS/consultaLCFactDetRequest"/>
+      <output message="tns:consultaLCFactDetResponse"
+              wsam:Action="http://ws.negocio.tic.frisa.mx/GestorLineaCapturaWS/consultaLCFactDetResponse"/>
+    </operation>
+    <operation name="consultaNumeroFacturas">
+      <input message="tns:consultaNumeroFacturas"
+             wsam:Action="http://ws.negocio.tic.frisa.mx/GestorLineaCapturaWS/consultaNumeroFacturasRequest"/>
+      <output message="tns:consultaNumeroFacturasResponse"
+              wsam:Action="http://ws.negocio.tic.frisa.mx/GestorLineaCapturaWS/consultaNumeroFacturasResponse"/>
+    </operation>
+  </portType>
+  <binding name="GestorLineaCapturaWSPortBinding" type="tns:GestorLineaCapturaWS">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="consultarLineaCaptura">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="ejecutaBatchLC">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="consultaLCGeneradas">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="actualizarIdERP">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="cargarFactura">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="consultarEstadoCarga">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="consultaBatchFinalizado">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="consultaDetalleLineaCaptura">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="consultaDetalleLCPagos">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="consultaLCFactDet">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="consultaNumeroFacturas">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+  <service name="GestorLineaCapturaWS">
+    <port name="GestorLineaCapturaWSPort" binding="tns:GestorLineaCapturaWSPortBinding">
+      <soap:address location="http://localhost:7101/Frisa-Consultas-Model-context-root/GestorLineaCapturaWSService"/>
+    </port>
+  </service>
+</definitions>

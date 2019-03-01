@@ -89,13 +89,34 @@
                   <url path="mx.frisa.tic.consultas.model/"/>
                </list>
             </hash>
+            <hash>
+               <list n="pattern-filters">
+                  <string v="+GestorFacturasWS1.xsd"/>
+                  <string v="+GestorFacturasWS.wsdl"/>
+               </list>
+               <list n="url-path">
+                  <url path="gestorfacturasws/"/>
+               </list>
+            </hash>
+            <hash>
+               <list n="pattern-filters">
+                  <string v="+*"/>
+               </list>
+               <list n="url-path">
+                  <url path="."/>
+               </list>
+            </hash>
+            <hash>
+               <list n="pattern-filters">
+                  <string v="+GestorLineaCapturaWS1.xsd"/>
+                  <string v="+GestorLineaCapturaWS.wsdl"/>
+               </list>
+               <list n="url-path">
+                  <url path="gestorlineacapturaws/"/>
+               </list>
+            </hash>
          </list>
-         <list n="pattern-filters">
-            <string v="+*"/>
-         </list>
-         <list n="url-path">
-            <url path="."/>
-         </list>
+         <list n="url-path"/>
       </hash>
    </hash>
    <hash n="oracle.ide.model.TechnologyScopeConfiguration">
@@ -236,6 +257,72 @@
             <value n="profileClass" v="oracle.jdeveloper.deploy.jar.ArchiveProfile"/>
             <value n="profileName" v="GestorAccesoWS-Client"/>
          </hash>
+         <hash n="GestorFacturasWS-Client">
+            <hash n="archiveOptions">
+               <value n="hasManifest" v="true"/>
+            </hash>
+            <hash n="fileGroups">
+               <list n="groups">
+                  <hash>
+                     <list n="contributors">
+                        <hash>
+                           <value n="type" v="2"/>
+                        </hash>
+                        <hash>
+                           <value n="type" v="7"/>
+                        </hash>
+                     </list>
+                     <value n="displayName" v="Project Output"/>
+                     <hash n="filters">
+                        <list n="rules">
+                           <hash>
+                              <value n="pattern" v="**"/>
+                              <value n="type" v="0"/>
+                           </hash>
+                        </list>
+                     </hash>
+                     <value n="internalName" v="project-output"/>
+                     <value n="type" v="1"/>
+                  </hash>
+               </list>
+            </hash>
+            <url n="jarURL" path="deploy/GestorFacturasWS-Client.jar"/>
+            <value n="profileClass" v="oracle.jdeveloper.deploy.jar.ArchiveProfile"/>
+            <value n="profileName" v="GestorFacturasWS-Client"/>
+         </hash>
+         <hash n="GestorLineaCapturaWS-Client">
+            <hash n="archiveOptions">
+               <value n="hasManifest" v="true"/>
+            </hash>
+            <hash n="fileGroups">
+               <list n="groups">
+                  <hash>
+                     <list n="contributors">
+                        <hash>
+                           <value n="type" v="2"/>
+                        </hash>
+                        <hash>
+                           <value n="type" v="7"/>
+                        </hash>
+                     </list>
+                     <value n="displayName" v="Project Output"/>
+                     <hash n="filters">
+                        <list n="rules">
+                           <hash>
+                              <value n="pattern" v="**"/>
+                              <value n="type" v="0"/>
+                           </hash>
+                        </list>
+                     </hash>
+                     <value n="internalName" v="project-output"/>
+                     <value n="type" v="1"/>
+                  </hash>
+               </list>
+            </hash>
+            <url n="jarURL" path="deploy/GestorLineaCapturaWS-Client.jar"/>
+            <value n="profileClass" v="oracle.jdeveloper.deploy.jar.ArchiveProfile"/>
+            <value n="profileName" v="GestorLineaCapturaWS-Client"/>
+         </hash>
          <hash n="GestorPagosWS-Client">
             <hash n="archiveOptions">
                <value n="hasManifest" v="true"/>
@@ -275,6 +362,8 @@
          <string v="GestorPagosWS-Client"/>
          <string v="CatalogoWS-Client"/>
          <string v="GestorAccesoWS-Client"/>
+         <string v="GestorLineaCapturaWS-Client"/>
+         <string v="GestorFacturasWS-Client"/>
       </list>
    </hash>
    <hash n="oracle.jdeveloper.model.J2eeSettings">

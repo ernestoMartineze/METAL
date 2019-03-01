@@ -1,5 +1,14 @@
 package mx.frisa.tic.view.backing;
 
+import mx.frisa.tic.negocio.ws.GestorFacturasWS;
+import mx.frisa.tic.negocio.ws.GestorFacturasWS_Service;
+import mx.frisa.tic.negocio.ws.GestorLineaCapturaWS;
+import mx.frisa.tic.negocio.ws.GestorLineaCapturaWS_Service;
+import mx.frisa.tic.negocio.ws.LcFactDetDTO;
+import mx.frisa.tic.negocio.ws.RespuestaLCFactDetDTO;
+import mx.frisa.tic.negocio.ws.RespuestaDetalleLCPagosDTO;
+import mx.frisa.tic.negocio.ws.DetalleLCPagosDTO;
+
 import oracle.adf.model.BindingContext;
 import oracle.adf.view.rich.component.rich.RichDocument;
 import oracle.adf.view.rich.component.rich.RichForm;
@@ -7,9 +16,7 @@ import oracle.adf.view.rich.component.rich.data.RichTable;
 import oracle.adf.view.rich.component.rich.input.RichInputText;
 import oracle.adf.view.rich.component.rich.layout.RichGridCell;
 import oracle.adf.view.rich.component.rich.layout.RichGridRow;
-import oracle.adf.view.rich.component.rich.layout.RichPanelFormLayout;
 import oracle.adf.view.rich.component.rich.layout.RichPanelGridLayout;
-import oracle.adf.view.rich.component.rich.layout.RichPanelGroupLayout;
 import oracle.adf.view.rich.component.rich.nav.RichCommandButton;
 import oracle.adf.view.rich.component.rich.output.RichMessages;
 
@@ -20,6 +27,10 @@ import oracle.jbo.uicli.binding.JUCtrlHierNodeBinding;
 
 import org.apache.myfaces.trinidad.event.SelectionEvent;
 
+import java.util.List;
+
+import oracle.adf.view.rich.context.AdfFacesContext;
+
 public class ClienteDocumento {
     private RichForm f1;
     private RichDocument d1;
@@ -28,7 +39,6 @@ public class ClienteDocumento {
     private RichGridCell gc1;
     private RichGridRow gr2;
     private RichGridCell gc2;
-    private RichPanelFormLayout pfl1;
     private RichInputText it1;
     private RichInputText it2;
     private RichInputText it3;
@@ -36,15 +46,79 @@ public class ClienteDocumento {
     private RichInputText it5;
     private RichCommandButton cb1;
     private RichMessages m1;
-    private RichTable t1;
     private RichGridRow gr3;
     private RichGridCell gc3;
     private RichPanelGridLayout pgl2;
     private RichGridRow gr4;
     private RichGridCell gc4;
     private RichGridCell gc5;
-    private RichPanelGroupLayout pgl3;
-    private RichTable t2;
+
+    private GestorLineaCapturaWS_Service gestorLineaCapturaWS_Service;
+    private GestorLineaCapturaWS gestorLineaCapturaWS;
+    private GestorFacturasWS_Service gestorFacturasWS_Service ;
+    private GestorFacturasWS gestorFacturasWS ;
+    private String cliente, cuenta, centroCostos, entidadLegal, unidadNegocio;
+    private List<LcFactDetDTO> facturasDetalle;
+    private List<DetalleLCPagosDTO> detallePagos;
+    private RichTable t3;
+    private RichTable t4;
+
+    public ClienteDocumento() {
+        gestorLineaCapturaWS_Service = new GestorLineaCapturaWS_Service();
+        gestorLineaCapturaWS = gestorLineaCapturaWS_Service.getGestorLineaCapturaWSPort();
+        gestorFacturasWS_Service = new GestorFacturasWS_Service();
+        gestorFacturasWS = gestorFacturasWS_Service.getGestorFacturasWSPort();
+    }
+
+
+    public void setDetallePagos(List<DetalleLCPagosDTO> detallePagos) {
+        this.detallePagos = detallePagos;
+    }
+
+    public List<DetalleLCPagosDTO> getDetallePagos() {
+        return detallePagos;
+    }
+
+
+    public void setCliente(String cliente) {
+        this.cliente = cliente;
+    }
+
+    public String getCliente() {
+        return cliente;
+    }
+
+    public void setCuenta(String cuenta) {
+        this.cuenta = cuenta;
+    }
+
+    public String getCuenta() {
+        return cuenta;
+    }
+
+    public void setCentroCostos(String centroCostos) {
+        this.centroCostos = centroCostos;
+    }
+
+    public String getCentroCostos() {
+        return centroCostos;
+    }
+
+    public void setEntidadLegal(String entidadLegal) {
+        this.entidadLegal = entidadLegal;
+    }
+
+    public String getEntidadLegal() {
+        return entidadLegal;
+    }
+
+    public void setUnidadNegocio(String unidadNegocio) {
+        this.unidadNegocio = unidadNegocio;
+    }
+
+    public String getUnidadNegocio() {
+        return unidadNegocio;
+    }
 
     public void setF1(RichForm f1) {
         this.f1 = f1;
@@ -102,13 +176,6 @@ public class ClienteDocumento {
         return gc2;
     }
 
-    public void setPfl1(RichPanelFormLayout pfl1) {
-        this.pfl1 = pfl1;
-    }
-
-    public RichPanelFormLayout getPfl1() {
-        return pfl1;
-    }
 
     public void setIt1(RichInputText it1) {
         this.it1 = it1;
@@ -166,13 +233,6 @@ public class ClienteDocumento {
         return m1;
     }
 
-    public void setT1(RichTable t1) {
-        this.t1 = t1;
-    }
-
-    public RichTable getT1() {
-        return t1;
-    }
 
     public void setGr3(RichGridRow gr3) {
         this.gr3 = gr3;
@@ -191,7 +251,16 @@ public class ClienteDocumento {
     }
 
 
-    public void t1_selectionListener(SelectionEvent selectionEvent) {
+    public void setFacturasDetalle(List<LcFactDetDTO> facturasDetalle) {
+        this.facturasDetalle = facturasDetalle;
+    }
+
+    public List<LcFactDetDTO> getFacturasDetalle() {
+        return facturasDetalle;
+    }
+
+
+   /* public void t1_selectionListener(SelectionEvent selectionEvent) {
         // Add event code here...
         Object selectedRowData = t1.getSelectedRowData();
         JUCtrlHierNodeBinding nodeBinding = (JUCtrlHierNodeBinding)selectedRowData;
@@ -206,7 +275,7 @@ public class ClienteDocumento {
         if (!operationBinding.getErrors().isEmpty()) {
             System.out.println("Error");
         }
-    }
+    }*/
     
     public BindingContainer getBindings() {
         return BindingContext.getCurrent().getCurrentBindingsEntry();
@@ -246,20 +315,44 @@ public class ClienteDocumento {
     }
 
 
-    public void setPgl3(RichPanelGroupLayout pgl3) {
-        this.pgl3 = pgl3;
+    public String buscarLineas_action() {
+        RespuestaLCFactDetDTO respuestaLcFacturas = gestorLineaCapturaWS.consultaLCFactDet(cliente, cuenta, centroCostos, entidadLegal, unidadNegocio);
+        System.out.println(cliente+ 
+                           cuenta+ centroCostos+ entidadLegal+unidadNegocio);
+        facturasDetalle =respuestaLcFacturas.getLcFactDetalle();
+        AdfFacesContext.getCurrentInstance().addPartialTarget(t3);
+        /*BindingContainer bindings = getBindings();
+        OperationBinding operationBinding = bindings.getOperationBinding("consultaLCFactDet");
+        Object result = operationBinding.execute();
+        if (!operationBinding.getErrors().isEmpty()) {
+            return null;
+        }*/
+        return null;
     }
 
-    public RichPanelGroupLayout getPgl3() {
-        return pgl3;
+    public void setT3(RichTable t3) {
+        this.t3 = t3;
     }
 
-
-    public void setT2(RichTable t2) {
-        this.t2 = t2;
+    public RichTable getT3() {
+        return t3;
     }
 
-    public RichTable getT2() {
-        return t2;
+    public void t3_selectionListener(SelectionEvent selectionEvent) {
+        // Add event code here...
+        Object selectedRowData = t3.getSelectedRowData();
+        LcFactDetDTO facturaDetalle = (LcFactDetDTO) selectedRowData;
+        RespuestaDetalleLCPagosDTO respuesta = gestorLineaCapturaWS.consultaDetalleLCPagos(facturaDetalle.getRelatederpinvoice());
+         detallePagos = respuesta.getDetalleLCPagos();
+        AdfFacesContext.getCurrentInstance().addPartialTarget(t4);
+        
+    }
+
+    public void setT4(RichTable t4) {
+        this.t4 = t4;
+    }
+
+    public RichTable getT4() {
+        return t4;
     }
 }
