@@ -1,8 +1,22 @@
 package mx.frisa.tic.view.backing;
 
 import java.util.Map;
+import java.util.List;
 
 import javax.faces.context.FacesContext;
+
+import mx.frisa.tic.negocio.ws.DetalleLCPagosDTO;
+import mx.frisa.tic.negocio.ws.DetalleLineaCapturaDTO;
+import mx.frisa.tic.negocio.ws.GestorFacturasWS;
+import mx.frisa.tic.negocio.ws.GestorFacturasWS_Service;
+import mx.frisa.tic.negocio.ws.GestorLineaCapturaWS;
+import mx.frisa.tic.negocio.ws.GestorLineaCapturaWS_Service;
+
+import mx.frisa.tic.negocio.ws.LcFacturaDTO;
+import mx.frisa.tic.negocio.ws.RespuestaDetalleLCPagosDTO;
+import mx.frisa.tic.negocio.ws.RespuestaDetalleLineaCapturaDTO;
+
+import mx.frisa.tic.negocio.ws.RespuestaLCFacturaDTO;
 
 import oracle.adf.model.BindingContext;
 import oracle.adf.view.rich.component.rich.RichDialog;
@@ -13,10 +27,11 @@ import oracle.adf.view.rich.component.rich.data.RichTable;
 import oracle.adf.view.rich.component.rich.input.RichInputText;
 import oracle.adf.view.rich.component.rich.layout.RichGridCell;
 import oracle.adf.view.rich.component.rich.layout.RichGridRow;
-import oracle.adf.view.rich.component.rich.layout.RichPanelFormLayout;
 import oracle.adf.view.rich.component.rich.layout.RichPanelGridLayout;
-import oracle.adf.view.rich.component.rich.nav.RichCommandButton;
+import oracle.adf.view.rich.component.rich.layout.RichPanelGroupLayout;
 import oracle.adf.view.rich.component.rich.output.RichMessages;
+import oracle.adf.view.rich.component.rich.nav.RichCommandButton;
+import oracle.adf.view.rich.context.AdfFacesContext;
 
 import oracle.binding.BindingContainer;
 import oracle.binding.OperationBinding;
@@ -37,25 +52,41 @@ public class LineaReferencia {
     private RichGridRow gr3;
     private RichGridCell gc3;
     private RichMessages m1;
-    private RichPanelFormLayout pfl1;
     private RichInputText it1;
     private RichInputText it2;
     private RichInputText it3;
     private RichInputText it4;
     private RichInputText it5;
     private RichCommandButton cb1;
-    private RichTable tablaLC;
 
-    private String idLinea;
+    private String idERP;
     private RichPopup p1;
     private RichDialog d2;
-    private RichTable t1;
     private RichPanelGridLayout pgl2;
     private RichGridRow gr4;
     private RichGridCell gc4;
     private RichGridCell gc5;
-    private RichTable t2;
 
+    private GestorLineaCapturaWS_Service gestorLineaCapturaWS_Service;
+    private GestorLineaCapturaWS gestorLineaCapturaWS;
+    private GestorFacturasWS_Service gestorFacturasWS_Service ;
+    private GestorFacturasWS gestorFacturasWS ;
+    private List<DetalleLineaCapturaDTO> detalleLinea;
+    private List<LcFacturaDTO> lcFacturas;
+    private List<DetalleLCPagosDTO> detalleLCPagos;
+    private String lineaCaptura, entidadLegal, referencia, banco, unidadNegocio;
+    private RichTable t3;
+    private RichPanelGroupLayout pgl4;
+    private RichTable t4;
+    private RichTable t1;
+
+    public LineaReferencia(){
+        gestorLineaCapturaWS_Service = new GestorLineaCapturaWS_Service();
+        gestorLineaCapturaWS = gestorLineaCapturaWS_Service.getGestorLineaCapturaWSPort();
+        gestorFacturasWS_Service = new GestorFacturasWS_Service();
+        gestorFacturasWS = gestorFacturasWS_Service.getGestorFacturasWSPort();
+    }
+    
     public void setF1(RichForm f1) {
         this.f1 = f1;
     }
@@ -136,13 +167,6 @@ public class LineaReferencia {
         return m1;
     }
 
-    public void setPfl1(RichPanelFormLayout pfl1) {
-        this.pfl1 = pfl1;
-    }
-
-    public RichPanelFormLayout getPfl1() {
-        return pfl1;
-    }
 
     public void setIt1(RichInputText it1) {
         this.it1 = it1;
@@ -201,84 +225,52 @@ public class LineaReferencia {
         return BindingContext.getCurrent().getCurrentBindingsEntry();
     }
 
-
-    /*public String consultaLCPagos() {
-        BindingContainer bindings = getBindings();
-        OperationBinding operationBinding = bindings.getOperationBinding("consultaDetalleLCPagos");
-        Object result = operationBinding.execute();
-        if (!operationBinding.getErrors().isEmpty()) {
-            return null;
-        }
-        return null;
-    }*/
-
-
-    public void setTablaLC(RichTable tablaLC) {
-        this.tablaLC = tablaLC;
+    public void setLineaCaptura(String lineaCaptura) {
+        this.lineaCaptura = lineaCaptura;
     }
 
-    public RichTable getTablaLC() {
-        return tablaLC;
-    }
-    
-    
-
-
-    public void tablaLC_selectionListener(SelectionEvent selectionEvent) {
-        // Add event code here...
-        Object selectedRowData = tablaLC.getSelectedRowData();
-        JUCtrlHierNodeBinding nodeBinding = (JUCtrlHierNodeBinding)selectedRowData;
-        System.out.println("Selected values " + nodeBinding.getAttributeValues()[10]);
-        Object lineaCaptura = nodeBinding.getAttributeValues()[10];
-        
-        BindingContainer bindings = getBindings();
-        OperationBinding operationBinding = bindings.getOperationBinding("consultarLCFacturas");
-        operationBinding.getParamsMap().put("lineaCaptura", lineaCaptura);
-        //Object result = operationBinding.execute();
-        Object result = operationBinding.execute();
-        if (!operationBinding.getErrors().isEmpty()) {
-            System.out.println("Error");
-        }
+    public String getLineaCaptura() {
+        return lineaCaptura;
     }
 
-
-    public String cb2_action() {
-        FacesContext facesContext= FacesContext.getCurrentInstance();
-           Map requestMap=facesContext.getExternalContext().getRequestParameterMap();
-           System.out.println(requestMap.toString());
-        System.out.println(requestMap.values());
-        System.out.println(requestMap.get("idLinea"));
-        BindingContainer bindings = getBindings();
-        OperationBinding operationBinding = bindings.getOperationBinding("consultaDetalleLCPagos");
-        Object result = operationBinding.execute();
-        if (!operationBinding.getErrors().isEmpty()) {
-            return null;
-        }
-        return null;
+    public void setEntidadLegal(String entidadLegal) {
+        this.entidadLegal = entidadLegal;
     }
 
-    public String cb2_action2() {
-        // Add event code here...
-        System.out.println(idLinea);
-        RichPopup.PopupHints hints = new RichPopup.PopupHints();
-        getP1().show(hints);
-        BindingContainer bindings = getBindings();
-        OperationBinding operationBinding = bindings.getOperationBinding("consultaDetalleLCPagos");
-        operationBinding.getParamsMap().put("lineaCaptura", idLinea);
-        Object result = operationBinding.execute();
-        if (!operationBinding.getErrors().isEmpty()) {
-            return null;
-        }
-        return null;
+    public String getEntidadLegal() {
+        return entidadLegal;
     }
 
-
-    public void setIdLinea(String idLinea) {
-        this.idLinea = idLinea;
+    public void setReferencia(String referencia) {
+        this.referencia = referencia;
     }
 
-    public String getIdLinea() {
-        return idLinea;
+    public String getReferencia() {
+        return referencia;
+    }
+
+    public void setBanco(String banco) {
+        this.banco = banco;
+    }
+
+    public String getBanco() {
+        return banco;
+    }
+
+    public void setUnidadNegocio(String unidadNegocio) {
+        this.unidadNegocio = unidadNegocio;
+    }
+
+    public String getUnidadNegocio() {
+        return unidadNegocio;
+    }
+
+    public void setIdERP(String idERP) {
+        this.idERP = idERP;
+    }
+
+    public String getIdERP() {
+        return idERP;
     }
 
     public void setP1(RichPopup p1) {
@@ -296,58 +288,6 @@ public class LineaReferencia {
 
     public RichDialog getD2() {
         return d2;
-    }
-
-
-    /*        System.out.println(idLinea);
-        RichPopup.PopupHints hints = new RichPopup.PopupHints();
-        getP1().show(hints);
-        BindingContainer bindings = getBindings();
-        OperationBinding operationBinding = bindings.getOperationBinding("consultaDetalleLCPagos");
-        operationBinding.getParamsMap().put("lineaCaptura", idLinea);
-        Object result = operationBinding.execute();
-        if (!operationBinding.getErrors().isEmpty()) {
-            return null;
-        }
-        return null;*/
-
-    public Object cb2_action3() {
-        System.out.println(idLinea);
-        System.out.println("press");
-        RichPopup.PopupHints hints = new RichPopup.PopupHints();
-        getP1().show(hints);
-        BindingContainer bindings = getBindings();
-        OperationBinding operationBinding = bindings.getOperationBinding("consultaDetalleLCPagos");
-        operationBinding.getParamsMap().put("lineaCaptura", idLinea);
-        Object result = operationBinding.execute();
-        if (!operationBinding.getErrors().isEmpty()) {
-            return null;
-        }
-        return null;
-    }
-
-    public String cb2_action4() {
-        // Add event code here...
-        System.out.println(idLinea);
-        System.out.println("press");
-        RichPopup.PopupHints hints = new RichPopup.PopupHints();
-        getP1().show(hints);
-        BindingContainer bindings = getBindings();
-        OperationBinding operationBinding = bindings.getOperationBinding("consultaDetalleLCPagos");
-        operationBinding.getParamsMap().put("lineaCaptura", idLinea);
-        Object result = operationBinding.execute();
-        if (!operationBinding.getErrors().isEmpty()) {
-            return null;
-        }
-        return null;
-    }
-
-    public void setT1(RichTable t1) {
-        this.t1 = t1;
-    }
-
-    public RichTable getT1() {
-        return t1;
     }
 
     public void setPgl2(RichPanelGridLayout pgl2) {
@@ -383,28 +323,93 @@ public class LineaReferencia {
     }
 
 
+    public void setDetalleLinea(List<DetalleLineaCapturaDTO> detalleLinea) {
+        this.detalleLinea = detalleLinea;
+    }
+
+    public List<DetalleLineaCapturaDTO> getDetalleLinea() {
+        return detalleLinea;
+    }
+
+
+    public void setLcFacturas(List<LcFacturaDTO> lcFacturas) {
+        this.lcFacturas = lcFacturas;
+    }
+
+    public List<LcFacturaDTO> getLcFacturas() {
+        return lcFacturas;
+    }
+
+
+    public void setT3(RichTable t3) {
+        this.t3 = t3;
+    }
+
+    public RichTable getT3() {
+        return t3;
+    }
+
+
+    public void setPgl4(RichPanelGroupLayout pgl4) {
+        this.pgl4 = pgl4;
+    }
+
+    public RichPanelGroupLayout getPgl4() {
+        return pgl4;
+    }
+
+    public void setT4(RichTable t4) {
+        this.t4 = t4;
+    }
+
+    public RichTable getT4() {
+        return t4;
+    }
+
+
+    public void setDetalleLCPagos(List<DetalleLCPagosDTO> detalleLCPagos) {
+        this.detalleLCPagos = detalleLCPagos;
+    }
+
+    public List<DetalleLCPagosDTO> getDetalleLCPagos() {
+        return detalleLCPagos;
+    }
+
+    public void t3_selectionListener(SelectionEvent selectionEvent) {
+        // Add event code here...
+        System.out.println("presiono tabla 3");
+        Object selectedRowData = t3.getSelectedRowData();
+        DetalleLineaCapturaDTO detalle = (DetalleLineaCapturaDTO) selectedRowData;
+        RespuestaLCFacturaDTO respestaLcFactura = gestorFacturasWS.consultarLCFacturas(detalle.getIdlineacaptura().toString());
+        lcFacturas = respestaLcFactura.getLcFacturas();
+        AdfFacesContext.getCurrentInstance().addPartialTarget(t4);
+    }
+    
+    public String buscarLineas_action() {
+        
+        RespuestaDetalleLineaCapturaDTO respuestaLinea = gestorLineaCapturaWS.consultaDetalleLineaCaptura(lineaCaptura, entidadLegal, referencia, banco, unidadNegocio);
+        detalleLinea = respuestaLinea.getLineasCaptura();
+        AdfFacesContext.getCurrentInstance().addPartialTarget(t3);
+        return null;
+    }
+    
     public String cb2_action5() {
         // Add event code here...
-        System.out.println(idLinea);
-        System.out.println("press");
+        System.out.println(idERP);
+        RespuestaDetalleLCPagosDTO respuestaDetallePagos = gestorLineaCapturaWS.consultaDetalleLCPagos(idERP);
+        detalleLCPagos = respuestaDetallePagos.getDetalleLCPagos();
+        //AdfFacesContext.getCurrentInstance().addPartialTarget(t1);
         RichPopup.PopupHints hints = new RichPopup.PopupHints();
         getP1().show(hints);
-        BindingContainer bindings = getBindings();
-        OperationBinding operationBinding = bindings.getOperationBinding("consultaDetalleLCPagos");
-        operationBinding.getParamsMap().put("facturaERP", idLinea);
-        Object result = operationBinding.execute();
-        if (!operationBinding.getErrors().isEmpty()) {
-            return null;
-        }
+        
         return null;
     }
 
-
-    public void setT2(RichTable t2) {
-        this.t2 = t2;
+    public void setT1(RichTable t1) {
+        this.t1 = t1;
     }
 
-    public RichTable getT2() {
-        return t2;
+    public RichTable getT1() {
+        return t1;
     }
 }

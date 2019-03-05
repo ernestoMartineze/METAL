@@ -1,0 +1,310 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<xsd:schema xmlns:ns0="http://ws.negocio.tic.frisa.mx/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://ws.negocio.tic.frisa.mx/">
+  <xsd:complexType name="actualizarIdERP">
+    <xsd:sequence>
+      <xsd:element name="arg0" type="ns0:facturaActualizaIdERPDTO" minOccurs="0" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="actualizarIdERPResponse">
+    <xsd:sequence>
+      <xsd:element name="return" type="ns0:respuestaDTO" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="cargarFactura">
+    <xsd:sequence>
+      <xsd:element name="facturas" type="ns0:peticionCargaFacturaDTO" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="cargarFacturaResponse">
+    <xsd:sequence>
+      <xsd:element name="return" type="ns0:respuestaCargaFacturaDTO" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="consultaBatchFinalizado">
+    <xsd:sequence>
+      <xsd:element name="idBatch" type="xsd:string" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="consultaBatchFinalizadoResponse">
+    <xsd:sequence>
+      <xsd:element name="return" type="xsd:string" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="consultaDetalleLCPagos">
+    <xsd:sequence>
+      <xsd:element name="facturaERP" type="xsd:string" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="consultaDetalleLCPagosResponse">
+    <xsd:sequence>
+      <xsd:element name="return" type="ns0:respuestaDetalleLCPagosDTO" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="consultaDetalleLineaCaptura">
+    <xsd:sequence>
+      <xsd:element name="lineaCaptura" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="entidadLegal" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="referencia" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="banco" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="unidadNegocio" type="xsd:string" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="consultaDetalleLineaCapturaResponse">
+    <xsd:sequence>
+      <xsd:element name="return" type="ns0:respuestaDetalleLineaCapturaDTO" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="consultaLCFactDet">
+    <xsd:sequence>
+      <xsd:element name="cliente" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="cuenta" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="centroCostos" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="entidadLegal" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="unidadNegocio" type="xsd:string" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="consultaLCFactDetResponse">
+    <xsd:sequence>
+      <xsd:element name="return" type="ns0:respuestaLCFactDetDTO" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="consultaLCGeneradas">
+    <xsd:sequence>
+      <xsd:element name="idBatch" type="xsd:string" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="consultaLCGeneradasResponse">
+    <xsd:sequence>
+      <xsd:element name="return" type="ns0:lineaCaptutaFacturaDTO" minOccurs="0" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="consultaNumeroFacturas">
+    <xsd:sequence>
+      <xsd:element name="lineaCaptura" type="xsd:string" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="consultaNumeroFacturasResponse">
+    <xsd:sequence>
+      <xsd:element name="return" type="xsd:int"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="consultarEstadoCarga">
+    <xsd:sequence>
+      <xsd:element name="uuid" type="xsd:string" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="consultarEstadoCargaResponse">
+    <xsd:sequence>
+      <xsd:element name="return" type="ns0:respuestaCargaFacturaDTO" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="consultarLineaCaptura">
+    <xsd:sequence>
+      <xsd:element name="lineaCaptura" type="ns0:lineaCapturaDTO" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="consultarLineaCapturaResponse">
+    <xsd:sequence>
+      <xsd:element name="return" type="ns0:respuestaLineaCapturaDTO" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="ejecutaBatchLC">
+    <xsd:sequence>
+      <xsd:element name="idBatch" type="xsd:string" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="ejecutaBatchLCResponse">
+    <xsd:sequence>
+      <xsd:element name="return" type="xsd:int"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="facturaActualizaIdERPDTO">
+    <xsd:sequence>
+      <xsd:element name="cabecera" type="ns0:cabeceraActualizaIdERPDTO" minOccurs="0"/>
+      <xsd:element name="lineas" type="ns0:listaLineaActualizaIdERPDTO" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="cabeceraActualizaIdERPDTO">
+    <xsd:sequence>
+      <xsd:element name="codigoerror" type="xsd:long" minOccurs="0"/>
+      <xsd:element name="erptransactionnumber" type="xsd:decimal" minOccurs="0"/>
+      <xsd:element name="idfacturaprimavera" type="xsd:decimal" minOccurs="0"/>
+      <xsd:element name="mensajeerror" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="relatederpinvoice" type="xsd:string" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="listaLineaActualizaIdERPDTO">
+    <xsd:sequence>
+      <xsd:element name="linea" type="ns0:lineaActualizaIdERPDTO" minOccurs="0" maxOccurs="unbounded" nillable="true"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="lineaActualizaIdERPDTO">
+    <xsd:sequence>
+      <xsd:element name="linenumber" type="xsd:int"/>
+      <xsd:element name="montobrutolineaisr" type="xsd:decimal" minOccurs="0"/>
+      <xsd:element name="montobrutolinearetiva" type="xsd:decimal" minOccurs="0"/>
+      <xsd:element name="montoivalinea" type="xsd:decimal" minOccurs="0"/>
+      <xsd:element name="taxclassificationcodeisr" type="xsd:integer" minOccurs="0"/>
+      <xsd:element name="taxclassificationcoderetiva" type="xsd:integer" minOccurs="0"/>
+      <xsd:element name="taxivalinea" type="xsd:string" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="respuestaDTO">
+    <xsd:sequence>
+      <xsd:element name="descripcionError" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="idError" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="proceso" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="uuid" type="xsd:string" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="peticionCargaFacturaDTO">
+    <xsd:sequence>
+      <xsd:element name="facturas" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="idBatch" type="xsd:string" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="respuestaCargaFacturaDTO">
+    <xsd:sequence>
+      <xsd:element name="facturas" type="ns0:facturaDTO" minOccurs="0" maxOccurs="unbounded" nillable="true"/>
+      <xsd:element name="proceso" type="ns0:proceso" minOccurs="0"/>
+      <xsd:element name="uuid" type="xsd:string" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="facturaDTO">
+    <xsd:sequence>
+      <xsd:element name="idfacturaprimavera" type="xsd:int"/>
+      <xsd:element name="lineas" type="ns0:lineasFacturaDTO" minOccurs="0" maxOccurs="unbounded" nillable="true"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="lineasFacturaDTO">
+    <xsd:sequence>
+      <xsd:element name="description_origen" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="idfacturaprimavera" type="xsd:int"/>
+      <xsd:element name="linenumber" type="xsd:int"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="proceso">
+    <xsd:sequence>
+      <xsd:element name="descripcion" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="termino" type="xsd:string" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="respuestaDetalleLCPagosDTO">
+    <xsd:sequence>
+      <xsd:element name="detalleLCPagos" type="ns0:detalleLCPagosDTO" minOccurs="0" maxOccurs="unbounded" nillable="true"/>
+      <xsd:element name="proceso" type="ns0:proceso" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="detalleLCPagosDTO">
+    <xsd:sequence>
+      <xsd:element name="fechaaplicacion" type="xsd:dateTime" minOccurs="0"/>
+      <xsd:element name="fecharecibo" type="xsd:dateTime" minOccurs="0"/>
+      <xsd:element name="fechatransaccion" type="xsd:dateTime" minOccurs="0"/>
+      <xsd:element name="idfacturaerp" type="xsd:decimal" minOccurs="0"/>
+      <xsd:element name="idlineacaptura" type="xsd:long" minOccurs="0"/>
+      <xsd:element name="idpago" type="xsd:decimal" minOccurs="0"/>
+      <xsd:element name="montopagado" type="xsd:decimal" minOccurs="0"/>
+      <xsd:element name="norecibo" type="xsd:long" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="respuestaDetalleLineaCapturaDTO">
+    <xsd:sequence>
+      <xsd:element name="lineasCaptura" type="ns0:detalleLineaCapturaDTO" minOccurs="0" maxOccurs="unbounded" nillable="true"/>
+      <xsd:element name="proceso" type="ns0:proceso" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="detalleLineaCapturaDTO">
+    <xsd:sequence>
+      <xsd:element name="banco" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="capitalrentacondonada" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="centrocostosproyecto" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="cuentabancaria" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="division" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="entidadlegal" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="estatuslc" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="fechacreacion" type="xsd:dateTime" minOccurs="0"/>
+      <xsd:element name="fechavigencia" type="xsd:dateTime" minOccurs="0"/>
+      <xsd:element name="folioacuerdocobranza" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="idlineacaptura" type="xsd:decimal" minOccurs="0"/>
+      <xsd:element name="interesmoratoriocondonado" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="lineacaptura" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="lineacapturaref" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="montoacuerdocobranza" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="montolineacaptura" type="xsd:decimal" minOccurs="0"/>
+      <xsd:element name="numerorecibo" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="ordinariocondonado" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="referencia" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="sistemaorigen" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="tipocobranza" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="unidadnegocio" type="xsd:string" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="respuestaLCFactDetDTO">
+    <xsd:sequence>
+      <xsd:element name="lcFactDetalle" type="ns0:lcFactDetDTO" minOccurs="0" maxOccurs="unbounded" nillable="true"/>
+      <xsd:element name="proceso" type="ns0:proceso" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="lcFactDetDTO">
+    <xsd:sequence>
+      <xsd:element name="billtoconsumername" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="businessunitname" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="companyaccountcode" type="xsd:long" minOccurs="0"/>
+      <xsd:element name="entidadlegal" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="fechavigencia" type="xsd:dateTime" minOccurs="0"/>
+      <xsd:element name="idfacturaprimavera" type="xsd:integer" minOccurs="0"/>
+      <xsd:element name="impuestos" type="xsd:integer" minOccurs="0"/>
+      <xsd:element name="lineacaptura" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="montoFactura" type="xsd:decimal" minOccurs="0"/>
+      <xsd:element name="montoLineacaptura" type="xsd:decimal" minOccurs="0"/>
+      <xsd:element name="montoPagado" type="xsd:decimal" minOccurs="0"/>
+      <xsd:element name="montobrutolinea" type="xsd:decimal" minOccurs="0"/>
+      <xsd:element name="paymenttermdate" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="projectid" type="xsd:long" minOccurs="0"/>
+      <xsd:element name="relatederpinvoice" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="taxrate" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="totalamount" type="xsd:decimal" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="lineaCaptutaFacturaDTO">
+    <xsd:sequence>
+      <xsd:element name="idbatch" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="idfacturaprimavera" type="xsd:integer" minOccurs="0"/>
+      <xsd:element name="lineacaptura" type="xsd:string" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="lineaCapturaDTO">
+    <xsd:sequence>
+      <xsd:element name="fechaCreacion" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="lineaCaptura" type="xsd:string" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="respuestaLineaCapturaDTO">
+    <xsd:sequence>
+      <xsd:element name="lineasCaptura" type="ns0:lineaCapturaDTO" minOccurs="0" maxOccurs="unbounded" nillable="true"/>
+      <xsd:element name="proceso" type="ns0:proceso" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="actualizarIdERP" type="ns0:actualizarIdERP"/>
+  <xsd:element name="actualizarIdERPResponse" type="ns0:actualizarIdERPResponse"/>
+  <xsd:element name="cargarFactura" type="ns0:cargarFactura"/>
+  <xsd:element name="cargarFacturaResponse" type="ns0:cargarFacturaResponse"/>
+  <xsd:element name="consultaBatchFinalizado" type="ns0:consultaBatchFinalizado"/>
+  <xsd:element name="consultaBatchFinalizadoResponse" type="ns0:consultaBatchFinalizadoResponse"/>
+  <xsd:element name="consultaDetalleLCPagos" type="ns0:consultaDetalleLCPagos"/>
+  <xsd:element name="consultaDetalleLCPagosResponse" type="ns0:consultaDetalleLCPagosResponse"/>
+  <xsd:element name="consultaDetalleLineaCaptura" type="ns0:consultaDetalleLineaCaptura"/>
+  <xsd:element name="consultaDetalleLineaCapturaResponse" type="ns0:consultaDetalleLineaCapturaResponse"/>
+  <xsd:element name="consultaLCFactDet" type="ns0:consultaLCFactDet"/>
+  <xsd:element name="consultaLCFactDetResponse" type="ns0:consultaLCFactDetResponse"/>
+  <xsd:element name="consultaLCGeneradas" type="ns0:consultaLCGeneradas"/>
+  <xsd:element name="consultaLCGeneradasResponse" type="ns0:consultaLCGeneradasResponse"/>
+  <xsd:element name="consultaNumeroFacturas" type="ns0:consultaNumeroFacturas"/>
+  <xsd:element name="consultaNumeroFacturasResponse" type="ns0:consultaNumeroFacturasResponse"/>
+  <xsd:element name="consultarEstadoCarga" type="ns0:consultarEstadoCarga"/>
+  <xsd:element name="consultarEstadoCargaResponse" type="ns0:consultarEstadoCargaResponse"/>
+  <xsd:element name="consultarLineaCaptura" type="ns0:consultarLineaCaptura"/>
+  <xsd:element name="consultarLineaCapturaResponse" type="ns0:consultarLineaCapturaResponse"/>
+  <xsd:element name="ejecutaBatchLC" type="ns0:ejecutaBatchLC"/>
+  <xsd:element name="ejecutaBatchLCResponse" type="ns0:ejecutaBatchLCResponse"/>
+</xsd:schema>

@@ -3,13 +3,13 @@
   <managed-bean id="__1">
     <managed-bean-name>backing_LineaReferencia</managed-bean-name>
     <managed-bean-class>mx.frisa.tic.view.backing.LineaReferencia</managed-bean-class>
-    <managed-bean-scope>backingBean</managed-bean-scope>
+    <managed-bean-scope>pageFlow</managed-bean-scope>
     <!--oracle-jdev-comment:managed-bean-jsp-link:1LineaReferencia.jsf-->
   </managed-bean>
   <managed-bean id="__2">
     <managed-bean-name>backing_ClienteDocumento</managed-bean-name>
     <managed-bean-class>mx.frisa.tic.view.backing.ClienteDocumento</managed-bean-class>
-    <managed-bean-scope>backingBean</managed-bean-scope>
+    <managed-bean-scope>pageFlow</managed-bean-scope>
     <!--oracle-jdev-comment:managed-bean-jsp-link:1ClienteDocumento.jsf-->
   </managed-bean>
   <managed-bean id="__4">

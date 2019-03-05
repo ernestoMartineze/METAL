@@ -1,0 +1,154 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<jdevws:WebServiceProxy xmlns:jdevws="http://xmlns.oracle.com/jdeveloper/10130/webserviceproxy">
+   <list n="CHILD_NODES">
+      <url path="GestorFacturasWS_Service.xml"/>
+      <url path="GestorFacturasWS.wsdl"/>
+      <url path="GestorFacturasWS1.xsd"/>
+      <url path="ConsultaDetalleFacturasResponse.java"/>
+      <url path="CabeceraFacturaDTO.java"/>
+      <url path="ConsultaDetalleFacturas.java"/>
+      <url path="LineasFacturaDTO.java"/>
+      <url path="ConsultarLCFacturas.java"/>
+      <url path="Proceso.java"/>
+      <url path="RespuestaLCFacturaDTO.java"/>
+      <url path="LineaDTO.java"/>
+      <url path="LcFacturaDTO.java"/>
+      <url path="ObjectFactory.java"/>
+      <url path="RespuestaDetalleFacturaDTO.java"/>
+      <url path="GestorFacturasWS.java"/>
+      <url path="package-info.java"/>
+      <url path="GestorFacturasWSPortClient.java"/>
+      <url path="GestorFacturasWS_Service.java"/>
+      <url path="ConsultarLCFacturasResponse.java"/>
+      <url path="FacturaLCDTO.java"/>
+   </list>
+   <hash n="DATA_MODEL">
+      <value n="ATTACHMENT_ENCODING" v="MIME"/>
+      <list n="LOCAL_FILES"/>
+      <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.proxy.WebServiceProxy"/>
+      <url n="ORACLE_WEBSERVICES_XML" path="GestorFacturasWS_Service.xml"/>
+      <hash n="PROPERTY_GROUPS">
+         <hash n="WSDL_TO_JAVA_PROPERTIES">
+            <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.java.WSDLToJavaProperties"/>
+         </hash>
+      </hash>
+      <value n="PROXY_ASYNC_METHODS" v="FOR_ENABLED"/>
+      <list n="PROXY_CLIENTS">
+         <url path="GestorFacturasWSPortClient.java"/>
+      </list>
+      <value n="PROXY_MAPPING_URL"/>
+      <url n="PROXY_ORIGINAL_WSDL_URL" protocol="https" host="129.191.25.150" port="7002" path="/frisa-servicios/GestorFacturasWS" query="WSDL"/>
+      <hash n="PROXY_PORTS">
+         <hash n="GestorFacturasWSPort">
+            <value n="ACCESSES_DOC_WRAPPPED" v="true"/>
+            <value n="ACCESSES_RPC_ENCODED" v="false"/>
+            <value n="CLASS_NAME" v="mx.frisa.tic.negocio.ws.GestorFacturasWS"/>
+            <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.proxy.ProxyPort"/>
+            <value n="NAME" v="GestorFacturasWSPort"/>
+            <hash n="OPERATIONS">
+               <hash n="consultaDetalleFacturas">
+                  <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.proxy.ProxyOperation"/>
+                  <hash n="PROPERTY_GROUPS"/>
+               </hash>
+               <hash n="consultarLCFacturas">
+                  <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.proxy.ProxyOperation"/>
+                  <hash n="PROPERTY_GROUPS"/>
+               </hash>
+            </hash>
+            <hash n="PROPERTY_GROUPS">
+               <hash n="WS_POLICY">
+                  <value n="addressing"/>
+                  <hash n="GLOBAL_CONFIG_PROPERTIES"/>
+                  <list n="management"/>
+                  <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.policy.PolicyClientModel"/>
+                  <value n="mtom"/>
+                  <hash n="POLICY_OVERRIDE_PROPERTIES"/>
+                  <list n="security"/>
+                  <list n="wsconfig"/>
+                  <value n="wsrm"/>
+               </hash>
+            </hash>
+            <url n="PROXY_ORIGINAL_PORT_ENDPOINT" protocol="https" host="129.191.25.150" port="7002" path="/frisa-servicios/GestorFacturasWS"/>
+         </hash>
+      </hash>
+      <value n="PROXY_SERVICE_NAME" v="GestorFacturasWS"/>
+      <value n="PROXY_SERVICE_NAMESPACE" v="http://ws.negocio.tic.frisa.mx/"/>
+      <url n="PROXY_TARGET_PROJECT" path="../../../../../../Model.jpr"/>
+      <list n="PROXY_WSDL_IMPORT_LIST">
+         <url path="GestorFacturasWS1.xsd"/>
+      </list>
+      <url n="PROXY_WSDL_URL" path="GestorFacturasWS.wsdl"/>
+      <hash n="REFERENCED_WEBSERVICE">
+         <list n="BD_">
+            <hash>
+               <value n="BOUND_PORT_TYPE" v="{http://ws.negocio.tic.frisa.mx/}GestorFacturasWS"/>
+               <value n="DEFAULT_NAME" v="false"/>
+               <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.SOAPBinding"/>
+               <value n="NAME" v="{http://ws.negocio.tic.frisa.mx/}GestorFacturasWSPortBinding"/>
+               <list n="OP_BINDINGS">
+                  <hash>
+                     <value n="BOUND_OPERATION" v="mx.frisa.tic.negocio.ws.RespuestaLCFacturaDTO.consultarLCFacturas.java.lang.String"/>
+                     <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.SOAPOperationBinding"/>
+                     <hash n="PROPERTY_GROUPS"/>
+                  </hash>
+                  <hash>
+                     <value n="BOUND_OPERATION" v="mx.frisa.tic.negocio.ws.RespuestaDetalleFacturaDTO.consultaDetalleFacturas.java.lang.String"/>
+                     <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.SOAPOperationBinding"/>
+                     <hash n="PROPERTY_GROUPS"/>
+                  </hash>
+               </list>
+               <hash n="PROPERTY_GROUPS"/>
+            </hash>
+         </list>
+         <list n="BINDING_FILES"/>
+         <value n="GUID" v="34e00f64-0169-1000-8001-c0a8500129e3"/>
+         <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.proxy.WebServiceProxy$ProxyJavaWebService"/>
+         <list n="PO_">
+            <hash>
+               <value n="DEFAULT_NAME" v="false"/>
+               <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.SOAPPort"/>
+               <value n="NAME" v="GestorFacturasWSPort"/>
+               <value n="PORT_BINDING_NAME" v="{http://ws.negocio.tic.frisa.mx/}GestorFacturasWSPortBinding"/>
+               <list n="PORT_OPS">
+                  <hash>
+                     <value n="EXPOSED_BD_OPERATION" v="mx.frisa.tic.negocio.ws.RespuestaLCFacturaDTO.consultarLCFacturas.java.lang.String"/>
+                     <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.PortOperation"/>
+                     <hash n="PROPERTY_GROUPS"/>
+                  </hash>
+                  <hash>
+                     <value n="EXPOSED_BD_OPERATION" v="mx.frisa.tic.negocio.ws.RespuestaDetalleFacturaDTO.consultaDetalleFacturas.java.lang.String"/>
+                     <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.PortOperation"/>
+                     <hash n="PROPERTY_GROUPS"/>
+                  </hash>
+               </list>
+               <hash n="PROPERTY_GROUPS"/>
+               <url n="URL" protocol="https" host="129.191.25.150" port="7002" path="/frisa-servicios/GestorFacturasWS"/>
+            </hash>
+         </list>
+         <hash n="PROPERTY_GROUPS">
+            <hash n="WSDL_TO_JAVA_PROPERTIES">
+               <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.java.WSDLToJavaProperties"/>
+            </hash>
+         </hash>
+         <list n="PT_">
+            <hash>
+               <value n="AUTO_SERVICE_INTERFACE"/>
+               <value n="DEFAULT_NAME" v="false"/>
+               <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.java.JavaPortType"/>
+               <value n="NAME" v="{http://ws.negocio.tic.frisa.mx/}GestorFacturasWS"/>
+               <hash n="PROPERTY_GROUPS"/>
+               <value n="PT_CLASS" v="mx.frisa.tic.negocio.ws.GestorFacturasWSImpl"/>
+               <value n="PT_SERVICE_INTERFACE" v="mx.frisa.tic.negocio.ws.GestorFacturasWS"/>
+               <value n="PT_TOP_DOWN_GENERATED_SEI_NAME" v="mx.frisa.tic.negocio.ws.GestorFacturasWS"/>
+            </hash>
+         </list>
+         <url n="TARGET_PROJECT" path="../../../../../../Model.jpr"/>
+         <value n="WS_ORIG_GEN_DIRECTION" v="TOP_DOWN"/>
+         <value n="WS_TARGET_NAMESPACE" v="http://ws.negocio.tic.frisa.mx/"/>
+         <value n="WS_URI" v="GestorFacturasWS"/>
+         <url n="WS_WSDL_FILE" path="GestorFacturasWS.wsdl"/>
+      </hash>
+      <value n="SERVICE_ASYNC" v="false"/>
+      <value n="USE_WSDL_LOCATION" v="true"/>
+   </hash>
+</jdevws:WebServiceProxy>
