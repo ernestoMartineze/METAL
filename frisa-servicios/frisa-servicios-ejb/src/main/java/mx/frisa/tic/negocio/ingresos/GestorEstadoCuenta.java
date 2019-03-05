@@ -230,7 +230,7 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
         } catch (Exception ex) {
             ex.printStackTrace();
             respuesta.setProceso(ProcesoEnum.ERROR.toString());
-            respuesta.setDescripcionError("No existen estados de cuenta validos para procesar");
+            respuesta.setDescripcionError("No existen las propiedades de sistema o no se logró conectar con el servidor BI");
         }
 
         System.out.println("-------------------------------");

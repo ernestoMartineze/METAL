@@ -410,6 +410,8 @@ public class GestorLineaCapturaBean implements GestorLineaCaptura {
                 facturaEntidad.setTransactionsource(factura.getTransactionsource());
                 facturaEntidad.setTransactiontype(factura.getTransactiontype());
                 facturaEntidad.setBatchsourcename(factura.getBATCHSOURCENAME());
+                facturaEntidad.setTransactioNumber_erp(factura.getTRANSACTIONNUMBER_ERP());
+                facturaEntidad.setCustomerTrxID_erp(factura.getCUSTOMERTRXID_ERP());
                 List<XxfrInvoiceLines> xxfrInvoiceLinesList = new ArrayList<>();
                 for (LineasFacturaSOA lineasFacturaSOA : factura.getLineas()) {
                     XxfrInvoiceLines lineaFactura = new XxfrInvoiceLines();

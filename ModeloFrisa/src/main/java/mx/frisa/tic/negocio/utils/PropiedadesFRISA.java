@@ -37,25 +37,26 @@ public class PropiedadesFRISA {
 //        String rootPath = PropiedadesFRISA.class.getResource("/").getPath();
 //        String rootPath = PropiedadesFRISA.class.getCanonicalName();
         String rootPath = "/tmp/frisa/";
-        
-        System.err.println("rootPath : " + rootPath);
+
+        System.out.println("rootPath : " + rootPath);
 //        System.err.println("rootPath / : " + PropiedadesFRISA.class.getResource("/").getPath());
-        System.err.println( PropiedadesFRISA.class.getCanonicalName() );
-        
+
         String serviciosConfigPath = rootPath + "configuracion/servicios.properties";
-        String portalConfigPath    = rootPath + "configuracion/portal.properties";
+        String portalConfigPath = rootPath + "configuracion/portal.properties";
 
         try {
-
+            System.out.println("Cargando propiedades : ");
             appBackEndProps.load(new FileInputStream(serviciosConfigPath));
 
-            appFrontEndProps.load(new FileInputStream(portalConfigPath));
-
+//            appFrontEndProps.load(new FileInputStream(portalConfigPath));
         } catch (MalformedURLException ex) {
+            ex.printStackTrace();
             manejaLog.error(ex, PropiedadesFRISA.class);
         } catch (FileNotFoundException ex) {
+            ex.printStackTrace();
             manejaLog.error(ex, PropiedadesFRISA.class);
         } catch (IOException ex) {
+            ex.printStackTrace();
             manejaLog.error(ex, PropiedadesFRISA.class);
         }
     }
@@ -73,9 +74,8 @@ public class PropiedadesFRISA {
     public static void main(String[] args) {
 
         // checking the value of random UUID
-        
-        System.out.println("ValorProperties  : " +PropiedadesFRISA.recuperaPropiedadBackend("edoCuentaServiceContentType"));
-        System.out.println("ValorProperties  : " +PropiedadesFRISA.recuperaPropiedadFrontend("lineaCapturaServiceEndPoint"));
-        System.out.println("ValorProperties  : " +PropiedadesFRISA.recuperaPropiedadFrontend("lineaCapturaServiceEndPoi"));
+        System.out.println("ValorProperties  : " + PropiedadesFRISA.recuperaPropiedadBackend("edoCuentaServiceContentType"));
+        System.out.println("ValorProperties  : " + PropiedadesFRISA.recuperaPropiedadFrontend("lineaCapturaServiceEndPoint"));
+        System.out.println("ValorProperties  : " + PropiedadesFRISA.recuperaPropiedadFrontend("lineaCapturaServiceEndPoi"));
     }
 }

@@ -218,18 +218,11 @@ public class XxfrCabeceraFactura implements Serializable {
     @Column(name = "IDBATCH")
     private String idbatch;
 
-
     @Column(name = "CUSTOMERTRXID_ERP")
     private String customerTrxID_erp;
 
-        @Column(name = "TRANSACTIONNUMBER_ERP")
+    @Column(name = "TRANSACTIONNUMBER_ERP")
     private String transactioNumber_erp;
-
-
-
-
-
-
 
     public XxfrCabeceraFactura() {
     }
@@ -550,7 +543,6 @@ public class XxfrCabeceraFactura implements Serializable {
     public void setXxfrtNotaCredito(XxfrtNotaCredito xxfrtNotaCredito) {
         this.xxfrtNotaCredito = xxfrtNotaCredito;
     }*/
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -604,11 +596,10 @@ public class XxfrCabeceraFactura implements Serializable {
     public List<XxfrInvoiceLines> getXxfrInvoiceLinesList() {
         return xxfrInvoiceLinesList;
     }
-    
-        public void setXxfrInvoiceLinesList(List<XxfrInvoiceLines> xxfrInvoiceLinesList) {
+
+    public void setXxfrInvoiceLinesList(List<XxfrInvoiceLines> xxfrInvoiceLinesList) {
         this.xxfrInvoiceLinesList = xxfrInvoiceLinesList;
     }
-
 
     public String getBatchsourcename() {
         return batchsourcename;
@@ -673,7 +664,5 @@ public class XxfrCabeceraFactura implements Serializable {
     public void setTransactioNumber_erp(String transactioNumber_erp) {
         this.transactioNumber_erp = transactioNumber_erp;
     }
-
-
 
 }

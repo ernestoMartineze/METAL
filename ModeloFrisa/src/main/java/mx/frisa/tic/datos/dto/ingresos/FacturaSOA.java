@@ -51,6 +51,8 @@ public class FacturaSOA  {
  private String transactionid;
  private String orgid;
  private String BATCHSOURCENAME;
+ private String CUSTOMERTRXID_ERP;
+ private String TRANSACTIONNUMBER_ERP;
  private List<LineasFacturaSOA> Lineas;
 
     public Long getIdfacturaprimavera() {
@@ -355,6 +357,22 @@ public class FacturaSOA  {
 
     public void setBATCHSOURCENAME(String BATCHSOURCENAME) {
         this.BATCHSOURCENAME = BATCHSOURCENAME;
+    }
+
+    public String getCUSTOMERTRXID_ERP() {
+        return CUSTOMERTRXID_ERP;
+    }
+
+    public void setCUSTOMERTRXID_ERP(String CUSTOMERTRXID_ERP) {
+        this.CUSTOMERTRXID_ERP = CUSTOMERTRXID_ERP;
+    }
+
+    public String getTRANSACTIONNUMBER_ERP() {
+        return TRANSACTIONNUMBER_ERP;
+    }
+
+    public void setTRANSACTIONNUMBER_ERP(String TRANSACTIONNUMBER_ERP) {
+        this.TRANSACTIONNUMBER_ERP = TRANSACTIONNUMBER_ERP;
     }
 
  

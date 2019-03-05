@@ -486,8 +486,8 @@ public class AdaptadorWS {
                 xmlInput = inyectaParametro(xmlInput, "com:TransactionNumber", facturasEnt.getTransactioNumber_erp() + ""); //FACTURA
 
             }
-            xmlInput = inyectaParametro(xmlInput, "com:CustomerTrxId", pLstFacturas.get(0).getCustomerTrxID_erp() + ""); // FACTURA ERP
-            xmlInput = inyectaParametro(xmlInput, "com:TransactionNumber", pLstFacturas.get(0).getTransactioNumber_erp() + ""); //FACTURA
+//            xmlInput = inyectaParametro(xmlInput, "com:CustomerTrxId", pLstFacturas.get(0).getCustomerTrxID_erp() + ""); // FACTURA ERP
+//            xmlInput = inyectaParametro(xmlInput, "com:TransactionNumber", pLstFacturas.get(0).getTransactioNumber_erp() + ""); //FACTURA
             xmlInput = inyectaParametro(xmlInput, "com:AmountApplied", pagoDto.getMonto());//Monto Factura
             
 //            xmlInput = inyectaParametro(xmlInput, "com:AmountApplied", "7000");//Monto Factura
@@ -792,7 +792,7 @@ public class AdaptadorWS {
             } catch (Exception ex) {
                 ex.printStackTrace();
 
-                respuestaWS.setProceso(new Proceso("100", "Eror en WS ERP : " + ex.toString()));
+                respuestaWS.setProceso(new Proceso("100", "Error en WS ERP : " + ex.toString()));
             }
         } catch (Exception Ex) {
             Ex.printStackTrace();
