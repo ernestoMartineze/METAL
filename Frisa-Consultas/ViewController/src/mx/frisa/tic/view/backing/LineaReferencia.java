@@ -18,6 +18,8 @@ import mx.frisa.tic.negocio.ws.RespuestaDetalleLineaCapturaDTO;
 
 import mx.frisa.tic.negocio.ws.RespuestaLCFacturaDTO;
 
+import mx.frisa.tic.utils.ManejadorLog;
+
 import oracle.adf.model.BindingContext;
 import oracle.adf.view.rich.component.rich.RichDialog;
 import oracle.adf.view.rich.component.rich.RichDocument;
@@ -75,16 +77,24 @@ public class LineaReferencia {
     private List<LcFacturaDTO> lcFacturas;
     private List<DetalleLCPagosDTO> detalleLCPagos;
     private String lineaCaptura, entidadLegal, referencia, banco, unidadNegocio;
+    private ManejadorLog manejador;
+    
     private RichTable t3;
     private RichPanelGroupLayout pgl4;
     private RichTable t4;
     private RichTable t1;
 
     public LineaReferencia(){
-        gestorLineaCapturaWS_Service = new GestorLineaCapturaWS_Service();
-        gestorLineaCapturaWS = gestorLineaCapturaWS_Service.getGestorLineaCapturaWSPort();
-        gestorFacturasWS_Service = new GestorFacturasWS_Service();
-        gestorFacturasWS = gestorFacturasWS_Service.getGestorFacturasWSPort();
+        manejador = new ManejadorLog();   
+        try{
+            gestorLineaCapturaWS_Service = new GestorLineaCapturaWS_Service();
+            gestorLineaCapturaWS = gestorLineaCapturaWS_Service.getGestorLineaCapturaWSPort();
+            gestorFacturasWS_Service = new GestorFacturasWS_Service();
+            gestorFacturasWS = gestorFacturasWS_Service.getGestorFacturasWSPort();
+        }catch(Exception ex){
+            manejador.error(ex, this.getClass());
+            }
+        
     }
     
     public void setF1(RichForm f1) {
@@ -377,30 +387,43 @@ public class LineaReferencia {
 
     public void t3_selectionListener(SelectionEvent selectionEvent) {
         // Add event code here...
-        System.out.println("presiono tabla 3");
-        Object selectedRowData = t3.getSelectedRowData();
-        DetalleLineaCapturaDTO detalle = (DetalleLineaCapturaDTO) selectedRowData;
-        RespuestaLCFacturaDTO respestaLcFactura = gestorFacturasWS.consultarLCFacturas(detalle.getIdlineacaptura().toString());
-        lcFacturas = respestaLcFactura.getLcFacturas();
-        AdfFacesContext.getCurrentInstance().addPartialTarget(t4);
+        try{
+            Object selectedRowData = t3.getSelectedRowData();
+            DetalleLineaCapturaDTO detalle = (DetalleLineaCapturaDTO) selectedRowData;
+            RespuestaLCFacturaDTO respestaLcFactura = gestorFacturasWS.consultarLCFacturas(detalle.getIdlineacaptura().toString());
+            manejador.debug("Consultando facturas para el id :"+detalle.getIdlineacaptura().toString());
+            lcFacturas = respestaLcFactura.getLcFacturas();
+            AdfFacesContext.getCurrentInstance().addPartialTarget(t4);
+        }catch(Exception ex){
+            manejador.error(ex, this.getClass());
+            }
+        
     }
     
     public String buscarLineas_action() {
-        
-        RespuestaDetalleLineaCapturaDTO respuestaLinea = gestorLineaCapturaWS.consultaDetalleLineaCaptura(lineaCaptura, entidadLegal, referencia, banco, unidadNegocio);
-        detalleLinea = respuestaLinea.getLineasCaptura();
-        AdfFacesContext.getCurrentInstance().addPartialTarget(t3);
+        try{
+            manejador.debug("Consultando lineas de captura .....");
+            RespuestaDetalleLineaCapturaDTO respuestaLinea = gestorLineaCapturaWS.consultaDetalleLineaCaptura(lineaCaptura, entidadLegal, referencia, banco, unidadNegocio);
+            detalleLinea = respuestaLinea.getLineasCaptura();
+            AdfFacesContext.getCurrentInstance().addPartialTarget(t3);
+        }catch(Exception ex){
+            manejador.error(ex, this.getClass());
+            }
         return null;
     }
     
     public String cb2_action5() {
         // Add event code here...
-        System.out.println(idERP);
-        RespuestaDetalleLCPagosDTO respuestaDetallePagos = gestorLineaCapturaWS.consultaDetalleLCPagos(idERP);
-        detalleLCPagos = respuestaDetallePagos.getDetalleLCPagos();
-        //AdfFacesContext.getCurrentInstance().addPartialTarget(t1);
-        RichPopup.PopupHints hints = new RichPopup.PopupHints();
-        getP1().show(hints);
+        try{
+            manejador.debug("consultando pagos para el id ERP : "+idERP);
+            RespuestaDetalleLCPagosDTO respuestaDetallePagos = gestorLineaCapturaWS.consultaDetalleLCPagos(idERP);
+            detalleLCPagos = respuestaDetallePagos.getDetalleLCPagos();
+            RichPopup.PopupHints hints = new RichPopup.PopupHints();
+            getP1().show(hints);
+        }catch(Exception ex){
+            ex.printStackTrace();
+            manejador.error(ex, this.getClass());
+            }
         
         return null;
     }
