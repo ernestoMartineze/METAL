@@ -40,6 +40,8 @@ import mx.frisa.tic.negocio.ws.CatalogoWS;
 import mx.frisa.tic.negocio.ws.CatalogoWS_Service;
 import mx.frisa.tic.negocio.ws.RespuestaAplicarPagoDTO;
 
+import mx.frisa.tic.utils.ManejadorLog;
+
 import oracle.adf.view.rich.component.rich.RichDialog;
 import oracle.adf.view.rich.component.rich.RichPopup;
 import oracle.adf.view.rich.component.rich.data.RichTable;
@@ -100,9 +102,12 @@ public class PagoSinReferencia {
     private RichDialog d2;
     private boolean activaITx;
     private UIParameter vp1;
-
+    private ManejadorLog manejador;
     private String usuario;
 
+    public PagoSinReferencia() {
+        this.manejador = new ManejadorLog();
+    }
 
     public void setUsuario(String usuario) {
         this.usuario = usuario;
@@ -415,68 +420,77 @@ public class PagoSinReferencia {
     //eventos
     public String buscarP_Action() {
         // Add event code here...
-        this.pagosVO=new ArrayList();
-        pagosAplicarVO=null;
-        GestorPagosWS_Service gestorPagosWS_Service = new GestorPagosWS_Service();
-        GestorPagosWS gestorPagosWS = gestorPagosWS_Service.getGestorPagosWSPort();
-        FiltroPagoSinReferencia filtros= new FiltroPagoSinReferencia();
-        String formattedDateF="";
-        String formattedDateI="";
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        //validamos fechas nulas
-        if(fechaFinalIT.getValue()!=null){
-            formattedDateF = formatter.format(new Date(fechaFinalIT.getValue().toString()));
-            filtros.setFechaFinal(formattedDateF);
-        }else{
-            filtros.setFechaFinal("");
-        } 
-        if(fechaFinalIT.getValue()!=null){
-            formattedDateI = formatter.format(new Date(fechaInicialIT.getValue().toString()));
-            filtros.setFechaInicial(formattedDateI);
-        }else{
-            filtros.setFechaInicial("");
-        }
-        //validamos cuenta bancaria nula
-        if(cuentaBancariaIT.getValue() != null){
-            filtros.setCuentaBancaria(cuentaBancariaIT.getValue().toString());    
-        }else{
-            filtros.setCuentaBancaria("");              
-        }
-        //validamos checkbox para pagos aplicados
-        if(aplicadosCB.isSelected()){
-            filtros.setMostrarAplicar("");
-            this.activaITx=true;
-        }else{
-            filtros.setMostrarAplicar("NO");
-            this.activaITx=false;
-        }
-        System.out.println(usuario);
-        filtros.setUsuario(usuario);
-        RespuestaPagoSinReferencia respuestaPagos = gestorPagosWS.consultarPagosSinReferencia(filtros);
-        System.out.println(respuestaPagos.getLineas().size());
-        for(LineaEstadoCuentaDTO linea: respuestaPagos.getLineas()){
-            PagoSinReferenciaVO pagos= new PagoSinReferenciaVO();
-            pagos.setCuentaBancaria(""+linea.getCuentaBancaria());
-            pagos.setFecha(linea.getFecha());                
-            pagos.setMoneda(linea.getMoneda());
-            pagos.setMonto(""+linea.getMonto());
-            pagos.setTipoDeposito(linea.getTipoDeposito());
-            pagos.setConceptoDeposito(linea.getConceptoMovimiento());
-            pagos.setIdPago(linea.getIdPago().toString());
-            //datos para pagos manual aplicados
+        manejador.debug("Buscando pagos...");
+        try{
+            this.pagosVO=new ArrayList();
+            pagosAplicarVO=null;
+            GestorPagosWS_Service gestorPagosWS_Service = new GestorPagosWS_Service();
+            GestorPagosWS gestorPagosWS = gestorPagosWS_Service.getGestorPagosWSPort();
+            FiltroPagoSinReferencia filtros= new FiltroPagoSinReferencia();
+            String formattedDateF="";
+            String formattedDateI="";
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            //validamos fechas nulas
+            if(fechaFinalIT.getValue()!=null){
+                formattedDateF = formatter.format(new Date(fechaFinalIT.getValue().toString()));
+                filtros.setFechaFinal(formattedDateF);
+            }else{
+                filtros.setFechaFinal("");
+            } 
+            if(fechaFinalIT.getValue()!=null){
+                formattedDateI = formatter.format(new Date(fechaInicialIT.getValue().toString()));
+                filtros.setFechaInicial(formattedDateI);
+            }else{
+                filtros.setFechaInicial("");
+            }
+            //validamos cuenta bancaria nula
+            if(cuentaBancariaIT.getValue() != null){
+                filtros.setCuentaBancaria(cuentaBancariaIT.getValue().toString());    
+            }else{
+                filtros.setCuentaBancaria("");              
+            }
+            //validamos checkbox para pagos aplicados
             if(aplicadosCB.isSelected()){
-                    pagos.setUnidadDeNegocio(linea.getOrgID());
-                    pagos.setProyecto(linea.getProyecto()==null?null:linea.getProyecto().toString());
-                    pagos.setCliente(linea.getCliente());
-                    pagos.setNCuenta(linea.getIdPago().toString());    
-                }
+                filtros.setMostrarAplicar("");
+                this.activaITx=true;
+            }else{
+                filtros.setMostrarAplicar("NO");
+                this.activaITx=false;
+            }
+            filtros.setUsuario(usuario);
+            RespuestaPagoSinReferencia respuestaPagos = gestorPagosWS.consultarPagosSinReferencia(filtros);
+            manejador.debug("Filtros = Cuenta Bancaria :"+filtros.getCuentaBancaria()
+                            +" fecha Final : "+filtros.getFechaFinal()+" Fecha inicial :"+filtros.getFechaInicial()
+                            +" aplicados? : "+filtros.getMostrarAplicar()+" usuario : "+filtros.getUsuario());
+            System.out.println(respuestaPagos.getLineas().size());
+            for(LineaEstadoCuentaDTO linea: respuestaPagos.getLineas()){
+                PagoSinReferenciaVO pagos= new PagoSinReferenciaVO();
+                pagos.setCuentaBancaria(""+linea.getCuentaBancaria());
+                pagos.setFecha(linea.getFecha());                
+                pagos.setMoneda(linea.getMoneda());
+                pagos.setMonto(""+linea.getMonto());
+                pagos.setTipoDeposito(linea.getTipoDeposito());
+                pagos.setConceptoDeposito(linea.getConceptoMovimiento());
+                pagos.setIdPago(linea.getIdPago().toString());
+                //datos para pagos manual aplicados
+                if(aplicadosCB.isSelected()){
+                        pagos.setUnidadDeNegocio(linea.getOrgID());
+                        pagos.setProyecto(linea.getProyecto()==null?null:linea.getProyecto().toString());
+                        pagos.setCliente(linea.getCliente());
+                        pagos.setNCuenta(linea.getIdPago().toString());    
+                    }
+                
+                //pagos.setNumeroRecibo(linea.get);
+                this.pagosVO.add(pagos);
+            }
             
-            //pagos.setNumeroRecibo(linea.get);
-            this.pagosVO.add(pagos);
-        }
+            AdfFacesContext.getCurrentInstance().addPartialTarget(t1);
+            System.out.println("Actualizando boton");
+        }catch(Exception ex){
+            ex.printStackTrace();
+            manejador.error(ex, this.getClass());
+            }
         
-        AdfFacesContext.getCurrentInstance().addPartialTarget(t1);
-        System.out.println("Actualizando boton");
         return null;
     }
 
@@ -508,117 +522,139 @@ public class PagoSinReferencia {
     public String validarP_Action() {
         // Add event code here...
         //pagosAplicar = new ArrayList();
-        System.out.println("validando pagos");
-        for(PagoSinReferenciaVO pagos:pagosVO){
-            if(pagos.getLineaDeCaptura()!=null || pagos.getReferencia()!=null){
-                GestorPagosWS_Service gestorPagosWS_Service = new GestorPagosWS_Service();
-                GestorPagosWS gestorPagosWS = gestorPagosWS_Service.getGestorPagosWSPort();
-                PeticionExistente peticion = new PeticionExistente();
-                peticion.setIdPago(new BigInteger(pagos.getIdPago()));
-                peticion.setLineaCaptura(pagos.getLineaDeCaptura()==null?"":pagos.getLineaDeCaptura());
-                peticion.setMontoPago(new BigDecimal(pagos.getMonto()));
-                //peticion.setNumeroRecibo(new BigInteger(pagos.getNumeroRecibo()));
-                peticion.setReferencia(pagos.getReferencia()==null?"":pagos.getReferencia());
-                RespuestaClienteDTO respuesta= gestorPagosWS.consultarReferenciaLCExistente(peticion);
-                System.out.println(respuesta.getProceso().getDescripcion());
-                if(respuesta.getProceso().getDescripcion().equals("EXITOSO")){
-                    if(respuesta.getIdPago()!=null){
-                            pagos.setUnidadDeNegocio(respuesta.getUnidadNegocio());
-                            pagos.setProyecto(respuesta.getProyectoID().toString());
-                            pagos.setCliente(respuesta.getCliente());
-                            //pagos.setNCuenta(a);
-                            //pagos.setInlineStyle(inlineStyle);
-                            //pagosAplicar.add(pagos);
-                        }          
+        manejador.debug("validando pagos ....");
+        try{
+            for(PagoSinReferenciaVO pagos:pagosVO){
+                if(pagos.getLineaDeCaptura()!=null || pagos.getReferencia()!=null){
+                    GestorPagosWS_Service gestorPagosWS_Service = new GestorPagosWS_Service();
+                    GestorPagosWS gestorPagosWS = gestorPagosWS_Service.getGestorPagosWSPort();
+                    PeticionExistente peticion = new PeticionExistente();
+                    peticion.setIdPago(new BigInteger(pagos.getIdPago()));
+                    peticion.setLineaCaptura(pagos.getLineaDeCaptura()==null?"":pagos.getLineaDeCaptura());
+                    peticion.setMontoPago(new BigDecimal(pagos.getMonto()));
+                    //peticion.setNumeroRecibo(new BigInteger(pagos.getNumeroRecibo()));
+                    peticion.setReferencia(pagos.getReferencia()==null?"":pagos.getReferencia());
+                    RespuestaClienteDTO respuesta= gestorPagosWS.consultarReferenciaLCExistente(peticion);
+                    System.out.println(respuesta.getProceso().getDescripcion());
+                    if(respuesta.getProceso().getDescripcion().equals("EXITOSO")){
+                        if(respuesta.getIdPago()!=null){
+                                pagos.setUnidadDeNegocio(respuesta.getUnidadNegocio());
+                                pagos.setProyecto(respuesta.getProyectoID().toString());
+                                pagos.setCliente(respuesta.getCliente());
+                                
+                            }          
+                    }
                 }
             }
-        }
-        AdfFacesContext.getCurrentInstance().addPartialTarget(t1);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(t1);
+        }catch(Exception ex){
+            ex.printStackTrace();
+            manejador.error(ex, this.getClass());
+            }
+        
         return null;
     }
 
     public String aplicarB_Action() {
-        GestorPagosWS_Service gestorPagosWS_Service = new GestorPagosWS_Service();
-        GestorPagosWS gestorPagosWS = gestorPagosWS_Service.getGestorPagosWSPort();
-        AplicarPagoDTO aplicarPago = new AplicarPagoDTO();
-        List<PagoPorAplicarDTO> pagoList=new ArrayList();
-        //aplicarPago.
-        if(pagosAplicarVO==null){
-            return null;
+        manejador.debug("Aplicando pagos .... ");
+        try{
+            GestorPagosWS_Service gestorPagosWS_Service = new GestorPagosWS_Service();
+            GestorPagosWS gestorPagosWS = gestorPagosWS_Service.getGestorPagosWSPort();
+            AplicarPagoDTO aplicarPago = new AplicarPagoDTO();
+            List<PagoPorAplicarDTO> pagoList=new ArrayList();
+            //aplicarPago.
+            if(pagosAplicarVO==null){
+                return null;
+                }
+            for(PagoSinReferenciaVO pago :pagosAplicarVO){
+                manejador.debug("aplicando pago : id="+pago.getIdPago());
+                PagoPorAplicarDTO apago=new PagoPorAplicarDTO();
+                //apago.setIdEdoCuenta(pago.get);
+                apago.setIdLineaCaputura(pago.getLineaDeCaptura()==null?null:new BigInteger(pago.getLineaDeCaptura()));
+                apago.setIdPago(pago.getIdPago()==null?new BigInteger("0"):new BigInteger(pago.getIdPago()));
+                apago.setReferencia(pago.getReferencia());
+                //apago.setTermino(pago.gett);
+                pagoList.add(apago);
             }
-        for(PagoSinReferenciaVO pago :pagosAplicarVO){
-            PagoPorAplicarDTO apago=new PagoPorAplicarDTO();
-            //apago.setIdEdoCuenta(pago.get);
-            apago.setIdLineaCaputura(pago.getLineaDeCaptura()==null?null:new BigInteger(pago.getLineaDeCaptura()));
-            apago.setIdPago(pago.getIdPago()==null?new BigInteger("0"):new BigInteger(pago.getIdPago()));
-            apago.setReferencia(pago.getReferencia());
-            //apago.setTermino(pago.gett);
-            pagoList.add(apago);
-        }
-        aplicarPago.setPagoPorAplicar(pagoList);
-        respuesta = gestorPagosWS.aplicarPagoManual(aplicarPago);
-        Collection<PagoSinReferenciaVO> toDelete = new ArrayList<PagoSinReferenciaVO>();
-        if(respuesta.getAplicarPago()!=null){
-                
-                for(PagoPorAplicarDTO pago:respuesta.getAplicarPago().getPagoPorAplicar()){
-                    System.out.println(pago.getTermino());
-                    for(PagoSinReferenciaVO pagoVo :pagosVO){
-                        if(pagoVo.getIdPago().equals(pago.getIdPago().toString()) && pago.getTermino().toString().equals("0")){
-                            toDelete.add(pagoVo);
-                            System.out.println("se remueve pago");
-                        }else if(pagoVo.getIdPago().equals(pago.getIdPago().toString())){
-                                pagoVo.setInlineStyle("background-color:#f74c1e;");
-                            }
+            aplicarPago.setPagoPorAplicar(pagoList);
+            respuesta = gestorPagosWS.aplicarPagoManual(aplicarPago);
+            Collection<PagoSinReferenciaVO> toDelete = new ArrayList<PagoSinReferenciaVO>();
+            if(respuesta.getAplicarPago()!=null){
+                    
+                    for(PagoPorAplicarDTO pago:respuesta.getAplicarPago().getPagoPorAplicar()){
+                        manejador.debug("Respuesta pago id="+pago.getIdPago()+", termino :"+pago.getTermino());
+                        for(PagoSinReferenciaVO pagoVo :pagosVO){
+                            if(pagoVo.getIdPago().equals(pago.getIdPago().toString()) && pago.getTermino().toString().equals("0")){
+                                toDelete.add(pagoVo);
+                                System.out.println("se remueve pago");
+                            }else if(pagoVo.getIdPago().equals(pago.getIdPago().toString())){
+                                    pagoVo.setInlineStyle("background-color:#f74c1e;");
+                                }
+                        }
                     }
                 }
+            //RichPopup.PopupHints hints = new RichPopup.PopupHints();
+            // p1.show(hints);
+            pagosVO.removeAll(toDelete);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(t1);
+        }catch(Exception ex){
+            ex.printStackTrace();
+            manejador.error(ex, this.getClass());
             }
-        //RichPopup.PopupHints hints = new RichPopup.PopupHints();
-       // p1.show(hints);
-        pagosVO.removeAll(toDelete);
-        AdfFacesContext.getCurrentInstance().addPartialTarget(t1);
+        
         return null;
     }
             
     public String b2_action() {
-        pagosAplicarVO = new ArrayList();
-        GestorPagosWS_Service gestorPagosWS_Service = new GestorPagosWS_Service();
-        GestorPagosWS gestorPagosWS = gestorPagosWS_Service.getGestorPagosWSPort();
-        
-        RespuestaClienteDTO consulta = new RespuestaClienteDTO();
-        aplicarPago = new AplicarPagoDTO();
-        List<PagoPorAplicarDTO> pagoPorAplicar = new ArrayList();
+        manejador.debug("Validando referencias/lineas .... ");
         try{
-            for( PagoSinReferenciaVO linea :pagosVO){
-                PeticionExistente filtros = new PeticionExistente();
-                String referencia = linea.getReferencia();
-                String LC = linea.getLineaDeCaptura();
-                if(referencia !=null || LC != null){
-                    filtros.setReferencia(linea.getReferencia());
-                    filtros.setLineaCaptura(linea.getLineaDeCaptura()==null?"":linea.getLineaDeCaptura());
-                    consulta = gestorPagosWS.consultarReferenciaLCExistente(filtros);
-                    if(consulta.getIdPago()!=null){
-                        pagosAplicarVO.add(linea);
-                        PagoPorAplicarDTO pagoDTO = new PagoPorAplicarDTO();
-                        linea.setUnidadDeNegocio(consulta.getUnidadNegocio());
-                        linea.setProyecto(consulta.getProyectoID()==null?"":""+consulta.getProyectoID());
-                        linea.setCliente(consulta.getCliente());
-                        linea.setNCuenta(linea.getIdPago());
-                        //pagoDTO.setIdEdoCuenta(linea.get);
-                        linea.setInlineStyle("background-color:#4bf50c;");
-                        //pagoDTO.setIdLineaCaputura(new BigInteger(linea.getLineaDeCaptura()==null?"0":linea.getLineaDeCaptura()));
-                        //pagoDTO.setIdPago(new BigInteger(linea.getIdPago()==null?"0":linea.getIdPago()));
-                        //pagoDTO.setReferencia(linea.getReferencia());
-                        //pagoPorAplicar.add(pagoDTO);
-                    }else{
-                        linea.setInlineStyle("background-color:#f74c1e;");
-                    }
-                } 
-            //aplicarPago.setPagoPorAplicar(pagoPorAplicar);
-        }
-        }catch (Exception ex) {
+            pagosAplicarVO = new ArrayList();
+            GestorPagosWS_Service gestorPagosWS_Service = new GestorPagosWS_Service();
+            GestorPagosWS gestorPagosWS = gestorPagosWS_Service.getGestorPagosWSPort();
+            
+            RespuestaClienteDTO consulta = new RespuestaClienteDTO();
+            aplicarPago = new AplicarPagoDTO();
+            List<PagoPorAplicarDTO> pagoPorAplicar = new ArrayList();
+            try{
+                for( PagoSinReferenciaVO linea :pagosVO){
+                    PeticionExistente filtros = new PeticionExistente();
+                    String referencia = linea.getReferencia();
+                    String LC = linea.getLineaDeCaptura();
+                    if(referencia !=null || LC != null){
+                        filtros.setReferencia(linea.getReferencia());
+                        filtros.setMontoPago(new BigDecimal(linea.getMonto()));
+                        System.out.println("Monto : "+filtros.getMontoPago());
+                        filtros.setIdPago(new BigInteger(linea.getIdPago()));
+                        filtros.setLineaCaptura(linea.getLineaDeCaptura()==null?"":linea.getLineaDeCaptura());
+                        consulta = gestorPagosWS.consultarReferenciaLCExistente(filtros);
+                        if(consulta.getProceso().getTermino().equals("0")&& consulta.getIdPago()!=null){
+                            pagosAplicarVO.add(linea);
+                            PagoPorAplicarDTO pagoDTO = new PagoPorAplicarDTO();
+                            linea.setUnidadDeNegocio(consulta.getUnidadNegocio());
+                            linea.setProyecto(consulta.getProyectoID()==null?"":""+consulta.getProyectoID());
+                            linea.setCliente(consulta.getCliente());
+                            linea.setNCuenta(linea.getIdPago());
+                            //pagoDTO.setIdEdoCuenta(linea.get);
+                            linea.setInlineStyle("background-color:#4bf50c;");
+                            //pagoDTO.setIdLineaCaputura(new BigInteger(linea.getLineaDeCaptura()==null?"0":linea.getLineaDeCaptura()));
+                            //pagoDTO.setIdPago(new BigInteger(linea.getIdPago()==null?"0":linea.getIdPago()));
+                            //pagoDTO.setReferencia(linea.getReferencia());
+                            //pagoPorAplicar.add(pagoDTO);
+                        }else{
+                            linea.setInlineStyle("background-color:#f74c1e;");
+                        }
+                    } 
+                //aplicarPago.setPagoPorAplicar(pagoPorAplicar);
+            }
+            }catch (Exception ex) {
+                ex.printStackTrace();
+            }
+            AdfFacesContext.getCurrentInstance().addPartialTarget(t1);
+        }catch(Exception ex){
             ex.printStackTrace();
-        }
-        AdfFacesContext.getCurrentInstance().addPartialTarget(t1);
+            manejador.error(ex, this.getClass());
+            }
+        
         return null;
     }
 
@@ -649,28 +685,39 @@ public class PagoSinReferencia {
 
     public void cuentaBancariaT_value(ClientEvent clientEvent) {
         // Add event code here...
-        if(cuentaBancariaIT.getValue() != null && cuentaBancariaIT.getValue().toString().length() >=3){
-                CatalogoWS_Service catalogoWS_Service = new CatalogoWS_Service();
-                CatalogoWS catalogoWS = catalogoWS_Service.getCatalogoWSPort();
-                
-                System.out.println("press1");    
+        try{
+            if(cuentaBancariaIT.getValue() != null && cuentaBancariaIT.getValue().toString().length() >=3){
+                    CatalogoWS_Service catalogoWS_Service = new CatalogoWS_Service();
+                    CatalogoWS catalogoWS = catalogoWS_Service.getCatalogoWSPort();
+                       
+                }
+        }catch(Exception ex){
+            ex.printStackTrace();
+            manejador.error(ex,this.getClass());
             }
+        
     }
     
     public List getSuggestions(String input) {
 
          // create a new list to hold matching items
          List<SelectItem> items = new ArrayList<SelectItem>();
-         CatalogoWS_Service catalogoWS_Service = new CatalogoWS_Service();
-         CatalogoWS catalogoWS = catalogoWS_Service.getCatalogoWSPort();
-         if(cuentaBancariaIT.getValue().toString().length()<3){
-             items.add(new SelectItem("","Type in three or more characters..","",true));
-         }else{
-             List<CuentaBancariaDTO> cuentas = catalogoWS.consultarCuentaBancaria(cuentaBancariaIT.getValue().toString());
-             for(CuentaBancariaDTO cuenta:cuentas){
-                 items.add(new SelectItem(cuenta.getNumeroCuenta()));
-             }    
-         }
+        try{
+            CatalogoWS_Service catalogoWS_Service = new CatalogoWS_Service();
+            CatalogoWS catalogoWS = catalogoWS_Service.getCatalogoWSPort();
+            if(cuentaBancariaIT.getValue().toString().length()<3){
+                items.add(new SelectItem("","Type in three or more characters..","",true));
+            }else{
+                List<CuentaBancariaDTO> cuentas = catalogoWS.consultarCuentaBancaria(cuentaBancariaIT.getValue().toString());
+                for(CuentaBancariaDTO cuenta:cuentas){
+                    items.add(new SelectItem(cuenta.getNumeroCuenta()));
+                }    
+            }
+        }catch(Exception ex){
+            ex.printStackTrace();
+            manejador.error(ex, this.getClass());
+            }
+         
          //items.add(new SelectItem("Sydney"));
          return items;
      }

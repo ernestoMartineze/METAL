@@ -29,6 +29,8 @@ import org.apache.myfaces.trinidad.event.SelectionEvent;
 
 import java.util.List;
 
+import mx.frisa.tic.utils.ManejadorLog;
+
 import oracle.adf.view.rich.context.AdfFacesContext;
 
 public class ClienteDocumento {
@@ -60,14 +62,21 @@ public class ClienteDocumento {
     private String cliente, cuenta, centroCostos, entidadLegal, unidadNegocio;
     private List<LcFactDetDTO> facturasDetalle;
     private List<DetalleLCPagosDTO> detallePagos;
+    private ManejadorLog manejador;
+    
     private RichTable t3;
     private RichTable t4;
 
     public ClienteDocumento() {
-        gestorLineaCapturaWS_Service = new GestorLineaCapturaWS_Service();
-        gestorLineaCapturaWS = gestorLineaCapturaWS_Service.getGestorLineaCapturaWSPort();
-        gestorFacturasWS_Service = new GestorFacturasWS_Service();
-        gestorFacturasWS = gestorFacturasWS_Service.getGestorFacturasWSPort();
+        manejador = new ManejadorLog();
+        try{
+            gestorLineaCapturaWS_Service = new GestorLineaCapturaWS_Service();
+            gestorLineaCapturaWS = gestorLineaCapturaWS_Service.getGestorLineaCapturaWSPort();
+            gestorFacturasWS_Service = new GestorFacturasWS_Service();
+            gestorFacturasWS = gestorFacturasWS_Service.getGestorFacturasWSPort(); 
+        }catch(Exception ex){
+            manejador.error(ex, this.getClass());
+        }
     }
 
 
@@ -316,11 +325,18 @@ public class ClienteDocumento {
 
 
     public String buscarLineas_action() {
-        RespuestaLCFactDetDTO respuestaLcFacturas = gestorLineaCapturaWS.consultaLCFactDet(cliente, cuenta, centroCostos, entidadLegal, unidadNegocio);
-        System.out.println(cliente+ 
-                           cuenta+ centroCostos+ entidadLegal+unidadNegocio);
-        facturasDetalle =respuestaLcFacturas.getLcFactDetalle();
-        AdfFacesContext.getCurrentInstance().addPartialTarget(t3);
+        
+        manejador.debug("Buscando lineas de captura.....");
+        try{
+            RespuestaLCFactDetDTO respuestaLcFacturas = gestorLineaCapturaWS.consultaLCFactDet(cliente, cuenta, centroCostos, entidadLegal, unidadNegocio);
+            System.out.println(cliente+ 
+                               cuenta+ centroCostos+ entidadLegal+unidadNegocio);
+            facturasDetalle =respuestaLcFacturas.getLcFactDetalle();
+            AdfFacesContext.getCurrentInstance().addPartialTarget(t3);
+        }catch(Exception ex){
+            manejador.error(ex, this.getClass());
+            }
+        
         /*BindingContainer bindings = getBindings();
         OperationBinding operationBinding = bindings.getOperationBinding("consultaLCFactDet");
         Object result = operationBinding.execute();
@@ -340,11 +356,17 @@ public class ClienteDocumento {
 
     public void t3_selectionListener(SelectionEvent selectionEvent) {
         // Add event code here...
-        Object selectedRowData = t3.getSelectedRowData();
-        LcFactDetDTO facturaDetalle = (LcFactDetDTO) selectedRowData;
-        RespuestaDetalleLCPagosDTO respuesta = gestorLineaCapturaWS.consultaDetalleLCPagos(facturaDetalle.getRelatederpinvoice());
-         detallePagos = respuesta.getDetalleLCPagos();
-        AdfFacesContext.getCurrentInstance().addPartialTarget(t4);
+        manejador.debug("Buscando pagos .....");
+        try{
+            Object selectedRowData = t3.getSelectedRowData();
+            LcFactDetDTO facturaDetalle = (LcFactDetDTO) selectedRowData;
+            RespuestaDetalleLCPagosDTO respuesta = gestorLineaCapturaWS.consultaDetalleLCPagos(facturaDetalle.getRelatederpinvoice());
+            manejador.debug("Factura ERP seleccionada : "+facturaDetalle.getRelatederpinvoice());
+             detallePagos = respuesta.getDetalleLCPagos();
+            AdfFacesContext.getCurrentInstance().addPartialTarget(t4);    
+        }catch(Exception ex){
+            manejador.error(ex, this.getClass());
+            }
         
     }
 
