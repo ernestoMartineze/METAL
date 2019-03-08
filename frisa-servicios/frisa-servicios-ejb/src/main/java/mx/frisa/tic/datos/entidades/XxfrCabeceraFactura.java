@@ -74,6 +74,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "XxfrCabeceraFactura.findByBankaccountnumber", query = "SELECT x FROM XxfrCabeceraFactura x WHERE x.bankaccountnumber = :bankaccountnumber"),
     @NamedQuery(name = "XxfrCabeceraFactura.findByTotalamount", query = "SELECT x FROM XxfrCabeceraFactura x WHERE x.totalamount = :totalamount"),
     @NamedQuery(name = "XxfrCabeceraFactura.findByIdlineacaptura", query = "SELECT x FROM XxfrCabeceraFactura x WHERE x.idlineacaptura = :idlineacaptura"),
+    @NamedQuery(name = "XxfrCabeceraFactura.findByIdlineacapturaRegistrado", query = "SELECT x FROM XxfrCabeceraFactura x WHERE x.idlineacaptura = :idlineacaptura and x.estadoprocesamiento = 'REGISTRADA'"),
     @NamedQuery(name = "XxfrCabeceraFactura.findByEstadoprocesamiento", query = "SELECT x FROM XxfrCabeceraFactura x WHERE x.estadoprocesamiento = :estadoprocesamiento"),
     @NamedQuery(name = "XxfrCabeceraFactura.findByIdbatch", query = "SELECT x FROM XxfrCabeceraFactura x WHERE x.idbatch = :idbatch")})
 public class XxfrCabeceraFactura implements Serializable {

@@ -199,7 +199,7 @@ public class ProcedimientoAlmacendo extends ManejadorEntidad {
         DAO<XxfrvConsultaLcBatch> consultaDAO = new DAO(XxfrvConsultaLcBatch.class);
         List<XxfrvConsultaLcBatch> consultaDTO;
         List<LineaCaptutaFacturaDTO> facturas = new ArrayList<>();
-        LineaCaptutaFacturaDTO factura = new LineaCaptutaFacturaDTO();
+        
         StringBuilder consulta = new StringBuilder();
         consulta.append("SELECT x ")
                 .append("FROM XxfrvConsultaLcBatch x ")
@@ -208,9 +208,15 @@ public class ProcedimientoAlmacendo extends ManejadorEntidad {
                 .append("'");
         consultaDTO = consultaDAO.consultaQueryNativo(consulta.toString());
         for (XxfrvConsultaLcBatch resConsulta : consultaDTO) {
-            factura.setIdbatch(resConsulta.getIdbatch());
-            factura.setIdfacturaprimavera(resConsulta.getIdfacturaprimavera());
-            factura.setLineacaptura(resConsulta.getLineacaptura());
+            LineaCaptutaFacturaDTO factura = new LineaCaptutaFacturaDTO(
+                    resConsulta.getLineacaptura(),
+                    resConsulta.getIdfacturaprimavera(),
+                    resConsulta.getIdbatch()
+            );
+//            factura.setIdbatch(resConsulta.getIdbatch());
+//            System.err.println("resConsulta.getIdfacturaprimavera() : " + resConsulta.getIdfacturaprimavera());
+//            factura.setIdfacturaprimavera(resConsulta.getIdfacturaprimavera());
+//            factura.setLineacaptura(resConsulta.getLineacaptura());
             facturas.add(factura);
         }
         return facturas;

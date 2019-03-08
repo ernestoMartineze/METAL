@@ -40,5 +40,14 @@ public class LineaCaptutaFacturaDTO {
     public void setIdbatch(String idbatch) {
         this.idbatch = idbatch;
     }
+
+    public LineaCaptutaFacturaDTO(String lineacaptura, BigInteger idfacturaprimavera, String idbatch) {
+        this.lineacaptura = lineacaptura;
+        this.idfacturaprimavera = idfacturaprimavera;
+        this.idbatch = idbatch;
+    }
+
+    public LineaCaptutaFacturaDTO() {
+    }
     
 }

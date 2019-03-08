@@ -13,7 +13,7 @@ import java.math.BigInteger;
  */
 public class PagoPorAplicarDTO {
     
-    private String referencia;
+    private String referencia, lineaCaptura;
     private BigInteger idLineaCaputura, idPago, idEdoCuenta, termino;
 
     public String getReferencia() {
@@ -54,6 +54,14 @@ public class PagoPorAplicarDTO {
 
     public void setTermino(BigInteger termino) {
         this.termino = termino;
+    }
+
+    public String getLineaCaptura() {
+        return lineaCaptura;
+    }
+
+    public void setLineaCaptura(String lineaCaptura) {
+        this.lineaCaptura = lineaCaptura;
     }
     
 }

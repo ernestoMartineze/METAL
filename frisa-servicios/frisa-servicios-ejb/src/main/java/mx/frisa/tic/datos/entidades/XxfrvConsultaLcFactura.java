@@ -89,6 +89,12 @@ public class XxfrvConsultaLcFactura implements Serializable {
     private String pendientePorAplicar;
     @Column(name = "IDPAGO")
     private String IDPAGO;
+    @Column(name = "CUSTOMERID")
+    private String custumerId;
+    @Column(name = "ORGID")
+    private String orgId;
+    @Column(name = "SITEID")
+    private String siteId;
     
     
     
@@ -229,6 +235,30 @@ public class XxfrvConsultaLcFactura implements Serializable {
 
     public void setIDPAGO(String IDPAGO) {
         this.IDPAGO = IDPAGO;
+    }
+
+    public String getCustumerId() {
+        return custumerId;
+    }
+
+    public void setCustumerId(String custumerId) {
+        this.custumerId = custumerId;
+    }
+
+    public String getOrgId() {
+        return orgId;
+    }
+
+    public void setOrgId(String orgId) {
+        this.orgId = orgId;
+    }
+
+    public String getSiteId() {
+        return siteId;
+    }
+
+    public void setSiteId(String siteId) {
+        this.siteId = siteId;
     }
 
     

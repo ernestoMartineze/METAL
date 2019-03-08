@@ -363,7 +363,7 @@ public class GestorPagosBean implements GestorPagos {
                 lineasReferencias = (List<XxfrvConsultaLcFactura>) lineasOreferenciasDao.consultaQueryByParameters(nombreConsulta, parametros);
 
                 respuesta.setProceso(new Proceso("0", "EXITOSO"));
-                Boolean montoPagoCubreTotalDeuda = true; 
+                Boolean montoPagoCubreTotalDeuda = true;
                 for (XxfrvConsultaLcFactura lineasReferenRecuperada : lineasReferencias) {
                     respuesta.setCliente(lineasReferenRecuperada.getBilltoconsumername());
                     respuesta.setProyectoID(BigDecimal.valueOf(lineasReferenRecuperada.getProjectid()));
@@ -377,15 +377,15 @@ public class GestorPagosBean implements GestorPagos {
                         respuesta.setMontoPendienteDeAplicar(BigDecimal.valueOf(Long.valueOf("99999999999")));
                         ex.printStackTrace();
                     }
-                    if (filtros.getMontoPago().compareTo(respuesta.getMontoPendienteDeAplicar())<0){ //Si el monto de pago es menor al monto pendiente de cobro
-                        montoPagoCubreTotalDeuda=false;
+                    if (filtros.getMontoPago().compareTo(respuesta.getMontoPendienteDeAplicar()) < 0) { //Si el monto de pago es menor al monto pendiente de cobro
+                        montoPagoCubreTotalDeuda = false;
                     }
                     respuesta.setNombrePago(lineasReferenRecuperada.getIdlinea());
                     respuesta.setUnidadNegocio(lineasReferenRecuperada.getBusinessUnitName());
                     respuesta.setTotalLC(lineasReferenRecuperada.getTotalamount()); //Total de la linea de captura / referencia
                 }
-                
-                if (montoPagoCubreTotalDeuda==false){
+
+                if (montoPagoCubreTotalDeuda == false) {
                     respuesta.setProceso(new Proceso("1202", "Error no cubre el monto de la línea de captura"));
                 }
 
@@ -410,19 +410,19 @@ public class GestorPagosBean implements GestorPagos {
         log.debug("Entro aplicarPagoManual");
 
         DAO<XxfrvConsultaLcFactura> lineasOreferenciasDao = new DAO(XxfrvConsultaLcFactura.class);
-        List<XxfrvConsultaLcFactura> lineasReferencias;
-        List<PagoDTO> pagos = new ArrayList();
+        List<XxfrvConsultaLcFactura> lineasReferencias = new ArrayList();
+
         AplicarPagoDTO aplicaPagoDTO = new AplicarPagoDTO();
         List<PagoPorAplicarDTO> respuestaPagoPA = new ArrayList();
         try {
             for (PagoPorAplicarDTO pagoXAplicar : aplicarPagoDTO.getPagoPorAplicar()) {
 
-                String nombreConsulta = "";
+                String nombreConsulta;
                 List<CatalogoParametroDTO> parametros = new ArrayList<>();
 
-                if (pagoXAplicar.getIdLineaCaputura() != null && !pagoXAplicar.getIdLineaCaputura().equals("")) {
+                if (pagoXAplicar.getLineaCaptura() != null && !pagoXAplicar.getLineaCaptura().equals("")) {
                     nombreConsulta = "XxfrvConsultaLcFactura.findByLineacaptura";
-                    parametros.add(new CatalogoParametroDTO("lineacaptura", "" + pagoXAplicar.getIdLineaCaputura(), CONSTANTE.CADENA));
+                    parametros.add(new CatalogoParametroDTO("lineacaptura", "" + pagoXAplicar.getLineaCaptura(), CONSTANTE.CADENA));
                 } else {
                     nombreConsulta = "XxfrvConsultaLcFactura.findByReferencia";
                     parametros.add(new CatalogoParametroDTO("referencenumber", pagoXAplicar.getReferencia(), CONSTANTE.CADENA));
@@ -436,34 +436,26 @@ public class GestorPagosBean implements GestorPagos {
                         RespuestaEdoCuentaDTO edoCuentaDTO = new RespuestaEdoCuentaDTO();
                         XxfrReciboLineaCaptura reciboLC = new XxfrReciboLineaCaptura();
 
-                        pago.setIdEdoCta(new BigDecimal(pagoXAplicar.getIdPago()));
-                        pago.setLineaCaptura(pagoXAplicar.getIdLineaCaputura() == null ? "" : pagoXAplicar.getIdLineaCaputura().toString());
+                        pago.setIdEdoCta(new BigDecimal(pagoXAplicar.getIdEdoCuenta()));
+                        pago.setLineaCaptura(pagoXAplicar.getLineaCaptura()== null ? "" : pagoXAplicar.getLineaCaptura().toString());
 
                         pago.setReferencia(consultaFactura.getReferencenumber());
-                        edoCuentaDTO.setIdEdoCuenta(pagoXAplicar.getIdPago().intValue());
+                        edoCuentaDTO.setIdEdoCuenta(pagoXAplicar.getIdEdoCuenta().intValue());
 
-                        DAO<XxfrCabeceraFactura> cabeceraFactDao = new DAO(XxfrCabeceraFactura.class);
-                        List<XxfrCabeceraFactura> cabecerasFact;
-                        parametros = new ArrayList<>();
-                        parametros.add(new CatalogoParametroDTO("referencenumber", "" + pago.getReferencia(), CONSTANTE.CADENA));
-                        cabecerasFact = (List<XxfrCabeceraFactura>) cabeceraFactDao.consultaQueryByParameters("XxfrCabeceraFactura.findByReferencenumber", parametros);
-                        for (XxfrCabeceraFactura cabecera : cabecerasFact) {
-                            pago.setSiteId(cabecera.getSiteid() == null ? null : cabecera.getSiteid().toString());
-                            pago.setCustomerId(cabecera.getCustomerid() == null ? "" : cabecera.getCustomerid().toString());
-                            pago.setUnidadNegocio(cabecera.getOrgid());
-                            pago.setBillCustomerName(cabecera.getBilltoconsumername());
+                        pago.setSiteId(consultaFactura.getSiteId() == null ? null : consultaFactura.getSiteId().toString());
+                        pago.setCustomerId(consultaFactura.getCustumerId() == null ? "" : consultaFactura.getCustumerId().toString());
+                        pago.setUnidadNegocio(consultaFactura.getOrgId());
+                        pago.setBillCustomerName(consultaFactura.getBilltoconsumername());
 
-                            edoCuentaDTO.setOrgID(cabecera.getOrgid());
-                            edoCuentaDTO.setSiteID(cabecera.getSiteid() == null ? null : cabecera.getSiteid().toString());
-                            edoCuentaDTO.setCustomerID(cabecera.getCustomerid() == null ? "" : cabecera.getCustomerid().toString());
-                            edoCuentaDTO.setBillCustomerName(cabecera.getBilltoconsumername());
-                            edoCuentaDTO.setReferencia(cabecera.getReferencenumber());
-                            edoCuentaDTO.setIdLineaCaptura(cabecera.getIdlineacaptura() == null ? null : Integer.parseInt(cabecera.getIdlineacaptura()));
+                        edoCuentaDTO.setOrgID(consultaFactura.getOrgId());
+                        edoCuentaDTO.setSiteID(consultaFactura.getSiteId() == null ? null : consultaFactura.getSiteId().toString());
+                        edoCuentaDTO.setCustomerID(consultaFactura.getCustumerId() == null ? "" : consultaFactura.getCustumerId().toString());
+                        edoCuentaDTO.setBillCustomerName(consultaFactura.getBilltoconsumername());
+                        edoCuentaDTO.setReferencia(consultaFactura.getReferencenumber());
+                        edoCuentaDTO.setIdLineaCaptura(consultaFactura.getIdlineacaptura() == null ? null : Integer.parseInt(consultaFactura.getIdlineacaptura()));
 
-                            reciboLC.setReferencia(cabecera.getReferencenumber());
-                            reciboLC.setIdlineacaptura(cabecera.getIdlineacaptura() == null ? null : new Long(cabecera.getIdlineacaptura()));
-                            break;
-                        }
+                        reciboLC.setReferencia(consultaFactura.getReferencenumber());
+                        reciboLC.setIdlineacaptura(consultaFactura.getIdlineacaptura() == null ? null : new Long(consultaFactura.getIdlineacaptura()));
 
                         DAO<XxfrtEstadoCuenta> estadoCuentaDao = new DAO(XxfrtEstadoCuenta.class);
                         List<XxfrtEstadoCuenta> estadosCuenta = new ArrayList<>();
@@ -519,7 +511,10 @@ public class GestorPagosBean implements GestorPagos {
             }
 //            RespuestaProcesaFacturasDTO respuestaPF = generarPago(pagos);
             aplicaPagoDTO.setPagoPorAplicar(respuestaPagoPA);
-            respuesta.setProceso(new Proceso("0", "EXITOSO"));
+            if (lineasReferencias.size() > 0) {
+                respuesta.setProceso(new Proceso("0", "EXITOSO"));
+            }else
+                respuesta.setProceso(new Proceso("902", "ERROR"));
             respuesta.setAplicarPago(aplicaPagoDTO);
         } catch (Exception e) {
             e.printStackTrace();

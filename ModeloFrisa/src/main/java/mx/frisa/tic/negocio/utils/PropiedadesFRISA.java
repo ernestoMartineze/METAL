@@ -36,7 +36,7 @@ public class PropiedadesFRISA {
 //        String rootPath = Thread.currentThread().getContextClassLoader().getResource("").getPath();
 //        String rootPath = PropiedadesFRISA.class.getResource("/").getPath();
 //        String rootPath = PropiedadesFRISA.class.getCanonicalName();
-        String rootPath = "/tmp/frisa/";
+        String rootPath = "/u01/frisa/";
 
         System.out.println("rootPath : " + rootPath);
 //        System.err.println("rootPath / : " + PropiedadesFRISA.class.getResource("/").getPath());

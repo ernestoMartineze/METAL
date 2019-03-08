@@ -173,7 +173,7 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
 
                         } else {
                             //Indicar el codigo de error como COBRO CON ERROR DE DATOS
-                            edoCuenta.setRmethodid(BigDecimal.valueOf(Long.valueOf("4")));
+                            edoCuenta.setRmethodid(BigDecimal.valueOf(Long.valueOf("0")));
                         }
                     } else {
 
@@ -318,7 +318,7 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
         if (idLineaCaptura != null) {
 
             plistaParametros.add(new CatalogoParametroDTO("idlineacaptura", idLineaCaptura + "", CONSTANTE.CADENA));
-            lstFacturas = facturaDao.consultaQueryByParameters("XxfrCabeceraFactura.findByIdlineacaptura", plistaParametros);
+            lstFacturas = facturaDao.consultaQueryByParameters("XxfrCabeceraFactura.findByIdlineacapturaRegistrado", plistaParametros);
 
         } else {
             plistaParametros.add(new CatalogoParametroDTO("referencenumber", referencia + "", CONSTANTE.CADENA));
@@ -382,9 +382,8 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
             Boolean facturasCreadasExitosamenteERP = true;
             for (FacturaPagoDTO facturaPagoDto : facAlCobro) {
 
-                XxfrCabeceraFactura facturaEntidad = new XxfrCabeceraFactura();
-                facturaEntidad.setIdfacturaprimavera(BigDecimal.valueOf(Long.valueOf("" + facturaPagoDto.getIdfacturaprimavera())));
-                facturaEntidad = (XxfrCabeceraFactura) facturaDao.consulta(facturaEntidad.getIdfacturaprimavera());
+                XxfrCabeceraFactura facturaEntidad = (XxfrCabeceraFactura) facturaDao.consulta(BigDecimal.valueOf(Long.valueOf(facturaPagoDto.getIdfacturaprimavera()+"")));
+                
                 facturaEntidad.setCustomerTrxID_erp(facturaPagoDto.getCustomerTrxID_ERP());
                 facturaEntidad.setTransactioNumber_erp(facturaPagoDto.getTransactionID_ERP() + "");
                 pago.setBillCustomerName(facturaEntidad.getBilltoconsumername());

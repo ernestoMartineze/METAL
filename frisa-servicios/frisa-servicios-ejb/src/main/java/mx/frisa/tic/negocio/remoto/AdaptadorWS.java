@@ -111,8 +111,8 @@ public class AdaptadorWS {
                 xmlInput = inyectaParametro(xmlInput, "tran4:periodoDeFacturacionHasta", factura.getFechahasta());
                 xmlInput = inyectaParametro(xmlInput, "tran4:siguienteFechaDeExigibilidad", factura.getFechaexigibilidad());
                 xmlInput = inyectaParametro(xmlInput, "tran:proyecto", factura.getProjectid() + "");
-                xmlInput = inyectaParametro(xmlInput, "tran:folio", "SI-"+factura.getLinenumber());
-                xmlInput = inyectaParametro(xmlInput, "tran:nUmeroDeLocal", factura.getLocalnumber()+ "");
+                xmlInput = inyectaParametro(xmlInput, "tran:folio", "SI-" + factura.getLinenumber());
+                xmlInput = inyectaParametro(xmlInput, "tran:nUmeroDeLocal", factura.getLocalnumber() + "");
                 System.err.println("XML-Factura a enviar: " + xmlInput);
 
                 outputString = enviarMsg(wsURL, SOAPAction, xmlInput, tipoContenido);
@@ -469,50 +469,55 @@ public class AdaptadorWS {
             respestaWS.setProceso(new Proceso("1001", "No existe numero de recibo para aplicacion del pago"));
             return respestaWS;
         }
-        String xmlInput
-                = getCadenaDesdeB64(PropiedadesFRISA.recuperaPropiedadBackend("aplicaPagoFacturaServicePayload"));
 
         String SOAPAction
                 = PropiedadesFRISA.recuperaPropiedadBackend("aplicaPagoFacturaServiceSoapAction");
 
         //Ready with sending the request.
         try {
-            //Inyectar parametros a la peticion
-            xmlInput = inyectaParametro(xmlInput, "com:ReceiptId", pagoDto.getNroRecibo()); //RECIBO ERP
-            xmlInput = inyectaParametro(xmlInput, "com:ReceiptNumber", "10" + pagoDto.getIdEdoCta()); //RECIBO NUESTRO SecuencialInterno
 
             for (XxfrCabeceraFactura facturasEnt : pLstFacturas) {
-                xmlInput = inyectaParametro(xmlInput, "com:CustomerTrxId", facturasEnt.getCustomerTrxID_erp() + ""); // FACTURA ERP
-                xmlInput = inyectaParametro(xmlInput, "com:TransactionNumber", facturasEnt.getTransactioNumber_erp() + ""); //FACTURA
+                if (!facturasEnt.getGenerationtype().equals("ONLY_CAPTURE_LINE")) {
 
-            }
+                    String xmlInput
+                            = getCadenaDesdeB64(PropiedadesFRISA.recuperaPropiedadBackend("aplicaPagoFacturaServicePayload"));
+
+                    //Inyectar parametros a la peticion
+                    xmlInput = inyectaParametro(xmlInput, "com:ReceiptId", pagoDto.getNroRecibo()); //RECIBO ERP
+                    xmlInput = inyectaParametro(xmlInput, "com:ReceiptNumber", "10" + pagoDto.getIdEdoCta()); //RECIBO NUESTRO SecuencialInterno
+
+                    xmlInput = inyectaParametro(xmlInput, "com:CustomerTrxId", facturasEnt.getCustomerTrxID_erp() + ""); // FACTURA ERP
+                    xmlInput = inyectaParametro(xmlInput, "com:TransactionNumber", facturasEnt.getTransactioNumber_erp() + ""); //FACTURA
 //            xmlInput = inyectaParametro(xmlInput, "com:CustomerTrxId", pLstFacturas.get(0).getCustomerTrxID_erp() + ""); // FACTURA ERP
 //            xmlInput = inyectaParametro(xmlInput, "com:TransactionNumber", pLstFacturas.get(0).getTransactioNumber_erp() + ""); //FACTURA
-            xmlInput = inyectaParametro(xmlInput, "com:AmountApplied", pagoDto.getMonto());//Monto Factura
-            
+                    xmlInput = inyectaParametro(xmlInput, "com:AmountApplied", facturasEnt.getTotalamount() + "");//Monto Factura
+
 //            xmlInput = inyectaParametro(xmlInput, "com:AmountApplied", "7000");//Monto Factura
-            xmlInput = inyectaParametro(xmlInput, "com:CustomerName", pagoDto.getBillCustomerName()); //CLIENTE
-            xmlInput = inyectaParametro(xmlInput, "com:ApplicationDate", pagoDto.getFechaAplicacion());
-            xmlInput = inyectaParametro(xmlInput, "com:AccountingDate", pagoDto.getFechaContable());
-            System.out.println("peticion " + xmlInput);
-            //Read the response.
-            outputString = enviarMsg(wsURL, SOAPAction, xmlInput, PropiedadesFRISA.recuperaPropiedadBackend("aplicaPagoFacturaServiceContentType"));
+                    xmlInput = inyectaParametro(xmlInput, "com:CustomerName", pagoDto.getBillCustomerName()); //CLIENTE
+                    xmlInput = inyectaParametro(xmlInput, "com:ApplicationDate", pagoDto.getFechaAplicacion());
+                    xmlInput = inyectaParametro(xmlInput, "com:AccountingDate", pagoDto.getFechaContable());
+                    System.out.println("peticion " + xmlInput);
+                    //Read the response.
+                    outputString = enviarMsg(wsURL, SOAPAction, xmlInput, PropiedadesFRISA.recuperaPropiedadBackend("aplicaPagoFacturaServiceContentType"));
 
-            //Parse the String output to a org.w3c.dom.Document and be able to reach every node with the org.w3c.dom API.
-            if (outputString.indexOf("=_Part") > -1) {
-                outputString = outputString.substring(outputString.indexOf("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>"), outputString.lastIndexOf("</env:Envelope>") + 15);
-            }
+                    //Parse the String output to a org.w3c.dom.Document and be able to reach every node with the org.w3c.dom API.
+                    if (outputString.indexOf("=_Part") > -1) {
+                        outputString = outputString.substring(outputString.indexOf("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>"), outputString.lastIndexOf("</env:Envelope>") + 15);
+                    }
 
-            System.out.println("outputString : " + outputString);
+                    System.out.println("outputString : " + outputString);
 
-            Document document = parseXmlFile(outputString);
-            NodeList nodeLst = document.getElementsByTagName("wsa:MessageID");
-            String resultado = nodeLst.item(0).getTextContent();
+                    Document document = parseXmlFile(outputString);
+                    NodeList nodeLst = document.getElementsByTagName("wsa:MessageID");
+                    String resultado = nodeLst.item(0).getTextContent();
 
-            //Write the SOAP message formatted to the console.
+                    //Write the SOAP message formatted to the console.
 //                    String formattedSOAPResponse = formatXML(outputString);
-            respestaWS.setNumeroRecibo(resultado);
-            System.out.println("resultado : " + resultado);
+                    respestaWS.setNumeroRecibo(resultado);
+                    System.out.println("resultado : " + resultado);
+
+                }
+            }
         } catch (Exception ex) {
             ex.printStackTrace();
             respestaWS.setProceso(new Proceso("107", "ERROR"));
@@ -544,7 +549,7 @@ public class AdaptadorWS {
         String outputString = "";
         RespuestaERP_Edo_Cuenta respestaWS = new RespuestaERP_Edo_Cuenta();
         respestaWS.setProceso(new Proceso("0", "EXITOSO"));
-        
+
         ManejadorLog log = new ManejadorLog();
         String responseString = "";
         String wsURL = endPoint;

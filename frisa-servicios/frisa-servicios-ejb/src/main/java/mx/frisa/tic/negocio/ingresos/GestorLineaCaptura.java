@@ -5,7 +5,7 @@
  */
 package mx.frisa.tic.negocio.ingresos;
 
-import java.math.BigDecimal;
+
 import java.util.List;
 import javax.ejb.Local;
 import mx.frisa.tic.datos.dto.ingresos.DetalleLCPagosDTO;
@@ -29,7 +29,7 @@ public interface GestorLineaCaptura {
     /**
      *
      * @param lineaCaptura
-     * @return List<LineaCapturaDTO>
+     * @return 
      */
     public List<LineaCapturaDTO> consultarLineaCaptura(LineaCapturaDTO lineaCaptura);
 
@@ -78,7 +78,7 @@ public interface GestorLineaCaptura {
     /**
      *
      * @param idBatch
-     * @return List<LineaCaptutaFacturaDTO>
+     * @return 
      */
     public List<LineaCaptutaFacturaDTO> consultaLCGeneradas(String idBatch);
 
@@ -86,9 +86,8 @@ public interface GestorLineaCaptura {
     
      /**
      *
-     * @param IdPrimavera 
-     * @param IdErp
-     * @return List<RespuestaDTO>
+     * @param facturas
+     * @return 
      */
     public RespuestaDTO actualizarIdERP(List<FacturaActualizaIdERPDTO> facturas);
 }
