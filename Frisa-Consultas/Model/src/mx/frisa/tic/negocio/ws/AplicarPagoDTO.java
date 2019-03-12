@@ -66,8 +66,8 @@ public class AplicarPagoDTO {
         return this.pagoPorAplicar;
     }
 
-
     public void setPagoPorAplicar(List<PagoPorAplicarDTO> pagoPorAplicar) {
         this.pagoPorAplicar = pagoPorAplicar;
     }
+
 }

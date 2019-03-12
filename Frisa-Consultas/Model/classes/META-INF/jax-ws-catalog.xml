@@ -19,4 +19,6 @@
           uri="../mx/frisa/tic/negocio/ws/GestorLineaCapturaWS.wsdl"/>
   <system systemId="https://129.191.25.150:7002/frisa-servicios/GestorFacturasWS?WSDL#%7Bhttp%3A%2F%2Fws.negocio.tic.frisa.mx%2F%7DGestorFacturasWS"
           uri="../mx/frisa/tic/negocio/ws/GestorFacturasWS.wsdl"/>
+  <system systemId="http://172.17.222.33:7001/frisa-servicios/GestorPagosWS?WSDL#%7Bhttp%3A%2F%2Fws.negocio.tic.frisa.mx%2F%7DGestorPagosWS"
+          uri="../mx/frisa/tic/negocio/ws/GestorPagosWS.wsdl"/>
 </catalog>

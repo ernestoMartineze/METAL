@@ -103,7 +103,7 @@
                <value n="NAME" v="{http://ws.negocio.tic.frisa.mx/}GestorPagosWSPortBinding"/>
                <list n="OP_BINDINGS">
                   <hash>
-                     <value n="BOUND_OPERATION" v="mx.frisa.tic.negocio.ws.RespuestaProcesaFacturasDTO.generarPago.java.util.List&lt;mx.frisa.tic.negocio.ws.PagoDTO>"/>
+                     <value n="BOUND_OPERATION" v="mx.frisa.tic.negocio.ws.RespuestaPagoSinReferencia.consultarPagosSinReferencia.mx.frisa.tic.negocio.ws.FiltroPagoSinReferencia"/>
                      <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.SOAPOperationBinding"/>
                      <hash n="PROPERTY_GROUPS"/>
                   </hash>
@@ -113,12 +113,12 @@
                      <hash n="PROPERTY_GROUPS"/>
                   </hash>
                   <hash>
-                     <value n="BOUND_OPERATION" v="mx.frisa.tic.negocio.ws.RespuestaPagoSinReferencia.consultarPagosSinReferencia.mx.frisa.tic.negocio.ws.FiltroPagoSinReferencia"/>
+                     <value n="BOUND_OPERATION" v="mx.frisa.tic.negocio.ws.RespuestaAplicarPagoDTO.aplicarPagoManual.mx.frisa.tic.negocio.ws.AplicarPagoDTO"/>
                      <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.SOAPOperationBinding"/>
                      <hash n="PROPERTY_GROUPS"/>
                   </hash>
                   <hash>
-                     <value n="BOUND_OPERATION" v="mx.frisa.tic.negocio.ws.RespuestaAplicarPagoDTO.aplicarPagoManual.mx.frisa.tic.negocio.ws.AplicarPagoDTO"/>
+                     <value n="BOUND_OPERATION" v="mx.frisa.tic.negocio.ws.RespuestaProcesaFacturasDTO.generarPago.java.util.List&lt;mx.frisa.tic.negocio.ws.PagoDTO>"/>
                      <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.SOAPOperationBinding"/>
                      <hash n="PROPERTY_GROUPS"/>
                   </hash>
@@ -127,7 +127,7 @@
             </hash>
          </list>
          <list n="BINDING_FILES"/>
-         <value n="GUID" v="30b25070-0169-1000-8008-c0a8500122c5"/>
+         <value n="GUID" v="72d0f075-0169-1000-8007-ac11de213740"/>
          <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.proxy.WebServiceProxy$ProxyJavaWebService"/>
          <list n="PO_">
             <hash>
@@ -137,7 +137,7 @@
                <value n="PORT_BINDING_NAME" v="{http://ws.negocio.tic.frisa.mx/}GestorPagosWSPortBinding"/>
                <list n="PORT_OPS">
                   <hash>
-                     <value n="EXPOSED_BD_OPERATION" v="mx.frisa.tic.negocio.ws.RespuestaProcesaFacturasDTO.generarPago.java.util.List&lt;mx.frisa.tic.negocio.ws.PagoDTO>"/>
+                     <value n="EXPOSED_BD_OPERATION" v="mx.frisa.tic.negocio.ws.RespuestaPagoSinReferencia.consultarPagosSinReferencia.mx.frisa.tic.negocio.ws.FiltroPagoSinReferencia"/>
                      <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.PortOperation"/>
                      <hash n="PROPERTY_GROUPS"/>
                   </hash>
@@ -147,12 +147,12 @@
                      <hash n="PROPERTY_GROUPS"/>
                   </hash>
                   <hash>
-                     <value n="EXPOSED_BD_OPERATION" v="mx.frisa.tic.negocio.ws.RespuestaPagoSinReferencia.consultarPagosSinReferencia.mx.frisa.tic.negocio.ws.FiltroPagoSinReferencia"/>
+                     <value n="EXPOSED_BD_OPERATION" v="mx.frisa.tic.negocio.ws.RespuestaAplicarPagoDTO.aplicarPagoManual.mx.frisa.tic.negocio.ws.AplicarPagoDTO"/>
                      <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.PortOperation"/>
                      <hash n="PROPERTY_GROUPS"/>
                   </hash>
                   <hash>
-                     <value n="EXPOSED_BD_OPERATION" v="mx.frisa.tic.negocio.ws.RespuestaAplicarPagoDTO.aplicarPagoManual.mx.frisa.tic.negocio.ws.AplicarPagoDTO"/>
+                     <value n="EXPOSED_BD_OPERATION" v="mx.frisa.tic.negocio.ws.RespuestaProcesaFacturasDTO.generarPago.java.util.List&lt;mx.frisa.tic.negocio.ws.PagoDTO>"/>
                      <value n="MODEL_CLASS" v="oracle.jdeveloper.webservices.model.PortOperation"/>
                      <hash n="PROPERTY_GROUPS"/>
                   </hash>
