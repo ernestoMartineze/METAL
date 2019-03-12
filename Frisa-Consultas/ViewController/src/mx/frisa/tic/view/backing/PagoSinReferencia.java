@@ -570,7 +570,9 @@ public class PagoSinReferencia {
                 manejador.debug("aplicando pago : id="+pago.getIdPago());
                 PagoPorAplicarDTO apago=new PagoPorAplicarDTO();
                 //apago.setIdEdoCuenta(pago.get);
-                apago.setIdLineaCaputura(pago.getLineaDeCaptura()==null?null:new BigInteger(pago.getLineaDeCaptura()));
+                apago.setLineaCaptura(pago.getLineaDeCaptura());
+                apago.setIdEdoCuenta(pago.getIdPago()==null?new BigInteger("0"):new BigInteger(pago.getIdPago()));
+                //apago.setIdLineaCaputura(pago.getLineaDeCaptura()==null?null:new BigInteger(pago.getLineaDeCaptura()));
                 apago.setIdPago(pago.getIdPago()==null?new BigInteger("0"):new BigInteger(pago.getIdPago()));
                 apago.setReferencia(pago.getReferencia());
                 //apago.setTermino(pago.gett);
@@ -584,7 +586,7 @@ public class PagoSinReferencia {
                     for(PagoPorAplicarDTO pago:respuesta.getAplicarPago().getPagoPorAplicar()){
                         manejador.debug("Respuesta pago id="+pago.getIdPago()+", termino :"+pago.getTermino());
                         for(PagoSinReferenciaVO pagoVo :pagosVO){
-                            if(pagoVo.getIdPago().equals(pago.getIdPago().toString()) && pago.getTermino().toString().equals("0")){
+                            if(pagoVo.getIdPago().equals(pago.getIdPago().toString()) && pago.getTermino().toString().equals("1")){
                                 toDelete.add(pagoVo);
                                 System.out.println("se remueve pago");
                             }else if(pagoVo.getIdPago().equals(pago.getIdPago().toString())){

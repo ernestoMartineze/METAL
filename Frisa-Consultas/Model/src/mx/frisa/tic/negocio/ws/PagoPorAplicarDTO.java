@@ -32,7 +32,8 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "pagoPorAplicarDTO",
-         propOrder = { "idEdoCuenta", "idLineaCaputura", "idPago", "referencia", "termino" })
+         propOrder = { "idEdoCuenta", "idLineaCaputura", "idPago", "lineaCaptura", "referencia", "termino"
+    })
 public class PagoPorAplicarDTO {
 
     protected BigInteger idEdoCuenta;
@@ -40,6 +41,7 @@ public class PagoPorAplicarDTO {
     protected BigInteger idPago;
     protected String referencia;
     protected BigInteger termino;
+    protected String lineaCaptura;
 
     /**
      * Gets the value of the idEdoCuenta property.
@@ -159,6 +161,30 @@ public class PagoPorAplicarDTO {
      */
     public void setTermino(BigInteger value) {
         this.termino = value;
+    }
+
+    /**
+     * Gets the value of the lineaCaptura property.
+     *
+     * @return
+     * possible object is
+     * {@link String}
+     *
+     */
+    public String getLineaCaptura() {
+        return lineaCaptura;
+    }
+
+    /**
+     * Sets the value of the lineaCaptura property.
+     *
+     * @param value
+     * allowed object is
+     * {@link String}
+     *
+     */
+    public void setLineaCaptura(String value) {
+        this.lineaCaptura = value;
     }
 
 }
