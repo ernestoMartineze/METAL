@@ -466,9 +466,7 @@ public class GestorLineaCapturaBean implements GestorLineaCaptura {
     public RespuestaDTO actualizarIdERP(List<FacturaActualizaIdERPDTO> facturas) {
         RespuestaDTO respuesta = new RespuestaDTO();
         DAO<XxfrCabeceraFactura> lcidprimDAO = new DAO(XxfrCabeceraFactura.class);
-        DAO<XxfrInvoiceLines> lineasFacturaDAO = new DAO(XxfrInvoiceLines.class);
         List<XxfrCabeceraFactura> listaFacturas = new ArrayList<>();
-        List<XxfrInvoiceLines> lineasFactura = new ArrayList<>();
 
         for (FacturaActualizaIdERPDTO facturaReq : facturas) {
             try {
@@ -494,10 +492,16 @@ public class GestorLineaCapturaBean implements GestorLineaCaptura {
                         cabeceraBD.getXxfrInvoiceLinesList().clear();
                         cabeceraBD.getXxfrInvoiceLinesList().addAll(listaTMP);
                     }
-                    cabeceraBD.setRelatederpinvoice(facturaReq.getCabecera().getRelatederpinvoice());
+                    
                     cabeceraBD.setCodigoerror(facturaReq.getCabecera().getCodigoerror());
                     cabeceraBD.setMensajeerror(facturaReq.getCabecera().getMensajeerror());
+                    
                     cabeceraBD.setErptransactionnumber(facturaReq.getCabecera().getErptransactionnumber());
+                    cabeceraBD.setRelatederpinvoice(facturaReq.getCabecera().getRelatederpinvoice());
+                    
+                    cabeceraBD.setCustomerTrxID_erp(facturaReq.getCabecera().getErptransactionnumber()+"");
+                    cabeceraBD.setTransactioNumber_erp(facturaReq.getCabecera().getRelatederpinvoice());
+                    
                     responseOperation = lcidprimDAO.actualiza(cabeceraBD);
                     if (responseOperation) {
                         respuesta.setProceso("EXITOSO");

@@ -690,88 +690,18 @@ public class AdaptadorWS {
             String SOAPAction
                     = PropiedadesFRISA.recuperaPropiedadBackend("edoCuentaServiceSoapAction");
 
-            xmlInput = inyectaParametroNota(xmlInput, "_BATCHSOURCESEQUENCEID", nota.getBatchSourceSequenceId() == null ? "" : nota.getBatchSourceSequenceId().toString());
-            xmlInput = inyectaParametroNota(xmlInput, "_CUSTOMERTRANSACTIONID", nota.getCustomerTransactionId() == null ? "" : nota.getCustomerTransactionId().toString());
-            xmlInput = inyectaParametroNota(xmlInput, "_COMMENTS", nota.getComments() == null ? "" : nota.getComments());
-            xmlInput = inyectaParametroNota(xmlInput, "_CUSTOMERTRANSACTIONTYPESEQUENCEID", nota.getCustomerTransactionTypeSequenceId() == null ? "" : nota.getCustomerTransactionTypeSequenceId().toString());
-            xmlInput = inyectaParametroNota(xmlInput, "_CUSTOMERREFERENCEDATE", nota.getCustomerReferenceDate() == null ? "" : nota.getCustomerReferenceDate().toString());
-            xmlInput = inyectaParametroNota(xmlInput, "_CUSTOMERREFERENCE", nota.getCustomerReference() == null ? "" : nota.getCustomerReference());
-            xmlInput = inyectaParametroNota(xmlInput, "_DOCUMENTSEQUENCEID", nota.getDocumentSequenceId() == 0 ? "" : nota.getDocumentSequenceId().toString());
-            xmlInput = inyectaParametroNota(xmlInput, "_DOCUMENTSEQUENCEVALUE", nota.getDocumentSequenceValue() == 0 ? "" : nota.getDocumentSequenceValue().toString());
-            if (nota.getFreightAmount() != null) {
-                xmlInput = inyectaParametroNota(xmlInput, "_CURRENCYCODE_FREIGHTAMOUNT", nota.getFreightAmount().getCurrencyCode() == null ? nota.getCurrencyCode() : nota.getCurrencyCode());
-                xmlInput = inyectaParametroNota(xmlInput, "_FREIGHTAMOUNT", nota.getFreightAmount().getValue() == null ? "" : nota.getFreightAmount().getValue().toString());
-            } else {
-                xmlInput = inyectaParametroNota(xmlInput, "_CURRENCYCODE_FREIGHTAMOUNT", nota.getCurrencyCode());
-                xmlInput = inyectaParametroNota(xmlInput, "_FREIGHTAMOUNT", "");
-            }
-            xmlInput = inyectaParametroNota(xmlInput, "_FREIGHTPERCENT", nota.getFreightPercent() == null ? "" : nota.getFreightPercent().toString());
-            xmlInput = inyectaParametroNota(xmlInput, "_GLDATE", nota.getGlDate() == null ? "" : nota.getGlDate().toString());
-            xmlInput = inyectaParametroNota(xmlInput, "_INTERNALNOTES", nota.getInternalNotes() == null ? "" : nota.getInternalNotes());
-            if (nota.getLineAmount() != null) {
-                xmlInput = inyectaParametroNota(xmlInput, "_CURRENCYCODE_LINEAMOUNT", nota.getLineAmount().getCurrencyCode() == null ? nota.getCurrencyCode() : nota.getCurrencyCode());
-                xmlInput = inyectaParametroNota(xmlInput, "_LINEAMOUNT", nota.getLineAmount().getValue() == null ? "" : nota.getLineAmount().getValue().toString());
-            } else {
-                xmlInput = inyectaParametroNota(xmlInput, "_CURRENCYCODE_LINEAMOUNT", nota.getCurrencyCode());
-                xmlInput = inyectaParametroNota(xmlInput, "_LINEAMOUNT", "");
-            }
-            xmlInput = inyectaParametroNota(xmlInput, "_LINEPERCENT", nota.getLinePercent() == null ? "" : nota.getLinePercent().toString());
-            xmlInput = inyectaParametroNota(xmlInput, "_METHODFORRULES", nota.getMethodForRules() == null ? "" : nota.getMethodForRules());
-            xmlInput = inyectaParametroNota(xmlInput, "_PREVIOUSCUSTOMERTRANSACTIONID", nota.getPreviousCustomerTransactionId() == null ? "" : nota.getPreviousCustomerTransactionId().toString());
-            xmlInput = inyectaParametroNota(xmlInput, "_REASONCODE", nota.getReasonCode() == null ? "" : nota.getReasonCode());
-            xmlInput = inyectaParametroNota(xmlInput, "_SPLITTERMINATIONMETHOD", nota.getSplitTerminationMethod() == null ? "" : nota.getSplitTerminationMethod());
-            xmlInput = inyectaParametroNota(xmlInput, "_TRANSACTIONDATE", nota.getTransactionDate() == null ? "" : nota.getTransactionDate().toString());
-            xmlInput = inyectaParametroNota(xmlInput, "_TRANSACTIONNUMBER", nota.getTransactionNumber() == null ? "" : nota.getTransactionNumber());
-            if (nota.getTaxAmount() != null) {
-                xmlInput = inyectaParametroNota(xmlInput, "_CURRENCYCODE_TAXAMOUNT", nota.getTaxAmount().getCurrencyCode() == null ? nota.getCurrencyCode() : nota.getCurrencyCode());
-                xmlInput = inyectaParametroNota(xmlInput, "_TAXAMOUNT", nota.getTaxAmount().getValue() == null ? "" : nota.getTaxAmount().getValue().toString());
-            } else {
-                xmlInput = inyectaParametroNota(xmlInput, "_CURRENCYCODE_TAXAMOUNT", nota.getCurrencyCode());
-                xmlInput = inyectaParametroNota(xmlInput, "_TAXAMOUNT", "");
-            }
-            xmlInput = inyectaParametroNota(xmlInput, "_CURRENCYCODE", nota.getCurrencyCode() == null ? "" : nota.getCurrencyCode());
-            xmlInput = inyectaParametroNota(xmlInput, "_TAXPERCENT", nota.getTaxPercent() == null ? "" : nota.getTaxPercent().toString());
-            xmlInput = inyectaParametroNota(xmlInput, "_COMPUTETAX", nota.getComputeTax() == null ? "" : nota.getComputeTax());
-            CreditMemoFLEXDTO creditMemoFLEXVA = nota.getCreditMemoFLEXVA();
-            if (creditMemoFLEXVA != null) {
-                xmlInput = inyectaParametroNota(xmlInput, "_CUSTOMERTRXID", creditMemoFLEXVA.getCustomerTrxId() == null ? "" : creditMemoFLEXVA.getCustomerTrxId().toString());
-                xmlInput = inyectaParametroNota(xmlInput, "_PROYECTO", creditMemoFLEXVA.getProyecto() == null ? "" : creditMemoFLEXVA.getProyecto());
-                xmlInput = inyectaParametroNota(xmlInput, "_ESTATUSDECFDI", creditMemoFLEXVA.getEstatusDeCfdi() == null ? "" : creditMemoFLEXVA.getEstatusDeCfdi());
-                xmlInput = inyectaParametroNota(xmlInput, "_USODECFDI", creditMemoFLEXVA.getUsoDeCfdi() == null ? "" : creditMemoFLEXVA.getUsoDeCfdi());
-                xmlInput = inyectaParametroNota(xmlInput, "_FORMADEPAGO", creditMemoFLEXVA.getFormaDePago() == null ? "" : creditMemoFLEXVA.getFormaDePago());
-                xmlInput = inyectaParametroNota(xmlInput, "_FOLIODECANCELACIONSAT", creditMemoFLEXVA.getFolioDeCancelaciOnSat() == null ? "" : creditMemoFLEXVA.getFolioDeCancelaciOnSat());
-                xmlInput = inyectaParametroNota(xmlInput, "_UUIDDOCUMENTORELACIONADO", creditMemoFLEXVA.getUuidDocumentoRelacionado() == null ? "" : creditMemoFLEXVA.getUuidDocumentoRelacionado());
-                xmlInput = inyectaParametroNota(xmlInput, "_NUMERODECONTRATO", creditMemoFLEXVA.getNumeroDeContrato() == null ? "" : creditMemoFLEXVA.getNumeroDeContrato());
-                xmlInput = inyectaParametroNota(xmlInput, "_LINEADECAPTURA", creditMemoFLEXVA.getLineaDeCaptura() == null ? "" : creditMemoFLEXVA.getLineaDeCaptura());
-                xmlInput = inyectaParametroNota(xmlInput, "_SERIE", creditMemoFLEXVA.getSerie() == null ? "" : creditMemoFLEXVA.getSerie());
-                xmlInput = inyectaParametroNota(xmlInput, "_FOLIO", creditMemoFLEXVA.getFolio() == null ? "" : creditMemoFLEXVA.getFolio());
-                xmlInput = inyectaParametroNota(xmlInput, "_FECHADEPRESCRIPCION", creditMemoFLEXVA.getFechaDePrescripcion() == null ? "" : creditMemoFLEXVA.getFechaDePrescripcion());
-                xmlInput = inyectaParametroNota(xmlInput, "_FECHATIMBRADO", creditMemoFLEXVA.getFechaTimbrado() == null ? "" : creditMemoFLEXVA.getFechaTimbrado());
-                xmlInput = inyectaParametroNota(xmlInput, "_ADDENDAID", creditMemoFLEXVA.getAddendaid() == null ? "" : creditMemoFLEXVA.getAddendaid());
-                xmlInput = inyectaParametroNota(xmlInput, "_FACTURAUNIFIER", creditMemoFLEXVA.getFacturaUnifier() == null ? "" : creditMemoFLEXVA.getFacturaUnifier());
-                xmlInput = inyectaParametroNota(xmlInput, "_FLEX_CONTEXT_DISPLAYVALUE", creditMemoFLEXVA.getFLEXContextDisplayValue() == null ? "" : creditMemoFLEXVA.getFLEXContextDisplayValue());
-                xmlInput = inyectaParametroNota(xmlInput, "_FLEX_CONTEXT", creditMemoFLEXVA.getFLEXContext() == null ? "" : creditMemoFLEXVA.getFLEXContext());
-                xmlInput = inyectaParametroNota(xmlInput, "_FLEX_NUMOFSEGMENTS", creditMemoFLEXVA.getFLEXNumOfSegments() == 0 ? "" : creditMemoFLEXVA.getFLEXNumOfSegments().toString());
-            } else {
-                xmlInput = inyectaParametroNota(xmlInput, "_CUSTOMERTRXID", "");
-                xmlInput = inyectaParametroNota(xmlInput, "_PROYECTO", "");
-                xmlInput = inyectaParametroNota(xmlInput, "_ESTATUSDECFDI", "");
-                xmlInput = inyectaParametroNota(xmlInput, "_USODECFDI", "");
-                xmlInput = inyectaParametroNota(xmlInput, "_FORMADEPAGO", "");
-                xmlInput = inyectaParametroNota(xmlInput, "_FOLIODECANCELACIONSAT", "");
-                xmlInput = inyectaParametroNota(xmlInput, "_UUIDDOCUMENTORELACIONADO", "");
-                xmlInput = inyectaParametroNota(xmlInput, "_NUMERODECONTRATO", "");
-                xmlInput = inyectaParametroNota(xmlInput, "_LINEADECAPTURA", "");
-                xmlInput = inyectaParametroNota(xmlInput, "_SERIE", "");
-                xmlInput = inyectaParametroNota(xmlInput, "_FOLIO", "");
-                xmlInput = inyectaParametroNota(xmlInput, "_FECHADEPRESCRIPCION", "");
-                xmlInput = inyectaParametroNota(xmlInput, "_FECHATIMBRADO", "");
-                xmlInput = inyectaParametroNota(xmlInput, "_ADDENDAID", "");
-                xmlInput = inyectaParametroNota(xmlInput, "_FACTURAUNIFIER", "");
-                xmlInput = inyectaParametroNota(xmlInput, "_FLEX_CONTEXT_DISPLAYVALUE", "");
-                xmlInput = inyectaParametroNota(xmlInput, "_FLEX_CONTEXT", "");
-                xmlInput = inyectaParametroNota(xmlInput, "_FLEX_NUMOFSEGMENTS", "");
-            }
+            xmlInput = inyectaParametro(xmlInput, "cred:BatchSourceSequenceId", nota.getBatchSourceSequenceId()+"");
+            xmlInput = inyectaParametro(xmlInput, "cred:Comments", nota.getComments());
+            xmlInput = inyectaParametro(xmlInput, "cred:GlDate", nota.getGlDate()+"");
+            xmlInput = inyectaParametro(xmlInput, "cred:CustomerTransactionTypeSequenceId", nota.getCustomerTransactionTypeSequenceId()+"");
+            xmlInput = inyectaParametro(xmlInput, "cred:BatchSourceSequenceId", nota.getBatchSourceSequenceId()+"");
+            xmlInput = inyectaParametro(xmlInput, "cred:LinePercent", nota.getLinePercent()+"");
+            xmlInput = inyectaParametro(xmlInput, "cred:TransactionDate", nota.getTransactionDate()+"");
+            xmlInput = inyectaParametro(xmlInput, "cred:CurrencyCode", nota.getCurrencyCode()+"");
+            xmlInput = inyectaParametro(xmlInput, "cred:PreviousCustomerTransactionId", nota.getPreviousCustomerTransactionId()+"");
+            xmlInput = inyectaParametro(xmlInput, "cred1:__FLEX_Context", nota.getCreditMemoFLEXVA().getFLEXContext()+"");
+            xmlInput = inyectaParametro(xmlInput, "cred1:CustomerTrxId", nota.getCreditMemoFLEXVA().getCustomerTrxId()+"");
+            xmlInput = inyectaParametro(xmlInput, "cred1:proyecto", nota.getCreditMemoFLEXVA().getProyecto()+"");
 
             try {
                 outputString = enviarMsg(wsURL, SOAPAction, xmlInput, PropiedadesFRISA.recuperaPropiedadBackend("GetGeneraNotaCreditoContentType"));
