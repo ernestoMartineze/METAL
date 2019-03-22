@@ -47,4 +47,5 @@ public interface CatalogosBeanLocal {
 
     RespuestaDTO actualizarCentroCosto();
 
+    public RespuestaDTO actualizarUnidadNegocio();
 }

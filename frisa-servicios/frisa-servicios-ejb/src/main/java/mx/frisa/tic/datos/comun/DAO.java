@@ -299,7 +299,7 @@ public class DAO<T> extends ManejadorEntidad implements Serializable {
         this.instanciarManager();
         EntityManager em = this.getEntityManager();
         try {
-            System.out.println("ENTIDAD: " + entity);
+//            System.out.println("ENTIDAD: " + entity);
             em.getTransaction().begin();
             em.persist(entity);
             em.getTransaction().commit();
@@ -332,7 +332,7 @@ public class DAO<T> extends ManejadorEntidad implements Serializable {
                     System.err.println(cv.getRootBeanClass().getSimpleName() + "." + cv.getPropertyPath() + " " + cv.getMessage());
                 }
             } else {
-                System.out.println("ENTIDAD: " + entity);
+//                System.out.println("ENTIDAD: " + entity);
                 em.getTransaction().begin();
                 em.persist(entity);
 
@@ -355,7 +355,7 @@ public class DAO<T> extends ManejadorEntidad implements Serializable {
         this.instanciarManager();
         EntityManager em = this.getEntityManager();
         try {
-            System.out.println("ENTIDAD: " + entity);
+//            System.out.println("ENTIDAD: " + entity);
             em.getTransaction().begin();
             em.merge(entity);
             em.getTransaction().commit();

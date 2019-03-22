@@ -127,6 +127,9 @@ public class XxfrtEstadoCuenta implements Serializable {
     @Size(max = 30)
     @Column(name = "LINE_CAPTURE")
     private String lineCapture;
+    @Size(max = 20)
+    @Column(name = "RECEIPTNUMBERID")
+    private String receiptNumber;
 
     public XxfrtEstadoCuenta() {
     }
@@ -375,5 +378,14 @@ public class XxfrtEstadoCuenta implements Serializable {
     public void setBUSINESSUNITNAME(String BUSINESSUNITNAME) {
         this.BUSINESSUNITNAME = BUSINESSUNITNAME;
     }
+
+    public String getReceiptNumber() {
+        return receiptNumber;
+    }
+
+    public void setReceiptNumber(String receiptNumber) {
+        this.receiptNumber = receiptNumber;
+    }
+    
 
 }

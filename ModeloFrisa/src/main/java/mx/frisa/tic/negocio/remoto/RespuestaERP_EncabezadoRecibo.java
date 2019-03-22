@@ -14,6 +14,7 @@ import mx.frisa.tic.datos.dto.ingresos.Proceso;
 public class RespuestaERP_EncabezadoRecibo {
 
     String numeroRecibo;
+    String CashRecibo;
     Proceso proceso;
 
     public String getNumeroRecibo() {
@@ -30,6 +31,14 @@ public class RespuestaERP_EncabezadoRecibo {
 
     public void setProceso(Proceso proceso) {
         this.proceso = proceso;
+    }
+
+    public String getCashRecibo() {
+        return CashRecibo;
+    }
+
+    public void setCashRecibo(String CashRecibo) {
+        this.CashRecibo = CashRecibo;
     }
 
 }

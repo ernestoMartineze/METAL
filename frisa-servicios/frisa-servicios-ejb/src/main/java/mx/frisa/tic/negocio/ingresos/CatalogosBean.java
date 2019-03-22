@@ -22,9 +22,9 @@ import mx.frisa.tic.datos.dto.ingresos.RespuestaCentroCostoDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaCuentaBancariaDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaUnidadNegocioDTO;
+import mx.frisa.tic.datos.dto.ingresos.Respuesta_bi_usuarioDTO;
 import mx.frisa.tic.datos.dto.ingresos.TipoMonedaDTO;
 import mx.frisa.tic.datos.entidades.XxfrcCargaCtabancaria;
-import mx.frisa.tic.datos.entidades.XxfrcCentroCosto;
 import mx.frisa.tic.datos.entidades.XxfrcTipoMoneda;
 import mx.frisa.tic.datos.entidades.XxfrcUsuario;
 import mx.frisa.tic.datos.entidades.XxfrtCargaBu;
@@ -32,9 +32,9 @@ import mx.frisa.tic.datos.entidades.XxfrtCargaUsuario;
 import mx.frisa.tic.datos.entidades.XxfrtCuentabancaria;
 import mx.frisa.tic.datos.entidades.XxfrvCentroCosto;
 import mx.frisa.tic.negocio.remoto.AdaptadorWS;
-import mx.frisa.tic.negocio.remoto.CentroCostoBI;
 import mx.frisa.tic.negocio.remoto.CuentaBancaria;
 import mx.frisa.tic.negocio.remoto.UnidadNegocio;
+import mx.frisa.tic.negocio.remoto.UsuarioBI;
 import mx.frisa.tic.negocio.utils.ManejadorLog;
 import mx.frisa.tic.utils.FechaUtils;
 import mx.frisa.tic.utils.UUIDFrisa;
@@ -198,6 +198,72 @@ public class CatalogosBean implements CatalogosBeanLocal {
         try {
 
             AdaptadorWS clienteWS = new AdaptadorWS();
+            Respuesta_bi_usuarioDTO respuestaWS = clienteWS.getERP_obtenerUsuarios();
+
+            DAO<XxfrtCargaUsuario> xxfrtCargaUserDao = new DAO(XxfrtCargaUsuario.class);
+            XxfrtCargaUsuario xxfrtCargaUserEnt = new XxfrtCargaUsuario();
+            List<XxfrtCargaUsuario> xxfrtCargaUserEntList = new ArrayList();
+            List<XxfrcUsuario> xxfrcUsuarioEntList = new ArrayList();
+//
+//            
+//            //Asignar datos de la transacción
+            xxfrtCargaUserEnt.setEstatus(BigInteger.ONE);
+            xxfrtCargaUserEnt.setIdCarga(null);
+            xxfrtCargaUserEnt.setFecha(FechaUtils.convierteHoyFecha());
+            xxfrtCargaUserEnt.setUuid(respuesta.getUuid());
+            
+            xxfrtCargaUserDao.create(xxfrtCargaUserEnt);
+
+            if (xxfrtCargaUserDao.getProceso().getTermino().equals("0")) {
+                xxfrtCargaUserEntList = (List<XxfrtCargaUsuario>) xxfrtCargaUserDao.consultaQueryNativo("Select t from XxfrtCargaUsuario t where t.uuid = '" + xxfrtCargaUserEnt.getUuid() + "' order by t.idCarga desc");
+                int contador = 0;
+                DAO<XxfrcUsuario> xxfrcUsuarioDao = new DAO(XxfrcUsuario.class);
+                for (UsuarioBI usuarioBI : respuestaWS.getUsuario().getUsuario()) {
+                    XxfrcUsuario usuarioEnt = new XxfrcUsuario();
+                    usuarioEnt.setIdcarga(xxfrtCargaUserEntList.get(0));
+                    usuarioEnt.setFullname(usuarioBI.getFULL_NAME());
+                    usuarioEnt.setUsername(usuarioBI.getUSERNAME());
+                    xxfrcUsuarioDao.actualizar(usuarioEnt);
+                }
+                xxfrtCargaUserEnt.setXxfrcUsuarioList(xxfrcUsuarioEntList);
+
+                xxfrtCargaUserDao.actualiza(xxfrtCargaUserEnt);
+
+                respuesta.setIdError("0");
+                respuesta.setDescripcionError("");
+                respuesta.setProceso("EXITOSO");
+            } else {
+                respuesta.setIdError("1401");
+                respuesta.setDescripcionError("Existe un error al registrar la carga BI BU a Intermedio");
+                respuesta.setProceso("ERROR");
+
+            }
+
+            respuesta.setIdError("0");
+            respuesta.setDescripcionError("");
+            respuesta.setProceso("EXITOSO");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            respuesta.setProceso("ERROR");
+            respuesta.setIdError("1400");
+            respuesta.setDescripcionError("No se ha logrado actualizar usuarios");
+        }
+
+        log.debug("Termino actualizarUsuarios");
+
+        return respuesta;
+    }
+    @Override
+    public RespuestaDTO actualizarUnidadNegocio() {
+        ManejadorLog log = new ManejadorLog();
+        log.debug("Inicio aplicarPagoManual");
+
+        RespuestaDTO respuesta = new RespuestaDTO();
+        respuesta.setUuid(UUIDFrisa.regresaUUID());
+        try {
+
+            AdaptadorWS clienteWS = new AdaptadorWS();
             RespuestaUnidadNegocioDTO respuestaWS = clienteWS.getERP_obtenerUnidadesNegocio();
 
             DAO<XxfrtCargaBu> xxfrtCargaBuDao = new DAO(XxfrtCargaBu.class);
@@ -338,7 +404,6 @@ public class CatalogosBean implements CatalogosBeanLocal {
     @Override
     public List<ConsultarCentroCostosDTO> consultarCentroCostos(String centroCostos) {
         DAO<XxfrvCentroCosto> centroC = new DAO(XxfrvCentroCosto.class);
-        List<CatalogoParametroDTO> parametros = new ArrayList();
         List<XxfrvCentroCosto> centros = (List<XxfrvCentroCosto>) centroC.consultaQueryNamed("XxfrvCentroCosto.findAll");
         System.out.println("centros "+centros.size());
         List<ConsultarCentroCostosDTO> centrosdto = new ArrayList();

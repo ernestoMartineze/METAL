@@ -45,6 +45,7 @@ import mx.frisa.tic.datos.dto.ingresos.RespuestaCuentaBancariaDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaMetodoPagoDTO;
 import mx.frisa.tic.datos.dto.ingresos.RespuestaUnidadNegocioDTO;
+import mx.frisa.tic.datos.dto.ingresos.Respuesta_bi_usuarioDTO;
 import mx.frisa.tic.datos.entidades.XxfrCabeceraFactura;
 import mx.frisa.tic.negocio.utils.ManejadorLog;
 import mx.frisa.tic.negocio.utils.PropiedadesFRISA;
@@ -381,8 +382,11 @@ public class AdaptadorWS {
             Document document = parseXmlFile(outputString);
             NodeList nodeLst = document.getElementsByTagName("ns3:CashReceiptId");
             String resultado = nodeLst.item(0).getTextContent();
+            NodeList nodeLstRI = document.getElementsByTagName("ns3:ReceiptNumber");
+            String resultadoRI = nodeLstRI.item(0).getTextContent();
 
-            respestaWS.setNumeroRecibo(resultado);
+            respestaWS.setNumeroRecibo(resultadoRI);
+            respestaWS.setCashRecibo(resultado);
             System.out.println("resultado : " + resultado);
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -828,13 +832,13 @@ public class AdaptadorWS {
         return respestaWS;
     }
 
-    public RespuestaUnidadNegocioDTO getERP_obtenerUsuarios() throws MalformedURLException,
+    public Respuesta_bi_usuarioDTO getERP_obtenerUsuarios() throws MalformedURLException,
             IOException,
             ParserConfigurationException,
             SAXException {
 
         //Code to make a webservice HTTP request
-        RespuestaUnidadNegocioDTO respestaWS = new RespuestaUnidadNegocioDTO();
+        Respuesta_bi_usuarioDTO respestaWS = new Respuesta_bi_usuarioDTO();
         respestaWS.setProceso(new Proceso("0", "EXITOSO"));;
 
         String outputString = "";
@@ -859,10 +863,10 @@ public class AdaptadorWS {
             String resultado = nodeLst.item(0).getTextContent();
 
             //Write the SOAP message formatted to the console.
-            RespuestaERP_UnidadNegocio respuestaERP_Unidad = new RespuestaERP_UnidadNegocio();
-            respuestaERP_Unidad = (RespuestaERP_UnidadNegocio) respuestaXMLaPOJO(getCadenaDesdeB64(resultado), new RespuestaERP_UnidadNegocio());
+            RespuestaERP_Usuario respuestaERP_Usuarios = new RespuestaERP_Usuario();
+            respuestaERP_Usuarios = (RespuestaERP_Usuario) respuestaXMLaPOJO(getCadenaDesdeB64(resultado), new RespuestaERP_Usuario());
             respestaWS.setProceso(new Proceso("0", "EXITOSO"));
-            respestaWS.setUnidadesNegocio(respuestaERP_Unidad);
+            respestaWS.setUsuario(respuestaERP_Usuarios);
 
         } catch (Exception ex) {
             ex.printStackTrace();

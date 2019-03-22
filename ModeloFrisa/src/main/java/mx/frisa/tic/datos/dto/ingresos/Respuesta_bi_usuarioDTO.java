@@ -5,7 +5,7 @@
  */
 package mx.frisa.tic.datos.dto.ingresos;
 
-import java.util.List;
+import mx.frisa.tic.negocio.remoto.RespuestaERP_Usuario;
 
 /**
  *
@@ -13,15 +13,26 @@ import java.util.List;
  */
 public class Respuesta_bi_usuarioDTO {
     
-    private List<UnidadNegocioDTO> usuario;   
+    private Proceso proceso;
+    private RespuestaERP_Usuario usuario;
 
-    public List<UnidadNegocioDTO> getUsuario() {
+    public Proceso getProceso() {
+        return proceso;
+    }
+
+    public void setProceso(Proceso proceso) {
+        this.proceso = proceso;
+    }
+
+    public RespuestaERP_Usuario getUsuario() {
         return usuario;
     }
 
-    public void setUsuario(List<UnidadNegocioDTO> usuario) {
+    public void setUsuario(RespuestaERP_Usuario usuario) {
         this.usuario = usuario;
     }
+
+   
     
     
 }

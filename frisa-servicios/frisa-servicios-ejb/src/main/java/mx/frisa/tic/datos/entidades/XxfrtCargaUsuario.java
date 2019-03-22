@@ -18,7 +18,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -51,6 +50,9 @@ public class XxfrtCargaUsuario implements Serializable {
     @OneToMany(mappedBy = "idcarga", fetch = FetchType.LAZY)
     private List<XxfrcUsuario> xxfrcUsuarioList;
 
+    @Column(name = "UUID")
+    private String uuid;
+
     public XxfrtCargaUsuario() {
     }
 
@@ -80,6 +82,14 @@ public class XxfrtCargaUsuario implements Serializable {
 
     public void setEstatus(BigInteger estatus) {
         this.estatus = estatus;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 
     @XmlTransient
@@ -115,5 +125,5 @@ public class XxfrtCargaUsuario implements Serializable {
     public String toString() {
         return "mx.frisa.tic.datos.entidades.XxfrtCargaUsuario[ idCarga=" + idCarga + " ]";
     }
-    
+
 }

@@ -419,7 +419,10 @@ public class GestorEstadoCuenta implements GestorEstadoCuentaLocal {
                     //No se logró cargar las facturas al cobro en sistema ERP
                     edoCuenta.setRmethodid(BigDecimal.valueOf(Long.valueOf("104")));
                 } else {
-                    edoCuenta.setCashreceiptid(BigDecimal.valueOf(Long.valueOf(respCreaRecibo.getNumeroRecibo())));
+                    String cashID = respCreaRecibo.getCashRecibo();
+                    String ReceiptNumberID = respCreaRecibo.getNumeroRecibo();
+                    edoCuenta.setReceiptNumber(ReceiptNumberID);
+                    edoCuenta.setCashreceiptid(BigDecimal.valueOf(Long.valueOf(cashID)));
                     edoCuenta.setFecharegistroreciboerp(new Date());
 
                     //Aplicar pagos en ERP**************************************************************
